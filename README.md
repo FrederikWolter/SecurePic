@@ -43,3 +43,11 @@ software. Following are some ways that can lead to the successful launch of the 
   **Possible Solution:** modify PATH variable to point to the correct
   version ([see](https://www.java.com/en/download/help/path.html)) or use another way to start the application.
 
+## Contributors / Authors
+
+- Hassan El-Khalil
+- Kirolis Eskondis
+- Jonas Lauschke
+- Kai Schwab
+- Thu Giang Tran
+- Frederik Wolter
