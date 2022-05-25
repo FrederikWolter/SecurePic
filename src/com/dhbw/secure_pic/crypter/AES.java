@@ -1,22 +1,23 @@
 package com.dhbw.secure_pic.crypter;
 
-
 import com.dhbw.secure_pic.data.Information;
+
+// TODO COMMENT
+// TODO implement
 
 /**
  *  This class implements the AES encryption method used to encrypt/decrypt messages.
  *  It extends the Crypter class
  */
-
 public class AES extends Crypter{
 
-    private final String pswd;
+    private final String password;
 
     /**
-     * @param pswd is the password entered by the user
+     * @param password is the password entered by the user
      */
-    public AES(String pswd) {
-        this.pswd = pswd;
+    public AES(String password) {
+        this.password = password;
     }
 
     @Override

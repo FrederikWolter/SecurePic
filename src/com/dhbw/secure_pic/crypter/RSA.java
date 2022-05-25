@@ -1,5 +1,7 @@
 package com.dhbw.secure_pic.crypter;
 
+// TODO COMMENT
+// TODO implement
 
 import com.dhbw.secure_pic.data.Information;
 
@@ -10,12 +12,12 @@ import com.dhbw.secure_pic.data.Information;
 
 public class RSA extends Crypter {
 
-    private final String privK;
-    private final String pubK;
+    private final String privateKey;
+    private final String publicKey;
 
-    public RSA(String privK, String pubK){
-        this.privK = privK;
-        this.pubK = pubK;
+    public RSA(String privateKey, String publicKey){
+        this.privateKey = privateKey;
+        this.publicKey = publicKey;
     }
 
     private AES getNew(){
