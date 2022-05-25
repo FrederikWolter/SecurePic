@@ -1,6 +1,10 @@
 package com.dhbw.secure_pic.data;
 
-// TODO COMMENT
+/**
+ * This class implements the Information data type
+ * Information is used as the primary carrier of the sent/received messages turned to Arrays of Bytes
+ */
+
 // TODO implement
 
 public class Information {
@@ -15,14 +19,18 @@ public class Information {
         IMAGE
     }
 
-    private Information(byte[] data){
-        this.data = data;
-        // TODO implement type recognition and other rwa data analysis
-    }
-
+    /**
+     * @param data is the sent/received message turned into an Array of bytes
+     * @param type describes the type the message was before the conversion to Array e.g. text, image
+     */
     private Information(byte[] data, Type type){
         this.data = data;
         this.type = type;
+    }
+
+    private Information(byte[] data){
+        this.data = data;
+        // TODO implement type recognition and other rwa data analysis
     }
 
     private byte[] toBeBytes(){ // TODO check if necessary

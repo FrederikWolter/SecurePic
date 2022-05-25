@@ -8,6 +8,10 @@ import com.dhbw.secure_pic.data.Information;
 
 public class Crypter {
 
+    /**
+     * @param information includes the message to encrypt/decrypt
+     * @return
+     */
     private Information encrypt(Information information) {
         return null;
     }

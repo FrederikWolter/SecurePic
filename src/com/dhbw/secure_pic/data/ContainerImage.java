@@ -3,6 +3,12 @@ package com.dhbw.secure_pic.data;
 // TODO COMMENT
 // TODO implement
 
+/**
+ * This class implements the functionality of the ContainerImage.
+ * The ContainerImage describes the image the message will be encoded to/decoded from.
+ *
+ * @author Kirolis Eskondis, Frederik Wolter
+ */
 public class ContainerImage {
 
     // region attributes
