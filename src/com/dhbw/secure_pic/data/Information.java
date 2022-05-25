@@ -1,20 +1,31 @@
 package com.dhbw.secure_pic.data;
 
+// TODO COMMENT
+// TODO implement
+
 public class Information {
 
+    // region attributes
     private byte[] data;
-    private Enum type;
+    private Type type;
+    // endregion
 
-    public Information(byte[] data){
-        this.data = data;
+    enum Type{
+        TEXT,
+        IMAGE
     }
 
-    public Information(byte[] data, Enum type){
+    private Information(byte[] data){
+        this.data = data;
+        // TODO implement type recognition and other rwa data analysis
+    }
+
+    private Information(byte[] data, Type type){
         this.data = data;
         this.type = type;
     }
 
-    private byte[] toBeBytes(){
+    private byte[] toBeBytes(){ // TODO check if necessary
         return null;
     }
 
@@ -22,16 +33,18 @@ public class Information {
 
     }
 
-    private Information getInformationFromString(String text){
+    public static Information getInformationFromString(String text){
         return null;
     }
 
-    private Information getInformationFromImage(String path){
+    public static Information getInformationFromImage(String path){
+        // TODO implement information generation
         return null;
     }
 
+    // region getter & setter
     public void setData(byte[] data) {
         this.data = data;
     }
-
+    // endregion
 }
