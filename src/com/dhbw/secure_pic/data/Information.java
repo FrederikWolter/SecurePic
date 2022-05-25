@@ -1,12 +1,14 @@
 package com.dhbw.secure_pic.data;
 
-/**
- * This class implements the Information data type
- * Information is used as the primary carrier of the sent/received messages turned to Arrays of Bytes
- */
-
 // TODO implement
+// TODO comment
 
+/**
+ * This class implements the Information data type.
+ * Information is used as the primary carrier of the sent/received messages turned to Arrays of Bytes.
+ *
+ * @author Kriolis Eskondis, Frederik Wolter
+ */
 public class Information {
 
     // region attributes
