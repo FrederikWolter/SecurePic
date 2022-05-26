@@ -3,7 +3,9 @@ package com.dhbw.secure_pic.data;
 import com.dhbw.secure_pic.auxiliary.IllegalLengthException;
 import com.dhbw.secure_pic.auxiliary.IllegalTypeException;
 import org.junit.Test;
+
 import java.nio.charset.StandardCharsets;
+
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
 
@@ -13,7 +15,7 @@ public class TestInformation {
     public void getInformationFromString() {
         String testString = "Test !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~öäüÖÄÜ€©§¼Äÿ";
 
-        Information info =  Information.getInformationFromString(testString);
+        Information info = Information.getInformationFromString(testString);
 
         assertEquals(testString, new String(info.getData(), StandardCharsets.UTF_8));
         assertEquals(testString.getBytes(StandardCharsets.UTF_8).length, info.getLength());
@@ -28,7 +30,7 @@ public class TestInformation {
     public void getInformationFromData() throws IllegalLengthException, IllegalTypeException {
         String testString = "Test !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~öäüÖÄÜ€©§¼Äÿ";
 
-        Information info =  Information.getInformationFromString(testString);
+        Information info = Information.getInformationFromString(testString);
         byte[] rawData = info.toBEBytes();
 
         Information info2 = Information.getInformationFromData(rawData);
@@ -42,7 +44,7 @@ public class TestInformation {
     public void toBEBytes() {
         String testString = "0123456789";
 
-        Information info =  Information.getInformationFromString(testString);
+        Information info = Information.getInformationFromString(testString);
 
         byte[] result = info.toBEBytes();
         // TODO add automatic test?

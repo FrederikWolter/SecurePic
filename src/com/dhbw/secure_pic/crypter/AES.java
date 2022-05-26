@@ -6,10 +6,10 @@ import com.dhbw.secure_pic.data.Information;
 // TODO implement
 
 /**
- *  This class implements the AES encryption method used to encrypt/decrypt messages.
- *  It extends the Crypter class
+ * This class implements the AES encryption method used to encrypt/decrypt messages.<br>
+ * It extends the Crypter class.
  */
-public class AES extends Crypter{
+public class AES extends Crypter {
 
     private final String password;
 

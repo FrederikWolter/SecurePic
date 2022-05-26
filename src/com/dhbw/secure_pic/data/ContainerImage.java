@@ -17,7 +17,7 @@ public class ContainerImage {
     private Type type;
     // endregion
 
-    enum Type{
+    enum Type {
         PNG,
         JPEG
     }

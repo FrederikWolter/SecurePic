@@ -29,18 +29,18 @@ public class Information {
     // endregion
 
     // region attributes
-    /** Raw data saved in information as a byte array. */
-    private byte[] data;
-
     /** Data type of data saved in information. */
     private final Type type;
+
+    /** Raw data saved in information as a byte array. */
+    private byte[] data;
 
     /** (Brutto) data length of data saved in information in bytes. */
     private int length;
     // endregion
 
-    /** Enum representing the available Information types.  */
-    enum Type{
+    /** Enum representing the available Information types. */
+    enum Type {
         TEXT,
         IMAGE
     }
@@ -59,33 +59,12 @@ public class Information {
     }
 
     /**
-     * Get the information as a big-endian byte array.<br>
-     * Therefor first length then type and data is placed as big-endian bytes in one array.
-     *
-     * @return created big endian array.
-     */
-    public byte[] toBEBytes(){
-        // see https://stackoverflow.com/a/1936865/13777031, https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html
-        ByteBuffer buffer = ByteBuffer.allocate(META_LENGTH + this.length)
-                                      .order(ByteOrder.BIG_ENDIAN);
-        buffer.putInt(this.length);
-        buffer.putInt(this.type.ordinal());
-        buffer.put(this.data);
-
-        return buffer.array();
-    }
-
-    private void toContent(){
-        // TODO multiple return types? > String or image
-    }
-
-    /**
      * Get information object from content string. Internally uses private Constructor for creating an information.
      *
      * @param text text given by the user.
      * @return created information.
      */
-    public static Information getInformationFromString(String text){
+    public static Information getInformationFromString(String text) {
         // see https://stackoverflow.com/a/18571348/13777031
         return new Information(text.getBytes(StandardCharsets.UTF_8), Type.TEXT);
     }
@@ -96,16 +75,18 @@ public class Information {
     }
 
     /**
-     * Get information object from raw data array read from encoded image. Internally uses private Constructor for creating an information.
+     * Get information object from raw data array read from encoded image.<br>
+     * Internally uses private Constructor for creating an information.
+     *
      * @param dataRaw raw data array read from carrier image.
      * @return created information.
-     * @throws IllegalTypeException if type id is not used.
+     * @throws IllegalTypeException   if type id is not used.
      * @throws IllegalLengthException if array is shorter than length suggests.
      */
     public static Information getInformationFromData(byte[] dataRaw) throws IllegalTypeException, IllegalLengthException {
         // see https://stackoverflow.com/a/1936865/13777031, https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html
         ByteBuffer buffer = ByteBuffer.wrap(dataRaw)
-                                      .order(ByteOrder.BIG_ENDIAN);
+                .order(ByteOrder.BIG_ENDIAN);
 
         // placeholder variables
         Type type;
@@ -132,6 +113,27 @@ public class Information {
 
         // build data object
         return new Information(data, type);
+    }
+
+    /**
+     * Get the information as a big-endian byte array.<br>
+     * Therefor first length then type and data is placed as big-endian bytes in one array.
+     *
+     * @return created big endian array.
+     */
+    public byte[] toBEBytes() {
+        // see https://stackoverflow.com/a/1936865/13777031, https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html
+        ByteBuffer buffer = ByteBuffer.allocate(META_LENGTH + this.length)
+                .order(ByteOrder.BIG_ENDIAN);
+        buffer.putInt(this.length);
+        buffer.putInt(this.type.ordinal());
+        buffer.put(this.data);
+
+        return buffer.array();
+    }
+
+    private void toContent() {
+        // TODO multiple return types? > String or image
     }
 
     // region getter & setter

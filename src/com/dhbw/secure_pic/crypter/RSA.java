@@ -6,8 +6,8 @@ package com.dhbw.secure_pic.crypter;
 import com.dhbw.secure_pic.data.Information;
 
 /**
- *  This class implements the RSA encryption method used to encrypt/decrypt messages
- *  It extends the Crypter class
+ * This class implements the RSA encryption method used to encrypt/decrypt messages.<br>
+ * It extends the Crypter class.
  */
 
 public class RSA extends Crypter {
@@ -15,12 +15,12 @@ public class RSA extends Crypter {
     private final String privateKey;
     private final String publicKey;
 
-    public RSA(String privateKey, String publicKey){
+    public RSA(String privateKey, String publicKey) {
         this.privateKey = privateKey;
         this.publicKey = publicKey;
     }
 
-    private AES getNew(){
+    private AES getNew() {
         return null;
     }
 

@@ -6,7 +6,7 @@ import com.dhbw.secure_pic.data.Information;
 // TODO implement
 
 /**
- *  This class implements the Crypter class used to encrypt/decrypt messages
+ * This class implements the Crypter class used to encrypt/decrypt messages
  */
 
 public abstract class Crypter {
