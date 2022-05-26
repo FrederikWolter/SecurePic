@@ -1,5 +1,7 @@
 package com.dhbw.secure_pic.data;
 
+import java.nio.charset.StandardCharsets;
+
 // TODO implement
 // TODO comment
 
@@ -11,9 +13,14 @@ package com.dhbw.secure_pic.data;
  */
 public class Information {
 
+    // region public static
+    /** Length of data type in bytes. */
     public static final int TYPE_LENGTH = Integer.BYTES;
+    /** Length of data length in bytes. */
     public static final int LENGTH_LENGTH = Long.BYTES;
+    /** Length of all metadata total in bytes. */
     public static final int META_LENGTH = TYPE_LENGTH + LENGTH_LENGTH;
+    // endregion
 
     // region attributes
     /** Raw data saved in information as a byte array. */
@@ -41,9 +48,8 @@ public class Information {
      */
     private Information(byte[] data, Type type) {
         this.data = data;
-        // TODO implement type encoding into data
         this.type = type;
-        // TODO implement length analysis
+        this.length = data.length;
     }
 
     /**
@@ -57,17 +63,24 @@ public class Information {
         // TODO implement type recognition and other raw data analysis
     }
 
-    private byte[] toBeBytes(){ // TODO check if necessary
+    private byte[] toBEBytes(){ // TODO check if necessary
         return null;
+        // TODO implement type encoding into data
     }
 
     private void toContent(){
-
+        // TODO multiple return types? > String or image
     }
 
+    /**
+     * Get information object from content string. Internally uses private Constructor for creating an information.
+     *
+     * @param text text given by the user.
+     * @return created information.
+     */
     public static Information getInformationFromString(String text){
-        // TODO implement information generation
-        return null;
+        // see https://stackoverflow.com/a/18571348/13777031
+        return new Information(text.getBytes(StandardCharsets.UTF_8), Type.TEXT);
     }
 
     public static Information getInformationFromImage(String path) {
