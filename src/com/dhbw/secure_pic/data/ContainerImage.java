@@ -4,7 +4,7 @@ package com.dhbw.secure_pic.data;
 // TODO implement
 
 /**
- * This class implements the functionality of the ContainerImage.
+ * This class implements the functionality of the ContainerImage.<br>
  * The ContainerImage describes the image the message will be encoded to/decoded from.
  *
  * @author Kirolis Eskondis, Frederik Wolter
@@ -12,8 +12,8 @@ package com.dhbw.secure_pic.data;
 public class ContainerImage {
 
     // region attributes
-    private byte[] data;
     private final String path;
+    private byte[] data;
     private Type type;
     // endregion
 
@@ -27,17 +27,17 @@ public class ContainerImage {
         // TODO implement loading
     }
 
-    private byte[] toBEBytes(){
+    private byte[] toBEBytes() {
         // TODO check if necessary
         return null;
     }
 
-    private void exportImg(){
+    private void exportImg() {
         // TODO implement exportImg
     }
 
     // region getter & setter
-    private void setData(byte[] data){
+    private void setData(byte[] data) {
         this.data = data;
     }
     // endregion

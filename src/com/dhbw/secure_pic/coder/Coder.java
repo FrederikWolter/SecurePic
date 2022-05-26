@@ -9,11 +9,11 @@ import com.dhbw.secure_pic.data.Information;
 public abstract class Coder {
 
     // region attributes
-    private ContainerImage img;
+    private final ContainerImage img;
     // endregion
 
 
-    public Coder(ContainerImage img){
+    public Coder(ContainerImage img) {
         this.img = img;
     }
 

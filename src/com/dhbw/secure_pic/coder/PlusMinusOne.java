@@ -6,7 +6,7 @@ import com.dhbw.secure_pic.data.Information;
 // TODO implement
 // TODO comment
 
-public class PlusMinusOne extends Coder{
+public class PlusMinusOne extends Coder {
 
     public PlusMinusOne(ContainerImage img) {
         super(img);

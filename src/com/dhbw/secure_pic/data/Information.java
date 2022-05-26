@@ -4,7 +4,7 @@ package com.dhbw.secure_pic.data;
 // TODO comment
 
 /**
- * This class implements the Information data type.
+ * This class implements the Information data type.<br>
  * Information is used as the primary carrier of the received/sent information embedded in the image.
  *
  * @author Kriolis Eskondis, Frederik Wolter
@@ -16,25 +16,17 @@ public class Information {
     public static final int META_LENGTH = TYPE_LENGTH + LENGTH_LENGTH;
 
     // region attributes
-    /**
-     * Raw data saved in information as a byte array.
-     */
+    /** Raw data saved in information as a byte array. */
     private byte[] data;
 
-    /**
-     * Data type of data saved in information.
-     */
+    /** Data type of data saved in information. */
     private Type type;
 
-    /**
-     * (Brutto) data length of data saved in information in bytes.
-     */
+    /** (Brutto) data length of data saved in information in bytes. */
     private long length;
     // endregion
 
-    /**
-     * Enum representing the available Information types.
-     */
+    /** Enum representing the available Information types.  */
     enum Type{
         TEXT,
         IMAGE
@@ -47,7 +39,7 @@ public class Information {
      * @param data raw content data to be sent embedded in the image (without any metadata).
      * @param type type of data saved in information.
      */
-    private Information(byte[] data, Type type){
+    private Information(byte[] data, Type type) {
         this.data = data;
         // TODO implement type encoding into data
         this.type = type;
@@ -60,7 +52,7 @@ public class Information {
      *
      * @param data raw data received embedded in a image (with metadata).
      */
-    private Information(byte[] data){
+    private Information(byte[] data) {
         this.data = data;
         // TODO implement type recognition and other raw data analysis
     }
@@ -78,12 +70,12 @@ public class Information {
         return null;
     }
 
-    public static Information getInformationFromImage(String path){
+    public static Information getInformationFromImage(String path) {
         // TODO implement information generation
         return null;
     }
 
-    public static Information getInformationFromData(byte[] data){
+    public static Information getInformationFromData(byte[] data) {
         // TODO implement information generation
         return null;
     }
