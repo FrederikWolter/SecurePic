@@ -17,7 +17,7 @@ public class Information {
     /** Length of data type in bytes. */
     public static final int TYPE_LENGTH = Integer.BYTES;
     /** Length of data length in bytes. */
-    public static final int LENGTH_LENGTH = Long.BYTES;
+    public static final int LENGTH_LENGTH = Integer.BYTES;
     /** Length of all metadata total in bytes. */
     public static final int META_LENGTH = TYPE_LENGTH + LENGTH_LENGTH;
     // endregion
@@ -30,7 +30,7 @@ public class Information {
     private Type type;
 
     /** (Brutto) data length of data saved in information in bytes. */
-    private long length;
+    private int length;
     // endregion
 
     /** Enum representing the available Information types.  */
@@ -106,7 +106,7 @@ public class Information {
         return type;
     }
 
-    public long getLength() {
+    public int getLength() {
         return length;
     }
 
