@@ -1,6 +1,12 @@
 package com.dhbw.secure_pic.data;
 
+import com.dhbw.secure_pic.auxiliary.IllegalLengthException;
+import com.dhbw.secure_pic.auxiliary.IllegalTypeException;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 
 // TODO implement
 // TODO comment
@@ -27,7 +33,7 @@ public class Information {
     private byte[] data;
 
     /** Data type of data saved in information. */
-    private Type type;
+    private final Type type;
 
     /** (Brutto) data length of data saved in information in bytes. */
     private int length;
@@ -41,7 +47,7 @@ public class Information {
 
     /**
      * Plain Constructor of Information.<br>
-     * Used for <i>internally</i> creating an information object for <b>sending</b> a message - hence private.
+     * Used for <i>internally</i> creating an information object used by static methods - hence private.
      *
      * @param data raw content data to be sent embedded in the image (without any metadata).
      * @param type type of data saved in information.
@@ -53,19 +59,20 @@ public class Information {
     }
 
     /**
-     * Plain Constructor for Information.<br>
-     * Used for <i>internally</i> creating an information object for <b>receiving</b> a message - hence private.
+     * Get the information as a big-endian byte array.<br>
+     * Therefor first length then type and data is placed as big-endian bytes in one array.
      *
-     * @param data raw data received embedded in a image (with metadata).
+     * @return created big endian array.
      */
-    private Information(byte[] data) {
-        this.data = data;
-        // TODO implement type recognition and other raw data analysis
-    }
+    public byte[] toBEBytes(){
+        // see https://stackoverflow.com/a/1936865/13777031, https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html
+        ByteBuffer buffer = ByteBuffer.allocate(META_LENGTH + this.length)
+                                      .order(ByteOrder.BIG_ENDIAN);
+        buffer.putInt(this.length);
+        buffer.putInt(this.type.ordinal());
+        buffer.put(this.data);
 
-    private byte[] toBEBytes(){ // TODO check if necessary
-        return null;
-        // TODO implement type encoding into data
+        return buffer.array();
     }
 
     private void toContent(){
@@ -88,14 +95,49 @@ public class Information {
         return null;
     }
 
-    public static Information getInformationFromData(byte[] data) {
-        // TODO implement information generation
-        return null;
+    /**
+     * Get information object from raw data array read from encoded image. Internally uses private Constructor for creating an information.
+     * @param dataRaw raw data array read from carrier image.
+     * @return created information.
+     * @throws IllegalTypeException if type id is not used.
+     * @throws IllegalLengthException if array is shorter than length suggests.
+     */
+    public static Information getInformationFromData(byte[] dataRaw) throws IllegalTypeException, IllegalLengthException {
+        // see https://stackoverflow.com/a/1936865/13777031, https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html
+        ByteBuffer buffer = ByteBuffer.wrap(dataRaw)
+                                      .order(ByteOrder.BIG_ENDIAN);
+
+        // placeholder variables
+        Type type;
+        byte[] data;
+
+        // readout data from buffer
+        int length = buffer.getInt();
+        int typeRaw = buffer.getInt();
+
+        if (typeRaw < Type.values().length) {
+            type = Type.values()[typeRaw];
+        } else {
+            throw new IllegalTypeException("Invalid content type in received data: " + typeRaw);
+        }
+
+        // copy rest data
+        int restLength = dataRaw.length - META_LENGTH;
+
+        if (restLength >= length) {
+            data = Arrays.copyOfRange(dataRaw, META_LENGTH, dataRaw.length);
+        } else {
+            throw new IllegalLengthException("Invalid content length: meta=" + length + " actual=" + restLength);
+        }
+
+        // build data object
+        return new Information(data, type);
     }
 
     // region getter & setter
     public void setData(byte[] data) {  // TODO change to more restrict access?
         this.data = data;
+        this.length = data.length;
     }
 
     public byte[] getData() {
