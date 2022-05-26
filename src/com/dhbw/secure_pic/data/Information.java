@@ -15,7 +15,7 @@ import java.util.Arrays;
  * This class implements the Information data type.<br>
  * Information is used as the primary carrier of the received/sent information embedded in the image.
  *
- * @author Kriolis Eskondis, Frederik Wolter
+ * @author Kirolis Eskondis, Frederik Wolter
  */
 public class Information {
 
