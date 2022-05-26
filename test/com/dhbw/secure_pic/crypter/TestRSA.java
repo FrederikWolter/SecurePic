@@ -2,12 +2,10 @@ package com.dhbw.secure_pic.crypter;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-public class testRSA {
+public class TestRSA {
 
     @Test
-    private void testGetNew(){
+    public void getNew(){
         //assert
     }
 }
