@@ -5,34 +5,54 @@ package com.dhbw.secure_pic.data;
 
 /**
  * This class implements the Information data type.
- * Information is used as the primary carrier of the sent/received messages turned to Arrays of Bytes.
+ * Information is used as the primary carrier of the received/sent information embedded in the image.
  *
  * @author Kriolis Eskondis, Frederik Wolter
  */
 public class Information {
 
     // region attributes
+    /**
+     * Raw data saved in information as a byte array.
+     */
     private byte[] data;
+
+    /**
+     * Data type of data saved in information.
+     */
     private Type type;
     // endregion
 
+    /**
+     * Enum representing the available Information types.
+     */
     enum Type{
         TEXT,
         IMAGE
     }
 
     /**
-     * @param data is the sent/received message turned into an Array of bytes
-     * @param type describes the type the message was before the conversion to Array e.g. text, image
+     * Plain Constructor of Information.<br>
+     * Used for <i>internally</i> creating an information object for <b>sending</b> a message - hence private.
+     *
+     * @param data raw content data to be sent embedded in the image (without any metadata).
+     * @param type type of data saved in information.
      */
     private Information(byte[] data, Type type){
         this.data = data;
+        // TODO implement type encoding into data
         this.type = type;
     }
 
+    /**
+     * Plain Constructor for Information.<br>
+     * Used for <i>internally</i> creating an information object for <b>receiving</b> a message - hence private.
+     *
+     * @param data raw data received embedded in a image (with metadata).
+     */
     private Information(byte[] data){
         this.data = data;
-        // TODO implement type recognition and other rwa data analysis
+        // TODO implement type recognition and other raw data analysis
     }
 
     private byte[] toBeBytes(){ // TODO check if necessary
@@ -44,10 +64,16 @@ public class Information {
     }
 
     public static Information getInformationFromString(String text){
+        // TODO implement information generation
         return null;
     }
 
     public static Information getInformationFromImage(String path){
+        // TODO implement information generation
+        return null;
+    }
+
+    public static Information getInformationFromData(byte[] data){
         // TODO implement information generation
         return null;
     }
