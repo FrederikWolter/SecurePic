@@ -11,6 +11,10 @@ package com.dhbw.secure_pic.data;
  */
 public class Information {
 
+    public static final int TYPE_LENGTH = Integer.BYTES;
+    public static final int LENGTH_LENGTH = Long.BYTES;
+    public static final int META_LENGTH = TYPE_LENGTH + LENGTH_LENGTH;
+
     // region attributes
     /**
      * Raw data saved in information as a byte array.
@@ -21,6 +25,11 @@ public class Information {
      * Data type of data saved in information.
      */
     private Type type;
+
+    /**
+     * (Brutto) data length of data saved in information in bytes.
+     */
+    private long length;
     // endregion
 
     /**
@@ -42,6 +51,7 @@ public class Information {
         this.data = data;
         // TODO implement type encoding into data
         this.type = type;
+        // TODO implement length analysis
     }
 
     /**
@@ -79,8 +89,21 @@ public class Information {
     }
 
     // region getter & setter
-    public void setData(byte[] data) {
+    public void setData(byte[] data) {  // TODO change to more restrict access?
         this.data = data;
     }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public long getLength() {
+        return length;
+    }
+
     // endregion
 }
