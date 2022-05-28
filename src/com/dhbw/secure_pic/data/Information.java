@@ -3,12 +3,15 @@ package com.dhbw.secure_pic.data;
 import com.dhbw.secure_pic.auxiliary.IllegalLengthException;
 import com.dhbw.secure_pic.auxiliary.IllegalTypeException;
 
+import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
-// TODO implement
+import static com.dhbw.secure_pic.data.Information.Type.IMAGE;
+import static com.dhbw.secure_pic.data.Information.Type.TEXT;
+
 // TODO comment
 
 /**
@@ -68,7 +71,7 @@ public class Information {
     public static Information getInformationFromString(String text) {
         // create information by converting string to byte array with UTF-8.
         // see https://stackoverflow.com/a/18571348/13777031
-        return new Information(text.getBytes(StandardCharsets.UTF_8), Type.TEXT);
+        return new Information(text.getBytes(StandardCharsets.UTF_8), TEXT);
     }
 
     public static Information getInformationFromImage(String path) {
@@ -139,12 +142,37 @@ public class Information {
         return buffer.array();
     }
 
-    private void toContent() {
-        // TODO multiple return types? > String or image
+    // region converts
+    // TODO better way for handling multiple return types? > String or image
+
+    /**
+     * Converter to get the Text from an information object <b>IF</b> a text is saved in it.
+     *
+     * @return text saved in information OR null if no text saved.
+     */
+    public String toText() {
+        if (this.type == TEXT){
+            return new String(this.getData(), StandardCharsets.UTF_8);
+        }
+        return null;
     }
 
+    public BufferedImage toImage() {
+        if (this.type == IMAGE){
+            return null; // TODO implement
+        }
+        return null;
+    }
+    // endregion
+
     // region getter & setter
-    public void setData(byte[] data) {  // TODO change to more restrict access?
+
+    /**
+     * Method for setting the data of an information e.g. after it was encrypted.
+     *
+     * @param data data to be saved in information.
+     */
+    public void setData(byte[] data) {
         this.data = data;
         this.length = data.length;
     }

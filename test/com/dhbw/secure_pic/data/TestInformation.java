@@ -17,9 +17,9 @@ public class TestInformation {
 
         Information info = Information.getInformationFromString(testString);
 
-        assertEquals(testString, new String(info.getData(), StandardCharsets.UTF_8));
-        assertEquals(testString.getBytes(StandardCharsets.UTF_8).length, info.getLength());
-        assertEquals(Information.Type.TEXT, info.getType());
+        assertEquals(info.toText(), testString);
+        assertEquals(info.getLength(), testString.getBytes(StandardCharsets.UTF_8).length);
+        assertEquals(info.getType(), Information.Type.TEXT);
     }
 
     @Test
