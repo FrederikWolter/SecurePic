@@ -3,14 +3,15 @@ package com.dhbw.secure_pic.data;
 import com.dhbw.secure_pic.auxiliary.IllegalLengthException;
 import com.dhbw.secure_pic.auxiliary.IllegalTypeException;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
-import static com.dhbw.secure_pic.data.Information.Type.IMAGE;
-import static com.dhbw.secure_pic.data.Information.Type.TEXT;
+import static com.dhbw.secure_pic.data.Information.Type.*;
 
 // TODO comment
 
@@ -45,7 +46,9 @@ public class Information {
     /** Enum representing the available Information types. */
     enum Type {
         TEXT,
-        IMAGE
+        IMAGE_PNG,
+        IMAGE_JPG,
+        IMAGE_GIF
     }
 
     /**
@@ -74,9 +77,38 @@ public class Information {
         return new Information(text.getBytes(StandardCharsets.UTF_8), TEXT);
     }
 
-    public static Information getInformationFromImage(String path) {
-        // TODO implement information generation
-        return null;
+    /**
+     * Get information object from image path.<br>
+     * Internally uses private Constructor for creating an information.
+     *
+     * @param path path to be used for information.
+     * @return created information.
+     */
+    public static Information getInformationFromImage(String path) throws IOException, IllegalTypeException {
+        // get file extension from path
+        String extension = "";
+        int i = path.lastIndexOf('.');
+        if (i > 0) extension = path.substring(i+1);
+
+        // get image type
+        Type type = switch (extension) {
+            case "png" -> IMAGE_PNG;
+            case "jpg" -> IMAGE_JPG;
+            case "gif" -> IMAGE_GIF;
+            default -> null;
+        };
+        if (type == null)
+            throw new IllegalTypeException("Invalid path given for image file. Recognized extension '" + extension + "'.");
+
+        // read in image from path
+        BufferedImage image = ImageIO.read(new File(path));
+
+        // convert BufferedImage to byte[]
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(image, extension, byteArrayOutputStream);
+        byte[] data = byteArrayOutputStream.toByteArray();
+
+        return new Information(data, type);
     }
 
     /**
@@ -144,9 +176,8 @@ public class Information {
 
     // region converts
     // TODO better way for handling multiple return types? > String or image
-
     /**
-     * Converter to get the Text from an information object <b>IF</b> a text is saved in it.
+     * Converter to get the text from an information object <b>IF</b> a text is saved in it.
      *
      * @return text saved in information OR null if no text saved.
      */
@@ -157,16 +188,22 @@ public class Information {
         return null;
     }
 
-    public BufferedImage toImage() {
-        if (this.type == IMAGE) {
-            return null; // TODO implement
+    /**
+     * Converter to get the image from an information object <b>IF</b> an image is saved in it.
+     *
+     * @return image saved in information OR null if no image saved.
+     */
+    public BufferedImage toImage() throws IOException {
+        if (this.type == IMAGE_PNG || type == IMAGE_JPG ||  type == IMAGE_GIF) {
+            // convert data to BufferedImage
+            InputStream InputStream = new ByteArrayInputStream(data);
+            return ImageIO.read(InputStream);
         }
         return null;
     }
     // endregion
 
     // region getter & setter
-
     public byte[] getData() {
         return data;
     }
