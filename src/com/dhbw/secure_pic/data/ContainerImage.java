@@ -1,7 +1,5 @@
 package com.dhbw.secure_pic.data;
 
-// TODO COMMENT
-
 import com.dhbw.secure_pic.auxiliary.IllegalTypeException;
 
 import javax.imageio.ImageIO;
@@ -10,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 
 import static com.dhbw.secure_pic.data.ContainerImage.Type.*;
+
+// TODO COMMENT
 
 /**
  * This class implements the functionality of the ContainerImage.<br>
@@ -87,6 +87,7 @@ public class ContainerImage {
      * @param destPath destination path for image to be saved to.
      *
      * @throws IOException
+     * @throws IllegalTypeException
      */
     public void exportImg(String destPath) throws IOException, IllegalTypeException {
         String format = switch (this.type) {
