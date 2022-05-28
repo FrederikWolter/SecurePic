@@ -129,7 +129,7 @@ public class ContainerImage {
      * @param x x value of pixel.
      * @param y y value of pixel.
      *
-     * @return calculated values in form af arry.
+     * @return calculated values in form af array.
      */
     public byte[] getARGB(int x, int y) {
         // get argb value from buffered image
