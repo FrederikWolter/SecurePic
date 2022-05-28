@@ -151,14 +151,14 @@ public class Information {
      * @return text saved in information OR null if no text saved.
      */
     public String toText() {
-        if (this.type == TEXT){
+        if (this.type == TEXT) {
             return new String(this.getData(), StandardCharsets.UTF_8);
         }
         return null;
     }
 
     public BufferedImage toImage() {
-        if (this.type == IMAGE){
+        if (this.type == IMAGE) {
             return null; // TODO implement
         }
         return null;
@@ -166,6 +166,10 @@ public class Information {
     // endregion
 
     // region getter & setter
+
+    public byte[] getData() {
+        return data;
+    }
 
     /**
      * Method for setting the data of an information e.g. after it was encrypted.
@@ -175,10 +179,6 @@ public class Information {
     public void setData(byte[] data) {
         this.data = data;
         this.length = data.length;
-    }
-
-    public byte[] getData() {
-        return data;
     }
 
     public Type getType() {
