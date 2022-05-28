@@ -7,6 +7,8 @@ package com.dhbw.secure_pic;
  */
 public class SecurePic {
 
+    // TODO add clipboard functionality
+
     /**
      * MAIN entry point of application.
      *
