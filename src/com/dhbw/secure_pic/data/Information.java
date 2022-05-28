@@ -15,7 +15,7 @@ import java.util.Arrays;
  * This class implements the Information data type.<br>
  * Information is used as the primary carrier of the received/sent information embedded in the image.
  *
- * @author Kirolis Eskondis, Frederik Wolter
+ * @author Frederik Wolter supported by Kirolis Eskondis
  */
 public class Information {
 
@@ -47,9 +47,9 @@ public class Information {
 
     /**
      * Plain Constructor of Information.<br>
-     * Used for <i>internally</i> creating an information object used by static methods - hence private.
+     * Used for <i>internally</i> creating an information object by static methods - hence private.
      *
-     * @param data raw content data to be sent embedded in the image (without any metadata).
+     * @param data raw content data (without any metadata).
      * @param type type of data saved in information.
      */
     private Information(byte[] data, Type type) {
@@ -59,12 +59,14 @@ public class Information {
     }
 
     /**
-     * Get information object from content string. Internally uses private Constructor for creating an information.
+     * Get information object from content string.<br>
+     * Internally uses private Constructor for creating an information.
      *
      * @param text text given by the user.
      * @return created information.
      */
     public static Information getInformationFromString(String text) {
+        // create information by converting string to byte array with UTF-8.
         // see https://stackoverflow.com/a/18571348/13777031
         return new Information(text.getBytes(StandardCharsets.UTF_8), Type.TEXT);
     }
@@ -80,15 +82,17 @@ public class Information {
      *
      * @param dataRaw raw data array read from carrier image.
      * @return created information.
-     * @throws IllegalTypeException   if type id is not used.
+     *
+     * @throws IllegalTypeException   if type id is not legal.
      * @throws IllegalLengthException if array is shorter than length suggests.
      */
     public static Information getInformationFromData(byte[] dataRaw) throws IllegalTypeException, IllegalLengthException {
+        // using ByteBuffer for handling binary data TODO maybe do self? if time
         // see https://stackoverflow.com/a/1936865/13777031, https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html
         ByteBuffer buffer = ByteBuffer.wrap(dataRaw)
-                .order(ByteOrder.BIG_ENDIAN);
+                .order(ByteOrder.BIG_ENDIAN);   // set buffer to use big-endian
 
-        // placeholder variables
+        // placeholder variables to be initialized
         Type type;
         byte[] data;
 
@@ -96,16 +100,16 @@ public class Information {
         int length = buffer.getInt();
         int typeRaw = buffer.getInt();
 
-        if (typeRaw < Type.values().length) {
+        if (typeRaw < Type.values().length) {   // validate type
             type = Type.values()[typeRaw];
         } else {
             throw new IllegalTypeException("Invalid content type in received data: " + typeRaw);
         }
 
-        // copy rest data
+        // copy rest data from dataRaw
         int restLength = dataRaw.length - META_LENGTH;
 
-        if (restLength >= length) {
+        if (restLength >= length) {     // valid length according to length metadata?
             data = Arrays.copyOfRange(dataRaw, META_LENGTH, dataRaw.length);
         } else {
             throw new IllegalLengthException("Invalid content length: meta=" + length + " actual=" + restLength);
@@ -122,11 +126,14 @@ public class Information {
      * @return created big endian array.
      */
     public byte[] toBEBytes() {
+        // using ByteBuffer for handling binary data TODO maybe do self? if time
         // see https://stackoverflow.com/a/1936865/13777031, https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html
         ByteBuffer buffer = ByteBuffer.allocate(META_LENGTH + this.length)
-                .order(ByteOrder.BIG_ENDIAN);
+                .order(ByteOrder.BIG_ENDIAN);   // set buffer to use big-endian
+
+        // insert data to array
         buffer.putInt(this.length);
-        buffer.putInt(this.type.ordinal());
+        buffer.putInt(this.type.ordinal()); // convert enum value to int through ordinal()
         buffer.put(this.data);
 
         return buffer.array();
