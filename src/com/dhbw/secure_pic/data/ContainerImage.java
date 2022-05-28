@@ -88,11 +88,14 @@ public class ContainerImage {
      *
      * @throws IOException
      */
-    public void exportImg(String destPath) throws IOException {
+    public void exportImg(String destPath) throws IOException, IllegalTypeException {
         String format = switch (this.type) {
             case PNG -> "png";
             case JPG -> "jpg";
         };
+
+        if (!format.equals(ContainerImage.getFileExtension(destPath)))
+            throw new IllegalTypeException("Given extension of path does not match the type of image.");
 
         ImageIO.write(this.image, format, new File(path));
     }
@@ -141,7 +144,7 @@ public class ContainerImage {
         values[0] = (byte) (argbValue >> 24);   // alpha value
         values[1] = (byte) (argbValue >> 16);   // red value
         values[2] = (byte) (argbValue >> 8);    // green value
-        values[3] = (byte) (argbValue);        // blue value
+        values[3] = (byte) (argbValue);         // blue value
 
         return values;
     }
