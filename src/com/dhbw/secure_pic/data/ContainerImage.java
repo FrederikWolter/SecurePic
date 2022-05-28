@@ -27,6 +27,20 @@ public class ContainerImage {
         // TODO implement loading
     }
 
+    /**
+     * Utility method extracting file extension from path.
+     *
+     * @param path with file extension to be extracted.
+     * @return file extension
+     */
+    public static String getFileExtension(String path) {
+        String extension = "";
+        int i = path.lastIndexOf('.');
+        if (i > 0) extension = path.substring(i+1);
+
+        return extension;
+    }
+
     private byte[] toBEBytes() {
         // TODO check if necessary
         return null;

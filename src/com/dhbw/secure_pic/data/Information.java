@@ -85,10 +85,10 @@ public class Information {
      * @return created information.
      */
     public static Information getInformationFromImage(String path) throws IOException, IllegalTypeException {
+        // see https://mkyong.com/java/how-to-convert-bufferedimage-to-byte-in-java/
+
         // get file extension from path
-        String extension = "";
-        int i = path.lastIndexOf('.');
-        if (i > 0) extension = path.substring(i+1);
+        String extension = ContainerImage.getFileExtension(path);
 
         // get image type
         Type type = switch (extension) {
