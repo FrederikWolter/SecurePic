@@ -12,7 +12,7 @@ import java.util.List;
 public class ImageLoadTask extends SwingWorker<BufferedImage, Void> {
 
     // region attributes
-    private String path;
+    private final String path;
     // endregion
 
 
