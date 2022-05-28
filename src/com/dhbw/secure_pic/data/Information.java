@@ -69,6 +69,7 @@ public class Information {
      * Internally uses private Constructor for creating an information.
      *
      * @param text text given by the user.
+     *
      * @return created information.
      */
     public static Information getInformationFromString(String text) {
@@ -82,6 +83,7 @@ public class Information {
      * Internally uses private Constructor for creating an information.
      *
      * @param path path to be used for information.
+     *
      * @return created information.
      */
     public static Information getInformationFromImage(String path) throws IOException, IllegalTypeException {
@@ -116,6 +118,7 @@ public class Information {
      * Internally uses private Constructor for creating an information.
      *
      * @param dataRaw raw data array read from carrier image.
+     *
      * @return created information.
      *
      * @throws IllegalTypeException   if type id is not legal.
@@ -176,6 +179,7 @@ public class Information {
 
     // region converts
     // TODO better way for handling multiple return types? > String or image
+
     /**
      * Converter to get the text from an information object <b>IF</b> a text is saved in it.
      *
@@ -194,7 +198,7 @@ public class Information {
      * @return image saved in information OR null if no image saved.
      */
     public BufferedImage toImage() throws IOException {
-        if (this.type == IMAGE_PNG || type == IMAGE_JPG ||  type == IMAGE_GIF) {
+        if (this.type == IMAGE_PNG || type == IMAGE_JPG || type == IMAGE_GIF) {
             // convert data to BufferedImage
             InputStream InputStream = new ByteArrayInputStream(data);
             return ImageIO.read(InputStream);

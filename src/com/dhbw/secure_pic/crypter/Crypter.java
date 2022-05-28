@@ -13,6 +13,7 @@ public abstract class Crypter {
 
     /**
      * @param information includes the message to encrypt/decrypt
+     *
      * @return
      */
     public abstract Information encrypt(Information information);

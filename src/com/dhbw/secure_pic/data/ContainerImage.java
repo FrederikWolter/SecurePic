@@ -65,12 +65,13 @@ public class ContainerImage {
      * Utility method extracting file extension from path.
      *
      * @param path with file extension to be extracted.
+     *
      * @return file extension
      */
     public static String getFileExtension(String path) {
         String extension = "";
         int i = path.lastIndexOf('.');
-        if (i > 0) extension = path.substring(i+1);
+        if (i > 0) extension = path.substring(i + 1);
 
         return extension;
     }
@@ -84,10 +85,11 @@ public class ContainerImage {
      * Export current saved buffered image as a file to given path.
      *
      * @param destPath destination path for image to be saved to.
+     *
      * @throws IOException
      */
     public void exportImg(String destPath) throws IOException {
-        String format = switch (this.type){
+        String format = switch (this.type) {
             case PNG -> "png";
             case JPG -> "jpg";
         };
@@ -107,7 +109,7 @@ public class ContainerImage {
      * @param g green value to be set.
      * @param b blue value to be set.
      */
-    public void setARGB(int x, int y, byte a, byte r, byte g, byte b){
+    public void setARGB(int x, int y, byte a, byte r, byte g, byte b) {
         // create empty int (4 byte)
         int argbValue = 0;
 
@@ -126,9 +128,10 @@ public class ContainerImage {
      *
      * @param x x value of pixel.
      * @param y y value of pixel.
+     *
      * @return calculated values in form af arry.
      */
-    public byte[] getARGB(int x, int y){
+    public byte[] getARGB(int x, int y) {
         // get argb value from buffered image
         int argbValue = this.image.getRGB(x, y);
 
@@ -138,7 +141,7 @@ public class ContainerImage {
         values[0] = (byte) (argbValue >> 24);   // alpha value
         values[1] = (byte) (argbValue >> 16);   // red value
         values[2] = (byte) (argbValue >> 8);    // green value
-        values[3] = (byte) (argbValue );        // blue value
+        values[3] = (byte) (argbValue);        // blue value
 
         return values;
     }
