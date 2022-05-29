@@ -13,6 +13,8 @@ import java.security.spec.InvalidKeySpecException;
 // TODO COMMENT
 // TODO implement
 
+// TODO reduce number of specific exceptions? more general?
+
 /**
  * This class implements the Crypter class used to encrypt/decrypt messages
  */
@@ -23,8 +25,8 @@ public abstract class Crypter {
      * @param information includes the message to encrypt/decrypt
      *
      */
-    public abstract void encrypt(Information information) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException;
+    public abstract Information encrypt(Information information) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException;
 
-    public abstract void decrypt(Information information) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException;
+    public abstract Information decrypt(Information information) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException;
 
 }

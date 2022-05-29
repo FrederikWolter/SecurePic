@@ -30,7 +30,7 @@ public class TestAES {
         AES aes = new AES("password");
 
         aes.encrypt(information);
-        assertNotEquals(information.toText(),message);
+        assertNotEquals(information.toText(), message);
 
         aes.decrypt(information);
         assertEquals(information.toText(), message);
