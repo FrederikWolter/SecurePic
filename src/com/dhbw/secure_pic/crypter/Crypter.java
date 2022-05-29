@@ -2,6 +2,14 @@ package com.dhbw.secure_pic.crypter;
 
 import com.dhbw.secure_pic.data.Information;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 // TODO COMMENT
 // TODO implement
 
@@ -16,8 +24,8 @@ public abstract class Crypter {
      *
      * @return
      */
-    public abstract Information encrypt(Information information);
+    public abstract Information encrypt(Information information) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException;
 
-    public abstract Information decrypt(Information information);
+    public abstract Information decrypt(Information information) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException;
 
 }
