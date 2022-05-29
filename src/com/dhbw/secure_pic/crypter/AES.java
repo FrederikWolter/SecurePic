@@ -43,10 +43,9 @@ public class AES extends Crypter {
 
     /**
      * @param information contains the message to encrypt
-     * @return new Information containing the encrypted message
      */
     @Override
-    public Information encrypt(Information information)
+    public void encrypt(Information information)
             throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException,
             InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
 
@@ -56,16 +55,15 @@ public class AES extends Crypter {
         byte[] encryptedBytes = cipher.doFinal(information.getData());
         byte[] outPutBytes = Base64.getEncoder().encode(encryptedBytes);
 
-        return new Information(outPutBytes, Information.Type.TEXT);
+        information.setData(outPutBytes);
     }
 
 
     /**
      * @param information contains the encrypted message to decrypt
-     * @return new Information containing the decrypted message
      */
     @Override
-    public Information decrypt(Information information) throws NoSuchAlgorithmException, NoSuchPaddingException,
+    public void decrypt(Information information) throws NoSuchAlgorithmException, NoSuchPaddingException,
             InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
 
         Cipher cipher = Cipher.getInstance(algorithm);
@@ -73,7 +71,7 @@ public class AES extends Crypter {
         byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder()
                 .decode(information.toText()));
 
-        return new Information(decryptedBytes, Information.Type.TEXT);
+        information.setData(decryptedBytes);
     }
 
 

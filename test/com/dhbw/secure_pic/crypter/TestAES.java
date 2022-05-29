@@ -29,11 +29,11 @@ public class TestAES {
 
         AES aes = new AES("password");
 
-        Information encryptedInformation = aes.encrypt(information);
-        assertNotEquals(encryptedInformation.toText(),message);
+        aes.encrypt(information);
+        assertNotEquals(information.toText(),message);
 
-        Information decryptedInformation = aes.decrypt(encryptedInformation);
-        assertEquals(decryptedInformation.toText(), message);
+        aes.decrypt(information);
+        assertEquals(information.toText(), message);
     }
 
 }

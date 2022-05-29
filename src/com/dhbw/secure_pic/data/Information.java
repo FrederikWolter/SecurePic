@@ -44,7 +44,7 @@ public class Information {
     // endregion
 
     /** Enum representing the available Information types. */
-    public enum Type {
+    enum Type {
         TEXT,
         IMAGE_PNG,
         IMAGE_JPG,
@@ -58,7 +58,7 @@ public class Information {
      * @param data raw content data (without any metadata).
      * @param type type of data saved in information.
      */
-    public Information(byte[] data, Type type) {
+    private Information(byte[] data, Type type) {
         this.data = data;
         this.type = type;
         this.length = data.length;
