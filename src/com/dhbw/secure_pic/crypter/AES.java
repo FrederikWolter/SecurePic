@@ -6,7 +6,7 @@ import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -88,9 +88,8 @@ public class AES extends Crypter {
         String salt = generateSaltValue();
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 65536, 256);
-        SecretKey secret = new SecretKeySpec(factory.generateSecret(spec)
+        return new SecretKeySpec(factory.generateSecret(spec)
                 .getEncoded(), "AES");
-        return secret;
     }
 
     /**
@@ -99,19 +98,17 @@ public class AES extends Crypter {
     private String generateSaltValue() {
         byte[] array = new byte[7]; // length is bounded by 7
         new Random().nextBytes(array);
-        String generatedString = new String(array, Charset.forName("UTF-8"));
 
-        return generatedString;
+        return new String(array, StandardCharsets.UTF_8);
     }
 
     /**
      * @return randomly generated Initialization Vector
      */
     private IvParameterSpec generateIv() {
-        byte[] iv = new byte[16];
-        new SecureRandom().nextBytes(iv);
-        return new IvParameterSpec(iv);
+        byte[] randomIv = new byte[16];
+        new SecureRandom().nextBytes(randomIv);
+        return new IvParameterSpec(randomIv);
     }
-
 
 }
