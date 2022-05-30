@@ -6,37 +6,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-
-public class index extends Component {
-    private JPanel MainPanel_ImgCon;
-    private JButton buttonStartApp;
+public class Send_Symmetrical extends Component {
+    private JPanel MainPanel_SS;
     private JProgressBar progressBar1;
-    private JRadioButton radioButton1;
-    private JRadioButton radioButton2;
-    private JRadioButton radioButton3;
-    private JRadioButton radioButton4;
-    private JRadioButton radioButton5;
-    private JRadioButton radioButton6;
-    private JButton button2;
+    private JPanel LeftPanel;
+    private JPanel RightPanel;
+    private JButton backButton;
+    private JRadioButton imageRadioButton;
+    private JRadioButton textmessageRadioButton;
+    private JTextArea textArea1;
+    private JComboBox comboBox_CodAlg;
+    private JComboBox comboBox_EncAlg;
+    private JPasswordField passwordField1;
+    private JButton encodeButton;
+    private JSlider slider1;
     private JButton uploadButton;
-    private JPanel ImagePanel;
 
-    public index() {
-        final JFileChooser fc = new JFileChooser();
+    final JFileChooser fc = new JFileChooser();
 
-        buttonStartApp.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //.setTitle("SecurePick");
-
-            }
-        });
+    public Send_Symmetrical() {
         uploadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 if (e.getSource() == uploadButton) {
-                    int returnVal = fc.showOpenDialog(index.this);
+                    int returnVal = fc.showOpenDialog(Send_Symmetrical.this);
 
                     if (returnVal == JFileChooser.APPROVE_OPTION) {
                         File file = fc.getSelectedFile();
@@ -47,10 +41,9 @@ public class index extends Component {
             }
         });
     }
-
     public static void main(String[] args) {
         JFrame fenster = new JFrame("Image Converter"); //neues Frame bzw. Fenster
-        fenster.setContentPane(new index().MainPanel_ImgCon);
+        fenster.setContentPane(new Send_Symmetrical().MainPanel_SS);
         fenster.setMinimumSize(new Dimension(400,200));
         fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         fenster.pack();
