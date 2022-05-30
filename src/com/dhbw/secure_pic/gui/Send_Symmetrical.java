@@ -20,16 +20,17 @@ public class Send_Symmetrical extends Component {
     private JPasswordField passwordField1;
     private JButton encodeButton;
     private JSlider slider1;
+    private JButton uploadButton2;
     private JButton uploadButton;
 
     final JFileChooser fc = new JFileChooser();
 
     public Send_Symmetrical() {
-        uploadButton.addActionListener(new ActionListener() {
+        uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
-                if (e.getSource() == uploadButton) {
+                if (e.getSource() == uploadButton2) {
                     int returnVal = fc.showOpenDialog(Send_Symmetrical.this);
 
                     if (returnVal == JFileChooser.APPROVE_OPTION) {
