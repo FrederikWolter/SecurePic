@@ -6,6 +6,6 @@ public class TestRSA {
 
     @Test
     public void getNew() {
-        // TODO
+        assert false; // TODO
     }
 }

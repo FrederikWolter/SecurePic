@@ -13,7 +13,8 @@ public abstract class Coder {
     // endregion
 
 
-    public Coder(ContainerImage img) {
+    // protected to only be able to call constructor from inherited classes
+    protected Coder(ContainerImage img) {
         this.img = img;
     }
 
