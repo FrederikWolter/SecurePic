@@ -11,6 +11,11 @@ public class Send_Asymmetrical extends Component {
     private JProgressBar progressBar1;
     private JPanel LeftPanel;
     private JButton backButton;
+
+    public JButton getBackButton() {
+        return backButton;
+    }
+
     private JRadioButton imageRadioButton;
     private JRadioButton textmessageRadioButton;
     private JTextArea Message;
@@ -57,5 +62,9 @@ public class Send_Asymmetrical extends Component {
 
             }
         });
+    }
+
+    public JPanel getMainPanel_SA() {
+        return MainPanel_SA;
     }
 }

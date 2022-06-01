@@ -12,4 +12,12 @@ public class Receive_Symmetrical {
     private JTextPane textPane1;
     private JComboBox comboBox_EncAlg;
     private JPasswordField passwordField1;
+    private JPanel MainPanel_RS;
+
+    public JPanel getMainPanel_RS() {
+        return MainPanel_RS;
+    }
+    public JButton getBackButton() {
+        return backButton;
+    }
 }

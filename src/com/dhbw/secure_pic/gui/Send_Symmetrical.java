@@ -58,12 +58,11 @@ public class Send_Symmetrical extends Component {
             }
         });
     }
-    public static void main(String[] args) {
-        JFrame fenster = new JFrame("Image Converter"); //neues Frame bzw. Fenster
-        fenster.setContentPane(new Send_Symmetrical().MainPanel_SS);
-        fenster.setMinimumSize(new Dimension(400,200));
-        fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fenster.pack();
-        fenster.setVisible(true);
+
+    public JPanel getMainPanel_SS() {
+        return MainPanel_SS;
+    }
+    public JButton getBackButton() {
+        return backButton;
     }
 }

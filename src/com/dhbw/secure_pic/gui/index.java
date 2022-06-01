@@ -9,6 +9,7 @@ import java.io.File;
 
 public class index extends Component {
     private JPanel MainPanel_ImgCon;
+
     private JButton buttonStartApp;
     private JProgressBar progressBar1;
     private JRadioButton radioButton1;
@@ -48,12 +49,11 @@ public class index extends Component {
         });
     }
 
-    public static void main(String[] args) {
-        JFrame fenster = new JFrame("Image Converter"); //neues Frame bzw. Fenster
-        fenster.setContentPane(new index().MainPanel_ImgCon);
-        fenster.setMinimumSize(new Dimension(400,200));
-        fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fenster.pack();
-        fenster.setVisible(true);
+    public JPanel getMainPanel_ImgCon() {
+        return MainPanel_ImgCon;
+    }
+
+    public JButton getButtonStartApp(){
+        return buttonStartApp;
     }
 }

@@ -15,4 +15,11 @@ public class Receive_Assymmetrical {
     private JTextField textField3;
     private JButton decodeButton;
     private JButton backButton;
+
+    public JPanel getMainPanel_RA() {
+        return MainPanel_RA;
+    }
+    public JButton getBackButton() {
+        return backButton;
+    }
 }

@@ -1,18 +1,22 @@
 package com.dhbw.secure_pic;
 
+import com.dhbw.secure_pic.gui.Collected;
+
+import javax.swing.*;
+
 /**
  * Main entry point to application - providing the main method.
  *
  * @author Frederik Wolter
  */
 public class SecurePic {
-
-    /**
-     * MAIN entry point of application.
-     *
-     * @param args currently not used.
-     */
     public static void main(String[] args) {
-        System.out.println("Hello world!"); // TODO
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                Collected start = new Collected();
+                start.show();
+            }
+        });
     }
 }

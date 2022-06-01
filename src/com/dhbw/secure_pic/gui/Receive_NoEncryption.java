@@ -11,4 +11,11 @@ public class Receive_NoEncryption {
     private JButton decodeButton;
     private JButton uploadButton2;
     private JTextPane textPane1;
+
+    public JPanel getMainPanel_RN() {
+        return MainPanel_RN;
+    }
+    public JButton getBackButton() {
+        return backButton;
+    }
 }
