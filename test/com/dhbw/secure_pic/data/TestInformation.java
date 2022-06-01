@@ -1,7 +1,7 @@
 package com.dhbw.secure_pic.data;
 
-import com.dhbw.secure_pic.auxiliary.IllegalLengthException;
-import com.dhbw.secure_pic.auxiliary.IllegalTypeException;
+import com.dhbw.secure_pic.auxiliary.exceptions.IllegalLengthException;
+import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import org.junit.Test;
 
 import javax.imageio.ImageIO;

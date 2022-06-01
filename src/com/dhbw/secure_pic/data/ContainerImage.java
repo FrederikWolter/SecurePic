@@ -1,6 +1,6 @@
 package com.dhbw.secure_pic.data;
 
-import com.dhbw.secure_pic.auxiliary.IllegalTypeException;
+import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
