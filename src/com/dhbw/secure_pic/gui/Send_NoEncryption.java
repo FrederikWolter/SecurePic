@@ -1,5 +1,7 @@
 package com.dhbw.secure_pic.gui;
 
+import com.dhbw.secure_pic.gui.functions.FileSelect;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,7 +23,7 @@ public class Send_NoEncryption extends Component {
     private JButton uploadButton;
     private JProgressBar progressBar1;
 
-    final JFileChooser fc = new JFileChooser();
+    final FileSelect fs = new FileSelect();
 
     public Send_NoEncryption() {
         uploadButton.addActionListener(new ActionListener() {
@@ -29,13 +31,7 @@ public class Send_NoEncryption extends Component {
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 if (e.getSource() == uploadButton) {
-                    int returnVal = fc.showOpenDialog(Send_NoEncryption.this);
-
-                    if (returnVal == JFileChooser.APPROVE_OPTION) {
-                        File file = fc.getSelectedFile();
-                        //This is where a real application would open the file.
-                    } else {
-                    }
+                    File file = fs.SelectFile(Send_NoEncryption.this);
                 }
 
             }
@@ -45,13 +41,7 @@ public class Send_NoEncryption extends Component {
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 if (e.getSource() == uploadButton2) {
-                    int returnVal = fc.showOpenDialog(Send_NoEncryption.this);
-
-                    if (returnVal == JFileChooser.APPROVE_OPTION) {
-                        File file = fc.getSelectedFile();
-                        //This is where a real application would open the file.
-                    } else {
-                    }
+                    File file = fs.SelectFile(Send_NoEncryption.this);
                 }
 
             }

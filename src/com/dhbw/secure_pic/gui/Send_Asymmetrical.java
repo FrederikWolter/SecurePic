@@ -1,5 +1,7 @@
 package com.dhbw.secure_pic.gui;
 
+import com.dhbw.secure_pic.gui.functions.FileSelect;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,7 +25,7 @@ public class Send_Asymmetrical extends Component {
     private JSlider slider1;
     private JButton uploadButton;
 
-    final JFileChooser fc = new JFileChooser();
+    final FileSelect fs = new FileSelect();
 
     public Send_Asymmetrical() {
         uploadButton.addActionListener(new ActionListener() {
@@ -31,13 +33,7 @@ public class Send_Asymmetrical extends Component {
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 if (e.getSource() == uploadButton) {
-                    int returnVal = fc.showOpenDialog(Send_Asymmetrical.this);
-
-                    if (returnVal == JFileChooser.APPROVE_OPTION) {
-                        File file = fc.getSelectedFile();
-                        //This is where a real application would open the file.
-                    } else {
-                    }
+                    File file = fs.SelectFile(Send_Asymmetrical.this);
                 }
             }
         });
@@ -46,14 +42,15 @@ public class Send_Asymmetrical extends Component {
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 if (e.getSource() == uploadButton2) {
-                    int returnVal = fc.showOpenDialog(Send_Asymmetrical.this);
-
-                    if (returnVal == JFileChooser.APPROVE_OPTION) {
-                        File file = fc.getSelectedFile();
-                        //This is where a real application would open the file.
-                    } else {
-                    }
+                    File file = fs.SelectFile(Send_Asymmetrical.this);
                 }
+            }
+        });
+        imageRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message.setVisible(false);
+                uploadButton2.setVisible(true);
 
             }
         });

@@ -182,7 +182,7 @@
         </constraints>
         <properties>
           <background color="-3422958"/>
-          <text value="back"/>
+          <text value="Back"/>
         </properties>
       </component>
       <component id="8d958" class="javax.swing.JLabel">

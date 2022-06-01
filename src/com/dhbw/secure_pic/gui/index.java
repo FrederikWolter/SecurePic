@@ -1,5 +1,7 @@
 package com.dhbw.secure_pic.gui;
 
+import com.dhbw.secure_pic.gui.functions.FileSelect;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,7 +10,7 @@ import java.io.File;
 
 
 public class index extends Component {
-    private JPanel MainPanel_ImgCon;
+    public JPanel MainPanel_ImgCon;
     private JButton buttonStartApp;
     private JProgressBar progressBar1;
     private JRadioButton radioButton1;
@@ -22,7 +24,7 @@ public class index extends Component {
     private JPanel ImagePanel;
 
     public index() {
-        final JFileChooser fc = new JFileChooser();
+        final FileSelect fs = new FileSelect();
 
         buttonStartApp.addActionListener(new ActionListener() {
             @Override
@@ -36,24 +38,11 @@ public class index extends Component {
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 if (e.getSource() == uploadButton) {
-                    int returnVal = fc.showOpenDialog(index.this);
+                    File file =fs.SelectFile(index.this);
 
-                    if (returnVal == JFileChooser.APPROVE_OPTION) {
-                        File file = fc.getSelectedFile();
-                        //This is where a real application would open the file.
-                    } else {
-                    }
                 }
             }
         });
     }
 
-    public static void main(String[] args) {
-        JFrame fenster = new JFrame("Image Converter"); //neues Frame bzw. Fenster
-        fenster.setContentPane(new index().MainPanel_ImgCon);
-        fenster.setMinimumSize(new Dimension(400,200));
-        fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fenster.pack();
-        fenster.setVisible(true);
-    }
 }

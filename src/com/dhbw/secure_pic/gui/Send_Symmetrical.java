@@ -1,5 +1,7 @@
 package com.dhbw.secure_pic.gui;
 
+import com.dhbw.secure_pic.gui.functions.FileSelect;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,7 +25,7 @@ public class Send_Symmetrical extends Component {
     private JButton uploadButton2;
     private JButton uploadButton;
 
-    final JFileChooser fc = new JFileChooser();
+    final FileSelect fs = new FileSelect();
 
     public Send_Symmetrical() {
         uploadButton2.addActionListener(new ActionListener() {
@@ -31,13 +33,7 @@ public class Send_Symmetrical extends Component {
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 if (e.getSource() == uploadButton2) {
-                    int returnVal = fc.showOpenDialog(Send_Symmetrical.this);
-
-                    if (returnVal == JFileChooser.APPROVE_OPTION) {
-                        File file = fc.getSelectedFile();
-                        //This is where a real application would open the file.
-                    } else {
-                    }
+                    File file = fs.SelectFile(Send_Symmetrical.this);
                 }
             }
         });
@@ -46,24 +42,9 @@ public class Send_Symmetrical extends Component {
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 if (e.getSource() == uploadButton) {
-                    int returnVal = fc.showOpenDialog(Send_Symmetrical.this);
-
-                    if (returnVal == JFileChooser.APPROVE_OPTION) {
-                        File file = fc.getSelectedFile();
-                        //This is where a real application would open the file.
-                    } else {
-                    }
+                    File file = fs.SelectFile(Send_Symmetrical.this);
                 }
-
             }
         });
-    }
-    public static void main(String[] args) {
-        JFrame fenster = new JFrame("Image Converter"); //neues Frame bzw. Fenster
-        fenster.setContentPane(new Send_Symmetrical().MainPanel_SS);
-        fenster.setMinimumSize(new Dimension(400,200));
-        fenster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fenster.pack();
-        fenster.setVisible(true);
     }
 }
