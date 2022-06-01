@@ -1,8 +1,11 @@
 package com.dhbw.secure_pic.data;
 
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
+import com.dhbw.secure_pic.auxiliary.ImageSelection;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +25,7 @@ public class ContainerImage {
     // region attributes
     /** Path to original image loaded from drive. */
     private final String path;
-    /** BufferedIMage loaded from path. */
+    /** BufferedImage loaded from path. */
     private final BufferedImage image;
     /** Type of image. */
     private final Type type;
@@ -37,12 +40,14 @@ public class ContainerImage {
     /**
      * Plain Constructor of ContainerImage.<br>
      *
-     * @param path path selected by user to container image to be loaded.
+     * @param path path to container image to be loaded given by user.
      *
      * @throws IllegalTypeException
      * @throws IOException
      */
     public ContainerImage(String path) throws IllegalTypeException, IOException {
+        // TODO wrap ioexception
+        // set attributes
         this.path = path;
 
         // get file extension from path
@@ -62,7 +67,8 @@ public class ContainerImage {
     }
 
     /**
-     * Utility method extracting file extension from path.
+     * Utility method extracting file extension from path.<br>
+     * Not really related to ContainerImage.
      *
      * @param path with file extension to be extracted.
      *
@@ -74,11 +80,6 @@ public class ContainerImage {
         if (i > 0) extension = path.substring(i + 1);
 
         return extension;
-    }
-
-    private byte[] toBEBytes() {
-        // TODO check if necessary
-        return null;
     }
 
     /**
@@ -99,6 +100,19 @@ public class ContainerImage {
             throw new IllegalTypeException("Given extension of path does not match the type of image.");
 
         ImageIO.write(this.image, format, new File(path));
+    }
+
+    /**
+     * Copy container image to Windows clip board. <br>
+     * Works for images and text.
+     */
+    public void copyToClipboard(){
+        // get clipboard
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+
+        // get content and save to clipboard
+        ImageSelection content = new ImageSelection(this.image);
+        clipboard.setContents(content, null);
     }
 
     // region getter & setter

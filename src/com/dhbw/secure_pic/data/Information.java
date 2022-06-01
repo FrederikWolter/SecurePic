@@ -5,16 +5,19 @@ import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.auxiliary.ImageSelection;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+
 import java.io.*;
+
+import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import static com.dhbw.secure_pic.data.Information.Type.*;
-
-// TODO comment
 
 /**
  * This class implements the Information data type.<br>
@@ -86,8 +89,11 @@ public class Information {
      * @param path path to be used for information.
      *
      * @return created information.
+     *
+     * @throws IllegalTypeException
      */
     public static Information getInformationFromImage(String path) throws IOException, IllegalTypeException {
+        // TODO wrap ioexception?
         // see https://mkyong.com/java/how-to-convert-bufferedimage-to-byte-in-java/
 
         // get file extension from path
@@ -176,6 +182,27 @@ public class Information {
         buffer.put(this.data);
 
         return buffer.array();
+    }
+
+    /**
+     * Copy the content of information to Windows clip board. <br>
+     * Works for images and text.
+     *
+     * @throws IOException
+     */
+    public void copyToClipboard() throws IOException {
+        // get clipboard
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+
+        // get content and save to clipboard
+        if(this.type == TEXT){
+            StringSelection content = new StringSelection(toText());
+            clipboard.setContents(content, null);
+        }
+        else if (this.type == IMAGE_PNG || type == IMAGE_JPG || type == IMAGE_GIF){
+            ImageSelection content = new ImageSelection(toImage());
+            clipboard.setContents(content, null);
+        }
     }
 
     // region converts
