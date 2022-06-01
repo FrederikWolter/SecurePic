@@ -122,20 +122,23 @@ public class ContainerImage {
      *
      * @param x x value of pixel.
      * @param y y value of pixel.
-     * @param a alpha value to be set.
+     * @param a alpha value (not supported).
      * @param r red value to be set.
      * @param g green value to be set.
      * @param b blue value to be set.
      */
     public void setARGB(int x, int y, byte a, byte r, byte g, byte b) {
+        // set alpha to 100% due to library not reacting to alpha values correctly
+        a = (byte) 255;
+
         // create empty int (4 byte)
         int argbValue = 0;
 
         // build argb value
-        argbValue += a << 24;   // alpha value
-        argbValue += r << 16;   // red value
-        argbValue += g << 8;    // green value
-        argbValue += b;         // blue value
+        argbValue += (a & 0xff) << 24;   // alpha value
+        argbValue += (r & 0xff) << 16;   // red value
+        argbValue += (g & 0xff) << 8;    // green value
+        argbValue += (b & 0xff);         // blue value
 
         this.image.setRGB(x, y, argbValue);
     }
