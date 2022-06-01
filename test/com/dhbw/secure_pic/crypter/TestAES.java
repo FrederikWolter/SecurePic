@@ -18,7 +18,8 @@ import static org.junit.Assert.assertNotEquals;
  * Tests the functionality of the AES class
  * A given message is encrypted and decrypted with a given password.
  * It is asserted that the decrypted message matches the one given above while the encrypted message doesn't.
- * Author: Kirolis Eskondis
+ *
+ * @author Kirolis Eskondis
  */
 public class TestAES {
 

@@ -13,8 +13,6 @@ import java.io.IOException;
 import static com.dhbw.secure_pic.data.ContainerImage.Type.JPG;
 import static com.dhbw.secure_pic.data.ContainerImage.Type.PNG;
 
-// TODO COMMENT
-
 /**
  * This class implements the functionality of the ContainerImage.<br>
  * The ContainerImage describes the image the message will be encoded to/decoded from.

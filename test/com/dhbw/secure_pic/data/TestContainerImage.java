@@ -8,6 +8,12 @@ import java.io.IOException;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
+// TODO comment
+
+/**
+ *
+ * @author Frederik Wolter
+ */
 public class TestContainerImage {
 
     @Test
