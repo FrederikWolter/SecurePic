@@ -10,7 +10,7 @@ import java.io.File;
 
 
 public class index extends Component {
-    public JPanel MainPanel_ImgCon;
+    private JPanel MainPanel_ImgCon;
     private JButton buttonStartApp;
     private JProgressBar progressBar1;
     private JRadioButton radioButton1;
@@ -45,4 +45,11 @@ public class index extends Component {
         });
     }
 
+    public JPanel getMainPanel_ImgCon() {
+        return MainPanel_ImgCon;
+    }
+
+    public JButton getButtonStartApp(){
+        return buttonStartApp;
+    }
 }

@@ -28,4 +28,11 @@ public class Receive_NoEncryption extends Component {
             }
         });
     }
+
+    public JPanel getMainPanel_RN() {
+        return MainPanel_RN;
+    }
+    public JButton getBackButton() {
+        return backButton;
+    }
 }

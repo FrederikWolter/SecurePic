@@ -30,4 +30,11 @@ public class Receive_Symmetrical extends Component {
             }
         });
     }
+
+    public JPanel getMainPanel_RS() {
+        return MainPanel_RS;
+    }
+    public JButton getBackButton() {
+        return backButton;
+    }
 }

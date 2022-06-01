@@ -38,4 +38,11 @@ public class Receive_Assymmetrical extends Component {
             }
         });
     }
+
+    public JPanel getMainPanel_RA() {
+        return MainPanel_RA;
+    }
+    public JButton getBackButton() {
+        return backButton;
+    }
 }

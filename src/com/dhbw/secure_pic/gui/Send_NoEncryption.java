@@ -47,4 +47,12 @@ public class Send_NoEncryption extends Component {
             }
         });
     }
+
+    public JPanel getMainPanel_SN() {
+        return MainPanel_SN;
+    }
+
+    public JButton getBackButton() {
+        return backButton;
+    }
 }

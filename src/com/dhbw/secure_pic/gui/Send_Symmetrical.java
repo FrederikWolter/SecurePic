@@ -47,4 +47,11 @@ public class Send_Symmetrical extends Component {
             }
         });
     }
+
+    public JPanel getMainPanel_SS() {
+        return MainPanel_SS;
+    }
+    public JButton getBackButton() {
+        return backButton;
+    }
 }
