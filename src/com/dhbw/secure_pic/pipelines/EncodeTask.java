@@ -1,5 +1,7 @@
 package com.dhbw.secure_pic.pipelines;
 
+import com.dhbw.secure_pic.data.ContainerImage;
+
 import javax.swing.*;
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class EncodeTask extends SwingWorker<ContainerImage, Void> {
         return null;
         // TODO implement
         // TODO use setProgress(): https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ProgressBarDemoProject/src/components/ProgressBarDemo.java
+        // TODO use design pattern for setProgress from called method https://stackoverflow.com/a/24946032/13777031
     }
 
     @Override

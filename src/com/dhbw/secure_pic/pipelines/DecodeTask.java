@@ -1,5 +1,7 @@
 package com.dhbw.secure_pic.pipelines;
 
+import com.dhbw.secure_pic.data.Information;
+
 import javax.swing.*;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class DecodeTask extends SwingWorker<Information, Void> {
         return null;
         // TODO implement
         // TODO use setProgress(): https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ProgressBarDemoProject/src/components/ProgressBarDemo.java
+        // TODO use design pattern for setProgress from called method https://stackoverflow.com/a/24946032/13777031
     }
 
     @Override
