@@ -75,4 +75,20 @@ public class TestInformation {
         byte[] result = info.toBEBytes();
         // TODO add automatic test?
     }
+
+    @Test
+    public void copyContentToClipboardText() throws IOException {
+        String testString = "Test !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~öäüÖÄÜ€©§¼Äÿ";
+
+        Information info = Information.getInformationFromString(testString);
+        info.copyToClipboard();
+        // TODO add automatic test?
+    }
+
+    @Test
+    public void copyContentToClipboardImage() throws IOException, IllegalTypeException {
+        Information info = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
+        info.copyToClipboard();
+        // TODO add automatic test?
+    }
 }
