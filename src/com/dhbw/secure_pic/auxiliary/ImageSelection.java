@@ -16,7 +16,7 @@ public class ImageSelection implements Transferable {
     }
 
     public DataFlavor[] getTransferDataFlavors() {
-        return new DataFlavor[] { DataFlavor.imageFlavor };
+        return new DataFlavor[]{DataFlavor.imageFlavor};
     }
 
     public boolean isDataFlavorSupported(DataFlavor flavor) {

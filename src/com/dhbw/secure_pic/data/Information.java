@@ -1,17 +1,15 @@
 package com.dhbw.secure_pic.data;
 
+import com.dhbw.secure_pic.auxiliary.ImageSelection;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalLengthException;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
-import com.dhbw.secure_pic.auxiliary.ImageSelection;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-
-import java.io.*;
-
 import java.awt.image.BufferedImage;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
@@ -195,11 +193,10 @@ public class Information {
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 
         // get content and save to clipboard
-        if(this.type == TEXT){
+        if (this.type == TEXT) {
             StringSelection content = new StringSelection(toText());
             clipboard.setContents(content, null);
-        }
-        else if (this.type == IMAGE_PNG || type == IMAGE_JPG || type == IMAGE_GIF){
+        } else if (this.type == IMAGE_PNG || type == IMAGE_JPG || type == IMAGE_GIF) {
             ImageSelection content = new ImageSelection(toImage());
             clipboard.setContents(content, null);
         }

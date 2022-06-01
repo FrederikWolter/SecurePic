@@ -1,7 +1,7 @@
 package com.dhbw.secure_pic.data;
 
-import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.auxiliary.ImageSelection;
+import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,7 +10,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import static com.dhbw.secure_pic.data.ContainerImage.Type.*;
+import static com.dhbw.secure_pic.data.ContainerImage.Type.JPG;
+import static com.dhbw.secure_pic.data.ContainerImage.Type.PNG;
 
 // TODO COMMENT
 
@@ -106,7 +107,7 @@ public class ContainerImage {
      * Copy container image to Windows clip board. <br>
      * Works for images and text.
      */
-    public void copyToClipboard(){
+    public void copyToClipboard() {
         // get clipboard
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 
