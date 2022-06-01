@@ -6,6 +6,10 @@ import com.dhbw.secure_pic.data.Information;
 // TODO implement
 // TODO comment
 
+/**
+ *
+ * @author Frederik Wolter
+ */
 public class LeastSignificantBit extends Coder {
 
     public LeastSignificantBit(ContainerImage img) {

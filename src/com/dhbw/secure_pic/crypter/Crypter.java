@@ -16,7 +16,10 @@ import java.security.spec.InvalidKeySpecException;
 // TODO reduce number of specific exceptions? more general?
 
 /**
- * This class implements the Crypter class used to encrypt/decrypt messages
+ * This class implements the Crypter used to encrypt/decrypt messages.<br>
+ * Class is abstract, hence its functionality could only be used through its children.
+ *
+ * @author Kirolis Eskondis supported by Frederik Wolter
  */
 
 public abstract class Crypter {

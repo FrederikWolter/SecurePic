@@ -13,6 +13,12 @@ import java.nio.charset.StandardCharsets;
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
 
+// TODO comment
+
+/**
+ *
+ * @author Frederik Wolter
+ */
 public class TestInformation {
 
     @Test
