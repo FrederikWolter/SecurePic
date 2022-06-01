@@ -1,7 +1,8 @@
 package com.dhbw.secure_pic.pipelines;
 
+import com.dhbw.secure_pic.data.ContainerImage;
+
 import javax.swing.*;
-import java.awt.image.BufferedImage;
 import java.util.List;
 
 // TODO comment
@@ -11,21 +12,30 @@ import java.util.List;
 /**
  * @author Thu Giang Tran supported by Frederik Wolter
  */
-public class ImageLoadTask extends SwingWorker<BufferedImage, Void> {
+public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
 
     // region attributes
     private final String path;
     // endregion
 
 
-    public ImageLoadTask(String path) {
+    public ContainerImageLoadTask(String path) {
         this.path = path;
     }
 
     @Override
-    protected BufferedImage doInBackground() throws Exception {
-        return null;
-        // TODO implement
+    protected ContainerImage doInBackground() throws Exception {
+        //Initialize progress property.
+        setProgress(0);
+
+        //create new ContainerImage instance from path
+        ContainerImage containerImage = new ContainerImage(this.path);
+
+        //update progress
+        setProgress(100);
+        // TODO use progress inside method
+
+        return containerImage;
         // TODO use setProgress(): https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ProgressBarDemoProject/src/components/ProgressBarDemo.java
         // TODO use design pattern for setProgress from called method https://stackoverflow.com/a/24946032/13777031
     }
