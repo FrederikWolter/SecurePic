@@ -12,8 +12,8 @@ import com.dhbw.secure_pic.data.Information;
  */
 public class LeastSignificantBit extends Coder {
 
-    public LeastSignificantBit(ContainerImage img) {
-        super(img);
+    public LeastSignificantBit(ContainerImage image) {
+        super(image);
     }
 
     @Override
@@ -24,5 +24,10 @@ public class LeastSignificantBit extends Coder {
     @Override
     public Information decode() {
         return null;    // TODO implement
+    }
+
+    @Override
+    public int getCapacity() {
+        return 0;
     }
 }
