@@ -54,7 +54,7 @@ public class Information {
     }
 
     /**
-     * Plain Constructor of Information.<br>
+     * Plain Constructor of Information - <b>Sender</b><br>
      * Used for <i>internally</i> creating an information object by static methods - hence private.
      *
      * @param data raw content data (without any metadata).
@@ -64,6 +64,20 @@ public class Information {
         this.data = data;
         this.type = type;
         this.length = data.length;
+    }
+
+    /**
+     * Plain Constructor of Information - <b>Receiver</b><br>
+     * Only saving metadata, actual data is later added through setData().
+     * Used for <i>internally</i> creating an information object by static methods - hence private.
+     *
+     * @param type type of data saved in information.
+     * @param length length of data saved in information.
+     */
+    private Information(Type type, int length) {
+        this.data = null;
+        this.type = type;
+        this.length = length;
     }
 
     /**
@@ -127,9 +141,8 @@ public class Information {
      * @return created information.
      *
      * @throws IllegalTypeException   if type id is not legal.
-     * @throws IllegalLengthException if array is shorter than length suggests.
      */
-    public static Information getInformationFromData(byte[] dataRaw) throws IllegalTypeException, IllegalLengthException {
+    public static Information getInformationFromData(byte[] dataRaw) throws IllegalTypeException {
         // using ByteBuffer for handling binary data TODO maybe do self? if time
         // see https://stackoverflow.com/a/1936865/13777031, https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html
         ByteBuffer buffer = ByteBuffer.wrap(dataRaw)
@@ -137,7 +150,6 @@ public class Information {
 
         // placeholder variables to be initialized
         Type type;
-        byte[] data;
 
         // readout data from buffer
         int length = buffer.getInt();
@@ -149,17 +161,8 @@ public class Information {
             throw new IllegalTypeException("Invalid content type in received data: " + typeRaw);
         }
 
-        // copy rest data from dataRaw
-        int restLength = dataRaw.length - META_LENGTH;
-
-        if (restLength >= length) {     // valid length according to length metadata?
-            data = Arrays.copyOfRange(dataRaw, META_LENGTH, dataRaw.length);
-        } else {
-            throw new IllegalLengthException("Invalid content length: meta=" + length + " actual=" + restLength);
-        }
-
         // build data object
-        return new Information(data, type);
+        return new Information(type, length);
     }
 
     /**
@@ -238,11 +241,28 @@ public class Information {
     }
 
     /**
-     * Method for setting the data of an information e.g. after it was encrypted.
+     * Method for setting the data after precess finished reading if from received container image.<br>
+     * (Information length should match already defined length - or exception occurs)
      *
      * @param data data to be saved in information.
+     *
+     * @throws IllegalLengthException
      */
-    public void setData(byte[] data) {
+    public void setData(byte[] data) throws IllegalLengthException {
+        if (data.length == this.length){
+            this.data = data;
+        } else{
+            throw new IllegalLengthException("Invalid content length: should=" + length + " new=" + data.length);
+        }
+    }
+
+    /**
+     * Method for setting the data of an information after it was encrypted. <br>
+     * (Information length can be changed through this setter)
+     *
+     * @param data encrypted data to be saved in information.
+     */
+    public void setEncryptedData(byte[] data) {
         this.data = data;
         this.length = data.length;
     }

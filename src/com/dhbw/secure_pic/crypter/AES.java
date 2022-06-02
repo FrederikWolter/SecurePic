@@ -58,7 +58,7 @@ public class AES extends Crypter {
         byte[] encryptedBytes = cipher.doFinal(information.getData());
         byte[] outPutBytes = Base64.getEncoder().encode(encryptedBytes);
 
-        information.setData(outPutBytes);
+        information.setEncryptedData(outPutBytes);
         return information;
     }
 
@@ -74,7 +74,7 @@ public class AES extends Crypter {
         cipher.init(Cipher.DECRYPT_MODE, key, iv);
         byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(information.toText()));
 
-        information.setData(decryptedBytes);
+        information.setEncryptedData(decryptedBytes);
         return information;
     }
 
