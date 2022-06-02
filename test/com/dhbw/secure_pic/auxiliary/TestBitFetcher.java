@@ -19,17 +19,11 @@ public class TestBitFetcher {
 
         int counter = 0;
 
-        assertEquals(0, fetcher.next());
-        assertEquals(0, fetcher.next());
-        assertEquals(1, fetcher.next());
-        assertEquals(1, fetcher.next());
-        assertEquals(0, fetcher.next());
+        for (int i: control) {
+            assertEquals(i, fetcher.next());
 
-//        for (int i: control) {
-//            assertEquals(i, fetcher.next());
-//            assertTrue(fetcher.hasNext());
-//
-//            counter += 1;
-//        }
+            if (counter < control.length - 1) assertTrue(fetcher.hasNext());
+            counter += 1;
+        }
     }
 }
