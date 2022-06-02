@@ -44,6 +44,7 @@ public class BitFetcher {
 
     /**
      * For testing whether fetcher has another bit to get through next().
+     *
      * @return true if more bits available.
      */
     public boolean hasNext() {

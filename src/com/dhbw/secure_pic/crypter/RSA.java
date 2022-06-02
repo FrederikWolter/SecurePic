@@ -8,6 +8,7 @@ import com.dhbw.secure_pic.data.Information;
 /**
  * This class implements the RSA encryption method used to encrypt/decrypt messages.<br>
  * It extends the Crypter class.
+ *
  * @author
  */
 public class RSA extends Crypter {

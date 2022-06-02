@@ -166,11 +166,11 @@ public class ContainerImage {
         return values;
     }
 
-    public int getWidth(){
+    public int getWidth() {
         return this.image.getWidth();
     }
 
-    public int getHeight(){
+    public int getHeight() {
         return this.image.getHeight();
     }
 

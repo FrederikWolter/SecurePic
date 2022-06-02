@@ -2,7 +2,8 @@ package com.dhbw.secure_pic.auxiliary;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -19,7 +20,7 @@ public class TestBitFetcher {
 
         int counter = 0;
 
-        for (int i: control) {
+        for (int i : control) {
             assertEquals(i, fetcher.next());
 
             if (counter < control.length - 1) assertTrue(fetcher.hasNext());

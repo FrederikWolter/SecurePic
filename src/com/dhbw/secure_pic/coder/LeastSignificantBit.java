@@ -39,7 +39,7 @@ public class LeastSignificantBit extends Coder {
         // test whether information will fit into container image
         int infoLength = info.getTotalLength();
         int imageCapacity = this.getCapacity();
-        if(infoLength > imageCapacity){
+        if (infoLength > imageCapacity) {
             throw new InsufficientCapacityException("The given information does not fit in the selected container image: " + infoLength + " > " + imageCapacity);
         }
 
@@ -54,15 +54,15 @@ public class LeastSignificantBit extends Coder {
         boolean hasNext = true;
 
         // encode information into image by iterating over each pixel
-        for(int x = 0; x < width && hasNext; x++){
-            for(int y = 0; y < height && hasNext; y++){
+        for (int x = 0; x < width && hasNext; x++) {
+            for (int y = 0; y < height && hasNext; y++) {
                 // get pixel data from x , y
                 byte[] pixel = super.image.getARGB(x, y);   // [alpha, red, green, blue]
 
                 // encode bits to the least significant bit of red, green, blue channel - leave alpha untouched
-                for(int i = 1; i < 4 && hasNext; i++){
+                for (int i = 1; i < 4 && hasNext; i++) {
                     // is there another bit in fetcher?
-                    if(fetcher.hasNext()){
+                    if (fetcher.hasNext()) {
                         byte nextBit = fetcher.next();              // get next bit from fetcher
                         pixel[i] = (byte) (pixel[i] & 0b11111110);  // keep pixel value except last bit
                         pixel[i] += nextBit;                        // set last bit with next bit
@@ -109,7 +109,7 @@ public class LeastSignificantBit extends Coder {
                 // get LSB from red, green, blue channel - scip alpha
                 for (int i = 1; i < 4 && (information == null || (information.getLength()) * 8L > assembler.getPosition()); i++) {
                     // test whether enough data is decoded for analyzing metadata
-                    if(information == null && assembler.getPosition() == Information.META_LENGTH * 8) {
+                    if (information == null && assembler.getPosition() == Information.META_LENGTH * 8) {
                         byte[] meta = assembler.toByteArray();                  // get data from assembler
                         assembler.clear();                                      // clear assembler
                         information = Information.getInformationFromData(meta); // create information object from metadata
@@ -120,9 +120,9 @@ public class LeastSignificantBit extends Coder {
         }
 
         // validate length of data
-        if (information != null && information.getLength() * 8L != assembler.getPosition()){    // for loop ended before length was reached
+        if (information != null && information.getLength() * 8L != assembler.getPosition()) {    // for loop ended before length was reached
             throw new IllegalLengthException("The decoded data from the container image does not match the specified length.");
-        } else if(information != null){     // length not long enough to get all metadata
+        } else if (information != null) {     // length not long enough to get all metadata
             information.setData(assembler.toByteArray());
         }
 
@@ -143,6 +143,6 @@ public class LeastSignificantBit extends Coder {
 
         int bitsPerPixel = 3;       // red, green, blue get modified
 
-        return (int) (((long) width * height * bitsPerPixel)/8);
+        return (int) (((long) width * height * bitsPerPixel) / 8);
     }
 }

@@ -14,7 +14,6 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 import static com.dhbw.secure_pic.data.Information.Type.*;
 
@@ -72,7 +71,7 @@ public class Information {
      * Only saving metadata, actual data is later added through setData().
      * Used for <i>internally</i> creating an information object by static methods - hence private.
      *
-     * @param type type of data saved in information.
+     * @param type   type of data saved in information.
      * @param length length of data saved in information.
      */
     private Information(Type type, int length) {
@@ -92,7 +91,9 @@ public class Information {
     public static Information getInformationFromString(String text) {
         // create information by converting string to byte array with UTF-8.
         // see https://stackoverflow.com/a/18571348/13777031
-        return new Information(text.getBytes(StandardCharsets.UTF_8), TEXT);
+
+        byte[] data = text.getBytes(StandardCharsets.UTF_8);
+        return new Information(data, TEXT);
     }
 
     /**
@@ -137,11 +138,11 @@ public class Information {
      * Get information object from raw data array read from encoded image.<br>
      * Internally uses private Constructor for creating an information.
      *
-     * @param dataRaw raw data array read from carrier image.
+     * @param dataRaw raw data array read from container image.
      *
      * @return created information.
      *
-     * @throws IllegalTypeException   if type id is not legal.
+     * @throws IllegalTypeException if type id is not legal.
      */
     public static Information getInformationFromData(byte[] dataRaw) throws IllegalTypeException {
         // using ByteBuffer for handling binary data TODO maybe do self? if time
@@ -240,7 +241,7 @@ public class Information {
      *
      * @return BitFetcher representing the information.
      */
-    public BitFetcher toBitFetcher(){
+    public BitFetcher toBitFetcher() {
         return new BitFetcher(toBEBytes());
     }
 
@@ -260,9 +261,9 @@ public class Information {
      * @throws IllegalLengthException
      */
     public void setData(byte[] data) throws IllegalLengthException {
-        if (data.length == this.length){
+        if (data.length == this.length) {
             this.data = data;
-        } else{
+        } else {
             throw new IllegalLengthException("Invalid content length: should=" + length + " new=" + data.length);
         }
     }
