@@ -66,6 +66,7 @@ public class TestInformation {
         byte[] rawData = info.toBEBytes();
 
         Information info2 = Information.getInformationFromData(rawData);
+        info2.setData(info.getData());
 
         assertEquals(info.getLength(), info2.getLength());
         assertEquals(info.getType(), info2.getType());
