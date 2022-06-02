@@ -10,11 +10,14 @@ import java.util.List;
 // TODO see in general https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html
 
 /**
- * @author Thu Giang Tran supported by Frederik Wolter
+ * Background task for loading selected image from the drive and forming it into a container image.
+ *
+ * @author Thu Giang Tran, Frederik Wolter
  */
 public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
 
     // region attributes
+    /** Path to image which should be loaded. */
     private final String path;
     // endregion
 
@@ -25,18 +28,17 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
 
     @Override
     protected ContainerImage doInBackground() throws Exception {
-        //Initialize progress property.
+        // initialize progress property.
         setProgress(0);
 
-        //create new ContainerImage instance from path
+        // create new ContainerImage instance from path
         ContainerImage containerImage = new ContainerImage(this.path);
 
-        //update progress
+        // update progress
         setProgress(100);
-        // TODO use progress inside method
+        // TODO use progress inside method?
 
         return containerImage;
-        // TODO use setProgress(): https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ProgressBarDemoProject/src/components/ProgressBarDemo.java
         // TODO use design pattern for setProgress from called method https://stackoverflow.com/a/24946032/13777031
     }
 
@@ -52,4 +54,5 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
     protected void process(List<Void> chunks) {
         super.process(chunks);
     }
+
 }
