@@ -23,7 +23,6 @@ public class TestInformation {
 
     @Test
     public void getInformationFromString() {
-        @SuppressWarnings("SpellCheckingInspection")
         String testString = "Test !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~öäüÖÄÜ€©§¼Äÿ";
 
         // create information from test string
@@ -59,7 +58,6 @@ public class TestInformation {
 
     @Test
     public void getInformationFromData() throws IllegalLengthException, IllegalTypeException {
-        @SuppressWarnings("SpellCheckingInspection")
         String testString = "Test !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~öäüÖÄÜ€©§¼Äÿ";
 
         Information info = Information.getInformationFromString(testString);

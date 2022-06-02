@@ -3,8 +3,6 @@ package com.dhbw.secure_pic.data;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import org.junit.Test;
 
-import java.io.IOException;
-
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
@@ -36,14 +34,14 @@ public class TestContainerImage {
     }
 
     @Test
-    public void copyToClipboard() throws IllegalTypeException, IOException {
+    public void copyToClipboard() throws IllegalTypeException {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
         image.copyToClipboard();
         // TODO add automatic test?
     }
 
     @Test
-    public void testARGB() throws IllegalTypeException, IOException {
+    public void testARGB() throws IllegalTypeException {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
 
         byte[] result;

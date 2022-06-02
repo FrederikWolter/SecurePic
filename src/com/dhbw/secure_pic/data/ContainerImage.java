@@ -42,10 +42,8 @@ public class ContainerImage {
      * @param path path to container image to be loaded given by user.
      *
      * @throws IllegalTypeException
-     * @throws IOException
      */
-    public ContainerImage(String path) throws IllegalTypeException, IOException {
-        // TODO wrap ioexception
+    public ContainerImage(String path) throws IllegalTypeException {
         // set attributes
         this.path = path;
 
@@ -62,7 +60,11 @@ public class ContainerImage {
             throw new IllegalTypeException("Invalid path given for image file. Recognized extension '" + extension + "'.");
 
         // read in image from path
-        this.image = ImageIO.read(new File(path));
+        try{
+            this.image = ImageIO.read(new File(path));
+        } catch (IOException e){
+            throw new IllegalTypeException("An error occurred loading the selected container image: '" + e.getMessage() + "'");
+        }
     }
 
     /**

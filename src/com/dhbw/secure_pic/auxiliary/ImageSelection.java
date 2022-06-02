@@ -14,7 +14,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
  */
 public class ImageSelection implements Transferable {
     // region attributes
-    private Image image;
+    private final Image image;
     // endregion
 
     /**

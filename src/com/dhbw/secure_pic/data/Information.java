@@ -106,8 +106,7 @@ public class Information {
      *
      * @throws IllegalTypeException
      */
-    public static Information getInformationFromImage(String path) throws IOException, IllegalTypeException {
-        // TODO wrap ioexception?
+    public static Information getInformationFromImage(String path) throws IllegalTypeException {
         // see https://mkyong.com/java/how-to-convert-bufferedimage-to-byte-in-java/
 
         // get file extension from path
@@ -124,11 +123,21 @@ public class Information {
             throw new IllegalTypeException("Invalid path given for image file. Recognized extension '" + extension + "'.");
 
         // read in image from path
-        BufferedImage image = ImageIO.read(new File(path));
+        BufferedImage image;
+        try{
+            image = ImageIO.read(new File(path));
+        } catch (IOException e){
+            throw new IllegalTypeException("An error occurred loading the selected image: '" + e.getMessage() + "'");
+        }
+
 
         // convert BufferedImage to byte[]
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, extension, byteArrayOutputStream);
+        try{
+            ImageIO.write(image, extension, byteArrayOutputStream);
+        } catch (IOException e){
+            throw new IllegalTypeException("An error occurred loading the selected image: '" + e.getMessage() + "'");
+        }
         byte[] data = byteArrayOutputStream.toByteArray();
 
         return new Information(data, type);
@@ -145,7 +154,7 @@ public class Information {
      * @throws IllegalTypeException if type id is not legal.
      */
     public static Information getInformationFromData(byte[] dataRaw) throws IllegalTypeException {
-        // using ByteBuffer for handling binary data TODO maybe do self? if time
+        // using ByteBuffer for handling binary data
         // see https://stackoverflow.com/a/1936865/13777031, https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html
         ByteBuffer buffer = ByteBuffer.wrap(dataRaw)
                 .order(ByteOrder.BIG_ENDIAN);   // set buffer to use big-endian
@@ -174,7 +183,7 @@ public class Information {
      * @return created big endian array.
      */
     public byte[] toBEBytes() {
-        // using ByteBuffer for handling binary data TODO maybe do self? if time
+        // using ByteBuffer for handling binary data
         // see https://stackoverflow.com/a/1936865/13777031, https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html
         ByteBuffer buffer = ByteBuffer.allocate(META_LENGTH + this.length)
                 .order(ByteOrder.BIG_ENDIAN);   // set buffer to use big-endian
