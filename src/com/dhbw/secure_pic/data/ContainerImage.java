@@ -166,6 +166,14 @@ public class ContainerImage {
         return values;
     }
 
+    public int getWidth(){
+        return this.image.getWidth();
+    }
+
+    public int getHeight(){
+        return this.image.getHeight();
+    }
+
     public String getPath() {
         return path;
     }

@@ -1,5 +1,6 @@
 package com.dhbw.secure_pic.data;
 
+import com.dhbw.secure_pic.auxiliary.BitFetcher;
 import com.dhbw.secure_pic.auxiliary.ImageSelection;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalLengthException;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
@@ -233,6 +234,16 @@ public class Information {
         }
         return null;
     }
+
+    /**
+     * Get the data stored information as a BitFetcher to encode it into a container image.
+     *
+     * @return BitFetcher representing the information.
+     */
+    public BitFetcher toBitFetcher(){
+        return new BitFetcher(toBEBytes());
+    }
+
     // endregion
 
     // region getter & setter
@@ -273,6 +284,15 @@ public class Information {
 
     public int getLength() {
         return length;
+    }
+
+    /**
+     * Get the total length of information including metadata.
+     *
+     * @return total length of information including metadata in byte.
+     */
+    public int getTotalLength() {
+        return length + META_LENGTH;
     }
 
     // endregion
