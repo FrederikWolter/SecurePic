@@ -71,4 +71,12 @@ public class BitAssembler {
         data.clear();
         position = 0;
     }
+
+    // region getter
+
+    public long getPosition() {
+        return position;
+    }
+
+    // endregion
 }

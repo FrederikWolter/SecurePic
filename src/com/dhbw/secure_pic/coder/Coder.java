@@ -1,5 +1,7 @@
 package com.dhbw.secure_pic.coder;
 
+import com.dhbw.secure_pic.auxiliary.exceptions.IllegalLengthException;
+import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.auxiliary.exceptions.InsufficientCapacityException;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
@@ -31,7 +33,7 @@ public abstract class Coder {
 
     public abstract ContainerImage encode(Information info) throws InsufficientCapacityException;
 
-    public abstract Information decode();
+    public abstract Information decode() throws IllegalTypeException, IllegalLengthException;
 
     public abstract int getCapacity();
 
