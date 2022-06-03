@@ -11,4 +11,24 @@ public class Start_ReceiveChooseEncryption {
     private JButton symmetricalButton;
     private JButton asymmetricalButton;
     private JPanel MainPanel_RCE;
+
+    public JButton getBackButton() {
+        return backButton;
+    }
+
+    public JButton getNoEncryptionButton() {
+        return noEncryptionButton;
+    }
+
+    public JButton getSymmetricalButton() {
+        return symmetricalButton;
+    }
+
+    public JButton getAsymmetricalButton() {
+        return asymmetricalButton;
+    }
+
+    public JPanel getMainPanel_RCE() {
+        return MainPanel_RCE;
+    }
 }

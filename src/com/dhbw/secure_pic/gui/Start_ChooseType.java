@@ -9,4 +9,20 @@ public class Start_ChooseType {
     private JButton sendButton;
     private JButton receiveButton;
     private JPanel MainPanel_ST;
+
+    public JButton getCloseButton() {
+        return closeButton;
+    }
+
+    public JButton getSendButton() {
+        return sendButton;
+    }
+
+    public JButton getReceiveButton() {
+        return receiveButton;
+    }
+
+    public JPanel getMainPanel_ST() {
+        return MainPanel_ST;
+    }
 }

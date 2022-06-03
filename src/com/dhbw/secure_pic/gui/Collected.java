@@ -6,9 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Collected {
-    private ChooseType chooseType = new ChooseType();
-    private ChooseEncryptionSend chooseEncryptionSend = new ChooseEncryptionSend();
-    private ChooseEncryptionReceive chooseEncryptionReceive = new ChooseEncryptionReceive();
+    private Start_ChooseType chooseType = new Start_ChooseType();
+    private Start_SendChooseEncryption chooseEncryptionSend = new Start_SendChooseEncryption();
+    private Start_ReceiveChooseEncryption chooseEncryptionReceive = new Start_ReceiveChooseEncryption();
     private Receive_NoEncryption receive_noEncryption = new Receive_NoEncryption();
     private Receive_Assymmetrical receive_assymmetrical = new Receive_Assymmetrical();
     private Receive_Symmetrical receive_symmetrical = new Receive_Symmetrical();
@@ -31,9 +31,9 @@ public class Collected {
         panelCont.setLayout(cl);
 
         JPanel imgCon = index.getMainPanel_ImgCon();
-        JPanel typeChooser = chooseType.getTypePanel();
-        JPanel encryptionChooserSend = chooseEncryptionSend.getChoosePanel();
-        JPanel encryptionChooserReceive = chooseEncryptionReceive.getChoosePanel();
+        JPanel typeChooser = chooseType.getMainPanel_ST();
+        JPanel encryptionChooserSend = chooseEncryptionSend.getMainPanel_SCE();
+        JPanel encryptionChooserReceive = chooseEncryptionReceive.getMainPanel_RCE();
         JPanel recNoEnc = receive_noEncryption.getMainPanel_RN();
         JPanel recAss = receive_assymmetrical.getMainPanel_RA();
         JPanel recSym = receive_symmetrical.getMainPanel_RS();
@@ -62,14 +62,17 @@ public class Collected {
     public void show(){
         frame.setVisible(true);
         JButton secretButton = index.getButtonStartApp();
-        JButton typeSend = chooseType.getSend();
-        JButton typeReceive = chooseType.getReceive();
-        JButton recNoEnc = chooseEncryptionReceive.getNoEncryption();
-        JButton recAss = chooseEncryptionReceive.getAsymmetric();
-        JButton recSym = chooseEncryptionReceive.getSymmetric();
-        JButton sendNoEnc = chooseEncryptionSend.getNoEncryption();
-        JButton sendAss = chooseEncryptionSend.getAsymmetric();
-        JButton sendSym = chooseEncryptionSend.getSymmetric();
+        JButton typeSend = chooseType.getSendButton();
+        JButton typeReceive = chooseType.getReceiveButton();
+        JButton typeClose = chooseType.getCloseButton();
+        JButton recNoEnc = chooseEncryptionReceive.getNoEncryptionButton();
+        JButton recAss = chooseEncryptionReceive.getAsymmetricalButton();
+        JButton recSym = chooseEncryptionReceive.getSymmetricalButton();
+        JButton recBack = chooseEncryptionReceive.getBackButton();
+        JButton sendNoEnc = chooseEncryptionSend.getNoEncryptionButton();
+        JButton sendAss = chooseEncryptionSend.getAsymmetricalButton();
+        JButton sendSym = chooseEncryptionSend.getSymmetricalButton();
+        JButton sendBack = chooseEncryptionSend.getBackButton();
         JButton backRN = receive_noEncryption.getBackButton();
         JButton backRA = receive_assymmetrical.getBackButton();
         JButton backRS = receive_symmetrical.getBackButton();
@@ -92,7 +95,13 @@ public class Collected {
         typeReceive.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cl.show(panelCont,"4"); //muss vllt 2 Choose Encryption Fenster geben
+                cl.show(panelCont,"4");
+            }
+        });
+        typeClose.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
             }
         });
         recNoEnc.addActionListener(new ActionListener() {
@@ -113,6 +122,12 @@ public class Collected {
                 cl.show(panelCont, "7");
             }
         });
+        recBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cl.show(panelCont, "2");
+            }
+        });
         sendNoEnc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -129,6 +144,12 @@ public class Collected {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cl.show(panelCont, "10");
+            }
+        });
+        sendBack.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cl.show(panelCont, "2");
             }
         });
         backRN.addActionListener(new ActionListener() {

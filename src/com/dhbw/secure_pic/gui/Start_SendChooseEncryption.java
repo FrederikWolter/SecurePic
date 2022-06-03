@@ -11,4 +11,24 @@ public class Start_SendChooseEncryption {
     private JButton noEncryptionButton;
     private JButton symmetricalButton;
     private JButton asymmetricalButton;
+
+    public JButton getBackButton() {
+        return backButton;
+    }
+
+    public JButton getNoEncryptionButton() {
+        return noEncryptionButton;
+    }
+
+    public JButton getSymmetricalButton() {
+        return symmetricalButton;
+    }
+
+    public JButton getAsymmetricalButton() {
+        return asymmetricalButton;
+    }
+
+    public JPanel getMainPanel_SCE() {
+        return MainPanel_SCE;
+    }
 }

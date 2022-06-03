@@ -14,8 +14,8 @@ public class Receive_Assymmetrical extends Component {
     private JComboBox comboBox_CodAlg;
     private JComboBox comboBox_EncAlg;
     private JButton uploadButton3;
-    private JCheckBox encodePuplicKeyIntoCheckBox;
-    private JButton generateKaeyButton;
+    private JCheckBox encodePublicKeyIntoCheckBox;
+    private JButton generateKeyButton;
     private JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
