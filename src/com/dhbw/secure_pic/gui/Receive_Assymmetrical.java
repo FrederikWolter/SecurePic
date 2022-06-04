@@ -8,6 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+// TODO comment (normal comments + JDocs) # only delete if final#
+
+// TODO Assymmetrical -> Asymmetrical
+
 public class Receive_Assymmetrical extends Component {
     private JPanel MainPanel_RA;
     private JButton uploadButton2;
@@ -28,7 +32,7 @@ public class Receive_Assymmetrical extends Component {
         uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = fs.SelectFile(Receive_Assymmetrical.this);
+                File file = fs.SelectFile(Receive_Assymmetrical.this);  // TODO unused?
             }
         });
         uploadButton3.addActionListener(new ActionListener() {

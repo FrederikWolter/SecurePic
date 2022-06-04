@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+// TODO comment (normal comments + JDocs) # only delete if final#
+
 public class Send_Symmetrical extends Component {
     private JPanel MainPanel_SS;
     private JProgressBar progressBar1;

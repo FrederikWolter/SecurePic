@@ -2,6 +2,8 @@ package com.dhbw.secure_pic.gui;
 
 import javax.swing.*;
 
+// TODO comment (normal comments + JDocs) # only delete if final#
+
 public class Start_ChooseType {
     private JTextPane loremIpsumTextPane;
     private JTextPane loremIpsumTextPane1;
