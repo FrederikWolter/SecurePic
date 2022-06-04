@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+// TODO comment (normal comments + JDocs) # only delete if final#
+
+// TODO rename to a more descriptive name
 
 public class index extends Component {
     private JPanel MainPanel_ImgCon;
@@ -29,7 +32,7 @@ public class index extends Component {
         buttonStartApp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //.setTitle("SecurePick");
+                //.setTitle("SecurePic");
 
             }
         });
@@ -38,7 +41,7 @@ public class index extends Component {
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 if (e.getSource() == uploadButton) {
-                    File file =fs.SelectFile(index.this);
+                    File file =fs.SelectFile(index.this);   // TODO unused statement
 
                 }
             }

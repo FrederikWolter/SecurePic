@@ -5,6 +5,8 @@ import java.awt.*;
 
 import static javax.swing.SwingConstants.CENTER;
 
+// TODO comment (normal comments + JDocs) # only delete if final#
+
 public class ChooseType {
     private JButton send;
     private JButton receive;
@@ -27,6 +29,8 @@ public class ChooseType {
     }
 
     public ChooseType() {
+        // TODO why placing swing elements in code instead of xml forms? DUPLICATE WITH Start_ Forms!
+
         typePanel = new JPanel();
         //frame.setTitle("Choose Type");
         typePanel.setLayout(new GridLayout(1,1));

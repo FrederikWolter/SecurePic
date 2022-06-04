@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// TODO comment (normal comments + JDocs) # only delete if final#
+
 public class Collected {
     private Start_ChooseType chooseType = new Start_ChooseType();
     private Start_SendChooseEncryption chooseEncryptionSend = new Start_SendChooseEncryption();
@@ -30,6 +32,7 @@ public class Collected {
         frame.setMinimumSize(new Dimension(800, 500));
         panelCont.setLayout(cl);
 
+        // TODO Simplify to component instead of jpanel? should work
         JPanel imgCon = index.getMainPanel_ImgCon();
         JPanel typeChooser = chooseType.getMainPanel_ST();
         JPanel encryptionChooserSend = chooseEncryptionSend.getMainPanel_SCE();
@@ -61,6 +64,8 @@ public class Collected {
 
     public void show(){
         frame.setVisible(true);
+
+        // TODO do this in each class?
         JButton secretButton = index.getButtonStartApp();
         JButton typeSend = chooseType.getSendButton();
         JButton typeReceive = chooseType.getReceiveButton();

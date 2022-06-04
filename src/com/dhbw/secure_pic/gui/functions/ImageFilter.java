@@ -3,28 +3,27 @@ package com.dhbw.secure_pic.gui.functions;
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
+// TODO comment (normal comments + JDocs) # only delete if final#
+
 public class ImageFilter extends FileFilter {
 
     //Accept all directories and all gif, jpg, tiff, or png files.
     public boolean accept(File f) {
-        if (f.isDirectory()) {
+        if (f.isDirectory()) {  // TODO do we accept dirs as input?
             return true;
         }
 
         String extension = Utils.getExtension(f);
         if (extension != null) {
-            if (extension.equals(Utils.tiff) ||
+            if (extension.equals(Utils.tiff) ||     // TODO can probably not be handled by backend, remove?
                     extension.equals(Utils.tif) ||
                     extension.equals(Utils.gif) ||
                     extension.equals(Utils.jpeg) ||
                     extension.equals(Utils.jpg) ||
                     extension.equals(Utils.png)) {
                 return true;
-            } else {
-                return false;
             }
         }
-
         return false;
     }
 
@@ -36,6 +35,9 @@ public class ImageFilter extends FileFilter {
 
 class Utils {
 
+    // TODO reason for extra class? maybe include in main class for overview purposes?
+
+    // TODO rename to fit static naming theme
     public final static String jpeg = "jpeg";
     public final static String jpg = "jpg";
     public final static String gif = "gif";

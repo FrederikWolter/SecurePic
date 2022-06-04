@@ -8,7 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+// TODO comment (normal comments + JDocs) # only delete if final#
+
 public class Receive_Symmetrical extends Component {
+    // TODO universal naming theme with descriptive names
     private JProgressBar progressBar1;
     private JPanel LeftPanel;
     private JButton backButton;

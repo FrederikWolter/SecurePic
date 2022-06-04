@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+// TODO comment (normal comments + JDocs) # only delete if final#
+
 public class Receive_NoEncryption extends Component {
     private JPanel MainPanel_RN;
     private JProgressBar progressBar1;
@@ -24,7 +26,7 @@ public class Receive_NoEncryption extends Component {
         uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = fs.SelectFile(Receive_NoEncryption.this);
+                File file = fs.SelectFile(Receive_NoEncryption.this);   // TODO unused
             }
         });
     }

@@ -5,6 +5,8 @@ import java.awt.*;
 
 import static javax.swing.SwingConstants.CENTER;
 
+// TODO comment (normal comments + JDocs) # only delete if final#
+
 public class ChooseEncryptionReceive {
     private JButton noEncryption;
     private JButton symmetric;
@@ -28,6 +30,8 @@ public class ChooseEncryptionReceive {
     }
 
     public ChooseEncryptionReceive(){
+        // TODO why placing swing elements in code instead of xml forms? DUPLICATE WITH Start_ Forms!
+
         encryptionPanel = new JPanel();
         choosePanel = new JPanel();
         noEncryption = new JButton("No Encryption");
