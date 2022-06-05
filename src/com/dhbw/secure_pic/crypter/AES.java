@@ -39,7 +39,7 @@ public class AES extends Crypter {
     /**
      * @param password is the password entered by the user
      */
-    public AES(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public AES(String password) {
         this.key = getKeyFromPassword(password);
         this.algorithm = "AES";
     }
@@ -89,7 +89,7 @@ public class AES extends Crypter {
         for(int i= 0;i<password.length() && i<32;i++){
             keyBytes[i] = password.getBytes()[i];
         }
-        return new SecretKeySpec(keyBytes, "AES");
+        return new CrypterKey(keyBytes, "AES");
     }
 
 }
