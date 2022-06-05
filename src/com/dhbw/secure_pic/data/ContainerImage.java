@@ -100,7 +100,7 @@ public class ContainerImage {
         if (!format.equals(ContainerImage.getFileExtension(destPath)))
             throw new IllegalTypeException("Given extension of path does not match the type of image.");
 
-        ImageIO.write(this.image, format, new File(path));
+        ImageIO.write(this.image, format, new File(destPath));
     }
 
     /**
