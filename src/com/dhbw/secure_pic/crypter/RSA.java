@@ -38,7 +38,7 @@ public class RSA extends Crypter {
     }
 
     /**
-     * This constructor is used for RSA Encryption
+     * This constructor is used for RSA Encryption as it is used by the sender
      * @param publicKey is the only key needed for encryption so privateKey is set to NULL
      */
     public RSA(PublicKey publicKey) {
@@ -48,7 +48,7 @@ public class RSA extends Crypter {
     }
 
     /**
-     * This constructor is used for RSA Decryption
+     * This constructor is used for RSA Decryption as it is used by the receiver
      * @param privateKey is the only key needed for decryption so publicKey is set to NULL
      */
     public RSA(PrivateKey privateKey) {
@@ -65,6 +65,7 @@ public class RSA extends Crypter {
 
     @Override
     public Information encrypt(Information information) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+
         Cipher encryptCipher = Cipher.getInstance(algorithm);
         encryptCipher.init(Cipher.ENCRYPT_MODE, publicKey);
 
