@@ -27,10 +27,4 @@ public class GenerateCrypterTask extends SwingWorker<Crypter, Void> {
         // TODO implement
         // TODO error handling: https://stackoverflow.com/a/6524300/13777031
     }
-
-    /** currently not in use */
-    @Override
-    protected void process(List<Void> chunks) {
-        super.process(chunks);
-    }
 }
