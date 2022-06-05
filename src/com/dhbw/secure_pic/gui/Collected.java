@@ -12,7 +12,7 @@ public class Collected {
     private Start_SendChooseEncryption chooseEncryptionSend = new Start_SendChooseEncryption();
     private Start_ReceiveChooseEncryption chooseEncryptionReceive = new Start_ReceiveChooseEncryption();
     private Receive_NoEncryption receive_noEncryption = new Receive_NoEncryption();
-    private Receive_Assymmetrical receive_assymmetrical = new Receive_Assymmetrical();
+    private Receive_Asymmetrical receive_asymmetrical = new Receive_Asymmetrical();
     private Receive_Symmetrical receive_symmetrical = new Receive_Symmetrical();
     private Send_NoEncryption send_noEncryption = new Send_NoEncryption();
     private Send_Asymmetrical send_asymmetrical = new Send_Asymmetrical();
@@ -33,12 +33,13 @@ public class Collected {
         panelCont.setLayout(cl);
 
         // TODO Simplify to component instead of jpanel? should work
+        // Best Practice -> Panels
         JPanel imgCon = index.getMainPanel_ImgCon();
         JPanel typeChooser = chooseType.getMainPanel_ST();
         JPanel encryptionChooserSend = chooseEncryptionSend.getMainPanel_SCE();
         JPanel encryptionChooserReceive = chooseEncryptionReceive.getMainPanel_RCE();
         JPanel recNoEnc = receive_noEncryption.getMainPanel_RN();
-        JPanel recAss = receive_assymmetrical.getMainPanel_RA();
+        JPanel recAss = receive_asymmetrical.getMainPanel_RA();
         JPanel recSym = receive_symmetrical.getMainPanel_RS();
         JPanel sendNoEnc = send_noEncryption.getMainPanel_SN();
         JPanel sendAss = send_asymmetrical.getMainPanel_SA();
@@ -66,6 +67,7 @@ public class Collected {
         frame.setVisible(true);
 
         // TODO do this in each class?
+        // nö, geht nicht wegen Card Layout
         JButton secretButton = index.getButtonStartApp();
         JButton typeSend = chooseType.getSendButton();
         JButton typeReceive = chooseType.getReceiveButton();
@@ -79,7 +81,7 @@ public class Collected {
         JButton sendSym = chooseEncryptionSend.getSymmetricalButton();
         JButton sendBack = chooseEncryptionSend.getBackButton();
         JButton backRN = receive_noEncryption.getBackButton();
-        JButton backRA = receive_assymmetrical.getBackButton();
+        JButton backRA = receive_asymmetrical.getBackButton();
         JButton backRS = receive_symmetrical.getBackButton();
         JButton backSN = send_noEncryption.getBackButton();
         JButton backSA = send_asymmetrical.getBackButton();
