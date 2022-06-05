@@ -24,9 +24,9 @@ import static org.junit.Assert.assertNotEquals;
 public class TestAES {
 
     @Test
-    public void testEncryptDecrypt() throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, InvalidKeySpecException, BadPaddingException, InvalidKeyException {
+    public void testAESEncryptDecrypt() throws  NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
 
-        String message = "Hello World";
+        String message = "Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!";
         Information information = Information.getInformationFromString(message);
 
         AES encryptAES = new AES("password");
