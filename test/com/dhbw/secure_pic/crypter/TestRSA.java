@@ -25,7 +25,7 @@ public class TestRSA {
         encryptRSA.encrypt(information);
         assertNotEquals(information.toText(), message);
 
-        //A second AES is created to simulate two different devices
+        //A second RSA is created to simulate two different devices
         RSA decryptRSA = new RSA(encryptRSA.getPrivateKey());
         decryptRSA.decrypt(information);
         assertEquals(information.toText(), message);
