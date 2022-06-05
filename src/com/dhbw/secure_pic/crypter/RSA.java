@@ -25,7 +25,8 @@ public class RSA extends Crypter {
     private final String algorithm;
 
     /**
-     * This constructor is used for RSA Encryption
+     * This constructor is used for generating the KeyPair.
+     * The receiver uses this to create private and public key
      */
     public RSA() throws NoSuchAlgorithmException {
         KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
@@ -34,7 +35,16 @@ public class RSA extends Crypter {
         this.privateKey = pair.getPrivate();
         this.publicKey = pair.getPublic();
         this.algorithm = "RSA";
+    }
 
+    /**
+     * This constructor is used for RSA Encryption
+     * @param publicKey is the only key needed for encryption so privateKey is set to NULL
+     */
+    public RSA(PublicKey publicKey) {
+        this.privateKey = null;
+        this.publicKey = publicKey;
+        this.algorithm = "RSA";
     }
 
     /**
