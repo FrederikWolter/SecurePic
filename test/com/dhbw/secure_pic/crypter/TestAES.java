@@ -29,12 +29,14 @@ public class TestAES {
         String message = "Hello World";
         Information information = Information.getInformationFromString(message);
 
-        AES aes = new AES("password");
+        AES encryptAES = new AES("password");
 
-        aes.encrypt(information);
+        encryptAES.encrypt(information);
         assertNotEquals(information.toText(), message);
 
-        aes.decrypt(information);
+        //A second AES is created to simulate two different devices
+        AES decryptAES = new AES("password");
+        decryptAES.decrypt(information);
         assertEquals(information.toText(), message);
     }
 
