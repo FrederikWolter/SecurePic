@@ -22,7 +22,7 @@ import static org.junit.Assert.assertArrayEquals;
 public class TestInformation {
 
     @Test
-    public void getInformationFromString() {
+    public void testGetInformationFromString() {
         String testString = "Test !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~öäüÖÄÜ€©§¼Äÿ";
 
         // create information from test string
@@ -34,7 +34,7 @@ public class TestInformation {
     }
 
     @Test
-    public void getInformationFromImage() throws IllegalTypeException, IOException {
+    public void testGetInformationFromImage() throws IllegalTypeException, IOException {
         // TODO add automatic test?
 
         Information info;
@@ -57,7 +57,7 @@ public class TestInformation {
     }
 
     @Test
-    public void getInformationFromData() throws IllegalLengthException, IllegalTypeException {
+    public void testGetInformationFromData() throws IllegalLengthException, IllegalTypeException {
         String testString = "Test !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~öäüÖÄÜ€©§¼Äÿ";
 
         Information info = Information.getInformationFromString(testString);
@@ -72,7 +72,7 @@ public class TestInformation {
     }
 
     @Test
-    public void toBEBytes() {
+    public void testToBEBytes() {
         String testString = "0123456789";
 
         Information info = Information.getInformationFromString(testString);
@@ -82,7 +82,7 @@ public class TestInformation {
     }
 
     @Test
-    public void copyContentToClipboardText() throws IOException {
+    public void testCopyContentToClipboardText() throws IOException {
         String testString = "Test !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~öäüÖÄÜ€©§¼Äÿ";
 
         Information info = Information.getInformationFromString(testString);
@@ -91,7 +91,7 @@ public class TestInformation {
     }
 
     @Test
-    public void copyContentToClipboardImage() throws IOException, IllegalTypeException {
+    public void testCopyContentToClipboardImage() throws IOException, IllegalTypeException {
         Information info = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
         info.copyToClipboard();
         // TODO add automatic test?

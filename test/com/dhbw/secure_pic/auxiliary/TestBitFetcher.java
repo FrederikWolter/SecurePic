@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class TestBitFetcher {
 
     @Test
-    public void next() {
+    public void testNext() {
         byte[] data = {(byte) 0b00110100, (byte) 0b11100101, (byte) 0b10111010};
         int[] control = {0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0};
 

@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class TestLeastSignificantBit {
 
     @Test
-    public void encodeDecode() throws IllegalTypeException, InsufficientCapacityException, IllegalLengthException {
+    public void testEncodeDecode() throws IllegalTypeException, InsufficientCapacityException, IllegalLengthException {
         // send
         String in = "This is a Test 123456öäü?0§";
         Information info = Information.getInformationFromString(in);
@@ -36,7 +36,7 @@ public class TestLeastSignificantBit {
     }
 
     @Test
-    public void getCapacity() throws IllegalTypeException {
+    public void testGetCapacity() throws IllegalTypeException {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
         LeastSignificantBit coder = new LeastSignificantBit(image);
 

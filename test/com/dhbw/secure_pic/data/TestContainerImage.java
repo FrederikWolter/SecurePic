@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class TestContainerImage {
 
     @Test
-    public void getFileExtension() {
+    public void testGetFileExtension() {
         String path;
 
         path = "test/com/dhbw/secure_pic/data/PNG_Test.png";
@@ -29,12 +29,12 @@ public class TestContainerImage {
     }
 
     @Test
-    public void exportImg() {
+    public void testExportImg() {
         assert false;
     }
 
     @Test
-    public void copyToClipboard() throws IllegalTypeException {
+    public void testCopyToClipboard() throws IllegalTypeException {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
         image.copyToClipboard();
         // TODO add automatic test?

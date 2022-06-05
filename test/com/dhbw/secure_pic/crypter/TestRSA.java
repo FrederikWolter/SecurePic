@@ -5,7 +5,7 @@ import org.junit.Test;
 public class TestRSA {
 
     @Test
-    public void getNew() {
+    public void testGetNew() {
         assert false; // TODO
     }
 }
