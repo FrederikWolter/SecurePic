@@ -1,4 +1,4 @@
-package com.dhbw.secure_pic.auxiliary;
+package com.dhbw.secure_pic.data.utility;
 
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;

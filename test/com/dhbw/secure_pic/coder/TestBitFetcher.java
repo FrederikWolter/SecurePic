@@ -1,5 +1,6 @@
-package com.dhbw.secure_pic.auxiliary;
+package com.dhbw.secure_pic.coder;
 
+import com.dhbw.secure_pic.coder.utility.BitFetcher;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

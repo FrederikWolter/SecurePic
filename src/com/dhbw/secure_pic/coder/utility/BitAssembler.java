@@ -1,4 +1,4 @@
-package com.dhbw.secure_pic.auxiliary;
+package com.dhbw.secure_pic.coder.utility;
 
 import java.util.ArrayList;
 

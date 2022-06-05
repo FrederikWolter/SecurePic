@@ -1,7 +1,7 @@
 package com.dhbw.secure_pic.data;
 
-import com.dhbw.secure_pic.auxiliary.BitFetcher;
-import com.dhbw.secure_pic.auxiliary.ImageSelection;
+import com.dhbw.secure_pic.coder.utility.BitFetcher;
+import com.dhbw.secure_pic.data.utility.ImageSelection;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalLengthException;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 

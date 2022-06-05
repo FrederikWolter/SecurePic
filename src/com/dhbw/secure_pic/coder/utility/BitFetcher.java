@@ -1,4 +1,4 @@
-package com.dhbw.secure_pic.auxiliary;
+package com.dhbw.secure_pic.coder.utility;
 
 /**
  * Utility class for fetching bits one by one out of a byte array.

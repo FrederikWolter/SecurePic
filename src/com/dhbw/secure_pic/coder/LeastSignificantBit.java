@@ -1,7 +1,7 @@
 package com.dhbw.secure_pic.coder;
 
-import com.dhbw.secure_pic.auxiliary.BitAssembler;
-import com.dhbw.secure_pic.auxiliary.BitFetcher;
+import com.dhbw.secure_pic.coder.utility.BitAssembler;
+import com.dhbw.secure_pic.coder.utility.BitFetcher;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalLengthException;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.auxiliary.exceptions.InsufficientCapacityException;
