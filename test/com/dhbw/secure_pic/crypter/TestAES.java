@@ -29,12 +29,13 @@ public class TestAES {
         String message = "Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!";
         Information information = Information.getInformationFromString(message);
 
+        //Multiple AES are used to simulate the communication between multiple devices
+
         AES encryptAES = new AES("password");
 
         encryptAES.encrypt(information);
         assertNotEquals(information.toText(), message);
 
-        //A second AES is created to simulate two different devices
         AES decryptAES = new AES("password");
         decryptAES.decrypt(information);
         assertEquals(information.toText(), message);

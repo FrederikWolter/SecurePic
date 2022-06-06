@@ -15,7 +15,7 @@ import java.util.Base64;
 /**
  * This class implements the RSA encryption method used to encrypt/decrypt messages.<br>
  * It extends the Crypter class.
- * Author: Kirolis Eskondis
+ * @author Kirolis Eskondis
  */
 
 public class RSA extends Crypter {

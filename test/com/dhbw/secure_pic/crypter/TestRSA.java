@@ -12,6 +12,14 @@ import java.security.NoSuchAlgorithmException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+
+/**
+ * Tests the functionality of the RSA class
+ * A given message is encrypted and decrypted with generated public and private keys.
+ * It is asserted that the decrypted message matches the one given above while the encrypted message doesn't.
+ *
+ * @author Kirolis Eskondis
+ */
 public class TestRSA {
 
     @Test
