@@ -10,8 +10,7 @@ import java.io.File;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
-public class Receive_Symmetrical extends Component {
-    // TODO universal naming theme with descriptive names
+public class ReceiveSymmetrical extends Component {
     private JProgressBar progressBar1;
     private JPanel LeftPanel;
     private JButton backButton;
@@ -25,11 +24,11 @@ public class Receive_Symmetrical extends Component {
 
     final FileSelect fs = new FileSelect();
 
-    public Receive_Symmetrical() {
+    public ReceiveSymmetrical() {
         uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = fs.SelectFile(Receive_Symmetrical.this);
+                File file = fs.SelectFile(ReceiveSymmetrical.this);
             }
         });
     }

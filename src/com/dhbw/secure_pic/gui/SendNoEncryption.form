@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.dhbw.secure_pic.gui.Send_Symmetrical">
-  <grid id="489f7" binding="MainPanel_SS" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.dhbw.secure_pic.gui.SendNoEncryption">
+  <grid id="27dc6" binding="MainPanel_SN" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="14" y="20" width="506" height="488"/>
+      <xy x="20" y="20" width="500" height="463"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <component id="230ac" class="javax.swing.JProgressBar" binding="progressBar1" default-binding="true">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-      </component>
-      <grid id="cdb2a" binding="LeftPanel" layout-manager="GridLayoutManager" row-count="16" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="15f42" binding="LeftPanel" layout-manager="GridLayoutManager" row-count="12" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -27,7 +21,7 @@
         </clientProperties>
         <border type="none"/>
         <children>
-          <component id="9a5da" class="javax.swing.JButton" binding="backButton" default-binding="true">
+          <component id="76c7a" class="javax.swing.JButton" binding="backButton" default-binding="true">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -36,12 +30,12 @@
               <text value="Back"/>
             </properties>
           </component>
-          <vspacer id="cd1c8">
+          <vspacer id="79cec">
             <constraints>
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="d005" class="javax.swing.JRadioButton" binding="imageRadioButton" default-binding="true">
+          <component id="cd7f6" class="javax.swing.JRadioButton" binding="imageRadioButton" default-binding="true">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="5" use-parent-layout="false"/>
             </constraints>
@@ -49,7 +43,7 @@
               <text value="Image"/>
             </properties>
           </component>
-          <component id="d0f7d" class="javax.swing.JRadioButton" binding="textmessageRadioButton" default-binding="true">
+          <component id="3c017" class="javax.swing.JRadioButton" binding="textmessageRadioButton" default-binding="true">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="5" use-parent-layout="false"/>
             </constraints>
@@ -59,12 +53,12 @@
               <text value="Textmessage"/>
             </properties>
           </component>
-          <vspacer id="9f921">
+          <vspacer id="38ba8">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="6476d" class="javax.swing.JTextArea" binding="Message">
+          <component id="dfde3" class="javax.swing.JTextArea" binding="Message">
             <constraints>
               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="1" use-parent-layout="false">
                 <preferred-size width="150" height="50"/>
@@ -77,12 +71,12 @@
               <toolTipText value="Message"/>
             </properties>
           </component>
-          <vspacer id="318ad">
+          <vspacer id="b8e84">
             <constraints>
               <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="eef4b" class="javax.swing.JComboBox" binding="comboBox_CodAlg">
+          <component id="c5050" class="javax.swing.JComboBox" binding="comboBox_CodAlg">
             <constraints>
               <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="1" use-parent-layout="false"/>
             </constraints>
@@ -96,52 +90,21 @@
               <html.disable class="java.lang.Boolean" value="false"/>
             </clientProperties>
           </component>
-          <component id="44030" class="javax.swing.JComboBox" binding="comboBox_EncAlg">
+          <component id="9585" class="javax.swing.JButton" binding="encodeButton" default-binding="true">
             <constraints>
-              <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="1" fill="0" indent="1" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <model>
-                <item value="Encrypting Algorithm..."/>
-              </model>
-            </properties>
-            <clientProperties>
-              <html.disable class="java.lang.Boolean" value="false"/>
-            </clientProperties>
-          </component>
-          <component id="7081a" class="javax.swing.JPasswordField" binding="passwordField1" default-binding="true">
-            <constraints>
-              <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties/>
-          </component>
-          <vspacer id="57a89">
-            <constraints>
-              <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </vspacer>
-          <component id="c10c7" class="javax.swing.JButton" binding="encodeButton" default-binding="true">
-            <constraints>
-              <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <background color="-3422958"/>
               <text value="Encode"/>
             </properties>
           </component>
-          <vspacer id="aa662">
-            <constraints>
-              <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </vspacer>
-          <vspacer id="e4eb5">
+          <vspacer id="aa07b">
             <constraints>
               <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="688b6" class="javax.swing.JButton" binding="uploadButton2">
+          <component id="f654c" class="javax.swing.JButton" binding="uploadButton2">
             <constraints>
               <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -153,7 +116,7 @@
               <html.disable class="java.lang.Boolean" value="true"/>
             </clientProperties>
           </component>
-          <component id="eaf4b" class="javax.swing.JLabel">
+          <component id="13aa8" class="javax.swing.JLabel">
             <constraints>
               <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -164,7 +127,7 @@
           </component>
         </children>
       </grid>
-      <grid id="52e04" binding="RightPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="c99f8" binding="RightPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -172,13 +135,13 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="fafc8" class="javax.swing.JSlider" binding="slider1" default-binding="true">
+          <component id="5d458" class="javax.swing.JSlider" binding="slider1" default-binding="true">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
           </component>
-          <grid id="603cd" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="99a3b" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -188,7 +151,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="9f3ea" class="javax.swing.JButton" binding="uploadButton" default-binding="true">
+              <component id="bb4a6" class="javax.swing.JButton" binding="uploadButton" default-binding="true">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -200,12 +163,18 @@
           </grid>
         </children>
       </grid>
+      <component id="24d31" class="javax.swing.JProgressBar" binding="progressBar1" default-binding="true">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+      </component>
     </children>
   </grid>
   <buttonGroups>
     <group name="MessageType">
-      <member id="d0f7d"/>
-      <member id="d005"/>
+      <member id="3c017"/>
+      <member id="cd7f6"/>
     </group>
   </buttonGroups>
 </form>

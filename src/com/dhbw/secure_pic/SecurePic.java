@@ -1,6 +1,6 @@
 package com.dhbw.secure_pic;
 
-import com.dhbw.secure_pic.gui.Collected;
+import com.dhbw.secure_pic.gui.Gui;
 
 import javax.swing.*;
 
@@ -12,6 +12,8 @@ import javax.swing.*;
 
 // TODO keep in mind the copy to clip board functionality: buttons for that
 
+// TODO universal naming theme with descriptive names for all swing elements
+
 /**
  * Main entry point to application - providing the main method.
  *
@@ -22,8 +24,7 @@ public class SecurePic {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Collected start = new Collected();  // TODO inline?
-                start.show();
+                new Gui().show();
             }
         });
     }

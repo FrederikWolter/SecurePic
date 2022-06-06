@@ -4,7 +4,7 @@ import javax.swing.*;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
-public class Start_ChooseType {
+public class StartChooseType {
     private JTextPane loremIpsumTextPane;
     private JTextPane loremIpsumTextPane1;
     private JButton closeButton;

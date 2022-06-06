@@ -10,9 +10,7 @@ import java.io.File;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
-// TODO rename to a more descriptive name
-
-public class index extends Component {
+public class ImageConverter extends Component {
     private JPanel MainPanel_ImgCon;
     private JButton buttonStartApp;
     private JProgressBar progressBar1;
@@ -26,7 +24,7 @@ public class index extends Component {
     private JButton uploadButton;
     private JPanel ImagePanel;
 
-    public index() {
+    public ImageConverter() {
         final FileSelect fs = new FileSelect();
 
         buttonStartApp.addActionListener(new ActionListener() {
@@ -41,7 +39,7 @@ public class index extends Component {
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 if (e.getSource() == uploadButton) {
-                    File file =fs.SelectFile(index.this);   // TODO unused statement
+                    File file =fs.SelectFile(ImageConverter.this);   // TODO unuse?
 
                 }
             }

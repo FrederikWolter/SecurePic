@@ -7,34 +7,35 @@ import java.awt.event.ActionListener;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
-public class Collected {
-    private Start_ChooseType chooseType = new Start_ChooseType();
-    private Start_SendChooseEncryption chooseEncryptionSend = new Start_SendChooseEncryption();
-    private Start_ReceiveChooseEncryption chooseEncryptionReceive = new Start_ReceiveChooseEncryption();
-    private Receive_NoEncryption receive_noEncryption = new Receive_NoEncryption();
-    private Receive_Asymmetrical receive_asymmetrical = new Receive_Asymmetrical();
-    private Receive_Symmetrical receive_symmetrical = new Receive_Symmetrical();
-    private Send_NoEncryption send_noEncryption = new Send_NoEncryption();
-    private Send_Asymmetrical send_asymmetrical = new Send_Asymmetrical();
-    private Send_Symmetrical send_symmetrical = new Send_Symmetrical();
-    private index index = new index();
+public class Gui {
+    private StartChooseType chooseType = new StartChooseType();
+    private StartSendChooseEncryption chooseEncryptionSend = new StartSendChooseEncryption();
+    private StartReceiveChooseEncryption chooseEncryptionReceive = new StartReceiveChooseEncryption();
+    private ReceiveNoEncryption receive_noEncryption = new ReceiveNoEncryption();
+    private ReceiveAsymmetrical receive_asymmetrical = new ReceiveAsymmetrical();
+    private ReceiveSymmetrical receive_symmetrical = new ReceiveSymmetrical();
+    private SendNoEncryption send_noEncryption = new SendNoEncryption();
+    private SendAsymmetrical send_asymmetrical = new SendAsymmetrical();
+    private SendSymmetrical send_symmetrical = new SendSymmetrical();
+    private ImageConverter ImageConverter = new ImageConverter();
     private CardLayout cl;
     private JPanel panelCont;
     private JFrame frame;
 
-    public Collected(){
+    public Gui(){
         frame = new JFrame();
-        panelCont = new JPanel();
-        cl = new CardLayout();
+        // TODO set Frame title
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(800,500);
         frame.setLocationRelativeTo(null);
         frame.setMinimumSize(new Dimension(800, 500));
-        panelCont.setLayout(cl);
 
-        // TODO Simplify to component instead of jpanel? should work
+        cl = new CardLayout();
+        panelCont = new JPanel(cl);
+
+        // TODO make sub panels extend Jpanel to simplify this construct > https://stackoverflow.com/questions/45677253/manage-java-cardlayout-jpanels-created-with-different-classes
         // Best Practice -> Panels
-        JPanel imgCon = index.getMainPanel_ImgCon();
+        JPanel imgCon = ImageConverter.getMainPanel_ImgCon();
         JPanel typeChooser = chooseType.getMainPanel_ST();
         JPanel encryptionChooserSend = chooseEncryptionSend.getMainPanel_SCE();
         JPanel encryptionChooserReceive = chooseEncryptionReceive.getMainPanel_RCE();
@@ -45,8 +46,7 @@ public class Collected {
         JPanel sendAss = send_asymmetrical.getMainPanel_SA();
         JPanel sendSym = send_symmetrical.getMainPanel_SS();
 
-
-
+        // TODO use static final string for identifiers
         panelCont.add (imgCon, "1");
         panelCont.add (typeChooser, "2");
         panelCont.add (encryptionChooserSend, "3");
@@ -66,9 +66,9 @@ public class Collected {
     public void show(){
         frame.setVisible(true);
 
-        // TODO do this in each class?
+        // TODO do this in each class? > https://stackoverflow.com/questions/45677253/manage-java-cardlayout-jpanels-created-with-different-classes
         // nö, geht nicht wegen Card Layout
-        JButton secretButton = index.getButtonStartApp();
+        JButton secretButton = ImageConverter.getButtonStartApp();
         JButton typeSend = chooseType.getSendButton();
         JButton typeReceive = chooseType.getReceiveButton();
         JButton typeClose = chooseType.getCloseButton();

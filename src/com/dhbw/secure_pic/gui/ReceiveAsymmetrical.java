@@ -10,10 +10,7 @@ import java.io.File;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
-// TODO Assymmetrical -> Asymmetrical
-// done
-
-public class Receive_Asymmetrical extends Component {
+public class ReceiveAsymmetrical extends Component {
     private JPanel MainPanel_RA;
     private JButton uploadButton2;
     private JComboBox comboBox_CodAlg;
@@ -29,17 +26,17 @@ public class Receive_Asymmetrical extends Component {
 
     final FileSelect fs = new FileSelect();
 
-    public Receive_Asymmetrical() {
+    public ReceiveAsymmetrical() {
         uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = fs.SelectFile(Receive_Asymmetrical.this);  // TODO unused?
+                File file = fs.SelectFile(ReceiveAsymmetrical.this);  // TODO unused?
             }
         });
         uploadButton3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = fs.SelectFile(Receive_Asymmetrical.this);
+                File file = fs.SelectFile(ReceiveAsymmetrical.this);
             }
         });
     }

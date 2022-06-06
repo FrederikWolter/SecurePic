@@ -10,16 +10,12 @@ import java.io.File;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
-public class Send_Asymmetrical extends Component {
-    private JPanel MainPanel_SA;
+public class SendSymmetrical extends Component {
+    private JPanel MainPanel_SS;
     private JProgressBar progressBar1;
     private JPanel LeftPanel;
+    private JPanel RightPanel;
     private JButton backButton;
-
-    public JButton getBackButton() {
-        return backButton;
-    }
-
     private JRadioButton imageRadioButton;
     private JRadioButton textmessageRadioButton;
     private JTextArea Message;
@@ -27,42 +23,37 @@ public class Send_Asymmetrical extends Component {
     private JComboBox comboBox_EncAlg;
     private JPasswordField passwordField1;
     private JButton encodeButton;
-    private JButton uploadButton2;
-    private JPanel RightPanel;
     private JSlider slider1;
+    private JButton uploadButton2;
     private JButton uploadButton;
 
     final FileSelect fs = new FileSelect();
 
-    public Send_Asymmetrical() {
-        uploadButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //Handle open button action.
-                if (e.getSource() == uploadButton) {
-                    File file = fs.SelectFile(Send_Asymmetrical.this);
-                }
-            }
-        });
+    public SendSymmetrical() {
         uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 if (e.getSource() == uploadButton2) {
-                    File file = fs.SelectFile(Send_Asymmetrical.this);
+                    File file = fs.SelectFile(SendSymmetrical.this);
                 }
             }
         });
-        imageRadioButton.addActionListener(new ActionListener() {
+        uploadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Message.setVisible(false);
-                uploadButton2.setVisible(true);
+                //Handle open button action.
+                if (e.getSource() == uploadButton) {
+                    File file = fs.SelectFile(SendSymmetrical.this);
+                }
             }
         });
     }
 
-    public JPanel getMainPanel_SA() {
-        return MainPanel_SA;
+    public JPanel getMainPanel_SS() {
+        return MainPanel_SS;
+    }
+    public JButton getBackButton() {
+        return backButton;
     }
 }

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.dhbw.secure_pic.gui.Send_Asymmetrical">
-  <grid id="27dc6" binding="MainPanel_SA" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.dhbw.secure_pic.gui.SendSymmetrical">
+  <grid id="489f7" binding="MainPanel_SS" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="488"/>
+      <xy x="14" y="20" width="506" height="488"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <component id="aaf68" class="javax.swing.JProgressBar" binding="progressBar1" default-binding="true">
+      <component id="230ac" class="javax.swing.JProgressBar" binding="progressBar1" default-binding="true">
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
       </component>
-      <grid id="24493" binding="LeftPanel" layout-manager="GridLayoutManager" row-count="16" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="cdb2a" binding="LeftPanel" layout-manager="GridLayoutManager" row-count="16" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -27,7 +27,7 @@
         </clientProperties>
         <border type="none"/>
         <children>
-          <component id="1cad9" class="javax.swing.JButton" binding="backButton" default-binding="true">
+          <component id="9a5da" class="javax.swing.JButton" binding="backButton" default-binding="true">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -36,12 +36,12 @@
               <text value="Back"/>
             </properties>
           </component>
-          <vspacer id="884dc">
+          <vspacer id="cd1c8">
             <constraints>
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="76" class="javax.swing.JRadioButton" binding="imageRadioButton" default-binding="true">
+          <component id="d005" class="javax.swing.JRadioButton" binding="imageRadioButton" default-binding="true">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="5" use-parent-layout="false"/>
             </constraints>
@@ -49,7 +49,7 @@
               <text value="Image"/>
             </properties>
           </component>
-          <component id="799f4" class="javax.swing.JRadioButton" binding="textmessageRadioButton" default-binding="true">
+          <component id="d0f7d" class="javax.swing.JRadioButton" binding="textmessageRadioButton" default-binding="true">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="5" use-parent-layout="false"/>
             </constraints>
@@ -59,12 +59,12 @@
               <text value="Textmessage"/>
             </properties>
           </component>
-          <vspacer id="50105">
+          <vspacer id="9f921">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="2528" class="javax.swing.JTextArea" binding="Message">
+          <component id="6476d" class="javax.swing.JTextArea" binding="Message">
             <constraints>
               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="1" use-parent-layout="false">
                 <preferred-size width="150" height="50"/>
@@ -77,12 +77,12 @@
               <toolTipText value="Message"/>
             </properties>
           </component>
-          <vspacer id="5c0e8">
+          <vspacer id="318ad">
             <constraints>
               <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="a434b" class="javax.swing.JComboBox" binding="comboBox_CodAlg">
+          <component id="eef4b" class="javax.swing.JComboBox" binding="comboBox_CodAlg">
             <constraints>
               <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="1" use-parent-layout="false"/>
             </constraints>
@@ -96,7 +96,7 @@
               <html.disable class="java.lang.Boolean" value="false"/>
             </clientProperties>
           </component>
-          <component id="4deb1" class="javax.swing.JComboBox" binding="comboBox_EncAlg">
+          <component id="44030" class="javax.swing.JComboBox" binding="comboBox_EncAlg">
             <constraints>
               <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="1" fill="0" indent="1" use-parent-layout="false"/>
             </constraints>
@@ -109,22 +109,20 @@
               <html.disable class="java.lang.Boolean" value="false"/>
             </clientProperties>
           </component>
-          <component id="1d2bb" class="javax.swing.JPasswordField" binding="passwordField1" default-binding="true">
+          <component id="7081a" class="javax.swing.JPasswordField" binding="passwordField1" default-binding="true">
             <constraints>
               <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties>
-              <toolTipText value="puplicKey"/>
-            </properties>
+            <properties/>
           </component>
-          <vspacer id="9883c">
+          <vspacer id="57a89">
             <constraints>
               <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="95764" class="javax.swing.JButton" binding="encodeButton" default-binding="true">
+          <component id="c10c7" class="javax.swing.JButton" binding="encodeButton" default-binding="true">
             <constraints>
               <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -133,17 +131,17 @@
               <text value="Encode"/>
             </properties>
           </component>
-          <vspacer id="2cfcc">
+          <vspacer id="aa662">
             <constraints>
               <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <vspacer id="c4338">
+          <vspacer id="e4eb5">
             <constraints>
               <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="937ae" class="javax.swing.JButton" binding="uploadButton2">
+          <component id="688b6" class="javax.swing.JButton" binding="uploadButton2">
             <constraints>
               <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -155,7 +153,7 @@
               <html.disable class="java.lang.Boolean" value="true"/>
             </clientProperties>
           </component>
-          <component id="47853" class="javax.swing.JLabel">
+          <component id="eaf4b" class="javax.swing.JLabel">
             <constraints>
               <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -166,7 +164,7 @@
           </component>
         </children>
       </grid>
-      <grid id="7be9d" binding="RightPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="52e04" binding="RightPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -174,13 +172,13 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="336ec" class="javax.swing.JSlider" binding="slider1" default-binding="true">
+          <component id="fafc8" class="javax.swing.JSlider" binding="slider1" default-binding="true">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
           </component>
-          <grid id="3a0a8" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="603cd" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -190,7 +188,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <component id="35b6a" class="javax.swing.JButton" binding="uploadButton" default-binding="true">
+              <component id="9f3ea" class="javax.swing.JButton" binding="uploadButton" default-binding="true">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -206,8 +204,8 @@
   </grid>
   <buttonGroups>
     <group name="MessageType">
-      <member id="76"/>
-      <member id="799f4"/>
+      <member id="d0f7d"/>
+      <member id="d005"/>
     </group>
   </buttonGroups>
 </form>

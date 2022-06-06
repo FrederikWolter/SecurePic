@@ -4,7 +4,7 @@ import javax.swing.*;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
-public class Start_ReceiveChooseEncryption {
+public class StartReceiveChooseEncryption {
     private JButton backButton;
     private JTextPane textPane1;
     private JTextPane textPane2;
