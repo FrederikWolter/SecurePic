@@ -1,5 +1,6 @@
 package com.dhbw.secure_pic.crypter;
 
+import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.data.Information;
 import org.junit.Test;
 
@@ -23,7 +24,7 @@ import static org.junit.Assert.assertNotEquals;
 public class TestRSA {
 
     @Test
-    public void testRSAEncryptDecrypt() throws NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+    public void testRSAEncryptDecrypt() throws CrypterException {
 
         String message = "Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!";
         Information information = Information.getInformationFromString(message);

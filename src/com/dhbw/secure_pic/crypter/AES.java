@@ -1,6 +1,7 @@
 package com.dhbw.secure_pic.crypter;
 
 import com.dhbw.secure_pic.auxiliary.CrypterKey;
+import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.data.Information;
 
 import javax.crypto.*;
@@ -48,17 +49,21 @@ public class AES extends Crypter {
      * @param information contains the message to encrypt
      */
     @Override
-    public Information encrypt(Information information)
-            throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    public Information encrypt(Information information) throws CrypterException {
 
-        Cipher encryptionCipher = Cipher.getInstance(algorithm);
-        encryptionCipher.init(Cipher.ENCRYPT_MODE, key);
+        try{
+            Cipher encryptionCipher = Cipher.getInstance(algorithm);
+            encryptionCipher.init(Cipher.ENCRYPT_MODE, key);
 
-        byte[] encryptedBytes = encryptionCipher.doFinal(information.getData());
-        byte[] outPutBytes = Base64.getEncoder().encode(encryptedBytes);
+            byte[] encryptedBytes = encryptionCipher.doFinal(information.getData());
+            byte[] outPutBytes = Base64.getEncoder().encode(encryptedBytes);
 
-        information.setEncryptedData(outPutBytes);
-        return information;
+            information.setEncryptedData(outPutBytes);
+            return information;
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
+            throw new CrypterException("Crypter Exception");
+        }
+
     }
 
 
@@ -66,14 +71,18 @@ public class AES extends Crypter {
      * @param information contains the encrypted message to decrypt
      */
     @Override
-    public Information decrypt(Information information) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    public Information decrypt(Information information) throws CrypterException {
 
-        Cipher decryptionCipher = Cipher.getInstance(algorithm);
-        decryptionCipher.init(Cipher.DECRYPT_MODE, key);
-        byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
+        try{
+            Cipher decryptionCipher = Cipher.getInstance(algorithm);
+            decryptionCipher.init(Cipher.DECRYPT_MODE, key);
+            byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
 
-        information.setEncryptedData(decryptedBytes);
-        return information;
+            information.setEncryptedData(decryptedBytes);
+            return information;
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
+            throw new CrypterException("Crypter Exception");
+        }
     }
 
 

@@ -3,6 +3,7 @@ package com.dhbw.secure_pic.crypter;
 // TODO COMMENT
 // TODO implement
 
+import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.data.Information;
 
 import javax.crypto.BadPaddingException;
@@ -28,13 +29,19 @@ public class RSA extends Crypter {
      * This constructor is used for generating the KeyPair.
      * The receiver uses this to create private and public key
      */
-    public RSA() throws NoSuchAlgorithmException {
-        KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
-        generator.initialize(2048);
-        KeyPair pair = generator.generateKeyPair();
-        this.privateKey = pair.getPrivate();
-        this.publicKey = pair.getPublic();
-        this.algorithm = "RSA";
+    public RSA() throws CrypterException {
+        try{
+            KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
+            generator.initialize(2048);
+            KeyPair pair = generator.generateKeyPair();
+            this.privateKey = pair.getPrivate();
+            this.publicKey = pair.getPublic();
+            this.algorithm = "RSA";
+        } catch (NoSuchAlgorithmException e){
+            throw new CrypterException("Crypter Exception");
+        }
+
+
     }
 
     /**
@@ -64,27 +71,37 @@ public class RSA extends Crypter {
 
 
     @Override
-    public Information encrypt(Information information) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    public Information encrypt(Information information) throws CrypterException {
 
-        Cipher encryptCipher = Cipher.getInstance(algorithm);
-        encryptCipher.init(Cipher.ENCRYPT_MODE, publicKey);
+        try{
+            Cipher encryptCipher = Cipher.getInstance(algorithm);
+            encryptCipher.init(Cipher.ENCRYPT_MODE, publicKey);
 
-        byte[] encryptedBytes = encryptCipher.doFinal(information.getData());
-        byte[] outPutBytes = Base64.getEncoder().encode(encryptedBytes);
-        information.setEncryptedData(outPutBytes);
+            byte[] encryptedBytes = encryptCipher.doFinal(information.getData());
+            byte[] outPutBytes = Base64.getEncoder().encode(encryptedBytes);
+            information.setEncryptedData(outPutBytes);
 
-        return information;
+            return information;
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
+            throw new CrypterException("Crypter Exception");
+        }
+
     }
 
     @Override
-    public Information decrypt(Information information) throws IllegalBlockSizeException, BadPaddingException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException {
+    public Information decrypt(Information information) throws CrypterException {
 
-        Cipher decryptionCipher = Cipher.getInstance(algorithm);
-        decryptionCipher.init(Cipher.DECRYPT_MODE, privateKey);
-        byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
+        try {
+            Cipher decryptionCipher = Cipher.getInstance(algorithm);
+            decryptionCipher.init(Cipher.DECRYPT_MODE, privateKey);
+            byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
 
-        information.setEncryptedData(decryptedBytes);
-        return information;
+            information.setEncryptedData(decryptedBytes);
+            return information;
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
+            throw new CrypterException("Crypter Exception");
+        }
+
     }
 
 
