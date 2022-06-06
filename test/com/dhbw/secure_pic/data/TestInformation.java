@@ -16,7 +16,6 @@ import static org.junit.Assert.assertArrayEquals;
 // TODO comment
 
 /**
- *
  * @author Frederik Wolter
  */
 public class TestInformation {

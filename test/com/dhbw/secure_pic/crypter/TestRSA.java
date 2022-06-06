@@ -7,7 +7,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-
 /**
  * Tests the functionality of the RSA class
  * A given message is encrypted and decrypted with generated public and private keys.

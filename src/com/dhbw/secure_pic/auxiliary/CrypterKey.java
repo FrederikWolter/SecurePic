@@ -10,7 +10,7 @@ public class CrypterKey extends SecretKeySpec {
         super(key, algorithm);
     }
 
-    private void createNewKey(){
+    private void createNewKey() {
         // TODO
     }
 

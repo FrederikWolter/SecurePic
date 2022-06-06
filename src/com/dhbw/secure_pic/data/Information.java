@@ -1,9 +1,9 @@
 package com.dhbw.secure_pic.data;
 
-import com.dhbw.secure_pic.coder.utility.BitFetcher;
-import com.dhbw.secure_pic.data.utility.ImageSelection;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalLengthException;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
+import com.dhbw.secure_pic.coder.utility.BitFetcher;
+import com.dhbw.secure_pic.data.utility.ImageSelection;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -124,18 +124,18 @@ public class Information {
 
         // read in image from path
         BufferedImage image;
-        try{
+        try {
             image = ImageIO.read(new File(path));
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new IllegalTypeException("An error occurred loading the selected image: '" + e.getMessage() + "'");
         }
 
 
         // convert BufferedImage to byte[]
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        try{
+        try {
             ImageIO.write(image, extension, byteArrayOutputStream);
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new IllegalTypeException("An error occurred loading the selected image: '" + e.getMessage() + "'");
         }
         byte[] data = byteArrayOutputStream.toByteArray();

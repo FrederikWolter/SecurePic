@@ -75,7 +75,7 @@ public class PlusMinusOne extends Coder {
                         // lastBit = 0 & nextBit = 1 -> bit = 1
                         // lastBit = 1 & nextBit = 0 -> bit = 1
                         // lastBit = 1 & nextBit = 1 -> bit = 0
-                        if (lastBit){
+                        if (lastBit) {
                             nextBit = (byte) ((nextBit == 0) ? 0b1 : 0b0);
                         }
                         pixel[i] += nextBit;    // set last bit with next bit
@@ -140,7 +140,7 @@ public class PlusMinusOne extends Coder {
                     // lastBit = 0 & nextBit = 1 -> bit = 1
                     // lastBit = 1 & nextBit = 0 -> bit = 1
                     // lastBit = 1 & nextBit = 1 -> bit = 0
-                    if (lastBit){
+                    if (lastBit) {
                         lastBit = (nextBit == 0b1);     // save new lastBit
                         nextBit = (byte) ((nextBit == 0) ? 0b1 : 0b0);
                     } else {

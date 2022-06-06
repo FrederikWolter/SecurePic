@@ -32,7 +32,7 @@ public class RSA extends Crypter {
      * The receiver uses this to create private and public key
      */
     public RSA() throws CrypterException {
-        try{
+        try {
             KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
             generator.initialize(2048);
             KeyPair pair = generator.generateKeyPair();
@@ -40,13 +40,14 @@ public class RSA extends Crypter {
             this.privateKey = pair.getPrivate();
             this.publicKey = pair.getPublic();
             this.algorithm = "RSA";
-        } catch (NoSuchAlgorithmException e){
+        } catch (NoSuchAlgorithmException e) {
             throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException
         }
     }
 
     /**
      * This constructor is used for RSA Encryption as it is used by the sender
+     *
      * @param publicKey is the only key needed for encryption so privateKey is set to NULL
      */
     public RSA(PublicKey publicKey) {
@@ -57,6 +58,7 @@ public class RSA extends Crypter {
 
     /**
      * This constructor is used for RSA Decryption as it is used by the receiver
+     *
      * @param privateKey is the only key needed for decryption so publicKey is set to NULL
      */
     public RSA(PrivateKey privateKey) {
@@ -76,7 +78,7 @@ public class RSA extends Crypter {
      */
     @Override
     public Information encrypt(Information information) throws CrypterException {
-        try{
+        try {
             Cipher encryptCipher = Cipher.getInstance(algorithm);
             encryptCipher.init(Cipher.ENCRYPT_MODE, publicKey);
 

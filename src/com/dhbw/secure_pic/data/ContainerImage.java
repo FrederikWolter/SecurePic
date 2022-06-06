@@ -1,7 +1,7 @@
 package com.dhbw.secure_pic.data;
 
-import com.dhbw.secure_pic.data.utility.ImageSelection;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
+import com.dhbw.secure_pic.data.utility.ImageSelection;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -60,9 +60,9 @@ public class ContainerImage {
             throw new IllegalTypeException("Invalid path given for image file. Recognized extension '" + extension + "'.");
 
         // read in image from path
-        try{
+        try {
             this.image = ImageIO.read(new File(path));
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new IllegalTypeException("An error occurred loading the selected container image: '" + e.getMessage() + "'");
         }
     }

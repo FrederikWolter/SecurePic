@@ -14,7 +14,7 @@ import java.security.InvalidKeyException;
  */
 public class CrypterException extends Exception {
 
-    public CrypterException(String message){
+    public CrypterException(String message) {
         super(message);
     }
 
@@ -22,13 +22,13 @@ public class CrypterException extends Exception {
         if (e instanceof NoSuchPaddingException) {
             return new CrypterException("The requested Padding Mechanism is not available. Please try again or contact support with this detailed message: '" + e.getMessage() + "'");
         }
-        if(e instanceof InvalidKeyException) {
+        if (e instanceof InvalidKeyException) {
             return new CrypterException("The given key could not be processed. Please try a new key or contact support with this message: '" + e.getMessage() + "'");
         }
-        if(e instanceof IllegalBlockSizeException) {
+        if (e instanceof IllegalBlockSizeException) {
             return new CrypterException("The length of the given data could not match the length needed for encryption. Please try again or contact support with this detailed message: '" + e.getMessage() + "'");
         }
-        if(e instanceof BadPaddingException) {
+        if (e instanceof BadPaddingException) {
             return new CrypterException("The data was not padded using the expected mechanism. Please try again or contact support with this detailed message: '" + e.getMessage() + "'");
         }
         // default

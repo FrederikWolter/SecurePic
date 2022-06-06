@@ -38,7 +38,7 @@ public class AES extends Crypter {
      */
     @Override
     public Information encrypt(Information information) throws CrypterException {
-        try{
+        try {
             Cipher encryptionCipher = Cipher.getInstance(algorithm);
             encryptionCipher.init(Cipher.ENCRYPT_MODE, key);
 
@@ -58,7 +58,7 @@ public class AES extends Crypter {
      */
     @Override
     public Information decrypt(Information information) throws CrypterException {
-        try{
+        try {
             Cipher decryptionCipher = Cipher.getInstance(algorithm);
             decryptionCipher.init(Cipher.DECRYPT_MODE, key);
             byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
@@ -71,15 +71,14 @@ public class AES extends Crypter {
     }
 
     /**
-     *
      * @param password is the password given by the user turned into a 32-byte array
      *
      * @return secret is the generated key
      */
-    private SecretKey getKeyFromPassword(String password){
+    private SecretKey getKeyFromPassword(String password) {
 
         byte[] keyBytes = new byte[32];
-        for(int i= 0;i<password.length() && i<32;i++){
+        for (int i = 0; i < password.length() && i < 32; i++) {
             keyBytes[i] = password.getBytes()[i];
         }
         return new CrypterKey(keyBytes, "AES");

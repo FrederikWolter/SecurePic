@@ -12,7 +12,7 @@ import com.dhbw.secure_pic.data.Information;
  *
  * @author Kirolis Eskondis
  */
-public class EmptyCrypter extends Crypter{
+public class EmptyCrypter extends Crypter {
 
     @Override
     public Information encrypt(Information information) {
