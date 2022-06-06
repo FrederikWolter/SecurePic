@@ -48,6 +48,8 @@
             <properties>
               <model>
                 <item value="Coding Algorithm..."/>
+                <item value="LSB"/>
+                <item value="PlusMinusOne"/>
               </model>
               <toolTipText value="Coding Algorithm"/>
             </properties>

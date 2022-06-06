@@ -89,6 +89,8 @@
             <properties>
               <model>
                 <item value="Coding Algorithm..."/>
+                <item value="LSB"/>
+                <item value="PlusMinusOne"/>
               </model>
               <toolTipText value="Coding Algorithm"/>
             </properties>
@@ -103,6 +105,7 @@
             <properties>
               <model>
                 <item value="Encrypting Algorithm..."/>
+                <item value="RSA"/>
               </model>
             </properties>
             <clientProperties>

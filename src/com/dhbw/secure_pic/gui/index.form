@@ -180,4 +180,16 @@
       </grid>
     </children>
   </grid>
+  <buttonGroups>
+    <group name="Von">
+      <member id="54adb"/>
+      <member id="347fc"/>
+      <member id="8a936"/>
+    </group>
+    <group name="Zu">
+      <member id="912ee"/>
+      <member id="1dbb2"/>
+      <member id="7ab05"/>
+    </group>
+  </buttonGroups>
 </form>

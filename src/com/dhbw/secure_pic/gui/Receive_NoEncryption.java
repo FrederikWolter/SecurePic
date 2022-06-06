@@ -29,6 +29,7 @@ public class Receive_NoEncryption extends Component {
                 File file = fs.SelectFile(Receive_NoEncryption.this);   // TODO unused
             }
         });
+
     }
 
     public JPanel getMainPanel_RN() {

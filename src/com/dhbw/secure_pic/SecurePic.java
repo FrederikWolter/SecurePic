@@ -1,5 +1,9 @@
 package com.dhbw.secure_pic;
 
+import com.dhbw.secure_pic.gui.Collected;
+
+import javax.swing.*;
+
 /**
  * Main entry point to application - providing the main method.
  *

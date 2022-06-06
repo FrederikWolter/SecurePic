@@ -12,7 +12,7 @@ public class Collected {
     private Start_SendChooseEncryption chooseEncryptionSend = new Start_SendChooseEncryption();
     private Start_ReceiveChooseEncryption chooseEncryptionReceive = new Start_ReceiveChooseEncryption();
     private Receive_NoEncryption receive_noEncryption = new Receive_NoEncryption();
-    private Receive_Assymmetrical receive_assymmetrical = new Receive_Assymmetrical();
+    private Receive_Asymmetrical receive_assymmetrical = new Receive_Asymmetrical();
     private Receive_Symmetrical receive_symmetrical = new Receive_Symmetrical();
     private Send_NoEncryption send_noEncryption = new Send_NoEncryption();
     private Send_Asymmetrical send_asymmetrical = new Send_Asymmetrical();

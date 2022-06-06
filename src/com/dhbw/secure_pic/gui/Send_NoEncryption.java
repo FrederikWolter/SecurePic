@@ -48,6 +48,21 @@ public class Send_NoEncryption extends Component {
 
             }
         });
+        imageRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message.setVisible(false);
+                uploadButton2.setVisible(true);
+
+            }
+        });
+        textmessageRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message.setVisible(true);
+                uploadButton2.setVisible(false);
+            }
+        });
     }
 
     public JPanel getMainPanel_SN() {

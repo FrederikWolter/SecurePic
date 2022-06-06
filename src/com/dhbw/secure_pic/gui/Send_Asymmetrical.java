@@ -58,6 +58,14 @@ public class Send_Asymmetrical extends Component {
             public void actionPerformed(ActionEvent e) {
                 Message.setVisible(false);
                 uploadButton2.setVisible(true);
+
+            }
+        });
+        textmessageRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message.setVisible(true);
+                uploadButton2.setVisible(false);
             }
         });
     }
