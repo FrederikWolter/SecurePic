@@ -1,7 +1,7 @@
 package com.dhbw.secure_pic.data;
 
-import com.dhbw.secure_pic.auxiliary.IllegalLengthException;
-import com.dhbw.secure_pic.auxiliary.IllegalTypeException;
+import com.dhbw.secure_pic.auxiliary.exceptions.IllegalLengthException;
+import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import org.junit.Test;
 
 import javax.imageio.ImageIO;
@@ -13,11 +13,15 @@ import java.nio.charset.StandardCharsets;
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
 
+// TODO comment
+
+/**
+ * @author Frederik Wolter
+ */
 public class TestInformation {
 
     @Test
-    public void getInformationFromString() {
-        @SuppressWarnings("SpellCheckingInspection")
+    public void testGetInformationFromString() {
         String testString = "Test !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~öäüÖÄÜ€©§¼Äÿ";
 
         // create information from test string
@@ -29,7 +33,7 @@ public class TestInformation {
     }
 
     @Test
-    public void getInformationFromImage() throws IllegalTypeException, IOException {
+    public void testGetInformationFromImage() throws IllegalTypeException, IOException {
         // TODO add automatic test?
 
         Information info;
@@ -52,14 +56,14 @@ public class TestInformation {
     }
 
     @Test
-    public void getInformationFromData() throws IllegalLengthException, IllegalTypeException {
-        @SuppressWarnings("SpellCheckingInspection")
+    public void testGetInformationFromData() throws IllegalLengthException, IllegalTypeException {
         String testString = "Test !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~öäüÖÄÜ€©§¼Äÿ";
 
         Information info = Information.getInformationFromString(testString);
         byte[] rawData = info.toBEBytes();
 
         Information info2 = Information.getInformationFromData(rawData);
+        info2.setData(info.getData());
 
         assertEquals(info.getLength(), info2.getLength());
         assertEquals(info.getType(), info2.getType());
@@ -67,12 +71,28 @@ public class TestInformation {
     }
 
     @Test
-    public void toBEBytes() {
+    public void testToBEBytes() {
         String testString = "0123456789";
 
         Information info = Information.getInformationFromString(testString);
 
         byte[] result = info.toBEBytes();
+        // TODO add automatic test?
+    }
+
+    @Test
+    public void testCopyContentToClipboardText() throws IOException {
+        String testString = "Test !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~öäüÖÄÜ€©§¼Äÿ";
+
+        Information info = Information.getInformationFromString(testString);
+        info.copyToClipboard();
+        // TODO add automatic test?
+    }
+
+    @Test
+    public void testCopyContentToClipboardImage() throws IOException, IllegalTypeException {
+        Information info = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
+        info.copyToClipboard();
         // TODO add automatic test?
     }
 }

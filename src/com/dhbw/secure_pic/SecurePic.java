@@ -13,6 +13,6 @@ public class SecurePic {
      * @param args currently not used.
      */
     public static void main(String[] args) {
-        System.out.println("Hello world!"); // TODO
+        // TODO add GUI entry point here
     }
 }

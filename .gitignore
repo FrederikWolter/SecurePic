@@ -26,6 +26,7 @@ hs_err_pid*
 .idea/workspace.xml
 .idea/usage.statistics.xml
 .idea/shelf/*
+.idea/sonarlint/*
 
 out/production/*
 out/test/*
