@@ -1,8 +1,5 @@
 package com.dhbw.secure_pic.crypter;
 
-// TODO COMMENT
-// TODO implement
-
 import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.data.Information;
 
@@ -12,6 +9,9 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.security.*;
 import java.util.Base64;
+
+// TODO COMMENT
+// TODO implement
 
 /**
  * This class implements the RSA encryption method used to encrypt/decrypt messages.<br>
@@ -38,10 +38,8 @@ public class RSA extends Crypter {
             this.publicKey = pair.getPublic();
             this.algorithm = "RSA";
         } catch (NoSuchAlgorithmException e){
-            throw new CrypterException("Crypter Exception");
+            throw new CrypterException("Crypter Exception");    // TODO more meaningful error msg
         }
-
-
     }
 
     /**
@@ -75,7 +73,6 @@ public class RSA extends Crypter {
      */
     @Override
     public Information encrypt(Information information) throws CrypterException {
-
         try{
             Cipher encryptCipher = Cipher.getInstance(algorithm);
             encryptCipher.init(Cipher.ENCRYPT_MODE, publicKey);
@@ -86,9 +83,8 @@ public class RSA extends Crypter {
 
             return information;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
-            throw new CrypterException("Crypter Exception");
+            throw new CrypterException("Crypter Exception");    // TODO more meaningful error msg, related to error type?
         }
-
     }
 
     /**
@@ -96,7 +92,6 @@ public class RSA extends Crypter {
      */
     @Override
     public Information decrypt(Information information) throws CrypterException {
-
         try {
             Cipher decryptionCipher = Cipher.getInstance(algorithm);
             decryptionCipher.init(Cipher.DECRYPT_MODE, privateKey);
@@ -105,15 +100,12 @@ public class RSA extends Crypter {
             information.setEncryptedData(decryptedBytes);
             return information;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
-            throw new CrypterException("Crypter Exception");
+            throw new CrypterException("Crypter Exception");    // TODO more meaningful error msg, related to error type?
         }
-
     }
 
-
-    /**
-     * Getters are used to output the keys to the user
-     */
+    // region getter
+    // Getters are used to output the keys to the user
     public PrivateKey getPrivateKey() {
         return privateKey;
     }
@@ -121,4 +113,5 @@ public class RSA extends Crypter {
     public PublicKey getPublicKey() {
         return publicKey;
     }
+    // endregion
 }

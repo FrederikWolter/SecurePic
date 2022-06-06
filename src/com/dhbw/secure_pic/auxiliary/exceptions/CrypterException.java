@@ -5,7 +5,6 @@ package com.dhbw.secure_pic.auxiliary.exceptions;
  *
  * @author Kirolis Eskondis
  */
-
 public class CrypterException extends Exception {
 
     public CrypterException(String message){

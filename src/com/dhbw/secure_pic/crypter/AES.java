@@ -11,7 +11,6 @@ import java.util.Base64;
 
 // TODO COMMENT
 
-// TODO reduce number of thrown exceptions by wrapping into own more general
 // TODO do more work self instead of handing it over to library?
 
 /**
@@ -40,7 +39,6 @@ public class AES extends Crypter {
      */
     @Override
     public Information encrypt(Information information) throws CrypterException {
-
         try{
             Cipher encryptionCipher = Cipher.getInstance(algorithm);
             encryptionCipher.init(Cipher.ENCRYPT_MODE, key);
@@ -51,9 +49,8 @@ public class AES extends Crypter {
             information.setEncryptedData(outPutBytes);
             return information;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
-            throw new CrypterException("Crypter Exception");
+            throw new CrypterException("Crypter Exception"); // TODO more meaningful error msg, related to error type?
         }
-
     }
 
 
@@ -62,7 +59,6 @@ public class AES extends Crypter {
      */
     @Override
     public Information decrypt(Information information) throws CrypterException {
-
         try{
             Cipher decryptionCipher = Cipher.getInstance(algorithm);
             decryptionCipher.init(Cipher.DECRYPT_MODE, key);
@@ -71,7 +67,7 @@ public class AES extends Crypter {
             information.setEncryptedData(decryptedBytes);
             return information;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
-            throw new CrypterException("Crypter Exception");
+            throw new CrypterException("Crypter Exception");    // TODO more meaningful error msg, related to error type?
         }
     }
 

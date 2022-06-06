@@ -4,9 +4,6 @@ import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.data.Information;
 
 // TODO COMMENT
-// TODO implement
-
-// TODO reduce number of specific exceptions? more general?
 
 /**
  * This class implements the Crypter used to encrypt/decrypt messages.<br>
