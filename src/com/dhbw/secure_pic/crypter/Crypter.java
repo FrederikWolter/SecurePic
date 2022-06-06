@@ -3,13 +3,6 @@ package com.dhbw.secure_pic.crypter;
 import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.data.Information;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-
 // TODO COMMENT
 // TODO implement
 
@@ -24,7 +17,7 @@ import java.security.NoSuchAlgorithmException;
 public abstract class Crypter {
 
     /**
-     * @param information includes the message to encrypt/decrypt
+     * @param information contains the message to encrypt/decrypt
      */
     public abstract Information encrypt(Information information) throws CrypterException;
 

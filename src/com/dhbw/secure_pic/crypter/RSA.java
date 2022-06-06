@@ -70,6 +70,9 @@ public class RSA extends Crypter {
     }
 
 
+    /**
+     * @param information contains the message to encrypt
+     */
     @Override
     public Information encrypt(Information information) throws CrypterException {
 
@@ -88,6 +91,9 @@ public class RSA extends Crypter {
 
     }
 
+    /**
+     * @param information contains the encrypted message to decrypt
+     */
     @Override
     public Information decrypt(Information information) throws CrypterException {
 
