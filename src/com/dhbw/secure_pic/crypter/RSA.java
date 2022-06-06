@@ -16,33 +16,33 @@ import java.util.Base64;
 /**
  * This class implements the RSA encryption method used to encrypt/decrypt messages.<br>
  * It extends the Crypter class.
+ *
  * @author Kirolis Eskondis
  */
-
 public class RSA extends Crypter {
 
+    // region attributes
     private final PrivateKey privateKey;
     private final PublicKey publicKey;
     private final String algorithm;
-    private final CrypterException crypterException = new CrypterException();
+    // endregion
 
     /**
      * This constructor is used for generating the KeyPair.
      * The receiver uses this to create private and public key
      */
     public RSA() throws CrypterException {
-        KeyPair pair = null;
         try{
             KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
             generator.initialize(2048);
-            pair = generator.generateKeyPair();
+            KeyPair pair = generator.generateKeyPair();
 
+            this.privateKey = pair.getPrivate();
+            this.publicKey = pair.getPublic();
+            this.algorithm = "RSA";
         } catch (NoSuchAlgorithmException e){
-            crypterException.throwException(e.getClass(),e.getMessage());
+            throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException
         }
-        this.privateKey = pair.getPrivate();
-        this.publicKey = pair.getPublic();
-        this.algorithm = "RSA";
     }
 
     /**
@@ -82,13 +82,12 @@ public class RSA extends Crypter {
 
             byte[] encryptedBytes = encryptCipher.doFinal(information.getData());
             byte[] outPutBytes = Base64.getEncoder().encode(encryptedBytes);
+
             information.setEncryptedData(outPutBytes);
-
+            return information;
         }  catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
-            crypterException.throwException(e.getClass(),e.getMessage());
+            throw CrypterException.handleException(e);    // wrap exceptions thrown by crypter to CrypterException
         }
-        return information;
-
     }
 
     /**
@@ -102,13 +101,11 @@ public class RSA extends Crypter {
             byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
 
             information.setEncryptedData(decryptedBytes);
+            return information;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
-            crypterException.throwException(e.getClass(),e.getMessage());
+            throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException
         }
-        return information;
     }
-
-
 
     // region getter
     // Getters are used to output the keys to the user
