@@ -24,22 +24,25 @@ public class RSA extends Crypter {
     private final PrivateKey privateKey;
     private final PublicKey publicKey;
     private final String algorithm;
+    private final CrypterException crypterException = new CrypterException();
 
     /**
      * This constructor is used for generating the KeyPair.
      * The receiver uses this to create private and public key
      */
     public RSA() throws CrypterException {
+        KeyPair pair = null;
         try{
             KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
             generator.initialize(2048);
-            KeyPair pair = generator.generateKeyPair();
-            this.privateKey = pair.getPrivate();
-            this.publicKey = pair.getPublic();
-            this.algorithm = "RSA";
+            pair = generator.generateKeyPair();
+
         } catch (NoSuchAlgorithmException e){
-            throw new CrypterException("Crypter Exception");    // TODO more meaningful error msg
+            crypterException.throwException(e.getClass(),e.getMessage());
         }
+        this.privateKey = pair.getPrivate();
+        this.publicKey = pair.getPublic();
+        this.algorithm = "RSA";
     }
 
     /**
@@ -81,10 +84,11 @@ public class RSA extends Crypter {
             byte[] outPutBytes = Base64.getEncoder().encode(encryptedBytes);
             information.setEncryptedData(outPutBytes);
 
-            return information;
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
-            throw new CrypterException("Crypter Exception");    // TODO more meaningful error msg, related to error type?
+        }  catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
+            crypterException.throwException(e.getClass(),e.getMessage());
         }
+        return information;
+
     }
 
     /**
@@ -98,11 +102,13 @@ public class RSA extends Crypter {
             byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
 
             information.setEncryptedData(decryptedBytes);
-            return information;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
-            throw new CrypterException("Crypter Exception");    // TODO more meaningful error msg, related to error type?
+            crypterException.throwException(e.getClass(),e.getMessage());
         }
+        return information;
     }
+
+
 
     // region getter
     // Getters are used to output the keys to the user

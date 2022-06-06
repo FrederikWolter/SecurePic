@@ -24,6 +24,7 @@ public class AES extends Crypter {
     // region attributes
     private final SecretKey key;
     private final String algorithm;
+    private final CrypterException crypterException = new CrypterException();
     // endregion
 
     /**
@@ -47,10 +48,10 @@ public class AES extends Crypter {
             byte[] outPutBytes = Base64.getEncoder().encode(encryptedBytes);
 
             information.setEncryptedData(outPutBytes);
-            return information;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
-            throw new CrypterException("Crypter Exception"); // TODO more meaningful error msg, related to error type?
+            crypterException.throwException(e.getClass(),e.getMessage());
         }
+        return information;
     }
 
 
@@ -65,10 +66,10 @@ public class AES extends Crypter {
             byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
 
             information.setEncryptedData(decryptedBytes);
-            return information;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
-            throw new CrypterException("Crypter Exception");    // TODO more meaningful error msg, related to error type?
+            crypterException.throwException(e.getClass(),e.getMessage());
         }
+        return information;
     }
 
 
