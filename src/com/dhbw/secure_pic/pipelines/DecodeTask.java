@@ -7,6 +7,7 @@ import com.dhbw.secure_pic.coder.Coder;
 import com.dhbw.secure_pic.crypter.Crypter;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.gui.utility.DecodeFinishedHandler;
+import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;
@@ -41,10 +42,20 @@ public class DecodeTask extends SwingWorker<Information, Void> {
         setProgress(0);
 
         // decode information from container image
-        this.information = this.coder.decode();
+        this.information = this.coder.decode(new ProgressMonitor() {
+            @Override
+            public void updateProgress(int progress) {
+                setProgress((int) (progress * 0.5));    // progress 0 - 50
+            }
+        });
 
         // decrypt information
-        this.information = this.crypter.decrypt(this.information);
+        this.information = this.crypter.decrypt(this.information, new ProgressMonitor() {
+            @Override
+            public void updateProgress(int progress) {
+                setProgress((int) (progress * 0.5 + 50));    // progress 50 - 100
+            }
+        });
 
         // update progress
         setProgress(100);

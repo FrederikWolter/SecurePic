@@ -3,6 +3,7 @@ package com.dhbw.secure_pic.crypter;
 import com.dhbw.secure_pic.auxiliary.CrypterKey;
 import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.data.Information;
+import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
 import javax.crypto.*;
 import java.security.InvalidKeyException;
@@ -37,7 +38,8 @@ public class AES extends Crypter {
      * @param information contains the message to encrypt
      */
     @Override
-    public Information encrypt(Information information) throws CrypterException {
+    public Information encrypt(Information information, ProgressMonitor monitor) throws CrypterException {
+        // TODO use progressMonitor
         try {
             Cipher encryptionCipher = Cipher.getInstance(algorithm);
             encryptionCipher.init(Cipher.ENCRYPT_MODE, key);
@@ -57,7 +59,8 @@ public class AES extends Crypter {
      * @param information contains the encrypted message to decrypt
      */
     @Override
-    public Information decrypt(Information information) throws CrypterException {
+    public Information decrypt(Information information, ProgressMonitor monitor) throws CrypterException {
+        // TODO use progressMonitor
         try {
             Cipher decryptionCipher = Cipher.getInstance(algorithm);
             decryptionCipher.init(Cipher.DECRYPT_MODE, key);

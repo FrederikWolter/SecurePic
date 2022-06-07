@@ -5,6 +5,7 @@ import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.auxiliary.exceptions.InsufficientCapacityException;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
+import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
 // TODO COMMENT
 // TODO fill up with random data til capacity?
@@ -32,9 +33,9 @@ public abstract class Coder {
     }
 
 
-    public abstract ContainerImage encode(Information info) throws InsufficientCapacityException;
+    public abstract ContainerImage encode(Information info, ProgressMonitor monitor) throws InsufficientCapacityException;
 
-    public abstract Information decode() throws IllegalTypeException, IllegalLengthException;
+    public abstract Information decode(ProgressMonitor monitor) throws IllegalTypeException, IllegalLengthException;
 
     public abstract int getCapacity();
 

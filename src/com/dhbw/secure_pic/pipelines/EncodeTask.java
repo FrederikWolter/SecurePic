@@ -7,6 +7,7 @@ import com.dhbw.secure_pic.crypter.Crypter;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.gui.utility.EncodeFinishedHandler;
+import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;
@@ -45,10 +46,20 @@ public class EncodeTask extends SwingWorker<ContainerImage, Void> {
         setProgress(0);
 
         // encrypt information
-        this.information = this.crypter.encrypt(this.information);
+        this.information = this.crypter.encrypt(this.information, new ProgressMonitor() {
+            @Override
+            public void updateProgress(int progress) {
+                setProgress((int) (progress * 0.5));    // progress 0 - 50
+            }
+        });
 
         // encode information
-        ContainerImage encodedImage = this.coder.encode(this.information);
+        ContainerImage encodedImage = this.coder.encode(this.information, new ProgressMonitor() {
+            @Override
+            public void updateProgress(int progress) {
+                setProgress((int) (progress * 0.5 + 50));   // progress 50 - 100
+            }
+        });
 
         // update progress
         setProgress(100);

@@ -26,12 +26,12 @@ public class TestLeastSignificantBit {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
 
         LeastSignificantBit coder = new LeastSignificantBit(image);
-        ContainerImage encoded = coder.encode(info);
+        ContainerImage encoded = coder.encode(info, progress -> { /* empty */ });
         // encoded.copyToClipboard();
 
         // receive
         LeastSignificantBit coder2 = new LeastSignificantBit(encoded);
-        Information info2 = coder2.decode();
+        Information info2 = coder2.decode(progress -> { /* empty */ });
 
         String out = info2.toText();
 
@@ -46,13 +46,13 @@ public class TestLeastSignificantBit {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
 
         LeastSignificantBit coder = new LeastSignificantBit(image);
-        ContainerImage encoded = coder.encode(info);
+        ContainerImage encoded = coder.encode(info, progress -> { /* empty */ });
         encoded.exportImg("./test/com/dhbw/secure_pic/encoded_test.png");
 
         // receive
         ContainerImage image2 = new ContainerImage("./test/com/dhbw/secure_pic/encoded_test.png");
         LeastSignificantBit coder2 = new LeastSignificantBit(image2);
-        Information info2 = coder2.decode();
+        Information info2 = coder2.decode(progress -> { /* empty */ });
 
         assertNull(info2.toImage());
         String out = info2.toText();
@@ -67,13 +67,13 @@ public class TestLeastSignificantBit {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
 
         LeastSignificantBit coder = new LeastSignificantBit(image);
-        ContainerImage encoded = coder.encode(info);
+        ContainerImage encoded = coder.encode(info, progress -> { /* empty */ });
         encoded.exportImg("./test/com/dhbw/secure_pic/encoded_test.png");
 
         // receive
         ContainerImage image2 = new ContainerImage("./test/com/dhbw/secure_pic/encoded_test.png");
         LeastSignificantBit coder2 = new LeastSignificantBit(image2);
-        Information info2 = coder2.decode();
+        Information info2 = coder2.decode(progress -> { /* empty */ });
 
         assertNull(info2.toText());
         info2.copyToClipboard();
@@ -90,6 +90,6 @@ public class TestLeastSignificantBit {
 
         // part 2
         Information info = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
-        assertThrows(InsufficientCapacityException.class, () -> coder.encode(info));
+        assertThrows(InsufficientCapacityException.class, () -> coder.encode(info, progress -> { /* empty */ }));
     }
 }

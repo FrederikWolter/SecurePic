@@ -7,6 +7,7 @@ import com.dhbw.secure_pic.coder.utility.BitAssembler;
 import com.dhbw.secure_pic.coder.utility.BitFetcher;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
+import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
 
 /**
@@ -35,7 +36,9 @@ public class LeastSignificantBit extends Coder {
      * @throws InsufficientCapacityException
      */
     @Override
-    public ContainerImage encode(Information info) throws InsufficientCapacityException {
+    public ContainerImage encode(Information info, ProgressMonitor monitor) throws InsufficientCapacityException {
+        // TODO use progressMonitor
+
         // test whether information will fit into container image
         int infoLength = info.getTotalLength();
         int imageCapacity = this.getCapacity();
@@ -89,7 +92,9 @@ public class LeastSignificantBit extends Coder {
      * @throws IllegalLengthException
      */
     @Override
-    public Information decode() throws IllegalTypeException, IllegalLengthException {
+    public Information decode(ProgressMonitor monitor) throws IllegalTypeException, IllegalLengthException {
+        // TODO use progressMonitor
+
         // make space for result
         Information information = null;
 
