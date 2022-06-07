@@ -84,7 +84,7 @@
               <model>
                 <item value="Coding Algorithm..."/>
                 <item value="LSB"/>
-                <item value="PlusMinusOne"/>
+                <item value="PM1"/>
               </model>
               <toolTipText value="Coding Algorithm"/>
             </properties>
@@ -118,51 +118,15 @@
               <html.disable class="java.lang.Boolean" value="true"/>
             </clientProperties>
           </component>
-          <component id="13aa8" class="javax.swing.JLabel">
+          <component id="13aa8" class="javax.swing.JLabel" binding="MessageImg">
             <constraints>
               <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Path"/>
+              <text value=""/>
               <visible value="false"/>
             </properties>
           </component>
-        </children>
-      </grid>
-      <grid id="c99f8" binding="RightPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
-        <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children>
-          <component id="5d458" class="javax.swing.JSlider" binding="slider1" default-binding="true">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties/>
-          </component>
-          <grid id="99a3b" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-6514169"/>
-            </properties>
-            <border type="none"/>
-            <children>
-              <component id="bb4a6" class="javax.swing.JButton" binding="uploadButton" default-binding="true">
-                <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <text value="Upload"/>
-                </properties>
-              </component>
-            </children>
-          </grid>
         </children>
       </grid>
       <component id="24d31" class="javax.swing.JProgressBar" binding="progressBar1" default-binding="true">
@@ -171,6 +135,68 @@
         </constraints>
         <properties/>
       </component>
+      <grid id="fe09a" binding="RightPanel" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="17ab9" class="javax.swing.JButton" binding="copyToClipboardButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Copy to Clipboard"/>
+            </properties>
+          </component>
+          <component id="1e145" class="javax.swing.JButton" binding="exportButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Export"/>
+            </properties>
+          </component>
+          <grid id="d0507" binding="Uploadpanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-6514169"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="fd3cd" class="javax.swing.JButton" binding="uploadButton" default-binding="true">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Upload"/>
+                </properties>
+              </component>
+              <component id="50d15" class="javax.swing.JLabel" binding="AnzeigeConatinerBild">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="10"/>
+                  <horizontalTextPosition value="10"/>
+                  <text value="Drag and Drop Upload"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <hspacer id="75b04">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+        </children>
+      </grid>
     </children>
   </grid>
   <buttonGroups>

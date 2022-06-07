@@ -52,10 +52,13 @@
               </component>
               <component id="c2f0a" class="javax.swing.JLabel" binding="AnzeigeConatinerBild">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value=""/>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="10"/>
+                  <horizontalTextPosition value="10"/>
+                  <text value="Drag and Drop Upload"/>
                 </properties>
               </component>
             </children>
@@ -142,6 +145,8 @@
             <properties>
               <model>
                 <item value="Coding Algorithm..."/>
+                <item value="LSB"/>
+                <item value="PM1"/>
               </model>
               <toolTipText value="Coding Algorithm"/>
             </properties>
@@ -156,6 +161,7 @@
             <properties>
               <model>
                 <item value="Encrypting Algorithm..."/>
+                <item value="AES"/>
               </model>
             </properties>
             <clientProperties>
@@ -225,4 +231,10 @@
       </component>
     </children>
   </grid>
+  <buttonGroups>
+    <group name="MessageType">
+      <member id="d839d"/>
+      <member id="e34be"/>
+    </group>
+  </buttonGroups>
 </form>

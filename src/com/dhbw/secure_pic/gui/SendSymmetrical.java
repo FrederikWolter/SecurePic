@@ -55,6 +55,7 @@ public class SendSymmetrical extends Component {
                             ex.printStackTrace();
                         }
                         ImageIcon imageIcon = new ImageIcon(bufferedImage);
+                        AnzeigeConatinerBild.setText("");
                         AnzeigeConatinerBild.setIcon(imageIcon);
                     }
                 } catch (Exception ex) {
@@ -77,6 +78,7 @@ public class SendSymmetrical extends Component {
                         ex.printStackTrace();
                     }
                     ImageIcon imageIcon = new ImageIcon(bufferedImage);
+                    AnzeigeConatinerBild.setText("");
                     AnzeigeConatinerBild.setIcon(imageIcon);
 
                     //ToDo Frederik noch mal anschauen lassen ob die pipeline anbindung passt
@@ -85,11 +87,11 @@ public class SendSymmetrical extends Component {
                 }
             }
         });
-        uploadButton.addActionListener(new ActionListener() {
+        uploadButton2.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             //Handle open button action.
-            if (e.getSource() == uploadButton) {
+            if (e.getSource() == uploadButton2) {
                 File file = fs.SelectFile(SendSymmetrical.this);
                 //ToDo Bildanzeige über das buffered Img aus dem ConatainerImg
                 BufferedImage bufferedImage = null;
@@ -99,11 +101,8 @@ public class SendSymmetrical extends Component {
                     ex.printStackTrace();
                 }
                 ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                AnzeigeConatinerBild.setIcon(imageIcon);
-
-
-                //ToDo Frederik noch mal anschauen lassen ob die pipeline anbindung passt
-                ContainerImageLoadTask loadImage = new ContainerImageLoadTask(file.getPath());
+                MessageImg.setText("");
+                MessageImg.setIcon(imageIcon);
 
             }
         }
@@ -135,7 +134,21 @@ public class SendSymmetrical extends Component {
 
         }
     });
-}
+        exportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //ToDo Exportfunktion schreiben
+
+            }
+        });
+        copyToClipboardButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //ToDo Exportfunktion schreiben
+
+            }
+        });
+    }
 
     public JPanel getMainPanel_SS() {
         return MainPanel_SS;
