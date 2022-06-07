@@ -26,4 +26,10 @@ public class EmptyCrypter extends Crypter {
         monitor.updateProgress(100);    // update progress to 100
         return information;
     }
+
+    @Override
+    public void generateKey(ProgressMonitor monitor) {
+        // no key generation necessary
+        monitor.updateProgress(100);    // update progress to 100
+    }
 }

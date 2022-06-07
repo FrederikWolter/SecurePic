@@ -11,6 +11,6 @@ import com.dhbw.secure_pic.data.ContainerImage;
 
 public interface GenerateCrypterFinishedHandler {
 
-    void finishedGenerateCrypter(Crypter crypter, ContainerImage image);
+    void finishedGenerateCrypter(Crypter crypter);
 
 }

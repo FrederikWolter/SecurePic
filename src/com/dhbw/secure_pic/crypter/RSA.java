@@ -68,12 +68,6 @@ public class RSA extends Crypter {
         this.algorithm = "RSA";
     }
 
-    //TODO not sure what was planned here
-    private AES getNew() {
-        return null;
-    }
-
-
     /**
      * @param information contains the message to encrypt
      */
@@ -110,6 +104,11 @@ public class RSA extends Crypter {
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
             throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException
         }
+    }
+
+    @Override
+    public void generateKey(ProgressMonitor monitor) {
+        // TODO extract key generation to here, leave constructor as POJO; use progressMonitor
     }
 
     // region getter

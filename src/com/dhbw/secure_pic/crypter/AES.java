@@ -73,6 +73,11 @@ public class AES extends Crypter {
         }
     }
 
+    @Override
+    public void generateKey(ProgressMonitor monitor) {
+        // TODO extract key generation to here & use progressMonitor
+    }
+
     /**
      * @param password is the password given by the user turned into a 32-byte array
      *
