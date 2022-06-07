@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
@@ -38,11 +39,31 @@ public class Send_Symmetrical extends Component {
     private JLabel MessageImg;
     private JButton copyToClipBoardButton;
     private JButton exportButton;
+    private JPanel UploadPanel;
 
     final FileSelect fs = new FileSelect();
 
     public Send_Symmetrical() {
-        MyDragDropListener myDragDropListener = new MyDragDropListener();
+        UploadPanel.setDropTarget(new DropTarget() {
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+                    evt.acceptDrop(DnDConstants.ACTION_COPY);
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
+                    for (File file : droppedFiles) {
+                        BufferedImage bufferedImage = null;
+                        try {
+                            bufferedImage = ImageIO.read(file);
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        ImageIcon imageIcon = new ImageIcon(bufferedImage);
+                        AnzeigeConatinerBild.setIcon(imageIcon);
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
 
         uploadButton2.addActionListener(new ActionListener() {
             @Override
