@@ -7,54 +7,42 @@ import java.io.File;
 
 public class ImageFilter extends FileFilter {
 
-    //Accept all directories and all gif, jpg, tiff, or png files.
+    // FIXME static necessary?
+    public static final String JPEG = "jpeg";
+    public static final String JPG = "jpg";
+    public static final String GIF = "gif";
+    public static final String PNG = "png";
+
+
+    //Accept all directories and all gif, jpg, or png files.
     public boolean accept(File f) {
-        if (f.isDirectory()) {  // TODO do we accept dirs as input?
+        if (f.isDirectory()) {  // show subdirectories for navigation in file select
             return true;
         }
 
-        String extension = Utils.getExtension(f);
+        String extension = getExtension(f);
         if (extension != null) {
-            if (extension.equals(Utils.tiff) ||     // TODO can probably not be handled by backend, remove?
-                    extension.equals(Utils.tif) ||
-                    extension.equals(Utils.gif) ||
-                    extension.equals(Utils.jpeg) ||
-                    extension.equals(Utils.jpg) ||
-                    extension.equals(Utils.png)) {
-                return true;
-            }
+            return extension.equals(GIF)
+                    || extension.equals(JPEG)
+                    || extension.equals(JPG)
+                    || extension.equals(PNG);
         }
         return false;
     }
 
     //The description of this filter
     public String getDescription() {
-        return "Just Images";
+        return "*jpg, *png, *gif";
     }
-}
 
-class Utils {
-
-    // TODO reason for extra class? maybe include in main class for overview purposes?
-
-    // TODO rename to fit static naming theme
-    public final static String jpeg = "jpeg";
-    public final static String jpg = "jpg";
-    public final static String gif = "gif";
-    public final static String tiff = "tiff";
-    public final static String tif = "tif";
-    public final static String png = "png";
-
-    /*
-     * Get the extension of a file.
-     */
+    // Get the extension of a file.
     public static String getExtension(File f) {
         String ext = null;
         String s = f.getName();
         int i = s.lastIndexOf('.');
 
-        if (i > 0 &&  i < s.length() - 1) {
-            ext = s.substring(i+1).toLowerCase();
+        if (i > 0 && i < s.length() - 1) {
+            ext = s.substring(i + 1).toLowerCase();
         }
         return ext;
     }
