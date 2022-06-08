@@ -13,6 +13,8 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -148,6 +150,20 @@ public class SendAsymmetrical extends Component {
             public void actionPerformed(ActionEvent e) {
                 //ToDo Exportfunktion schreiben
 
+            }
+        });
+        progressBar1.addPropertyChangeListener(new PropertyChangeListener() {
+            //ToDo Progress anbinden
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if ("progress" == evt.getPropertyName()) {
+                    int progress = (Integer) evt.getNewValue();
+                    progressBar1.setValue(progress);
+                    /*
+                    taskOutput.append(String.format(
+                            "Completed %d%% of task.\n", task.getProgress()));
+                     */
+                }
             }
         });
     }
