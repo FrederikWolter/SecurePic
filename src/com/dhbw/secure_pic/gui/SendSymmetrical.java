@@ -23,7 +23,7 @@ public class SendSymmetrical extends Component {
 
     private JPanel MainPanel_SS;
     private JPanel RightPanel;
-    private JButton uploadButton;
+    private JButton uploadContainerImg;
     private JPanel LeftPanel;
     private JButton backButton;
     private JRadioButton imageRadioButton;
@@ -66,11 +66,11 @@ public class SendSymmetrical extends Component {
             }
         });
 
-        uploadButton.addActionListener(new ActionListener() {
+        uploadContainerImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
-                if (e.getSource() == uploadButton) {
+                if (e.getSource() == uploadContainerImg) {
                     File file = fs.SelectFile(SendSymmetrical.this);
                     //ToDo Bildanzeige über das buffered Img aus dem ConatainerImg
                     BufferedImage bufferedImage = null;

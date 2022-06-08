@@ -12,31 +12,65 @@ import java.io.File;
 
 public class ReceiveAsymmetrical extends Component {
     private JPanel MainPanel_RA;
-    private JButton uploadButton2;
+    private JButton uploadButtonKeyImage;
     private JComboBox comboBox_CodAlg;
     private JComboBox comboBox_EncAlg;
-    private JButton uploadButton3;
+    private JButton uploadButtonConatainerImg;
     private JCheckBox encodePublicKeyIntoCheckBox;
     private JButton generateKeyButton;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
+    private JTextField privateKeyOutput;
+    private JTextField puplicKeyOutput;
+    private JTextField privateKeyInput;
     private JButton decodeButton;
     private JButton backButton;
+    private JLabel KeyImg;
+    private JLabel ContainerImage;
+    private JPanel OutputMessage;
+    private JLabel MessageOutput;
+    private JButton copyToClipboardButton;
+    private JButton exportButton;
+    private JLabel KeyImagePoutput;
+    private JPanel OutputKey;
+    private JProgressBar progressBar1;
+    private JButton CtcbKeyImage;
+    private JButton exportKeyImageButton;
 
     final FileSelect fs = new FileSelect();
 
     public ReceiveAsymmetrical() {
-        uploadButton2.addActionListener(new ActionListener() {
+        uploadButtonKeyImage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 File file = fs.SelectFile(ReceiveAsymmetrical.this);  // TODO unused?
             }
         });
-        uploadButton3.addActionListener(new ActionListener() {
+        uploadButtonConatainerImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 File file = fs.SelectFile(ReceiveAsymmetrical.this);
+            }
+        });
+        generateKeyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //ToDo Key generation
+                String privateKey = "";
+                String publicKey = "";
+                privateKeyOutput.setText(privateKey);
+                privateKeyInput.setText(privateKey);
+                puplicKeyOutput.setText(publicKey);
+                //ToDo Bildanzeige
+            }
+        });
+        encodePublicKeyIntoCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(encodePublicKeyIntoCheckBox.isEnabled()){
+                    OutputKey.setVisible(true);
+                }
+                else{
+                    OutputKey.setVisible(false);
+                }
             }
         });
     }

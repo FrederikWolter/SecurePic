@@ -18,7 +18,11 @@ public class ReceiveNoEncryption extends Component {
     private JComboBox comboBox_CodAlg;
     private JButton decodeButton;
     private JButton uploadButton2;
-    private JTextPane textPane1;
+    private JLabel ConatainerImg;
+    private JPanel RightPanel;
+    private JLabel MessageOutput;
+    private JButton copyToClipboardButton;
+    private JButton exportButton;
 
     final FileSelect fs = new FileSelect();
 
