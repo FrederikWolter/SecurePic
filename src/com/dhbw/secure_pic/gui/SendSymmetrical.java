@@ -1,7 +1,7 @@
 package com.dhbw.secure_pic.gui;
 
 
-import com.dhbw.secure_pic.gui.functions.FileSelect;
+import com.dhbw.secure_pic.gui.utility.FileSelect;
 import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
 
 import javax.imageio.ImageIO;

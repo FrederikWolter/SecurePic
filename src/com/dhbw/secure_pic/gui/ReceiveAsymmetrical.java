@@ -1,6 +1,6 @@
 package com.dhbw.secure_pic.gui;
 
-import com.dhbw.secure_pic.gui.functions.FileSelect;
+import com.dhbw.secure_pic.gui.utility.FileSelect;
 
 import javax.swing.*;
 import java.awt.*;

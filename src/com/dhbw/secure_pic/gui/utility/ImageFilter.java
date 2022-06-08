@@ -1,4 +1,4 @@
-package com.dhbw.secure_pic.gui.functions;
+package com.dhbw.secure_pic.gui.utility;
 
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
