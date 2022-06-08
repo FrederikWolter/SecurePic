@@ -7,8 +7,8 @@ import java.awt.event.ActionListener;
 // TODO comment (normal comments + JDocs) # only delete if final#
 
 public class StartChooseType {
-    private JTextPane loremIpsumTextPane;
-    private JTextPane loremIpsumTextPane1;
+    private JLabel loremIpsumLabel;
+    private JLabel loremIpsumLabel1;
     private JButton closeButton;
     private JButton sendButton;
     private JButton receiveButton;

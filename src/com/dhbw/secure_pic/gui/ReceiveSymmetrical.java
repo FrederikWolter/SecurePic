@@ -24,6 +24,7 @@ public class ReceiveSymmetrical extends Component {
     private JLabel MessageOutput;
     private JButton copyToClipboardButton;
     private JButton exportButton;
+    private JLabel ContainerImgAnzeige;
 
     final FileSelect fs = new FileSelect();
 

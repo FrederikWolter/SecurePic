@@ -152,7 +152,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="e93bd" class="javax.swing.JLabel" binding="KeyImagePoutput">
+          <component id="e93bd" class="javax.swing.JLabel" binding="KeyImageOutput">
             <constraints>
               <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>

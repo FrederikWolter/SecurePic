@@ -28,7 +28,8 @@ public class Gui {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(800,500);
         frame.setLocationRelativeTo(null);
-        frame.setMinimumSize(new Dimension(800, 500));
+        frame.setMinimumSize(new Dimension(1280, 720));
+        frame.setPreferredSize(new Dimension(1980, 1080));
 
         cl = new CardLayout();
         panelCont = new JPanel(cl);

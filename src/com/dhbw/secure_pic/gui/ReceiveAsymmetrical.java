@@ -29,7 +29,7 @@ public class ReceiveAsymmetrical extends Component {
     private JLabel MessageOutput;
     private JButton copyToClipboardButton;
     private JButton exportButton;
-    private JLabel KeyImagePoutput;
+    private JLabel KeyImageOutput;
     private JPanel OutputKey;
     private JProgressBar progressBar1;
     private JButton CtcbKeyImage;
@@ -65,7 +65,7 @@ public class ReceiveAsymmetrical extends Component {
         encodePublicKeyIntoCheckBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(encodePublicKeyIntoCheckBox.isEnabled()){
+                if(encodePublicKeyIntoCheckBox.isSelected()){
                     OutputKey.setVisible(true);
                 }
                 else{
