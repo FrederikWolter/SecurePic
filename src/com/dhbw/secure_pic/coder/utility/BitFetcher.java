@@ -51,4 +51,12 @@ public class BitFetcher {
         return bytes.length > position / 8;
     }
 
+    // region getter
+
+    public long getPosition() {
+        return position;
+    }
+
+    // endregion
+
 }

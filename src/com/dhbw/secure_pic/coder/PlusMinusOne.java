@@ -38,8 +38,6 @@ public class PlusMinusOne extends Coder {
      */
     @Override
     public ContainerImage encode(Information info, ProgressMonitor monitor) throws InsufficientCapacityException {
-        // TODO use progressMonitor
-
         // test whether information will fit into container image
         int infoLength = info.getTotalLength();
         int imageCapacity = this.getCapacity();
@@ -91,6 +89,9 @@ public class PlusMinusOne extends Coder {
 
                 // set calculated argb value in image
                 super.image.setARGB(x, y, pixel[0], pixel[1], pixel[2], pixel[3]);
+
+                // update progress
+                monitor.updateProgress((int) (fetcher.getPosition() / (infoLength) * 8));
             }
         }
 
@@ -108,8 +109,6 @@ public class PlusMinusOne extends Coder {
      */
     @Override
     public Information decode(ProgressMonitor monitor) throws IllegalTypeException, IllegalLengthException {
-        // TODO use progressMonitor
-
         // make space for result
         Information information = null;
 
@@ -152,6 +151,11 @@ public class PlusMinusOne extends Coder {
                         lastBit = (nextBit == 0b1);     // save new lastBit
                     }
                     assembler.append(nextBit);      // append masked LSB from pixel chanel to bit assembler
+                }
+
+                // update progress
+                if (information != null){
+                    monitor.updateProgress((int) (assembler.getPosition() / (information.getLength()) * 8));
                 }
             }
         }
