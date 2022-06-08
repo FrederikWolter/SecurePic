@@ -32,6 +32,7 @@ public class TestInformation {
         assertEquals(info.getType(), Information.Type.TEXT);
     }
 
+    @SuppressWarnings("UnusedAssignment")
     @Test
     public void testGetInformationFromImage() throws IllegalTypeException, IOException {
         // TODO add automatic test?

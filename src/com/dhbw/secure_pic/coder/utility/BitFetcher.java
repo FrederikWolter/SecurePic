@@ -33,7 +33,7 @@ public class BitFetcher {
         if (hasNext()) {
             int byteValue = bytes[(int) (position / 8)]; // get current byte
             int bitPosition = (int) (7 - (position % 8));
-            int bitValue = byteValue >> bitPosition & 0b00000001; // get current bit
+            int bitValue = byteValue >> bitPosition & 0b1; // get current bit
 
             position += 1;
 

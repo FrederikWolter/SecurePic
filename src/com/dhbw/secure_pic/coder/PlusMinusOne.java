@@ -71,7 +71,7 @@ public class PlusMinusOne extends Coder {
                     // is there another bit in fetcher?
                     if (fetcher.hasNext()) {
                         byte nextBit = fetcher.next();              // get next bit from fetcher
-                        pixel[i] = (byte) (pixel[i] & 0b11111110);  // keep pixel value except last bit
+                        pixel[i] = (byte) (pixel[i] & ~0b1);  // keep pixel value except last bit
 
                         // calculate nextBit according to lastBit:
                         // lastBit = 0 & nextBit = 0 -> bit = 0
@@ -81,7 +81,7 @@ public class PlusMinusOne extends Coder {
                         if (lastBit) {
                             nextBit = (byte) ((nextBit == 0) ? 0b1 : 0b0);
                         }
-                        pixel[i] += nextBit;    // set last bit with next bit
+                        pixel[i] |= nextBit;    // set last bit with next bit
 
                         lastBit = (nextBit == 0b1);  // save last bit
                     } else {
@@ -180,6 +180,6 @@ public class PlusMinusOne extends Coder {
 
         int bitsPerPixel = 3;       // red, green, blue get modified
 
-        return (int) (((long) width * height * bitsPerPixel) / 8);
+        return (width * height * bitsPerPixel) / 8;
     }
 }

@@ -66,9 +66,9 @@ public class LeastSignificantBit extends Coder {
                 for (int i = 1; i < 4 && hasNext; i++) {
                     // is there another bit in fetcher?
                     if (fetcher.hasNext()) {
-                        byte nextBit = fetcher.next();              // get next bit from fetcher
-                        pixel[i] = (byte) (pixel[i] & 0b11111110);  // keep pixel value except last bit
-                        pixel[i] += nextBit;                        // set last bit with next bit
+                        byte nextBit = fetcher.next();          // get next bit from fetcher
+                        pixel[i] = (byte) (pixel[i] & ~0b1);    // keep pixel value except last bit
+                        pixel[i] |= nextBit;                    // set last bit with next bit
                     } else {
                         hasNext = false;    // save if there is no next bit -> breaks all for-loops
                     }
@@ -148,6 +148,6 @@ public class LeastSignificantBit extends Coder {
 
         int bitsPerPixel = 3;       // red, green, blue get modified
 
-        return (int) (((long) width * height * bitsPerPixel) / 8);
+        return (width * height * bitsPerPixel) / 8;
     }
 }
