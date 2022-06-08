@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// TODO comment (normal comments + JDocs) # only delete if final#
+// FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class StartChooseType {
     private JTextPane loremIpsumTextPane;

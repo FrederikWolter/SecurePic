@@ -4,7 +4,7 @@ import com.dhbw.secure_pic.gui.Gui;
 
 import javax.swing.*;
 
-// TODO comment (normal comments + JDocs) # only delete if final#
+// FIXME comment (normal comments + JDocs) # only delete if final#
 
 // TODO run code reformat & cleanup before pull request to main
 

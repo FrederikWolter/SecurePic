@@ -2,7 +2,7 @@ package com.dhbw.secure_pic.gui;
 
 import javax.swing.*;
 
-// TODO comment (normal comments + JDocs) # only delete if final#
+// FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class StartReceiveChooseEncryption {
     private JButton backButton;

@@ -3,7 +3,7 @@ package com.dhbw.secure_pic.gui.functions;
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
-// TODO comment (normal comments + JDocs) # only delete if final#
+// FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class ImageFilter extends FileFilter {
 
