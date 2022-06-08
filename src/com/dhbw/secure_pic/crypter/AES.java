@@ -10,7 +10,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-// TODO COMMENT
+// FIXME comment
 // TODO do more work self instead of handing it over to library?
 
 /**

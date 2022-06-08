@@ -11,7 +11,7 @@ import com.dhbw.secure_pic.gui.utility.DecodeFinishedHandler;
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;
 
-// TODO comment
+// FIXME comment
 
 /**
  * @author Thu Giang Tran, Frederik Wolter
@@ -55,7 +55,6 @@ public class DecodeTask extends SwingWorker<Information, Void> {
 
         return this.information;
         // TODO use setProgress(): https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ProgressBarDemoProject/src/components/ProgressBarDemo.java
-        // TODO use design pattern for setProgress from called method https://stackoverflow.com/a/24946032/13777031
     }
 
     @Override

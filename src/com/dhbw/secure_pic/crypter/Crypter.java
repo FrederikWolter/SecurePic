@@ -4,7 +4,7 @@ import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
-// TODO COMMENT
+// FIXME comment
 
 /**
  * This class implements the Crypter used to encrypt/decrypt messages.<br>

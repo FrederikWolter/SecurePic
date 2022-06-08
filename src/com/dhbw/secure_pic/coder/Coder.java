@@ -7,7 +7,7 @@ import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
-// TODO COMMENT
+// FIXME comment
 // TODO fill up with random data til capacity?
 
 /**

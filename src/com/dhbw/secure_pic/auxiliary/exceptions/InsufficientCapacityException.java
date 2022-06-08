@@ -1,6 +1,6 @@
 package com.dhbw.secure_pic.auxiliary.exceptions;
 
-// TODO comment
+// FIXME comment
 
 public class InsufficientCapacityException extends Exception {
     // see https://stackoverflow.com/questions/8423700/how-to-create-a-custom-exception-type-in-java

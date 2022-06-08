@@ -3,7 +3,7 @@ package com.dhbw.secure_pic.crypter;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
-// TODO comment
+// FIXME comment
 
 /**
  * This class implements a no-op encryption to use if the user wishes to NOT encrypt the data at all.

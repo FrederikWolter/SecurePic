@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-// TODO comment
+// FIXME comment
 
 /**
  * @author Frederik Wolter
@@ -78,7 +78,7 @@ public class TestPlusMinusOne {
         assertNull(info2.toText());
         info2.copyToClipboard();
 
-        // TODO automatic test?
+        // FIXME automatic test?
     }
 
     @Test

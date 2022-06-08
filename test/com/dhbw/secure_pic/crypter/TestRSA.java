@@ -34,8 +34,4 @@ public class TestRSA {
         assertEquals(information.toText(), message);
     }
 
-    @Test
-    public void getNew() {
-        assert false; // TODO
-    }
 }

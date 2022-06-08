@@ -7,7 +7,7 @@ import com.dhbw.secure_pic.gui.utility.LoadFinishedHandler;
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;
 
-// TODO comment
+// FIXME comment
 // TODO see in general https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html
 
 /**

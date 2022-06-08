@@ -11,8 +11,8 @@ import javax.crypto.NoSuchPaddingException;
 import java.security.*;
 import java.util.Base64;
 
-// TODO COMMENT
-// TODO implement
+// FIXME comment
+// TODO do more work self instead of handing it over to library?
 
 /**
  * This class implements the RSA encryption method used to encrypt/decrypt messages.<br>

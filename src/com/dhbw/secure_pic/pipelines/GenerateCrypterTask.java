@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.util.concurrent.ExecutionException;
 
 
-// TODO comment
+// FIXME comment
 
 /**
  * @author Thu Giang Tran, Frederik Wolter
@@ -29,8 +29,14 @@ public class GenerateCrypterTask extends SwingWorker<Crypter, Void> {
 
     @Override
     protected Crypter doInBackground() {
+        // initialize progress property.
+        setProgress(0);
+
         // generate Keys of Crypter
         this.crypter.generateKey(progress -> setProgress(progress));
+
+        // update progress
+        setProgress(100);
 
         return this.crypter;
         // TODO use setProgress(): https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ProgressBarDemoProject/src/components/ProgressBarDemo.java
