@@ -39,7 +39,15 @@ public class SendNoEncryption extends Component {
 
     final FileSelect fs = new FileSelect();
 
-    public SendNoEncryption() {
+    public SendNoEncryption(Gui parent) {
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.show("3");
+            }
+        });
+
         Uploadpanel.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {

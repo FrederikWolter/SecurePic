@@ -24,11 +24,18 @@ public class ReceiveSymmetrical extends Component {
 
     final FileSelect fs = new FileSelect();
 
-    public ReceiveSymmetrical() {
+    public ReceiveSymmetrical(Gui parent) {
         uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 File file = fs.SelectFile(ReceiveSymmetrical.this);
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.show("3");
             }
         });
     }

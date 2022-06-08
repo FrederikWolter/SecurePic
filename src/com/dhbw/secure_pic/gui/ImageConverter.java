@@ -11,43 +11,40 @@ import java.io.File;
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class ImageConverter extends Component {
-    private JPanel MainPanel_ImgCon;
+    private JPanel contentPane;
     private JButton buttonStartApp;
     private JProgressBar progressBar1;
-    private JRadioButton radioButton1;
-    private JRadioButton radioButton2;
-    private JRadioButton radioButton3;
-    private JRadioButton radioButton4;
-    private JRadioButton radioButton5;
-    private JRadioButton radioButton6;
     private JButton button2;
     private JButton uploadButton;
     private JPanel ImagePanel;
 
-    public ImageConverter() {
-        final FileSelect fs = new FileSelect();
+    public ImageConverter(Gui parent) {
+        final FileSelect fs = new FileSelect(); // TODO inline?
+
 
         buttonStartApp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //.setTitle("SecurePic");
+                // set new window title
+                ((JFrame) SwingUtilities.getWindowAncestor(contentPane)).setTitle("SecurePic");
 
+                parent.show("2");
             }
         });
+
         uploadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 if (e.getSource() == uploadButton) {
-                    File file =fs.SelectFile(ImageConverter.this);   // TODO unuse?
-
+                    File file =fs.SelectFile(ImageConverter.this);   // TODO unused?
                 }
             }
         });
     }
 
     public JPanel getMainPanel_ImgCon() {
-        return MainPanel_ImgCon;
+        return contentPane;
     }
 
     public JButton getButtonStartApp(){

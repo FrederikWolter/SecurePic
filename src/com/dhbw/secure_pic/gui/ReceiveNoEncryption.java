@@ -22,7 +22,15 @@ public class ReceiveNoEncryption extends Component {
 
     final FileSelect fs = new FileSelect();
 
-    public ReceiveNoEncryption() {
+    public ReceiveNoEncryption(Gui parent) {
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.show("3");
+            }
+        });
+
         uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

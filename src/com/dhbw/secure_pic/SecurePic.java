@@ -24,7 +24,7 @@ public class SecurePic {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Gui().show();
+                new Gui();
             }
         });
     }
