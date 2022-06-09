@@ -36,7 +36,7 @@ public class Gui {
 
         // TODO use static final string for identifiers
 
-        JPanel imageConverterPanel = new ImageConverter(this).getMainPanel_ImgCon();
+        JPanel imageConverterPanel = new ImageConverter(this).getContentPane();
         contentPane.add (imageConverterPanel, "1");
         JPanel startChooseTypePanel = new StartChooseType(this).getMainPanel_ST();
         contentPane.add (startChooseTypePanel, "2");

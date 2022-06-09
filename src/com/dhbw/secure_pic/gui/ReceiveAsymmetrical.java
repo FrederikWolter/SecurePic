@@ -24,8 +24,6 @@ public class ReceiveAsymmetrical extends Component {
     private JButton decodeButton;
     private JButton backButton;
 
-    final FileSelect fs = new FileSelect();
-
     public ReceiveAsymmetrical(Gui parent) {
 
         backButton.addActionListener(new ActionListener() {
@@ -38,13 +36,13 @@ public class ReceiveAsymmetrical extends Component {
         uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = fs.SelectFile(ReceiveAsymmetrical.this);  // TODO unused?
+                File file = new FileSelect().selectFile(ReceiveAsymmetrical.this);  // TODO unused?
             }
         });
         uploadButton3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = fs.SelectFile(ReceiveAsymmetrical.this);
+                File file = new FileSelect().selectFile(ReceiveAsymmetrical.this);  // TODO unused?
             }
         });
     }

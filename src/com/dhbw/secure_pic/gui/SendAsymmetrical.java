@@ -80,23 +80,20 @@ public class SendAsymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
-                if (e.getSource() == uploadButton) {
-                    File file = fs.SelectFile(SendAsymmetrical.this);
-                    //ToDo Bildanzeige über das buffered Img aus dem ContainerImg
-                    BufferedImage bufferedImage = null;
-                    try {
-                        bufferedImage = ImageIO.read(file);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                    anzeigeContainerBild.setText("");
-                    anzeigeContainerBild.setIcon(imageIcon);
-
-                    //ToDo Frederik noch mal anschauen lassen ob die pipeline anbindung passt
-                    ContainerImageLoadTask loadImage = new ContainerImageLoadTask(file.getPath());
-
+                File file = fs.selectFile(SendAsymmetrical.this);
+                //ToDo Bildanzeige über das buffered Img aus dem ContainerImg
+                BufferedImage bufferedImage = null;
+                try {
+                    bufferedImage = ImageIO.read(file);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
+                ImageIcon imageIcon = new ImageIcon(bufferedImage);
+                anzeigeContainerBild.setText("");
+                anzeigeContainerBild.setIcon(imageIcon);
+
+                //ToDo Frederik noch mal anschauen lassen ob die pipeline anbindung passt
+                ContainerImageLoadTask loadImage = new ContainerImageLoadTask(file.getPath());
             }
         });
         uploadButton2.addActionListener(new ActionListener() {
@@ -104,7 +101,7 @@ public class SendAsymmetrical extends Component {
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 if (e.getSource() == uploadButton2) {
-                    File file = fs.SelectFile(SendAsymmetrical.this);
+                    File file = fs.selectFile(SendAsymmetrical.this);
                     //ToDo Bildanzeige über das buffered Img aus dem ContainerImg
                     BufferedImage bufferedImage = null;
                     try {
