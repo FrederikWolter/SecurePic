@@ -7,8 +7,8 @@ import java.awt.event.ActionListener;
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class StartChooseType {
-    private JTextPane loremIpsumEnglischTextPane;
-    private JTextPane loremIpsumEnglischTextPane1;
+    private JTextPane SendDescr;
+    private JTextPane receiveDescr;
     private JButton closeButton;
     private JButton sendButton;
     private JButton receiveButton;
