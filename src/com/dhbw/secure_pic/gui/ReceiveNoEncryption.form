@@ -77,7 +77,7 @@
             </constraints>
             <properties>
               <text value="Upload"/>
-              <toolTipText value="Recieved Container Img"/>
+              <toolTipText value="Received Container Img"/>
               <visible value="true"/>
             </properties>
             <clientProperties>

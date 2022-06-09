@@ -35,8 +35,8 @@ public class SendSymmetrical extends Component {
     private JButton copyToClipboardButton;
     private JButton exportButton;
     private JProgressBar progressBar1;
-    private JLabel AnzeigeConatinerBild;
-    private JPanel Uploadpanel;
+    private JLabel anzeigeContainerBild;
+    private JPanel uploadPanel;
     private JLabel MessageImg;
 
     final FileSelect fs = new FileSelect();
@@ -50,7 +50,7 @@ public class SendSymmetrical extends Component {
             }
         });
 
-        Uploadpanel.setDropTarget(new DropTarget() {
+        uploadPanel.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
@@ -63,8 +63,8 @@ public class SendSymmetrical extends Component {
                             ex.printStackTrace();
                         }
                         ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                        AnzeigeConatinerBild.setText("");
-                        AnzeigeConatinerBild.setIcon(imageIcon);
+                        anzeigeContainerBild.setText("");
+                        anzeigeContainerBild.setIcon(imageIcon);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -78,7 +78,7 @@ public class SendSymmetrical extends Component {
                 //Handle open button action.
                 if (e.getSource() == uploadButton) {
                     File file = fs.SelectFile(SendSymmetrical.this);
-                    //ToDo Bildanzeige über das buffered Img aus dem ConatainerImg
+                    //ToDo Bildanzeige über das buffered Img aus dem ContainerImg
                     BufferedImage bufferedImage = null;
                     try {
                         bufferedImage = ImageIO.read(file);
@@ -86,8 +86,8 @@ public class SendSymmetrical extends Component {
                         ex.printStackTrace();
                     }
                     ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                    AnzeigeConatinerBild.setText("");
-                    AnzeigeConatinerBild.setIcon(imageIcon);
+                    anzeigeContainerBild.setText("");
+                    anzeigeContainerBild.setIcon(imageIcon);
 
                     //ToDo Frederik noch mal anschauen lassen ob die pipeline anbindung passt
                     ContainerImageLoadTask loadImage = new ContainerImageLoadTask(file.getPath());
@@ -101,7 +101,7 @@ public class SendSymmetrical extends Component {
             //Handle open button action.
             if (e.getSource() == uploadButton2) {
                 File file = fs.SelectFile(SendSymmetrical.this);
-                //ToDo Bildanzeige über das buffered Img aus dem ConatainerImg
+                //ToDo Bildanzeige über das buffered Img aus dem ContainerImg
                 BufferedImage bufferedImage = null;
                 try {
                     bufferedImage = ImageIO.read(file);
@@ -138,7 +138,7 @@ public class SendSymmetrical extends Component {
             encodeButton.setEnabled(false);
             //ToDo Encode Pipeline
             //ToDo Logik zur Vollständigkeit und Korrektheit der ausgewählten Parameter und deren Verwendung
-            //ToDo nach Beendingung des Vorgangs wird das fertige Bild angezeigt
+            //ToDo nach Beendigung des Vorgangs wird das fertige Bild angezeigt
 
         }
     });

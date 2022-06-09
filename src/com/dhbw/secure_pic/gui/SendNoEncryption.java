@@ -33,8 +33,8 @@ public class SendNoEncryption extends Component {
     private JPanel RightPanel;
     private JButton copyToClipboardButton;
     private JButton exportButton;
-    private JPanel Uploadpanel;
-    private JLabel AnzeigeConatinerBild;
+    private JPanel uploadPanel;
+    private JLabel anzeigeContainerBild;
     private JLabel MessageImg;
 
     final FileSelect fs = new FileSelect();
@@ -48,7 +48,7 @@ public class SendNoEncryption extends Component {
             }
         });
 
-        Uploadpanel.setDropTarget(new DropTarget() {
+        uploadPanel.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
@@ -61,8 +61,8 @@ public class SendNoEncryption extends Component {
                             ex.printStackTrace();
                         }
                         ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                        AnzeigeConatinerBild.setText("");
-                        AnzeigeConatinerBild.setIcon(imageIcon);
+                        anzeigeContainerBild.setText("");
+                        anzeigeContainerBild.setIcon(imageIcon);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -75,7 +75,7 @@ public class SendNoEncryption extends Component {
                 //Handle open button action.
                 if (e.getSource() == uploadButton) {
                     File file = fs.SelectFile(SendNoEncryption.this);
-                    //ToDo Bildanzeige über das buffered Img aus dem ConatainerImg
+                    //ToDo Bildanzeige über das buffered Img aus dem ContainerImg
                     BufferedImage bufferedImage = null;
                     try {
                         bufferedImage = ImageIO.read(file);
@@ -83,8 +83,8 @@ public class SendNoEncryption extends Component {
                         ex.printStackTrace();
                     }
                     ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                    AnzeigeConatinerBild.setText("");
-                    AnzeigeConatinerBild.setIcon(imageIcon);
+                    anzeigeContainerBild.setText("");
+                    anzeigeContainerBild.setIcon(imageIcon);
 
                     //ToDo Frederik noch mal anschauen lassen ob die pipeline anbindung passt
                     ContainerImageLoadTask loadImage = new ContainerImageLoadTask(file.getPath());
@@ -98,7 +98,7 @@ public class SendNoEncryption extends Component {
                 //Handle open button action.
                 if (e.getSource() == uploadButton2) {
                     File file = fs.SelectFile(SendNoEncryption.this);
-                    //ToDo Bildanzeige über das buffered Img aus dem ConatainerImg
+                    //ToDo Bildanzeige über das buffered Img aus dem ContainerImg
                     BufferedImage bufferedImage = null;
                     try {
                         bufferedImage = ImageIO.read(file);

@@ -20,7 +20,7 @@ public class EncodeTask extends SwingWorker<ContainerImage, Void> {
 
     // region attributes
     /** Coder for encoding the information into the container image. */
-    private Coder coder;
+    private final Coder coder;
     /** Crypter for encrypting the information. */
     private final Crypter crypter;
     /** Information to work with. */

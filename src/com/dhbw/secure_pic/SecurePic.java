@@ -21,11 +21,6 @@ import javax.swing.*;
  */
 public class SecurePic {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Gui();
-            }
-        });
+        SwingUtilities.invokeLater(Gui::new);
     }
 }
