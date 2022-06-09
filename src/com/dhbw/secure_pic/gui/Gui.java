@@ -52,7 +52,7 @@ public class Gui {
         contentPane.add (sendNoEncryptionPanel, "7");
         JPanel sendAsymmetricalPanel = new SendAsymmetrical(this).getMainPanel_SA();
         contentPane.add (sendAsymmetricalPanel, "8");
-        JPanel sendSymmetricalPanel = new SendSymmetrical(this).getMainPanel_SS();
+        JPanel sendSymmetricalPanel = new SendSymmetrical(this).getContentPane();
         contentPane.add (sendSymmetricalPanel, "9");
 
         //receiveOptions.setBackground(Color.PINK); // TODO remove test code
