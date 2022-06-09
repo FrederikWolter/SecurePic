@@ -8,14 +8,14 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="a7dbe" class="javax.swing.JTextPane" binding="loremIpsumTextPane" default-binding="true">
+      <component id="a7dbe" class="javax.swing.JTextPane" binding="loremIpsumEnglischTextPane" default-binding="true">
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
           </grid>
         </constraints>
         <properties>
-          <text value="Lorem Ipsum"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="lorem.ipsum"/>
         </properties>
       </component>
       <component id="bf4f7" class="javax.swing.JButton" binding="closeButton" default-binding="true">
@@ -24,7 +24,7 @@
         </constraints>
         <properties>
           <background color="-3422958"/>
-          <text value="Close"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="close"/>
         </properties>
       </component>
       <vspacer id="2808">
@@ -37,7 +37,7 @@
           <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Send"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="send"/>
         </properties>
       </component>
       <vspacer id="b2860">
@@ -60,29 +60,17 @@
           <grid row="2" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Receive"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="receive"/>
         </properties>
       </component>
-      <component id="32964" class="javax.swing.JTextPane" binding="loremIpsumTextPane1" default-binding="true">
+      <component id="32964" class="javax.swing.JTextPane" binding="loremIpsumEnglischTextPane1" default-binding="true">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
           </grid>
         </constraints>
         <properties>
-          <text value="Lorem Ipsum"/>
-        </properties>
-      </component>
-      <component id="bb742" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
-        <constraints>
-          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <model>
-            <item value="Language..."/>
-            <item value="English"/>
-            <item value="Deutsch"/>
-          </model>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="lorem.ipsum2"/>
         </properties>
       </component>
     </children>
