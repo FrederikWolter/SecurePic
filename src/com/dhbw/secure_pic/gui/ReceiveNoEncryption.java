@@ -34,7 +34,7 @@ public class ReceiveNoEncryption extends Component {
         uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = fs.SelectFile(ReceiveNoEncryption.this);   // TODO unused
+                File file = fs.selectFile(ReceiveNoEncryption.this);   // TODO unused
             }
         });
 

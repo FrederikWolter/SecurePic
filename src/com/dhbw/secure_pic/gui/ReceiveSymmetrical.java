@@ -28,7 +28,7 @@ public class ReceiveSymmetrical extends Component {
         uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = fs.SelectFile(ReceiveSymmetrical.this);
+                File file = fs.selectFile(ReceiveSymmetrical.this);
             }
         });
 

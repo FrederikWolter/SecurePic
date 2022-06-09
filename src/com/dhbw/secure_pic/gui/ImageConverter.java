@@ -19,15 +19,12 @@ public class ImageConverter extends Component {
     private JPanel ImagePanel;
 
     public ImageConverter(Gui parent) {
-        final FileSelect fs = new FileSelect(); // TODO inline?
-
-
+        // region listener
         buttonStartApp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // set new window title
                 ((JFrame) SwingUtilities.getWindowAncestor(contentPane)).setTitle("SecurePic");
-
                 parent.show("2");
             }
         });
@@ -36,14 +33,13 @@ public class ImageConverter extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
-                if (e.getSource() == uploadButton) {
-                    File file =fs.SelectFile(ImageConverter.this);   // TODO unused?
-                }
+                File file =new FileSelect().selectFile(ImageConverter.this);   // TODO unused?
             }
         });
+        // endregion
     }
 
-    public JPanel getMainPanel_ImgCon() {
+    public JPanel getContentPane() {
         return contentPane;
     }
 

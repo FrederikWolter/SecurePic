@@ -6,21 +6,26 @@ import java.io.File;
 
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
+// see https://docs.oracle.com/javase/tutorial/uiswing/components/filechooser.html
+
+/**
+ *
+ * @author Kai Schwab, Frederik WOlter
+ */
+
 public class FileSelect {
-    final JFileChooser fc = new JFileChooser();
+    private final JFileChooser fileChooser = new JFileChooser();
 
-    public File SelectFile(Component parent) { // parent in der Form fenster.this angeben
-        fc.addChoosableFileFilter(new ImageFilter());
-        fc.setAcceptAllFileFilterUsed(false);
-        int returnVal = fc.showOpenDialog(parent);
+    public File selectFile(Component parent) { // parent in der Form fenster.this angeben
+        fileChooser.addChoosableFileFilter(new ImageFilter());
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        int returnVal = fileChooser.showOpenDialog(parent);
 
-        File file = null;
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            file = fc.getSelectedFile();
-            //This is where a real application would open the file.
+            return fileChooser.getSelectedFile();
         } else {
+            // TODO error handling?
+            return null;
         }
-        return file;
-
     }
 }

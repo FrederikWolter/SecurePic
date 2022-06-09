@@ -19,7 +19,7 @@ import java.io.IOException;
 
 public class SendSymmetrical extends Component {
 
-    private JPanel MainPanel_SS;
+    private JPanel contentPane;
     private JPanel RightPanel;
     private JButton uploadButton;
     private JPanel LeftPanel;
@@ -35,36 +35,32 @@ public class SendSymmetrical extends Component {
     private JButton copyToClipboardButton;
     private JButton exportButton;
     private JProgressBar progressBar1;
-    private JLabel AnzeigeConatinerBild;
-    private JPanel Uploadpanel;
+    private JLabel anzeigeContainerBild;
+    private JPanel uploadPanel;
     private JLabel MessageImg;
 
-    final FileSelect fs = new FileSelect();
 
     public SendSymmetrical(Gui parent) {
 
-        backButton.addActionListener(new ActionListener() {
+        uploadPanel.setDropTarget(new DropTarget() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.show("3");
-            }
-        });
-
-        Uploadpanel.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
+
                     for (File file : droppedFiles) {
+                        // TODO use load task for that
                         BufferedImage bufferedImage = null;
                         try {
                             bufferedImage = ImageIO.read(file);
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
+
                         ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                        AnzeigeConatinerBild.setText("");
-                        AnzeigeConatinerBild.setIcon(imageIcon);
+                        anzeigeContainerBild.setText("");
+                        anzeigeContainerBild.setIcon(imageIcon);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -72,36 +68,40 @@ public class SendSymmetrical extends Component {
             }
         });
 
+        // region listener
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.show("3");
+            }
+        });
+
         uploadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
-                if (e.getSource() == uploadButton) {
-                    File file = fs.SelectFile(SendSymmetrical.this);
-                    //ToDo Bildanzeige über das buffered Img aus dem ConatainerImg
-                    BufferedImage bufferedImage = null;
-                    try {
-                        bufferedImage = ImageIO.read(file);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                    AnzeigeConatinerBild.setText("");
-                    AnzeigeConatinerBild.setIcon(imageIcon);
-
-                    //ToDo Frederik noch mal anschauen lassen ob die pipeline anbindung passt
-                    ContainerImageLoadTask loadImage = new ContainerImageLoadTask(file.getPath());
-
+                File file = new FileSelect().selectFile(SendSymmetrical.this);
+                // TODO use load task for that
+                BufferedImage bufferedImage = null;
+                try {
+                    bufferedImage = ImageIO.read(file);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
+                //ToDo Frederik noch mal anschauen lassen ob die pipeline anbindung passt
+                // ContainerImageLoadTask loadImage = new ContainerImageLoadTask(file.getPath());
+
+                ImageIcon imageIcon = new ImageIcon(bufferedImage);
+                anzeigeContainerBild.setText("");
+                anzeigeContainerBild.setIcon(imageIcon);
             }
         });
         uploadButton2.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            //Handle open button action.
-            if (e.getSource() == uploadButton2) {
-                File file = fs.SelectFile(SendSymmetrical.this);
-                //ToDo Bildanzeige über das buffered Img aus dem ConatainerImg
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Handle open button action.
+                File file = new FileSelect().selectFile(SendSymmetrical.this);
+                //ToDo Bildanzeige über das buffered Img aus dem ContainerImg
                 BufferedImage bufferedImage = null;
                 try {
                     bufferedImage = ImageIO.read(file);
@@ -111,37 +111,35 @@ public class SendSymmetrical extends Component {
                 ImageIcon imageIcon = new ImageIcon(bufferedImage);
                 MessageImg.setText("");
                 MessageImg.setIcon(imageIcon);
+            }
+        });
+        imageRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message.setVisible(false);
+                uploadButton2.setVisible(true);
+                MessageImg.setVisible(true);
 
             }
-        }
-    });
-        imageRadioButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Message.setVisible(false);
-            uploadButton2.setVisible(true);
-            MessageImg.setVisible(true);
-
-        }
-    });
+        });
         textmessageRadioButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Message.setVisible(true);
-            uploadButton2.setVisible(false);
-            MessageImg.setVisible(false);
-        }
-    });
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message.setVisible(true);
+                uploadButton2.setVisible(false);
+                MessageImg.setVisible(false);
+            }
+        });
         encodeButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            encodeButton.setEnabled(false);
-            //ToDo Encode Pipeline
-            //ToDo Logik zur Vollständigkeit und Korrektheit der ausgewählten Parameter und deren Verwendung
-            //ToDo nach Beendingung des Vorgangs wird das fertige Bild angezeigt
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                encodeButton.setEnabled(false);
+                //ToDo Encode Pipeline
+                //ToDo Logik zur Vollständigkeit und Korrektheit der ausgewählten Parameter und deren Verwendung
+                //ToDo nach Beendigung des Vorgangs wird das fertige Bild angezeigt
 
-        }
-    });
+            }
+        });
         exportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -153,14 +151,16 @@ public class SendSymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //ToDo Exportfunktion schreiben
-
             }
         });
+
+        // endregion
     }
 
-    public JPanel getMainPanel_SS() {
-        return MainPanel_SS;
+    public JPanel getContentPane() {
+        return contentPane;
     }
+
     public JButton getBackButton() {
         return backButton;
     }
