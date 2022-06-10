@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
 
-// TODO comment
+// FIXME comment
 
 /**
  * @author Frederik Wolter
@@ -32,9 +32,10 @@ public class TestInformation {
         assertEquals(info.getType(), Information.Type.TEXT);
     }
 
+    @SuppressWarnings("UnusedAssignment")
     @Test
     public void testGetInformationFromImage() throws IllegalTypeException, IOException {
-        // TODO add automatic test?
+        // FIXME add automatic test?
 
         Information info;
         BufferedImage image1;
@@ -77,7 +78,7 @@ public class TestInformation {
         Information info = Information.getInformationFromString(testString);
 
         byte[] result = info.toBEBytes();
-        // TODO add automatic test?
+        // FIXME add automatic test?
     }
 
     @Test
@@ -86,13 +87,13 @@ public class TestInformation {
 
         Information info = Information.getInformationFromString(testString);
         info.copyToClipboard();
-        // TODO add automatic test?
+        // FIXME add automatic test?
     }
 
     @Test
     public void testCopyContentToClipboardImage() throws IOException, IllegalTypeException {
         Information info = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
         info.copyToClipboard();
-        // TODO add automatic test?
+        // FIXME add automatic test?
     }
 }

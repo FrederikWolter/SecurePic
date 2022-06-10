@@ -2,7 +2,7 @@ package com.dhbw.secure_pic.auxiliary;
 
 import javax.crypto.spec.SecretKeySpec;
 
-// TODO comment
+// FIXME comment
 
 public class CrypterKey extends SecretKeySpec {
 

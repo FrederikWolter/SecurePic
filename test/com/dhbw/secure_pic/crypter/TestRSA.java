@@ -26,16 +26,12 @@ public class TestRSA {
         RSA generateKeyRSA = new RSA();
 
         RSA encryptRSA = new RSA(generateKeyRSA.getPublicKey());
-        encryptRSA.encrypt(information);
+        encryptRSA.encrypt(information, progress -> { /* empty */ });
         assertNotEquals(information.toText(), message);
 
         RSA decryptRSA = new RSA(generateKeyRSA.getPrivateKey());
-        decryptRSA.decrypt(information);
+        decryptRSA.decrypt(information, progress -> { /* empty */ });
         assertEquals(information.toText(), message);
     }
 
-    @Test
-    public void getNew() {
-        assert false; // TODO
-    }
 }

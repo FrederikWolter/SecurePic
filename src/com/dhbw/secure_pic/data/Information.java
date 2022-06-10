@@ -217,7 +217,6 @@ public class Information {
     }
 
     // region converts
-    // TODO better way for handling multiple return types? > String or image
 
     /**
      * Converter to get the text from an information object <b>IF</b> a text is saved in it.

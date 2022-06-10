@@ -2,6 +2,7 @@ package com.dhbw.secure_pic.crypter;
 
 import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.data.Information;
+import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -10,8 +11,8 @@ import javax.crypto.NoSuchPaddingException;
 import java.security.*;
 import java.util.Base64;
 
-// TODO COMMENT
-// TODO implement
+// FIXME comment
+// TODO do more work self instead of handing it over to library?
 
 /**
  * This class implements the RSA encryption method used to encrypt/decrypt messages.<br>
@@ -67,17 +68,12 @@ public class RSA extends Crypter {
         this.algorithm = "RSA";
     }
 
-    //TODO not sure what was planned here
-    private AES getNew() {
-        return null;
-    }
-
-
     /**
      * @param information contains the message to encrypt
      */
     @Override
-    public Information encrypt(Information information) throws CrypterException {
+    public Information encrypt(Information information, ProgressMonitor monitor) throws CrypterException {
+        // TODO use progressMonitor
         try {
             Cipher encryptCipher = Cipher.getInstance(algorithm);
             encryptCipher.init(Cipher.ENCRYPT_MODE, publicKey);
@@ -96,7 +92,8 @@ public class RSA extends Crypter {
      * @param information contains the encrypted message to decrypt
      */
     @Override
-    public Information decrypt(Information information) throws CrypterException {
+    public Information decrypt(Information information, ProgressMonitor monitor) throws CrypterException {
+        // TODO use progressMonitor
         try {
             Cipher decryptionCipher = Cipher.getInstance(algorithm);
             decryptionCipher.init(Cipher.DECRYPT_MODE, privateKey);
@@ -107,6 +104,11 @@ public class RSA extends Crypter {
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
             throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException
         }
+    }
+
+    @Override
+    public void generateKey(ProgressMonitor monitor) {
+        // TODO extract key generation to here, leave constructor as POJO; use progressMonitor
     }
 
     // region getter

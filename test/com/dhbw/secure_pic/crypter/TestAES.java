@@ -26,11 +26,11 @@ public class TestAES {
 
         AES encryptAES = new AES("password");
 
-        encryptAES.encrypt(information);
+        encryptAES.encrypt(information, progress -> { /* empty */ });
         assertNotEquals(information.toText(), message);
 
         AES decryptAES = new AES("password");
-        decryptAES.decrypt(information);
+        decryptAES.decrypt(information, progress -> { /* empty */});
         assertEquals(information.toText(), message);
     }
 

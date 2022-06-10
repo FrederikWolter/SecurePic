@@ -2,8 +2,9 @@ package com.dhbw.secure_pic.crypter;
 
 import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.data.Information;
+import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
-// TODO COMMENT
+// FIXME comment
 
 /**
  * This class implements the Crypter used to encrypt/decrypt messages.<br>
@@ -16,8 +17,10 @@ public abstract class Crypter {
     /**
      * @param information contains the message to encrypt/decrypt
      */
-    public abstract Information encrypt(Information information) throws CrypterException;
+    public abstract Information encrypt(Information information, ProgressMonitor monitor) throws CrypterException;
 
-    public abstract Information decrypt(Information information) throws CrypterException;
+    public abstract Information decrypt(Information information, ProgressMonitor monitor) throws CrypterException;
+
+    public abstract void generateKey(ProgressMonitor monitor);
 
 }

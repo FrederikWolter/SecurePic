@@ -7,8 +7,9 @@ import com.dhbw.secure_pic.coder.utility.BitAssembler;
 import com.dhbw.secure_pic.coder.utility.BitFetcher;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
+import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
-// TODO comment
+// FIXME comment
 
 /**
  * Class representing the interpretation of the encoding algorithm 'PlusMinusOne'.
@@ -36,7 +37,7 @@ public class PlusMinusOne extends Coder {
      * @throws InsufficientCapacityException
      */
     @Override
-    public ContainerImage encode(Information info) throws InsufficientCapacityException {
+    public ContainerImage encode(Information info, ProgressMonitor monitor) throws InsufficientCapacityException {
         // test whether information will fit into container image
         int infoLength = info.getTotalLength();
         int imageCapacity = this.getCapacity();
@@ -68,7 +69,7 @@ public class PlusMinusOne extends Coder {
                     // is there another bit in fetcher?
                     if (fetcher.hasNext()) {
                         byte nextBit = fetcher.next();              // get next bit from fetcher
-                        pixel[i] = (byte) (pixel[i] & 0b11111110);  // keep pixel value except last bit
+                        pixel[i] = (byte) (pixel[i] & ~0b1);  // keep pixel value except last bit
 
                         // calculate nextBit according to lastBit:
                         // lastBit = 0 & nextBit = 0 -> bit = 0
@@ -78,7 +79,7 @@ public class PlusMinusOne extends Coder {
                         if (lastBit) {
                             nextBit = (byte) ((nextBit == 0) ? 0b1 : 0b0);
                         }
-                        pixel[i] += nextBit;    // set last bit with next bit
+                        pixel[i] |= nextBit;    // set last bit with next bit
 
                         lastBit = (nextBit == 0b1);  // save last bit
                     } else {
@@ -88,6 +89,9 @@ public class PlusMinusOne extends Coder {
 
                 // set calculated argb value in image
                 super.image.setARGB(x, y, pixel[0], pixel[1], pixel[2], pixel[3]);
+
+                // update progress
+                monitor.updateProgress((int) (fetcher.getPosition() / (infoLength) * 8));
             }
         }
 
@@ -104,7 +108,7 @@ public class PlusMinusOne extends Coder {
      * @throws IllegalLengthException
      */
     @Override
-    public Information decode() throws IllegalTypeException, IllegalLengthException {
+    public Information decode(ProgressMonitor monitor) throws IllegalTypeException, IllegalLengthException {
         // make space for result
         Information information = null;
 
@@ -148,6 +152,11 @@ public class PlusMinusOne extends Coder {
                     }
                     assembler.append(nextBit);      // append masked LSB from pixel chanel to bit assembler
                 }
+
+                // update progress
+                if (information != null){
+                    monitor.updateProgress((int) (assembler.getPosition() / (information.getLength()) * 8));
+                }
             }
         }
 
@@ -175,6 +184,6 @@ public class PlusMinusOne extends Coder {
 
         int bitsPerPixel = 3;       // red, green, blue get modified
 
-        return (int) (((long) width * height * bitsPerPixel) / 8);
+        return (width * height * bitsPerPixel) / 8;
     }
 }

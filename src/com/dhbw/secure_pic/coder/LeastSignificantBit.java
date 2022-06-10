@@ -7,6 +7,7 @@ import com.dhbw.secure_pic.coder.utility.BitAssembler;
 import com.dhbw.secure_pic.coder.utility.BitFetcher;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
+import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
 
 /**
@@ -35,7 +36,7 @@ public class LeastSignificantBit extends Coder {
      * @throws InsufficientCapacityException
      */
     @Override
-    public ContainerImage encode(Information info) throws InsufficientCapacityException {
+    public ContainerImage encode(Information info, ProgressMonitor monitor) throws InsufficientCapacityException {
         // test whether information will fit into container image
         int infoLength = info.getTotalLength();
         int imageCapacity = this.getCapacity();
@@ -63,9 +64,9 @@ public class LeastSignificantBit extends Coder {
                 for (int i = 1; i < 4 && hasNext; i++) {
                     // is there another bit in fetcher?
                     if (fetcher.hasNext()) {
-                        byte nextBit = fetcher.next();              // get next bit from fetcher
-                        pixel[i] = (byte) (pixel[i] & 0b11111110);  // keep pixel value except last bit
-                        pixel[i] += nextBit;                        // set last bit with next bit
+                        byte nextBit = fetcher.next();          // get next bit from fetcher
+                        pixel[i] = (byte) (pixel[i] & ~0b1);    // keep pixel value except last bit
+                        pixel[i] |= nextBit;                    // set last bit with next bit
                     } else {
                         hasNext = false;    // save if there is no next bit -> breaks all for-loops
                     }
@@ -73,6 +74,9 @@ public class LeastSignificantBit extends Coder {
 
                 // set calculated argb value in image
                 super.image.setARGB(x, y, pixel[0], pixel[1], pixel[2], pixel[3]);
+
+                // update progress
+                monitor.updateProgress((int) (fetcher.getPosition() / (infoLength) * 8));
             }
         }
 
@@ -89,7 +93,7 @@ public class LeastSignificantBit extends Coder {
      * @throws IllegalLengthException
      */
     @Override
-    public Information decode() throws IllegalTypeException, IllegalLengthException {
+    public Information decode(ProgressMonitor monitor) throws IllegalTypeException, IllegalLengthException {
         // make space for result
         Information information = null;
 
@@ -115,6 +119,11 @@ public class LeastSignificantBit extends Coder {
                         information = Information.getInformationFromData(meta); // create information object from metadata
                     }
                     assembler.append((byte) (pixel[i] & 0b1));  // append masked LSB from pixel chanel to bit assembler
+                }
+
+                // update progress
+                if (information != null){
+                    monitor.updateProgress((int) (assembler.getPosition() / (information.getLength()) * 8));
                 }
             }
         }
@@ -143,6 +152,6 @@ public class LeastSignificantBit extends Coder {
 
         int bitsPerPixel = 3;       // red, green, blue get modified
 
-        return (int) (((long) width * height * bitsPerPixel) / 8);
+        return (width * height * bitsPerPixel) / 8;
     }
 }
