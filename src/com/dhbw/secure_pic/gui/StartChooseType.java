@@ -13,7 +13,6 @@ public class StartChooseType {
     private JButton sendButton;
     private JButton receiveButton;
     private JPanel contentPane;
-    private JComboBox langBox;
 
     public StartChooseType(Gui parent) {
         closeButton.addActionListener(new ActionListener() {
