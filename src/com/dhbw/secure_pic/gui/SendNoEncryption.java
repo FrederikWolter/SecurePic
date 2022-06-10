@@ -1,6 +1,8 @@
 package com.dhbw.secure_pic.gui;
 
+import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
+import com.dhbw.secure_pic.gui.utility.LoadFinishedHandler;
 import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
 
 import javax.imageio.ImageIO;
@@ -20,6 +22,8 @@ import java.util.List;
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class SendNoEncryption extends Component {
+
+    // region swing attributes
     private JPanel contentPane;
     private JButton backButton;
     private JRadioButton imageRadio;
@@ -36,10 +40,52 @@ public class SendNoEncryption extends Component {
     private JLabel showImageLabel;
     private JLabel messageImgLabel;
 
-    final FileSelect fs = new FileSelect();
+    // endregion
+
+    // region attributes
+    private ContainerImage containerImage;
+    private ContainerImage contentImage;
+    // endregion
+
 
     public SendNoEncryption(Gui parent) {
 
+        LoadFinishedHandler finishedContainerImageLoad = new LoadFinishedHandler() {
+            @Override
+            public void finishedContainerImageLoad(ContainerImage image) {
+                containerImage = image;
+
+                showImageLabel.setText("");
+                showImageLabel.setIcon(new ImageIcon(containerImage.getImage()));
+            }
+        };
+
+        LoadFinishedHandler finishedContentImageLoad = new LoadFinishedHandler() {
+            @Override
+            public void finishedContainerImageLoad(ContainerImage image) {
+                contentImage = image;
+
+                messageImgLabel.setText("");
+                messageImgLabel.setIcon(new ImageIcon(contentImage.getImage()));
+            }
+        };
+
+        uploadPanel.setDropTarget(new DropTarget() {
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+                    evt.acceptDrop(DnDConstants.ACTION_COPY);
+                    List<File> droppedFiles = (List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);        // FIXME cleanup cast?
+
+                    for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
+                        new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad).execute();
+                    }
+                } catch (Exception ex) {    // TODO error handling?
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        // region listener
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,76 +93,35 @@ public class SendNoEncryption extends Component {
             }
         });
 
-        uploadPanel.setDropTarget(new DropTarget() {
-            public synchronized void drop(DropTargetDropEvent evt) {
-                try {
-                    evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    List<File> droppedFiles = (List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
-                    for (File file : droppedFiles) {
-                        BufferedImage bufferedImage = null;
-                        try {
-                            bufferedImage = ImageIO.read(file);
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-                        ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                        showImageLabel.setText("");
-                        showImageLabel.setIcon(imageIcon);
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
         uploadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
-                File file = fs.selectFile(SendNoEncryption.this);
-                //ToDo Bildanzeige über das buffered Img aus dem ContainerImg
-                BufferedImage bufferedImage = null;
-                try {
-                    bufferedImage = ImageIO.read(file);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                showImageLabel.setText("");
-                showImageLabel.setIcon(imageIcon);
-
-                //ToDo Frederik noch mal anschauen lassen ob die pipeline anbindung passt
-                ContainerImageLoadTask loadImage = new ContainerImageLoadTask(file.getPath());
+                File file = new FileSelect().selectFile(SendNoEncryption.this);
+                //TODO error handling?
+                new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad).execute();
             }
         });
+
         uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
-                if (e.getSource() == uploadButton2) {
-                    File file = fs.selectFile(SendNoEncryption.this);
-                    //ToDo Bildanzeige über das buffered Img aus dem ContainerImg
-                    BufferedImage bufferedImage = null;
-                    try {
-                        bufferedImage = ImageIO.read(file);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                    messageImgLabel.setText("");
-                    messageImgLabel.setIcon(imageIcon);
-
-                }
+                File file = new FileSelect().selectFile(SendNoEncryption.this);
+                //TODO error handling?
+                new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad).execute();
             }
         });
+
         imageRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(false);
                 uploadButton2.setVisible(true);
                 messageImgLabel.setVisible(true);
-
             }
         });
+
         textRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -125,36 +130,37 @@ public class SendNoEncryption extends Component {
                 messageImgLabel.setVisible(false);
             }
         });
+
         encodeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 encodeButton.setEnabled(false);
                 //ToDo Encode Pipeline
                 //ToDo Logik zur Vollständigkeit und Korrektheit der ausgewählten Parameter und deren Verwendung
-
             }
         });
+
         exportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //ToDo Exportfunktion schreiben
-
             }
         });
+
         copyToClipboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //ToDo Exportfunktion schreiben
-
             }
         });
+
+        // endregion
     }
 
+    // region getter
     public JPanel getContentPane() {
         return contentPane;
     }
+    // endregion
 
-    public JButton getBackButton() {
-        return backButton;
-    }
 }

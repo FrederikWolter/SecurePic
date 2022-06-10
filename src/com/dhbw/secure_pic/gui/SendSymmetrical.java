@@ -1,7 +1,9 @@
 package com.dhbw.secure_pic.gui;
 
 
+import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
+import com.dhbw.secure_pic.gui.utility.LoadFinishedHandler;
 import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
 
 import javax.imageio.ImageIO;
@@ -19,6 +21,7 @@ import java.io.IOException;
 
 public class SendSymmetrical extends Component {
 
+    // region swing attributes
     private JPanel contentPane;
     private JButton uploadButton;
     private JButton backButton;
@@ -36,8 +39,34 @@ public class SendSymmetrical extends Component {
     private JLabel showImageLabel;
     private JPanel uploadPanel;
     private JLabel messageImgLabel;
+    // endregion
+
+    // region attributes
+    private transient ContainerImage containerImage;
+    private transient ContainerImage contentImage;
+    // endregion
 
     public SendSymmetrical(Gui parent) {
+
+        LoadFinishedHandler finishedContainerImageLoad = new LoadFinishedHandler() {
+            @Override
+            public void finishedContainerImageLoad(ContainerImage image) {
+                containerImage = image;
+
+                showImageLabel.setText("");
+                showImageLabel.setIcon(new ImageIcon(containerImage.getImage()));
+            }
+        };
+
+        LoadFinishedHandler finishedContentImageLoad = new LoadFinishedHandler() {
+            @Override
+            public void finishedContainerImageLoad(ContainerImage image) {
+                contentImage = image;
+
+                messageImgLabel.setText("");
+                messageImgLabel.setIcon(new ImageIcon(contentImage.getImage()));
+            }
+        };
 
         uploadPanel.setDropTarget(new DropTarget() {
             @Override
@@ -47,22 +76,9 @@ public class SendSymmetrical extends Component {
                     java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
 
                     for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
-
-                        // new ContainerImageLoadTask(file.getPath()).execute();
-
-                        // TODO use load task for that
-                        BufferedImage bufferedImage = null;
-                        try {
-                            bufferedImage = ImageIO.read(file);
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-
-                        ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                        showImageLabel.setText("");
-                        showImageLabel.setIcon(imageIcon);
+                        new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad).execute();
                     }
-                } catch (Exception ex) {
+                } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();
                 }
             }
@@ -81,47 +97,30 @@ public class SendSymmetrical extends Component {
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 File file = new FileSelect().selectFile(SendSymmetrical.this);
-                // TODO use load task for that
-                BufferedImage bufferedImage = null;
-                try {
-                    bufferedImage = ImageIO.read(file);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                //ToDo Frederik noch mal anschauen lassen ob die pipeline anbindung passt
-                // ContainerImageLoadTask loadImage = new ContainerImageLoadTask(file.getPath());
-
-                ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                showImageLabel.setText("");
-                showImageLabel.setIcon(imageIcon);
+                // TODO error handling?
+                new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad).execute();
             }
         });
+
         uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 File file = new FileSelect().selectFile(SendSymmetrical.this);
-                //ToDo Bildanzeige über das buffered Img aus dem ContainerImg
-                BufferedImage bufferedImage = null;
-                try {
-                    bufferedImage = ImageIO.read(file);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-                ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                messageImgLabel.setText("");
-                messageImgLabel.setIcon(imageIcon);
+                // TODO error handling?
+                new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad).execute();
             }
         });
+
         imageRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(false);
                 uploadButton2.setVisible(true);
                 messageImgLabel.setVisible(true);
-
             }
         });
+
         textRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -130,6 +129,7 @@ public class SendSymmetrical extends Component {
                 messageImgLabel.setVisible(false);
             }
         });
+
         encodeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -140,11 +140,11 @@ public class SendSymmetrical extends Component {
 
             }
         });
+
         exportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //ToDo Exportfunktion schreiben
-
             }
         });
         copyToClipboardButton.addActionListener(new ActionListener() {
@@ -157,11 +157,9 @@ public class SendSymmetrical extends Component {
         // endregion
     }
 
+    // region getter
     public JPanel getContentPane() {
         return contentPane;
     }
-
-    public JButton getBackButton() {
-        return backButton;
-    }
+    // endregion
 }
