@@ -11,10 +11,9 @@ import java.io.File;
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class ReceiveSymmetrical extends Component {
-    private JProgressBar progressBar1;
-    private JPanel LeftPanel;
+    private JProgressBar progressBar;
     private JButton backButton;
-    private JComboBox comboBox_CodAlg;
+    private JComboBox codeComboBox;
     private JButton decodeButton;
     private JButton uploadButton2;
     private JComboBox comboBox_EncAlg;
@@ -25,6 +24,10 @@ public class ReceiveSymmetrical extends Component {
     private JButton copyToClipboardButton;
     private JButton exportButton;
     private JLabel ContainerImgAnzeige;
+    private JTextPane outTextPane;
+    private JComboBox encryptComboBox;
+    private JPasswordField passwordField;
+    private JPanel contentPane;
 
     final FileSelect fs = new FileSelect();
 
@@ -44,8 +47,8 @@ public class ReceiveSymmetrical extends Component {
         });
     }
 
-    public JPanel getMainPanel_RS() {
-        return MainPanel_RS;
+    public JPanel getContentPane() {
+        return contentPane;
     }
     public JButton getBackButton() {
         return backButton;

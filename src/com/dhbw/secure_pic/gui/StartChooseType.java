@@ -12,7 +12,7 @@ public class StartChooseType {
     private JButton closeButton;
     private JButton sendButton;
     private JButton receiveButton;
-    private JPanel MainPanel_ST;
+    private JPanel contentPane;
 
     public StartChooseType(Gui parent) {
         closeButton.addActionListener(new ActionListener() {
@@ -51,7 +51,7 @@ public class StartChooseType {
         return receiveButton;
     }
 
-    public JPanel getMainPanel_ST() {
-        return MainPanel_ST;
+    public JPanel getContentPane() {
+        return contentPane;
     }
 }

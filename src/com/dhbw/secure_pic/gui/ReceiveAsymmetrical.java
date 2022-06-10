@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class ReceiveAsymmetrical extends Component {
-    private JPanel MainPanel_RA;
+    private JPanel contentPane;
     private JButton uploadButtonKeyImage;
     private JComboBox comboBox_CodAlg;
     private JComboBox comboBox_EncAlg;
@@ -85,10 +85,8 @@ public class ReceiveAsymmetrical extends Component {
         });
     }
 
-
-
-    public JPanel getMainPanel_RA() {
-        return MainPanel_RA;
+    public JPanel getContentPane() {
+        return contentPane;
     }
     public JButton getBackButton() {
         return backButton;

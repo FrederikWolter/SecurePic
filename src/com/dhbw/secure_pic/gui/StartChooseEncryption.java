@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class StartChooseEncryption {
-    private JPanel MainPanel_SCE;
+    private JPanel contentPane;
     private JButton backButton;
     private JTextPane textPane1;
     private JTextPane textPane2;
@@ -73,7 +73,7 @@ public class StartChooseEncryption {
         return asymmetricalButton;
     }
 
-    public JPanel getMainPanel_SCE() {
-        return MainPanel_SCE;
+    public JPanel getContentPane() {
+        return contentPane;
     }
 }

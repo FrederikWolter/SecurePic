@@ -2,22 +2,19 @@ package com.dhbw.secure_pic.gui;
 
 import com.dhbw.secure_pic.gui.utility.FileSelect;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DropTarget;
-import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class ImageConverter extends Component {
+    private JPanel contentPane;
+    private JButton sectretButton;
+    private JProgressBar progressBar;
+    private JButton convertButton;
     private JPanel MainPanel_ImgCon;
     private JButton buttonStartApp;
     private JProgressBar progressBar1;
@@ -90,14 +87,22 @@ public class ImageConverter extends Component {
                 }
             }
         });
+        sectretButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // set new window title
+                ((JFrame) SwingUtilities.getWindowAncestor(contentPane)).setTitle("SecurePic");
+                parent.show("2");
+            }
+        });
         // endregion
     }
 
-    public JPanel getMainPanel_ImgCon() {
-        return MainPanel_ImgCon;
+    public JPanel getContentPane() {
+        return contentPane;
     }
 
-    public JButton getButtonStartApp(){
-        return buttonStartApp;
+    public JButton getSecretButton(){
+        return sectretButton;
     }
 }
