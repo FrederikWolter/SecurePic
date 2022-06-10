@@ -26,7 +26,7 @@ public class Gui {
         frame.setSize(800,500);
         frame.setLocationRelativeTo(null);
         frame.setMinimumSize(new Dimension(800, 500));
-        // TODO set icon?
+        frame.setIconImage(new ImageIcon("SecurePic/com/dhbw/secure_pic/gui/images/icon.jpg").getImage());
 
         cards = new CardLayout(5,5);
         contentPane = new JPanel(cards);
