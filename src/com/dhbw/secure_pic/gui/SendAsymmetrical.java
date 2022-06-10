@@ -1,6 +1,6 @@
 package com.dhbw.secure_pic.gui;
 
-import com.dhbw.secure_pic.gui.functions.FileSelect;
+import com.dhbw.secure_pic.gui.utility.FileSelect;
 import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
 
 import javax.imageio.ImageIO;
@@ -18,7 +18,7 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
-// TODO comment (normal comments + JDocs) # only delete if final#
+// FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class SendAsymmetrical extends Component {
     private JPanel MainPanel_SA;
@@ -41,15 +41,23 @@ public class SendAsymmetrical extends Component {
     private JButton uploadButton;
     private JButton copyToClipboardButton;
     private JButton exportButton;
-    private JPanel Uploadpanel;
-    private JLabel AnzeigeConatinerBild;
+    private JPanel uploadPanel;
+    private JLabel anzeigeContainerBild;
     private JPanel RightPanel;
     private JLabel MessageImg;
 
     final FileSelect fs = new FileSelect();
 
-    public SendAsymmetrical() {
-        Uploadpanel.setDropTarget(new DropTarget() {
+    public SendAsymmetrical(Gui parent) {
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.show("3");
+            }
+        });
+
+        uploadPanel.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
@@ -62,8 +70,8 @@ public class SendAsymmetrical extends Component {
                             ex.printStackTrace();
                         }
                         ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                        AnzeigeConatinerBild.setText("");
-                        AnzeigeConatinerBild.setIcon(imageIcon);
+                        anzeigeContainerBild.setText("");
+                        anzeigeContainerBild.setIcon(imageIcon);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -74,23 +82,20 @@ public class SendAsymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
-                if (e.getSource() == uploadButton) {
-                    File file = fs.SelectFile(SendAsymmetrical.this);
-                    //ToDo Bildanzeige über das buffered Img aus dem ConatainerImg
-                    BufferedImage bufferedImage = null;
-                    try {
-                        bufferedImage = ImageIO.read(file);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                    AnzeigeConatinerBild.setText("");
-                    AnzeigeConatinerBild.setIcon(imageIcon);
-
-                    //ToDo Frederik noch mal anschauen lassen ob die pipeline anbindung passt
-                    ContainerImageLoadTask loadImage = new ContainerImageLoadTask(file.getPath());
-
+                File file = fs.selectFile(SendAsymmetrical.this);
+                //ToDo Bildanzeige über das buffered Img aus dem ContainerImg
+                BufferedImage bufferedImage = null;
+                try {
+                    bufferedImage = ImageIO.read(file);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
+                ImageIcon imageIcon = new ImageIcon(bufferedImage);
+                anzeigeContainerBild.setText("");
+                anzeigeContainerBild.setIcon(imageIcon);
+
+                //ToDo Frederik noch mal anschauen lassen ob die pipeline anbindung passt
+                ContainerImageLoadTask loadImage = new ContainerImageLoadTask(file.getPath());
             }
         });
         uploadButton2.addActionListener(new ActionListener() {
@@ -98,8 +103,8 @@ public class SendAsymmetrical extends Component {
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 if (e.getSource() == uploadButton2) {
-                    File file = fs.SelectFile(SendAsymmetrical.this);
-                    //ToDo Bildanzeige über das buffered Img aus dem ConatainerImg
+                    File file = fs.selectFile(SendAsymmetrical.this);
+                    //ToDo Bildanzeige über das buffered Img aus dem ContainerImg
                     BufferedImage bufferedImage = null;
                     try {
                         bufferedImage = ImageIO.read(file);

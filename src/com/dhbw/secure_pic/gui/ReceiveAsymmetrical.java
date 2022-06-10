@@ -1,14 +1,17 @@
 package com.dhbw.secure_pic.gui;
 
-import com.dhbw.secure_pic.gui.functions.FileSelect;
+import com.dhbw.secure_pic.gui.utility.FileSelect;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.LinkedList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-// TODO comment (normal comments + JDocs) # only delete if final#
+// FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class ReceiveAsymmetrical extends Component {
     private JPanel MainPanel_RA;
@@ -36,8 +39,15 @@ public class ReceiveAsymmetrical extends Component {
     private JButton exportKeyImageButton;
 
     final FileSelect fs = new FileSelect();
+    public ReceiveAsymmetrical(Gui parent) {
 
-    public ReceiveAsymmetrical() {
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.show("3");
+            }
+        });
+
         uploadButtonKeyImage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,6 +84,8 @@ public class ReceiveAsymmetrical extends Component {
             }
         });
     }
+
+
 
     public JPanel getMainPanel_RA() {
         return MainPanel_RA;

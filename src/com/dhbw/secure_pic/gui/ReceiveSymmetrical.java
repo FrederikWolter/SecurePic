@@ -1,6 +1,6 @@
 package com.dhbw.secure_pic.gui;
 
-import com.dhbw.secure_pic.gui.functions.FileSelect;
+import com.dhbw.secure_pic.gui.utility.FileSelect;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-// TODO comment (normal comments + JDocs) # only delete if final#
+// FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class ReceiveSymmetrical extends Component {
     private JProgressBar progressBar1;
@@ -28,11 +28,18 @@ public class ReceiveSymmetrical extends Component {
 
     final FileSelect fs = new FileSelect();
 
-    public ReceiveSymmetrical() {
+    public ReceiveSymmetrical(Gui parent) {
         uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = fs.SelectFile(ReceiveSymmetrical.this);
+                File file = fs.selectFile(ReceiveSymmetrical.this);
+            }
+        });
+
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                parent.show("3");
             }
         });
     }

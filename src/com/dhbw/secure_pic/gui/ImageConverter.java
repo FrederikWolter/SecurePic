@@ -1,6 +1,6 @@
 package com.dhbw.secure_pic.gui;
 
-import com.dhbw.secure_pic.gui.functions.FileSelect;
+import com.dhbw.secure_pic.gui.utility.FileSelect;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-// TODO comment (normal comments + JDocs) # only delete if final#
+// FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class ImageConverter extends Component {
     private JPanel MainPanel_ImgCon;
@@ -36,7 +36,8 @@ public class ImageConverter extends Component {
     private JButton uploadContainerImg;
     private JLabel AnzeigeConatinerBild;
 
-    public ImageConverter() {
+    public ImageConverter(Gui parent) {
+        // region listener
         final FileSelect fs = new FileSelect();
 
         Uploadpanel.setDropTarget(new DropTarget() {
@@ -64,7 +65,9 @@ public class ImageConverter extends Component {
         buttonStartApp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                // set new window title
+                ((JFrame) SwingUtilities.getWindowAncestor(contentPane)).setTitle("SecurePic");
+                parent.show("2");
             }
         });
 
@@ -87,6 +90,7 @@ public class ImageConverter extends Component {
                 }
             }
         });
+        // endregion
     }
 
     public JPanel getMainPanel_ImgCon() {
