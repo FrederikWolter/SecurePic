@@ -5,7 +5,6 @@ import com.dhbw.secure_pic.gui.utility.FileSelect;
 import com.dhbw.secure_pic.gui.utility.LoadFinishedHandler;
 import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
@@ -14,11 +13,9 @@ import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.io.IOException;
 
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
@@ -35,13 +32,16 @@ public class SendAsymmetrical extends Component {
     private JComboBox encryptComboBox;
     private JPasswordField passwordField;
     private JButton encodeButton;
-    private JButton uploadButton2;
-    private JButton uploadButton;
+    private JButton uploadMessage;
+    private JButton uploadContainerImg;
     private JButton copyToClipboardButton;
     private JButton exportButton;
     private JPanel uploadPanel;
     private JLabel showImageLabel;
     private JLabel messageImgLabel;
+    private JPanel uploadPanelMessage;
+    private JLabel MessageImg;
+    private JButton uploadMessageImg;
     // endregion
 
     // region attributes
@@ -83,6 +83,21 @@ public class SendAsymmetrical extends Component {
                 } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();
                 }
+                encodeButton.setEnabled(true);
+            }
+        });
+        uploadPanelMessage.setDropTarget(new DropTarget() {
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+                    evt.acceptDrop(DnDConstants.ACTION_COPY);
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
+
+                    for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
+                        new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad).execute();
+                    }
+                } catch (Exception ex) {    // TODO error handling?
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -94,17 +109,19 @@ public class SendAsymmetrical extends Component {
             }
         });
 
-        uploadButton.addActionListener(new ActionListener() {
+        uploadContainerImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 File file = new FileSelect().selectFile(SendAsymmetrical.this);
                 //TODO error handling?
                 new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad).execute();
+
+                encodeButton.setEnabled(true);
             }
         });
 
-        uploadButton2.addActionListener(new ActionListener() {
+        uploadMessageImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
@@ -118,7 +135,7 @@ public class SendAsymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(false);
-                uploadButton2.setVisible(true);
+                uploadMessage.setVisible(true);
                 messageImgLabel.setVisible(true);
             }
         });
@@ -127,7 +144,7 @@ public class SendAsymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(true);
-                uploadButton2.setVisible(false);
+                uploadMessage.setVisible(false);
                 messageImgLabel.setVisible(false);
             }
         });
@@ -138,6 +155,9 @@ public class SendAsymmetrical extends Component {
                 encodeButton.setEnabled(false);
                 //ToDo Encode Pipeline
                 //ToDo Logik zur Vollständigkeit und Korrektheit der ausgewählten Parameter und deren Verwendung
+
+                exportButton.setEnabled(true);
+                copyToClipboardButton.setEnabled(true);
             }
         });
 
@@ -163,10 +183,6 @@ public class SendAsymmetrical extends Component {
                 if ("progress" == evt.getPropertyName()) {
                     int progress = (Integer) evt.getNewValue();
                     progressBar.setValue(progress);
-                    /*
-                    taskOutput.append(String.format(
-                            "Completed %d%% of task.\n", task.getProgress()));
-                     */
                 }
             }
         });

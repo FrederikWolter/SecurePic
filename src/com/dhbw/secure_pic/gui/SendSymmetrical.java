@@ -49,6 +49,9 @@ public class SendSymmetrical extends Component {
     private JLabel showImageLabel;
     private JPanel uploadPanel;
     private JLabel messageImgLabel;
+    private JPanel uploadPanelMessage;
+    private JLabel MessageImg;
+    private JButton uploadMessageImg;
     // endregion
 
     // region attributes
@@ -104,6 +107,21 @@ public class SendSymmetrical extends Component {
                 } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();
                 }
+                encodeButton.setEnabled(true);
+            }
+        });
+        uploadPanelMessage.setDropTarget(new DropTarget() {
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+                    evt.acceptDrop(DnDConstants.ACTION_COPY);
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
+
+                    for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
+                        new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad).execute();
+                    }
+                } catch (Exception ex) {    // TODO error handling?
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -124,10 +142,12 @@ public class SendSymmetrical extends Component {
                 ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
                 task.addPropertyChangeListener(propertyChangeListener);
                 task.execute();
+
+                encodeButton.setEnabled(true);
             }
         });
 
-        uploadMessageButton.addActionListener(new ActionListener() {
+        uploadMessageImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.

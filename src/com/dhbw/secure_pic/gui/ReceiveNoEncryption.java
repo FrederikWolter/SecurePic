@@ -49,6 +49,7 @@ public class ReceiveNoEncryption extends Component {
                 } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();
                 }
+                decodeButton.setEnabled(true);
             }
         });
 
@@ -70,6 +71,7 @@ public class ReceiveNoEncryption extends Component {
         decodeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                decodeButton.setEnabled(false);
                 exportButton.setEnabled(true);
                 copyToClipboardButton.setEnabled(true);
 

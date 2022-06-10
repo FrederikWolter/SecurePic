@@ -10,6 +10,8 @@ import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 
 // FIXME comment (normal comments + JDocs) # only delete if final#
@@ -52,6 +54,7 @@ public class ReceiveSymmetrical extends Component {
                 } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();
                 }
+                decodeButton.setEnabled(true);
             }
         });
 
@@ -81,6 +84,7 @@ public class ReceiveSymmetrical extends Component {
         decodeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                decodeButton.setEnabled(false);
                 //ToDo Start und Überprüfung encodeTask
 
                 exportButton.setEnabled(true);
@@ -99,6 +103,16 @@ public class ReceiveSymmetrical extends Component {
             public void actionPerformed(ActionEvent e) {
                 //ToDO copy to Clipboard
 
+            }
+        });
+        progressBar.addPropertyChangeListener(new PropertyChangeListener() {
+            //ToDo Progress anbinden
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if ("progress" == evt.getPropertyName()) {
+                    int progress = (Integer) evt.getNewValue();
+                    progressBar.setValue(progress);
+                }
             }
         });
     }

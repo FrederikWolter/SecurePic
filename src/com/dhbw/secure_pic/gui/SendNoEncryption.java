@@ -4,7 +4,6 @@ import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.coder.Coder;
 import com.dhbw.secure_pic.coder.LeastSignificantBit;
 import com.dhbw.secure_pic.coder.PlusMinusOne;
-import com.dhbw.secure_pic.crypter.AES;
 import com.dhbw.secure_pic.crypter.Crypter;
 import com.dhbw.secure_pic.crypter.EmptyCrypter;
 import com.dhbw.secure_pic.data.ContainerImage;
@@ -15,9 +14,7 @@ import com.dhbw.secure_pic.gui.utility.LoadFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.SaveSelect;
 import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
 import com.dhbw.secure_pic.pipelines.EncodeTask;
-import com.dhbw.secure_pic.pipelines.GenerateCrypterTask;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
@@ -26,12 +23,10 @@ import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
@@ -45,14 +40,16 @@ public class SendNoEncryption extends Component {
     private JTextArea messageText;
     private JComboBox codeComboBox;
     private JButton encodeButton;
-    private JButton uploadButton2;
-    private JButton uploadButton;
+    private JButton uploadMessageImg;
+    private JButton uploadContainer;
     private JProgressBar progressBar;
     private JButton copyToClipboardButton;
     private JButton exportButton;
     private JPanel uploadPanel;
     private JLabel showImageLabel;
     private JLabel messageImgLabel;
+    private JPanel uploadPanelMessage;
+    private JLabel MessageImg;
 
     // endregion
 
@@ -108,6 +105,21 @@ public class SendNoEncryption extends Component {
                 } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();
                 }
+                encodeButton.setEnabled(true);
+            }
+        });
+        uploadPanelMessage.setDropTarget(new DropTarget() {
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+                    evt.acceptDrop(DnDConstants.ACTION_COPY);
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
+
+                    for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
+                        new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad).execute();
+                    }
+                } catch (Exception ex) {    // TODO error handling?
+                    ex.printStackTrace();
+                }
             }
         });
 
@@ -119,7 +131,7 @@ public class SendNoEncryption extends Component {
             }
         });
 
-        uploadButton.addActionListener(new ActionListener() {
+        uploadContainer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
@@ -128,10 +140,12 @@ public class SendNoEncryption extends Component {
                 ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
                 task.addPropertyChangeListener(propertyChangeListener);
                 task.execute();
+
+                encodeButton.setEnabled(true);
             }
         });
 
-        uploadButton2.addActionListener(new ActionListener() {
+        uploadMessageImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
@@ -147,7 +161,7 @@ public class SendNoEncryption extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(false);
-                uploadButton2.setVisible(true);
+                uploadMessageImg.setVisible(true);
                 messageImgLabel.setVisible(true);
             }
         });
@@ -156,7 +170,7 @@ public class SendNoEncryption extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(true);
-                uploadButton2.setVisible(false);
+                uploadMessageImg.setVisible(false);
                 messageImgLabel.setVisible(false);
             }
         });
@@ -217,6 +231,9 @@ public class SendNoEncryption extends Component {
 
                 //ToDo Encode Pipeline
                 //ToDo Logik zur Vollständigkeit und Korrektheit der ausgewählten Parameter und deren Verwendung
+
+                exportButton.setEnabled(true);
+                copyToClipboardButton.setEnabled(true);
             }
         });
 
