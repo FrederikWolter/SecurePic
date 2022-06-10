@@ -46,7 +46,10 @@ public class SendSymmetrical extends Component {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
                     java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
 
-                    for (File file : droppedFiles) {
+                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
+
+                        // new ContainerImageLoadTask(file.getPath()).execute();
+
                         // TODO use load task for that
                         BufferedImage bufferedImage = null;
                         try {

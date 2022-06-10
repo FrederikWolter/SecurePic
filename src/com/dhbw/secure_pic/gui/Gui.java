@@ -32,9 +32,9 @@ public class Gui {
         contentPane = new JPanel(cards);
         frame.add(contentPane);
 
-        // TODO make sub panels extend JPanel to simplify this construct > https://stackoverflow.com/questions/45677253/manage-java-cardlayout-jpanels-created-with-different-classes
+        // FIXME make sub panels extend JPanel to simplify this construct > https://stackoverflow.com/questions/45677253/manage-java-cardlayout-jpanels-created-with-different-classes
 
-        // TODO use static final string for identifiers
+        // FIXME use static final string for identifiers
 
         JPanel imageConverterPanel = new ImageConverter(this).getContentPane();
         contentPane.add (imageConverterPanel, "1");
@@ -55,7 +55,7 @@ public class Gui {
         JPanel sendSymmetricalPanel = new SendSymmetrical(this).getContentPane();
         contentPane.add (sendSymmetricalPanel, "9");
 
-        //receiveOptions.setBackground(Color.PINK); // TODO remove test code
+        //receiveOptions.setBackground(Color.PINK); // FIXME remove test code
         //panelCont.add (receiveOptions, "3");
 
         frame.setVisible(true);
