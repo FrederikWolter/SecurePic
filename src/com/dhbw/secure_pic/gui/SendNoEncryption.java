@@ -1,9 +1,21 @@
 package com.dhbw.secure_pic.gui;
 
+import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
+import com.dhbw.secure_pic.coder.Coder;
+import com.dhbw.secure_pic.coder.LeastSignificantBit;
+import com.dhbw.secure_pic.coder.PlusMinusOne;
+import com.dhbw.secure_pic.crypter.AES;
+import com.dhbw.secure_pic.crypter.Crypter;
+import com.dhbw.secure_pic.crypter.EmptyCrypter;
 import com.dhbw.secure_pic.data.ContainerImage;
+import com.dhbw.secure_pic.data.Information;
+import com.dhbw.secure_pic.gui.utility.EncodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
 import com.dhbw.secure_pic.gui.utility.LoadFinishedHandler;
+import com.dhbw.secure_pic.gui.utility.SaveSelect;
 import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
+import com.dhbw.secure_pic.pipelines.EncodeTask;
+import com.dhbw.secure_pic.pipelines.GenerateCrypterTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -52,6 +64,16 @@ public class SendNoEncryption extends Component {
 
     public SendNoEncryption(Gui parent) {
 
+        PropertyChangeListener propertyChangeListener = new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if ("progress".equals(evt.getPropertyName())) {
+                    int progress = (Integer) evt.getNewValue();
+                    progressBar.setValue(progress);
+                }
+            }
+        };
+
         LoadFinishedHandler finishedContainerImageLoad = new LoadFinishedHandler() {
             @Override
             public void finishedContainerImageLoad(ContainerImage image) {
@@ -76,10 +98,12 @@ public class SendNoEncryption extends Component {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    List<File> droppedFiles = (List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);        // FIXME cleanup cast?
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
 
-                    for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
-                        new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad).execute();
+                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
+                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
+                        task.addPropertyChangeListener(propertyChangeListener);
+                        task.execute();
                     }
                 } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();
@@ -100,8 +124,10 @@ public class SendNoEncryption extends Component {
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 File file = new FileSelect().selectFile(SendNoEncryption.this);
-                //TODO error handling?
-                new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad).execute();
+                // TODO error handling?
+                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
+                task.addPropertyChangeListener(propertyChangeListener);
+                task.execute();
             }
         });
 
@@ -111,7 +137,9 @@ public class SendNoEncryption extends Component {
                 //Handle open button action.
                 File file = new FileSelect().selectFile(SendNoEncryption.this);
                 //TODO error handling?
-                new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad).execute();
+                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
+                task.addPropertyChangeListener(propertyChangeListener);
+                task.execute();
             }
         });
 
@@ -136,7 +164,57 @@ public class SendNoEncryption extends Component {
         encodeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                Information info;
+                Coder coder;
+                Crypter crypter;
+
+                if (containerImage == null){
+                    // TODO error handling
+                    return;
+                }
+
+                if (textRadio.isSelected()){
+                    if (messageText.getText().length() > 0){
+                        info = Information.getInformationFromString(messageText.getText());
+                    } else {
+                        // TODO error handling
+                        return;
+                    }
+                } else if(imageRadio.isSelected()){
+//                    info = Information.getInformationFromImage();
+                    return; // TODO
+                } else {
+                    // TODO error handling
+                    return;
+                }
+
+                if (codeComboBox.getSelectedItem() == "LSB"){
+                    coder = new LeastSignificantBit(containerImage);
+                } else if(codeComboBox.getSelectedItem() == "PM1"){
+                    coder = new PlusMinusOne(containerImage);
+                } else {
+                    // TODO error handling
+                    return;
+                }
+
+                crypter = new EmptyCrypter();
+
                 encodeButton.setEnabled(false);
+
+                EncodeTask task = new EncodeTask(coder, crypter, info, new EncodeFinishedHandler() {
+                    @Override
+                    public void finishedEncode(ContainerImage image) {
+                        contentImage = image;
+
+                        exportButton.setEnabled(true);
+                        copyToClipboardButton.setEnabled(true);
+                        encodeButton.setEnabled(true);
+                    }
+                });
+                task.addPropertyChangeListener(propertyChangeListener);
+                task.execute();
+
                 //ToDo Encode Pipeline
                 //ToDo Logik zur Vollständigkeit und Korrektheit der ausgewählten Parameter und deren Verwendung
             }
@@ -145,14 +223,20 @@ public class SendNoEncryption extends Component {
         exportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //ToDo Exportfunktion schreiben
+                File file = new SaveSelect().selectDir(SendNoEncryption.this);
+
+                try {
+                    containerImage.exportImg(file.getPath());
+                } catch (IOException | IllegalTypeException ex) {
+                    throw new RuntimeException(ex); // TODO error handling
+                }
             }
         });
 
         copyToClipboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //ToDo Exportfunktion schreiben
+                containerImage.copyToClipboard();
 
             }
         });

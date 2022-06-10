@@ -82,7 +82,6 @@
             </constraints>
             <properties>
               <model>
-                <item value="Coding Algorithm..."/>
                 <item value="LSB"/>
                 <item value="PM1"/>
               </model>
@@ -97,7 +96,6 @@
               <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-3422958"/>
               <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="encode"/>
             </properties>
           </component>

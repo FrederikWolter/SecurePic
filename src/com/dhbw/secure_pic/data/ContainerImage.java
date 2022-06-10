@@ -106,6 +106,8 @@ public class ContainerImage {
     /**
      * Copy container image to Windows clip board. <br>
      * Works for images and text.
+     *
+     * This may throw a warning when coping a png, see <a href="https://stackoverflow.com/a/64598247/13777031">here</a>.
      */
     public void copyToClipboard() {
         // get clipboard

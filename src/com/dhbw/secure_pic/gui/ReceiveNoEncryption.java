@@ -24,7 +24,6 @@ public class ReceiveNoEncryption extends Component {
     private JLabel MessageOutput;
     private JTextPane outTextPane;
 
-    final FileSelect fs = new FileSelect();
 
     public ReceiveNoEncryption(Gui parent) {
 
@@ -38,7 +37,7 @@ public class ReceiveNoEncryption extends Component {
         uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = fs.selectFile(ReceiveNoEncryption.this);   // TODO unused
+                File file = new FileSelect().selectFile(ReceiveNoEncryption.this);   // TODO unused
             }
         });
 
