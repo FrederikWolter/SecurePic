@@ -42,7 +42,5 @@ public class ReceiveSymmetrical extends Component {
     public JPanel getContentPane() {
         return contentPane;
     }
-    public JButton getBackButton() {
-        return backButton;
-    }
+
 }

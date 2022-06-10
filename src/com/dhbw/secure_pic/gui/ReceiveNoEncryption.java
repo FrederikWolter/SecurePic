@@ -42,7 +42,5 @@ public class ReceiveNoEncryption extends Component {
     public JPanel getContentPane() {
         return contentPane;
     }
-    public JButton getBackButton() {
-        return backButton;
-    }
+
 }

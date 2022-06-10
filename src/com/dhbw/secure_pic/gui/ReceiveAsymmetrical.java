@@ -57,7 +57,5 @@ public class ReceiveAsymmetrical extends Component {
     public JPanel getContentPane() {
         return contentPane;
     }
-    public JButton getBackButton() {
-        return backButton;
-    }
+
 }
