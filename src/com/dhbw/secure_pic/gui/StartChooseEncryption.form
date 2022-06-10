@@ -14,7 +14,7 @@
         </constraints>
         <properties>
           <background color="-3422958"/>
-          <text value="Back"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="back"/>
         </properties>
       </component>
       <vspacer id="8b149">
@@ -51,7 +51,7 @@
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="No Encryption"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="no.encryption"/>
         </properties>
       </component>
       <vspacer id="fcc16">
@@ -64,7 +64,7 @@
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Symmetrical"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="symmetrical"/>
         </properties>
       </component>
       <component id="34360" class="javax.swing.JButton" binding="asymmetricalButton" default-binding="true">
@@ -72,7 +72,7 @@
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Asymmetrical"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="asymmetrical"/>
         </properties>
       </component>
     </children>

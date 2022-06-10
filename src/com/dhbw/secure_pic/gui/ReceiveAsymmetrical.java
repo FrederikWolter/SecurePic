@@ -7,15 +7,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.LinkedList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class ReceiveAsymmetrical extends Component {
     private JPanel contentPane;
-    private JButton uploadButton2;
+    private JButton uploadButton1;
     private JComboBox comboBox_CodAlg;
     private JComboBox comboBox_EncAlg;
-    private JButton uploadButton3;
+    private JButton uploadButton2;
     private JCheckBox encodePublicKeyIntoCheckBox;
     private JButton generateKeyButton;
     private JTextField textField1;
@@ -23,6 +26,10 @@ public class ReceiveAsymmetrical extends Component {
     private JTextField textField3;
     private JButton decodeButton;
     private JButton backButton;
+    private JLabel path1;
+    private JLabel path2;
+    private JLabel descrRecImg;
+    private JLabel descrPblImg;
 
     public ReceiveAsymmetrical(Gui parent) {
 
@@ -33,13 +40,13 @@ public class ReceiveAsymmetrical extends Component {
             }
         });
 
-        uploadButton2.addActionListener(new ActionListener() {
+        uploadButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 File file = new FileSelect().selectFile(ReceiveAsymmetrical.this);  // TODO unused?
             }
         });
-        uploadButton3.addActionListener(new ActionListener() {
+        uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 File file = new FileSelect().selectFile(ReceiveAsymmetrical.this);  // TODO unused?
