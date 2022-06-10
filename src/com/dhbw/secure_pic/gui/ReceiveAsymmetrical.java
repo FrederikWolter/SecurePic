@@ -2,19 +2,22 @@ package com.dhbw.secure_pic.gui;
 
 import com.dhbw.secure_pic.gui.utility.FileSelect;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.LinkedList;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
 // FIXME comment (normal comments + JDocs) # only delete if final#
+//ToDo ganzes Form überarbeiten und nochmal aktualisieren
 
 public class ReceiveAsymmetrical extends Component {
     private JPanel contentPane;
+    private JLabel descrPblImg;
+    private JLabel descrRecImg;
     private JButton uploadButtonKeyImage;
     private JComboBox comboBox_CodAlg;
     private JComboBox comboBox_EncAlg;
@@ -22,7 +25,7 @@ public class ReceiveAsymmetrical extends Component {
     private JCheckBox encodePublicKeyIntoCheckBox;
     private JButton generateKeyButton;
     private JTextField privateKeyOutput;
-    private JTextField puplicKeyOutput;
+    private JTextField publicKeyOutput;
     private JTextField privateKeyInput;
     private JButton decodeButton;
     private JButton backButton;
@@ -34,7 +37,7 @@ public class ReceiveAsymmetrical extends Component {
     private JButton exportButton;
     private JLabel KeyImageOutput;
     private JPanel OutputKey;
-    private JProgressBar progressBar1;
+    private JProgressBar progressBar;
     private JButton CtcbKeyImage;
     private JButton exportKeyImageButton;
 
@@ -51,13 +54,35 @@ public class ReceiveAsymmetrical extends Component {
         uploadButtonKeyImage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = fs.SelectFile(ReceiveAsymmetrical.this);  // TODO unused?
+                //Handle open button action.
+                File file = new FileSelect().selectFile(ReceiveAsymmetrical.this);
+                // TODO use load task for that
+                BufferedImage bufferedImage = null;
+                try {
+                    bufferedImage = ImageIO.read(file);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                ImageIcon imageIcon = new ImageIcon(bufferedImage);
+                KeyImg.setText("");
+                KeyImg.setIcon(imageIcon);
             }
         });
         uploadButtonConatainerImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = fs.SelectFile(ReceiveAsymmetrical.this);
+                //Handle open button action.
+                File file = new FileSelect().selectFile(ReceiveAsymmetrical.this);
+                // TODO use load task for that
+                BufferedImage bufferedImage = null;
+                try {
+                    bufferedImage = ImageIO.read(file);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                ImageIcon imageIcon = new ImageIcon(bufferedImage);
+                ContainerImage.setText("");
+                ContainerImage.setIcon(imageIcon);
             }
         });
         generateKeyButton.addActionListener(new ActionListener() {
@@ -68,7 +93,7 @@ public class ReceiveAsymmetrical extends Component {
                 String publicKey = "";
                 privateKeyOutput.setText(privateKey);
                 privateKeyInput.setText(privateKey);
-                puplicKeyOutput.setText(publicKey);
+                publicKeyOutput.setText(publicKey);
                 //ToDo Bildanzeige
             }
         });

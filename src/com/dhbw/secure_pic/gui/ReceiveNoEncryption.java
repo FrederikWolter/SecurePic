@@ -19,9 +19,9 @@ public class ReceiveNoEncryption extends Component {
     private JButton uploadButton2;
     private JLabel ConatainerImg;
     private JPanel RightPanel;
-    private JLabel MessageOutput;
     private JButton copyToClipboardButton;
     private JButton exportButton;
+    private JLabel MessageOutput;
     private JTextPane outTextPane;
 
     final FileSelect fs = new FileSelect();

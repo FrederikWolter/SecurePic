@@ -1,7 +1,6 @@
 package com.dhbw.secure_pic.gui;
 
 import com.dhbw.secure_pic.gui.utility.FileSelect;
-import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -92,8 +91,6 @@ public class SendAsymmetrical extends Component {
                 showImageLabel.setText("");
                 showImageLabel.setIcon(imageIcon);
 
-                //ToDo Frederik noch mal anschauen lassen ob die pipeline anbindung passt
-                ContainerImageLoadTask loadImage = new ContainerImageLoadTask(file.getPath());
             }
         });
         uploadButton2.addActionListener(new ActionListener() {
@@ -155,13 +152,13 @@ public class SendAsymmetrical extends Component {
 
             }
         });
-        progressBar1.addPropertyChangeListener(new PropertyChangeListener() {
+        progressBar.addPropertyChangeListener(new PropertyChangeListener() {
             //ToDo Progress anbinden
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if ("progress" == evt.getPropertyName()) {
                     int progress = (Integer) evt.getNewValue();
-                    progressBar1.setValue(progress);
+                    progressBar.setValue(progress);
                     /*
                     taskOutput.append(String.format(
                             "Completed %d%% of task.\n", task.getProgress()));

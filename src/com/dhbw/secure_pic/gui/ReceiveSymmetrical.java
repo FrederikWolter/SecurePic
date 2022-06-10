@@ -18,7 +18,6 @@ public class ReceiveSymmetrical extends Component {
     private JButton uploadButton2;
     private JComboBox comboBox_EncAlg;
     private JPasswordField passwordField1;
-    private JPanel MainPanel_RS;
     private JPanel RightPanel;
     private JLabel MessageOutput;
     private JButton copyToClipboardButton;
@@ -35,6 +34,7 @@ public class ReceiveSymmetrical extends Component {
         uploadButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 File file = fs.selectFile(ReceiveSymmetrical.this);
             }
         });

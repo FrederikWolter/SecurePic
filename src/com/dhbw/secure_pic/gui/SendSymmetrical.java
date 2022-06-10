@@ -13,6 +13,8 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -28,7 +30,7 @@ public class SendSymmetrical extends Component {
     private JComboBox encryptComboBox;
     private JPasswordField passwordField;
     private JButton encodeButton;
-    private JButton uploadButton2;
+    private JButton uploadMessageButton;
     private JButton copyToClipboardButton;
     private JButton exportButton;
     private JProgressBar progressBar;
@@ -97,7 +99,7 @@ public class SendSymmetrical extends Component {
                 showImageLabel.setIcon(imageIcon);
             }
         });
-        uploadButton2.addActionListener(new ActionListener() {
+        uploadMessageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
@@ -118,7 +120,7 @@ public class SendSymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(false);
-                uploadButton2.setVisible(true);
+                uploadMessageButton.setVisible(true);
                 showImageLabel.setVisible(true);
 
             }
@@ -127,7 +129,7 @@ public class SendSymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(true);
-                uploadButton2.setVisible(false);
+                uploadMessageButton.setVisible(false);
                 showImageLabel.setVisible(false);
             }
         });
