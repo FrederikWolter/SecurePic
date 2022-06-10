@@ -16,7 +16,6 @@ import com.dhbw.secure_pic.gui.utility.SaveSelect;
 import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
 import com.dhbw.secure_pic.pipelines.EncodeTask;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
@@ -25,7 +24,6 @@ import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -59,6 +57,7 @@ public class SendSymmetrical extends Component {
     // endregion
 
     public SendSymmetrical(Gui parent) {
+
 
         PropertyChangeListener propertyChangeListener = new PropertyChangeListener() {
             @Override
@@ -252,10 +251,6 @@ public class SendSymmetrical extends Component {
                 if ("progress" == evt.getPropertyName()) {
                     int progress = (Integer) evt.getNewValue();
                     progressBar.setValue(progress);
-                    /*
-                    taskOutput.append(String.format(
-                            "Completed %d%% of task.\n", task.getProgress()));
-                     */
                 }
             }
         });

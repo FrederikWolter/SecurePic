@@ -1,13 +1,20 @@
 package com.dhbw.secure_pic.gui;
 
+import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -40,11 +47,52 @@ public class ReceiveAsymmetrical extends Component {
     private JButton ctcbKey;
     private JLabel KeyImageOutput;
     private JProgressBar progressBar;
+    private JPanel uploadPanel1;
+    private JPanel uploadPanel2;
     private JButton CtcbKeyImage;
     private JButton exportKeyImageButton;
 
     final FileSelect fs = new FileSelect();
+    private transient com.dhbw.secure_pic.data.ContainerImage containerImage;
+    private transient ContainerImage contentImage;
+
     public ReceiveAsymmetrical(Gui parent) {
+
+
+        uploadPanel1.setDropTarget(new DropTarget() {
+            @Override
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+                    evt.acceptDrop(DnDConstants.ACTION_COPY);
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
+
+                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
+
+                        //ToDo nochmal anpassen
+
+                    }
+                } catch (Exception ex) {    // TODO error handling?
+                    ex.printStackTrace();
+                }
+            }
+        });
+        uploadPanel2.setDropTarget(new DropTarget() {
+            @Override
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+                    evt.acceptDrop(DnDConstants.ACTION_COPY);
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
+
+                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
+
+                        //ToDo nochmal anpassen
+                    }
+
+                } catch (Exception ex) {    // TODO error handling?
+                    ex.printStackTrace();
+                }
+            }
+        });
 
         backButton.addActionListener(new ActionListener() {
             @Override
@@ -106,16 +154,54 @@ public class ReceiveAsymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(encodePublicKeyIntoCheckBox.isSelected()){
-                    KeyImg.setVisible(true);
-                    uploadButtonKeyImage.setVisible(true);
+                    uploadPanel2.setVisible(true);
                     OutputKeyImage.setVisible(true);
                     descrPblImg.setVisible(true);
                 }
                 else{
-                    KeyImg.setVisible(false);
-                    uploadButtonKeyImage.setVisible(false);
+                    uploadPanel2.setVisible(false);
                     OutputKeyImage.setVisible(false);
                     descrPblImg.setVisible(false);
+                }
+            }
+        });
+        exportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        copyToClipboardButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        ctcbKey.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        KeyExport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        decodeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        progressBar.addPropertyChangeListener(new PropertyChangeListener() {
+            //ToDo Progress anbinden
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if ("progress" == evt.getPropertyName()) {
+                    int progress = (Integer) evt.getNewValue();
+                    progressBar.setValue(progress);
                 }
             }
         });
