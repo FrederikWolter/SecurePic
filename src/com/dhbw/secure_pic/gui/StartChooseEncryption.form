@@ -22,29 +22,35 @@
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <component id="ebcd3" class="javax.swing.JTextPane" binding="textPane1" default-binding="true">
+      <component id="17ff7" class="javax.swing.JLabel" binding="buttonLabel" default-binding="true">
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value="Button"/>
+        </properties>
       </component>
-      <component id="48658" class="javax.swing.JTextPane" binding="textPane2" default-binding="true">
+      <component id="bf5a0" class="javax.swing.JLabel" binding="textPane2" default-binding="true">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value="Label"/>
+        </properties>
       </component>
-      <component id="779a0" class="javax.swing.JTextPane" binding="textPane3" default-binding="true">
+      <component id="3d568" class="javax.swing.JLabel" binding="textPane3" default-binding="true">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <text value="Label"/>
+        </properties>
       </component>
       <component id="31bd2" class="javax.swing.JButton" binding="noEncryptionButton" default-binding="true">
         <constraints>
@@ -73,6 +79,18 @@
         </constraints>
         <properties>
           <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="asymmetrical"/>
+        </properties>
+      </component>
+      <component id="aab56" class="javax.swing.JComboBox" binding="langBox">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <model>
+            <item value="Language..."/>
+            <item value="English"/>
+            <item value="Deutsch"/>
+          </model>
         </properties>
       </component>
     </children>

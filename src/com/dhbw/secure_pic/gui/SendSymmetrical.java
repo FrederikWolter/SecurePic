@@ -16,6 +16,8 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -23,7 +25,7 @@ public class SendSymmetrical extends Component {
 
     // region swing attributes
     private JPanel contentPane;
-    private JButton uploadButton;
+    private JButton uploadContainerImg;
     private JButton backButton;
     private JRadioButton imageRadio;
     private JRadioButton textRadio;
@@ -32,7 +34,7 @@ public class SendSymmetrical extends Component {
     private JComboBox encryptComboBox;
     private JPasswordField passwordField;
     private JButton encodeButton;
-    private JButton uploadButton2;
+    private JButton uploadMessageButton;
     private JButton copyToClipboardButton;
     private JButton exportButton;
     private JProgressBar progressBar;
@@ -92,7 +94,7 @@ public class SendSymmetrical extends Component {
             }
         });
 
-        uploadButton.addActionListener(new ActionListener() {
+        uploadContainerImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
@@ -102,7 +104,7 @@ public class SendSymmetrical extends Component {
             }
         });
 
-        uploadButton2.addActionListener(new ActionListener() {
+        uploadMessageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
@@ -116,8 +118,9 @@ public class SendSymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(false);
-                uploadButton2.setVisible(true);
-                messageImgLabel.setVisible(true);
+                uploadMessageButton.setVisible(true);
+                showImageLabel.setVisible(true);
+
             }
         });
 
@@ -125,8 +128,8 @@ public class SendSymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(true);
-                uploadButton2.setVisible(false);
-                messageImgLabel.setVisible(false);
+                uploadMessageButton.setVisible(false);
+                showImageLabel.setVisible(false);
             }
         });
 
@@ -151,6 +154,21 @@ public class SendSymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //ToDo Exportfunktion schreiben
+            }
+        });
+
+        progressBar.addPropertyChangeListener(new PropertyChangeListener() {
+            //ToDo Progress anbinden
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if ("progress" == evt.getPropertyName()) {
+                    int progress = (Integer) evt.getNewValue();
+                    progressBar.setValue(progress);
+                    /*
+                    taskOutput.append(String.format(
+                            "Completed %d%% of task.\n", task.getProgress()));
+                     */
+                }
             }
         });
 

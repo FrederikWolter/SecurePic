@@ -2,35 +2,46 @@ package com.dhbw.secure_pic.gui;
 
 import com.dhbw.secure_pic.gui.utility.FileSelect;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.LinkedList;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
 // FIXME comment (normal comments + JDocs) # only delete if final#
+//ToDo ganzes Form überarbeiten und nochmal aktualisieren
 
 public class ReceiveAsymmetrical extends Component {
     private JPanel contentPane;
-    private JButton uploadButton1;
+    private JLabel descrPblImg;
+    private JLabel descrRecImg;
+    private JButton uploadButtonKeyImage;
     private JComboBox comboBox_CodAlg;
     private JComboBox comboBox_EncAlg;
-    private JButton uploadButton2;
+    private JButton uploadButtonConatainerImg;
     private JCheckBox encodePublicKeyIntoCheckBox;
     private JButton generateKeyButton;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
+    private JTextField privateKeyOutput;
+    private JTextField publicKeyOutput;
+    private JTextField privateKeyInput;
     private JButton decodeButton;
     private JButton backButton;
-    private JLabel path1;
-    private JLabel path2;
-    private JLabel descrRecImg;
-    private JLabel descrPblImg;
+    private JLabel KeyImg;
+    private JLabel ContainerImage;
+    private JPanel OutputMessage;
+    private JLabel MessageOutput;
+    private JButton copyToClipboardButton;
+    private JButton exportButton;
+    private JLabel KeyImageOutput;
+    private JPanel OutputKey;
+    private JProgressBar progressBar;
+    private JButton CtcbKeyImage;
+    private JButton exportKeyImageButton;
 
+    final FileSelect fs = new FileSelect();
     public ReceiveAsymmetrical(Gui parent) {
 
         backButton.addActionListener(new ActionListener() {
@@ -40,16 +51,61 @@ public class ReceiveAsymmetrical extends Component {
             }
         });
 
-        uploadButton1.addActionListener(new ActionListener() {
+        uploadButtonKeyImage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(ReceiveAsymmetrical.this);  // TODO unused?
+                //Handle open button action.
+                File file = new FileSelect().selectFile(ReceiveAsymmetrical.this);
+                // TODO use load task for that
+                BufferedImage bufferedImage = null;
+                try {
+                    bufferedImage = ImageIO.read(file);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                ImageIcon imageIcon = new ImageIcon(bufferedImage);
+                KeyImg.setText("");
+                KeyImg.setIcon(imageIcon);
             }
         });
-        uploadButton2.addActionListener(new ActionListener() {
+        uploadButtonConatainerImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(ReceiveAsymmetrical.this);  // TODO unused?
+                //Handle open button action.
+                File file = new FileSelect().selectFile(ReceiveAsymmetrical.this);
+                // TODO use load task for that
+                BufferedImage bufferedImage = null;
+                try {
+                    bufferedImage = ImageIO.read(file);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                ImageIcon imageIcon = new ImageIcon(bufferedImage);
+                ContainerImage.setText("");
+                ContainerImage.setIcon(imageIcon);
+            }
+        });
+        generateKeyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //ToDo Key generation
+                String privateKey = "";
+                String publicKey = "";
+                privateKeyOutput.setText(privateKey);
+                privateKeyInput.setText(privateKey);
+                publicKeyOutput.setText(publicKey);
+                //ToDo Bildanzeige
+            }
+        });
+        encodePublicKeyIntoCheckBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(encodePublicKeyIntoCheckBox.isSelected()){
+                    OutputKey.setVisible(true);
+                }
+                else{
+                    OutputKey.setVisible(false);
+                }
             }
         });
     }

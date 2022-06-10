@@ -38,11 +38,12 @@
               <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-6514169"/>
+              <background color="-1"/>
+              <foreground color="-16777216"/>
             </properties>
             <border type="none"/>
             <children>
-              <component id="70303" class="javax.swing.JButton" binding="uploadButton" default-binding="true">
+              <component id="70303" class="javax.swing.JButton" binding="uploadContainerImg">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -50,7 +51,7 @@
                   <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload"/>
                 </properties>
               </component>
-              <component id="c2f0a" class="javax.swing.JLabel" binding="showImageLabel">
+              <component id="c2f0a" class="javax.swing.JLabel" binding="anzeigeContainerBild">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -175,7 +176,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <toolTipText value="Passwort"/>
+            </properties>
           </component>
           <vspacer id="ccff2">
             <constraints>
@@ -188,6 +191,7 @@
             </constraints>
             <properties>
               <background color="-3422958"/>
+              <enabled value="false"/>
               <text value="Encode"/>
               <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="encode"/>
             </properties>
@@ -202,12 +206,13 @@
               <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="8054f" class="javax.swing.JButton" binding="uploadButton2">
+          <component id="8054f" class="javax.swing.JButton" binding="uploadMessageButton">
             <constraints>
               <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Upload"/>
+              <label value="Upload Message Image"/>
+              <text value="Upload Message Image"/>
               <visible value="false"/>
             </properties>
             <clientProperties>
