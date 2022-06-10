@@ -20,6 +20,12 @@ import javax.swing.*;
  * @author Frederik Wolter
  */
 public class SecurePic {
+
+    /**
+     * MAIN entry point of application.
+     *
+     * @param args currently not used.
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Gui::new);
     }

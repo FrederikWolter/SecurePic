@@ -1,19 +1,21 @@
 package com.dhbw.secure_pic.data;
 
-import com.dhbw.secure_pic.auxiliary.IllegalLengthException;
-import com.dhbw.secure_pic.auxiliary.IllegalTypeException;
+import com.dhbw.secure_pic.auxiliary.exceptions.IllegalLengthException;
+import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
+import com.dhbw.secure_pic.coder.utility.BitFetcher;
+import com.dhbw.secure_pic.data.utility.ImageSelection;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 import static com.dhbw.secure_pic.data.Information.Type.*;
-
-// TODO comment
 
 /**
  * This class implements the Information data type.<br>
@@ -52,7 +54,7 @@ public class Information {
     }
 
     /**
-     * Plain Constructor of Information.<br>
+     * Plain Constructor of Information - <b>Sender</b><br>
      * Used for <i>internally</i> creating an information object by static methods - hence private.
      *
      * @param data raw content data (without any metadata).
@@ -62,6 +64,20 @@ public class Information {
         this.data = data;
         this.type = type;
         this.length = data.length;
+    }
+
+    /**
+     * Plain Constructor of Information - <b>Receiver</b><br>
+     * Only saving metadata, actual data is later added through setData().
+     * Used for <i>internally</i> creating an information object by static methods - hence private.
+     *
+     * @param type   type of data saved in information.
+     * @param length length of data saved in information.
+     */
+    private Information(Type type, int length) {
+        this.data = null;
+        this.type = type;
+        this.length = length;
     }
 
     /**
@@ -75,7 +91,9 @@ public class Information {
     public static Information getInformationFromString(String text) {
         // create information by converting string to byte array with UTF-8.
         // see https://stackoverflow.com/a/18571348/13777031
-        return new Information(text.getBytes(StandardCharsets.UTF_8), TEXT);
+
+        byte[] data = text.getBytes(StandardCharsets.UTF_8);
+        return new Information(data, TEXT);
     }
 
     /**
@@ -85,8 +103,10 @@ public class Information {
      * @param path path to be used for information.
      *
      * @return created information.
+     *
+     * @throws IllegalTypeException
      */
-    public static Information getInformationFromImage(String path) throws IOException, IllegalTypeException {
+    public static Information getInformationFromImage(String path) throws IllegalTypeException {
         // see https://mkyong.com/java/how-to-convert-bufferedimage-to-byte-in-java/
 
         // get file extension from path
@@ -103,11 +123,21 @@ public class Information {
             throw new IllegalTypeException("Invalid path given for image file. Recognized extension '" + extension + "'.");
 
         // read in image from path
-        BufferedImage image = ImageIO.read(new File(path));
+        BufferedImage image;
+        try {
+            image = ImageIO.read(new File(path));
+        } catch (IOException e) {
+            throw new IllegalTypeException("An error occurred loading the selected image: '" + e.getMessage() + "'");
+        }
+
 
         // convert BufferedImage to byte[]
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(image, extension, byteArrayOutputStream);
+        try {
+            ImageIO.write(image, extension, byteArrayOutputStream);
+        } catch (IOException e) {
+            throw new IllegalTypeException("An error occurred loading the selected image: '" + e.getMessage() + "'");
+        }
         byte[] data = byteArrayOutputStream.toByteArray();
 
         return new Information(data, type);
@@ -117,22 +147,20 @@ public class Information {
      * Get information object from raw data array read from encoded image.<br>
      * Internally uses private Constructor for creating an information.
      *
-     * @param dataRaw raw data array read from carrier image.
+     * @param dataRaw raw data array read from container image.
      *
      * @return created information.
      *
-     * @throws IllegalTypeException   if type id is not legal.
-     * @throws IllegalLengthException if array is shorter than length suggests.
+     * @throws IllegalTypeException if type id is not legal.
      */
-    public static Information getInformationFromData(byte[] dataRaw) throws IllegalTypeException, IllegalLengthException {
-        // using ByteBuffer for handling binary data TODO maybe do self? if time
+    public static Information getInformationFromData(byte[] dataRaw) throws IllegalTypeException {
+        // using ByteBuffer for handling binary data
         // see https://stackoverflow.com/a/1936865/13777031, https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html
         ByteBuffer buffer = ByteBuffer.wrap(dataRaw)
                 .order(ByteOrder.BIG_ENDIAN);   // set buffer to use big-endian
 
         // placeholder variables to be initialized
         Type type;
-        byte[] data;
 
         // readout data from buffer
         int length = buffer.getInt();
@@ -144,17 +172,8 @@ public class Information {
             throw new IllegalTypeException("Invalid content type in received data: " + typeRaw);
         }
 
-        // copy rest data from dataRaw
-        int restLength = dataRaw.length - META_LENGTH;
-
-        if (restLength >= length) {     // valid length according to length metadata?
-            data = Arrays.copyOfRange(dataRaw, META_LENGTH, dataRaw.length);
-        } else {
-            throw new IllegalLengthException("Invalid content length: meta=" + length + " actual=" + restLength);
-        }
-
         // build data object
-        return new Information(data, type);
+        return new Information(type, length);
     }
 
     /**
@@ -164,7 +183,7 @@ public class Information {
      * @return created big endian array.
      */
     public byte[] toBEBytes() {
-        // using ByteBuffer for handling binary data TODO maybe do self? if time
+        // using ByteBuffer for handling binary data
         // see https://stackoverflow.com/a/1936865/13777031, https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html
         ByteBuffer buffer = ByteBuffer.allocate(META_LENGTH + this.length)
                 .order(ByteOrder.BIG_ENDIAN);   // set buffer to use big-endian
@@ -177,8 +196,27 @@ public class Information {
         return buffer.array();
     }
 
+    /**
+     * Copy the content of information to Windows clip board. <br>
+     * Works for images and text.
+     *
+     * @throws IOException
+     */
+    public void copyToClipboard() throws IOException {
+        // get clipboard
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+
+        // get content and save to clipboard
+        if (this.type == TEXT) {
+            StringSelection content = new StringSelection(toText());
+            clipboard.setContents(content, null);
+        } else if (this.type == IMAGE_PNG || type == IMAGE_JPG || type == IMAGE_GIF) {
+            ImageSelection content = new ImageSelection(toImage());
+            clipboard.setContents(content, null);
+        }
+    }
+
     // region converts
-    // TODO better way for handling multiple return types? > String or image
 
     /**
      * Converter to get the text from an information object <b>IF</b> a text is saved in it.
@@ -200,11 +238,21 @@ public class Information {
     public BufferedImage toImage() throws IOException {
         if (this.type == IMAGE_PNG || type == IMAGE_JPG || type == IMAGE_GIF) {
             // convert data to BufferedImage
-            InputStream InputStream = new ByteArrayInputStream(data);
-            return ImageIO.read(InputStream);
+            InputStream inputStream = new ByteArrayInputStream(data);
+            return ImageIO.read(inputStream);
         }
         return null;
     }
+
+    /**
+     * Get the data stored information as a BitFetcher to encode it into a container image.
+     *
+     * @return BitFetcher representing the information.
+     */
+    public BitFetcher toBitFetcher() {
+        return new BitFetcher(toBEBytes());
+    }
+
     // endregion
 
     // region getter & setter
@@ -213,11 +261,28 @@ public class Information {
     }
 
     /**
-     * Method for setting the data of an information e.g. after it was encrypted.
+     * Method for setting the data after precess finished reading if from received container image.<br>
+     * (Information length should match already defined length - or exception occurs)
      *
      * @param data data to be saved in information.
+     *
+     * @throws IllegalLengthException
      */
-    public void setData(byte[] data) {
+    public void setData(byte[] data) throws IllegalLengthException {
+        if (data.length == this.length) {
+            this.data = data;
+        } else {
+            throw new IllegalLengthException("Invalid content length: should=" + length + " new=" + data.length);
+        }
+    }
+
+    /**
+     * Method for setting the data of an information after it was encrypted. <br>
+     * (Information length can be changed through this setter)
+     *
+     * @param data encrypted data to be saved in information.
+     */
+    public void setEncryptedData(byte[] data) {
         this.data = data;
         this.length = data.length;
     }
@@ -228,6 +293,15 @@ public class Information {
 
     public int getLength() {
         return length;
+    }
+
+    /**
+     * Get the total length of information including metadata.
+     *
+     * @return total length of information including metadata in byte.
+     */
+    public int getTotalLength() {
+        return length + META_LENGTH;
     }
 
     // endregion
