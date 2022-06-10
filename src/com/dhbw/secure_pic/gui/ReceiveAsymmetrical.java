@@ -35,8 +35,10 @@ public class ReceiveAsymmetrical extends Component {
     private JLabel MessageOutput;
     private JButton copyToClipboardButton;
     private JButton exportButton;
+    private JLabel OutputKeyImage;
+    private JButton KeyExport;
+    private JButton ctcbKey;
     private JLabel KeyImageOutput;
-    private JPanel OutputKey;
     private JProgressBar progressBar;
     private JButton CtcbKeyImage;
     private JButton exportKeyImageButton;
@@ -83,6 +85,7 @@ public class ReceiveAsymmetrical extends Component {
                 ImageIcon imageIcon = new ImageIcon(bufferedImage);
                 ContainerImage.setText("");
                 ContainerImage.setIcon(imageIcon);
+                decodeButton.setEnabled(true);
             }
         });
         generateKeyButton.addActionListener(new ActionListener() {
@@ -94,6 +97,8 @@ public class ReceiveAsymmetrical extends Component {
                 privateKeyOutput.setText(privateKey);
                 privateKeyInput.setText(privateKey);
                 publicKeyOutput.setText(publicKey);
+                exportKeyImageButton.setEnabled(true);
+                ctcbKey.setEnabled(true);
                 //ToDo Bildanzeige
             }
         });
@@ -101,10 +106,16 @@ public class ReceiveAsymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(encodePublicKeyIntoCheckBox.isSelected()){
-                    OutputKey.setVisible(true);
+                    KeyImg.setVisible(true);
+                    uploadButtonKeyImage.setVisible(true);
+                    OutputKeyImage.setVisible(true);
+                    descrPblImg.setVisible(true);
                 }
                 else{
-                    OutputKey.setVisible(false);
+                    KeyImg.setVisible(false);
+                    uploadButtonKeyImage.setVisible(false);
+                    OutputKeyImage.setVisible(false);
+                    descrPblImg.setVisible(false);
                 }
             }
         });
