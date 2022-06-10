@@ -11,14 +11,13 @@ import java.io.File;
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class ReceiveNoEncryption extends Component {
-    private JPanel MainPanel_RN;
-    private JProgressBar progressBar1;
-    private JPanel LeftPanel;
+    private JPanel contentPane;
+    private JProgressBar progressBar;
     private JButton backButton;
-    private JComboBox comboBox_CodAlg;
+    private JComboBox codeComboBox;
     private JButton decodeButton;
     private JButton uploadButton2;
-    private JTextPane textPane1;
+    private JTextPane outTextPane;
 
     final FileSelect fs = new FileSelect();
 
@@ -40,8 +39,8 @@ public class ReceiveNoEncryption extends Component {
 
     }
 
-    public JPanel getMainPanel_RN() {
-        return MainPanel_RN;
+    public JPanel getContentPane() {
+        return contentPane;
     }
     public JButton getBackButton() {
         return backButton;

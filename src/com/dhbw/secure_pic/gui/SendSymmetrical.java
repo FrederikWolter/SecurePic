@@ -20,25 +20,22 @@ import java.io.IOException;
 public class SendSymmetrical extends Component {
 
     private JPanel contentPane;
-    private JPanel RightPanel;
     private JButton uploadButton;
-    private JPanel LeftPanel;
     private JButton backButton;
-    private JRadioButton imageRadioButton;
-    private JRadioButton textmessageRadioButton;
-    private JTextArea Message;
-    private JComboBox comboBox_CodAlg;
-    private JComboBox comboBox_EncAlg;
-    private JPasswordField passwordField1;
+    private JRadioButton imageRadio;
+    private JRadioButton textRadio;
+    private JTextArea messageText;
+    private JComboBox codeComboBox;
+    private JComboBox encryptComboBox;
+    private JPasswordField passwordField;
     private JButton encodeButton;
     private JButton uploadButton2;
     private JButton copyToClipboardButton;
     private JButton exportButton;
-    private JProgressBar progressBar1;
-    private JLabel anzeigeContainerBild;
+    private JProgressBar progressBar;
+    private JLabel showImageLabel;
     private JPanel uploadPanel;
-    private JLabel MessageImg;
-
+    private JLabel messageImgLabel;
 
     public SendSymmetrical(Gui parent) {
 
@@ -59,8 +56,8 @@ public class SendSymmetrical extends Component {
                         }
 
                         ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                        anzeigeContainerBild.setText("");
-                        anzeigeContainerBild.setIcon(imageIcon);
+                        showImageLabel.setText("");
+                        showImageLabel.setIcon(imageIcon);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -92,8 +89,8 @@ public class SendSymmetrical extends Component {
                 // ContainerImageLoadTask loadImage = new ContainerImageLoadTask(file.getPath());
 
                 ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                anzeigeContainerBild.setText("");
-                anzeigeContainerBild.setIcon(imageIcon);
+                showImageLabel.setText("");
+                showImageLabel.setIcon(imageIcon);
             }
         });
         uploadButton2.addActionListener(new ActionListener() {
@@ -109,25 +106,25 @@ public class SendSymmetrical extends Component {
                     ex.printStackTrace();
                 }
                 ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                MessageImg.setText("");
-                MessageImg.setIcon(imageIcon);
+                messageImgLabel.setText("");
+                messageImgLabel.setIcon(imageIcon);
             }
         });
-        imageRadioButton.addActionListener(new ActionListener() {
+        imageRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Message.setVisible(false);
+                messageText.setVisible(false);
                 uploadButton2.setVisible(true);
-                MessageImg.setVisible(true);
+                messageImgLabel.setVisible(true);
 
             }
         });
-        textmessageRadioButton.addActionListener(new ActionListener() {
+        textRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Message.setVisible(true);
+                messageText.setVisible(true);
                 uploadButton2.setVisible(false);
-                MessageImg.setVisible(false);
+                messageImgLabel.setVisible(false);
             }
         });
         encodeButton.addActionListener(new ActionListener() {

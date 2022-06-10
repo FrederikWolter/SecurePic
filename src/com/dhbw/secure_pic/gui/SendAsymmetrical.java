@@ -19,30 +19,28 @@ import java.io.IOException;
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class SendAsymmetrical extends Component {
-    private JPanel MainPanel_SA;
-    private JProgressBar progressBar1;
-    private JPanel LeftPanel;
+    private JPanel contentPane;
+    private JProgressBar progressBar;
     private JButton backButton;
 
     public JButton getBackButton() {
         return backButton;
     }
 
-    private JRadioButton imageRadioButton;
-    private JRadioButton textmessageRadioButton;
-    private JTextArea Message;
-    private JComboBox comboBox_CodAlg;
-    private JComboBox comboBox_EncAlg;
-    private JPasswordField passwordField1;
+    private JRadioButton imageRadio;
+    private JRadioButton textRadio;
+    private JTextArea messageText;
+    private JComboBox codeComboBox;
+    private JComboBox encryptComboBox;
+    private JPasswordField passwordField;
     private JButton encodeButton;
     private JButton uploadButton2;
     private JButton uploadButton;
     private JButton copyToClipboardButton;
     private JButton exportButton;
     private JPanel uploadPanel;
-    private JLabel anzeigeContainerBild;
-    private JPanel RightPanel;
-    private JLabel MessageImg;
+    private JLabel showImageLabel;
+    private JLabel messageImgLabel;
 
     final FileSelect fs = new FileSelect();
 
@@ -68,8 +66,8 @@ public class SendAsymmetrical extends Component {
                             ex.printStackTrace();
                         }
                         ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                        anzeigeContainerBild.setText("");
-                        anzeigeContainerBild.setIcon(imageIcon);
+                        showImageLabel.setText("");
+                        showImageLabel.setIcon(imageIcon);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -89,8 +87,8 @@ public class SendAsymmetrical extends Component {
                     ex.printStackTrace();
                 }
                 ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                anzeigeContainerBild.setText("");
-                anzeigeContainerBild.setIcon(imageIcon);
+                showImageLabel.setText("");
+                showImageLabel.setIcon(imageIcon);
 
                 //ToDo Frederik noch mal anschauen lassen ob die pipeline anbindung passt
                 ContainerImageLoadTask loadImage = new ContainerImageLoadTask(file.getPath());
@@ -110,27 +108,27 @@ public class SendAsymmetrical extends Component {
                         ex.printStackTrace();
                     }
                     ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                    MessageImg.setText("");
-                    MessageImg.setIcon(imageIcon);
+                    messageImgLabel.setText("");
+                    messageImgLabel.setIcon(imageIcon);
 
                 }
             }
         });
-        imageRadioButton.addActionListener(new ActionListener() {
+        imageRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Message.setVisible(false);
+                messageText.setVisible(false);
                 uploadButton2.setVisible(true);
-                MessageImg.setVisible(true);
+                messageImgLabel.setVisible(true);
 
             }
         });
-        textmessageRadioButton.addActionListener(new ActionListener() {
+        textRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Message.setVisible(true);
+                messageText.setVisible(true);
                 uploadButton2.setVisible(false);
-                MessageImg.setVisible(false);
+                messageImgLabel.setVisible(false);
             }
         });
         encodeButton.addActionListener(new ActionListener() {
@@ -157,7 +155,7 @@ public class SendAsymmetrical extends Component {
         });
     }
 
-    public JPanel getMainPanel_SA() {
-        return MainPanel_SA;
+    public JPanel getContentPane() {
+        return contentPane;
     }
 }

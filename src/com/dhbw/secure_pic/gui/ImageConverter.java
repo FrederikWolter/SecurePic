@@ -12,15 +12,15 @@ import java.io.File;
 
 public class ImageConverter extends Component {
     private JPanel contentPane;
-    private JButton buttonStartApp;
-    private JProgressBar progressBar1;
-    private JButton button2;
+    private JButton sectretButton;
+    private JProgressBar progressBar;
+    private JButton convertButton;
     private JButton uploadButton;
     private JPanel ImagePanel;
 
     public ImageConverter(Gui parent) {
         // region listener
-        buttonStartApp.addActionListener(new ActionListener() {
+        sectretButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // set new window title
@@ -43,7 +43,7 @@ public class ImageConverter extends Component {
         return contentPane;
     }
 
-    public JButton getButtonStartApp(){
-        return buttonStartApp;
+    public JButton getSecretButton(){
+        return sectretButton;
     }
 }

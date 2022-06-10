@@ -12,7 +12,7 @@ public class StartChooseType {
     private JButton closeButton;
     private JButton sendButton;
     private JButton receiveButton;
-    private JPanel MainPanel_ST;
+    private JPanel contentPane;
     private JComboBox comboBox1;
 
     public StartChooseType(Gui parent) {
@@ -52,7 +52,7 @@ public class StartChooseType {
         return receiveButton;
     }
 
-    public JPanel getMainPanel_ST() {
-        return MainPanel_ST;
+    public JPanel getContentPane() {
+        return contentPane;
     }
 }
