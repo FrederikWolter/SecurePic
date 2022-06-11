@@ -9,13 +9,12 @@ import java.awt.event.ActionListener;
 public class StartChooseEncryption {
     private JPanel contentPane;
     private JButton backButton;
-    private JLabel buttonLabel;
-    private JLabel textPane2;
-    private JLabel textPane3;
+    private JLabel noEncryptDesc;
+    private JLabel asymmetricalDesc;
+    private JLabel symmetricalDesc;
     private JButton noEncryptionButton;
     private JButton symmetricalButton;
     private JButton asymmetricalButton;
-    private JComboBox langBox;
 
     public StartChooseEncryption(Gui parent){
 
@@ -58,23 +57,9 @@ public class StartChooseEncryption {
         });
     }
 
-    public JButton getBackButton() {
-        return backButton;
-    }
-
-    public JButton getNoEncryptionButton() {
-        return noEncryptionButton;
-    }
-
-    public JButton getSymmetricalButton() {
-        return symmetricalButton;
-    }
-
-    public JButton getAsymmetricalButton() {
-        return asymmetricalButton;
-    }
-
+    // region getter
     public JPanel getContentPane() {
         return contentPane;
     }
+    // endregion
 }
