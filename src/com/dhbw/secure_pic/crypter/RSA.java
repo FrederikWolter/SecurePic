@@ -70,45 +70,57 @@ public class RSA extends Crypter {
 
     /**
      * @param information contains the message to encrypt
+     *
+     * @return overwritten {@link Information}
+     *
+     * @throws CrypterException
      */
     @Override
     public Information encrypt(Information information, ProgressMonitor monitor) throws CrypterException {
-        // TODO use progressMonitor
         try {
             Cipher encryptCipher = Cipher.getInstance(algorithm);
             encryptCipher.init(Cipher.ENCRYPT_MODE, publicKey);
 
+            monitor.updateProgress(50);
+
             byte[] encryptedBytes = encryptCipher.doFinal(information.getData());
             byte[] outPutBytes = Base64.getEncoder().encode(encryptedBytes);
-
             information.setEncryptedData(outPutBytes);
+
+            monitor.updateProgress(100);
+
             return information;
+
         }  catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
             throw CrypterException.handleException(e);    // wrap exceptions thrown by crypter to CrypterException
         }
     }
 
     /**
-     * @param information contains the encrypted message to decrypt
+     * @param information contains the message to decrypt
+     *
+     * @return overwritten {@link Information}
+     *
+     * @throws CrypterException
      */
     @Override
     public Information decrypt(Information information, ProgressMonitor monitor) throws CrypterException {
-        // TODO use progressMonitor
         try {
             Cipher decryptionCipher = Cipher.getInstance(algorithm);
             decryptionCipher.init(Cipher.DECRYPT_MODE, privateKey);
-            byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
 
+            monitor.updateProgress(50);
+
+            byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
             information.setEncryptedData(decryptedBytes);
+
+            monitor.updateProgress(100);
+
             return information;
+
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
             throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException
         }
-    }
-
-    @Override
-    public void generateKey(ProgressMonitor monitor) {
-        // TODO extract key generation to here, leave constructor as POJO; use progressMonitor
     }
 
     // region getter
