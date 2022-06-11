@@ -19,13 +19,11 @@ import java.io.File;
 public class ReceiveSymmetrical extends Component {
     private JProgressBar progressBar;
     private JButton backButton;
-    private JComboBox codeComboBox;
+    private JComboBox cryptComboBox;
     private JButton decodeButton;
-    private JButton uploadButton2;
-    private JComboBox comboBox_EncAlg;
-    private JPasswordField publicKeyPasswordField;
+    private JPasswordField passwordPasswordField;
     private JPanel RightPanel;
-    private JLabel MessageOutput;
+    private JLabel messageOutput;
     private JButton copyToClipboardButton;
     private JButton exportButton;
     private JLabel ContainerImgAnzeige;
@@ -35,6 +33,7 @@ public class ReceiveSymmetrical extends Component {
     private JPanel contentPane;
     private JPanel uploadPanel;
     private JButton uploadContainerImg;
+    private JComboBox codeComboBox;
 
     final FileSelect fs = new FileSelect();
 
@@ -58,7 +57,7 @@ public class ReceiveSymmetrical extends Component {
             }
         });
 
-        uploadButton2.addActionListener(new ActionListener() {
+        uploadContainerImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
