@@ -49,13 +49,13 @@ public class SendNoEncryption extends Component {
     private JLabel showImageLabel;
     private JLabel messageImgLabel;
     private JPanel uploadPanelMessage;
-    private JLabel MessageImg;
 
     // endregion
 
     // region attributes
-    private ContainerImage containerImage;
-    private ContainerImage contentImage;
+    private transient ContainerImage containerImage;
+    private transient ContainerImage contentImage;
+    private transient File contentImageFile;
     // endregion
 
 
@@ -77,7 +77,7 @@ public class SendNoEncryption extends Component {
                 containerImage = image;
 
                 showImageLabel.setText("");
-                showImageLabel.setIcon(new ImageIcon(containerImage.getImage()));
+                showImageLabel.setIcon(new ImageIcon(Gui.getScaledImage(containerImage.getImage(), 350, 350)));
             }
         };
 
@@ -87,7 +87,7 @@ public class SendNoEncryption extends Component {
                 contentImage = image;
 
                 messageImgLabel.setText("");
-                messageImgLabel.setIcon(new ImageIcon(contentImage.getImage()));
+                messageImgLabel.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(), 150, 120)));
             }
         };
 
@@ -108,6 +108,7 @@ public class SendNoEncryption extends Component {
                 encodeButton.setEnabled(true);
             }
         });
+
         uploadPanelMessage.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
@@ -147,11 +148,13 @@ public class SendNoEncryption extends Component {
 
         uploadMessageImg.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) {    // TODO use path instead?
                 //Handle open button action.
                 File file = new FileSelect().selectFile(SendNoEncryption.this);
                 //TODO error handling?
-                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
+
+                contentImageFile = file;
+                ContainerImageLoadTask task = new ContainerImageLoadTask(contentImageFile.getPath(), finishedContentImageLoad);
                 task.addPropertyChangeListener(propertyChangeListener);
                 task.execute();
             }
@@ -161,8 +164,7 @@ public class SendNoEncryption extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(false);
-                uploadMessageImg.setVisible(true);
-                messageImgLabel.setVisible(true);
+                uploadPanelMessage.setVisible(true);
             }
         });
 
@@ -170,8 +172,7 @@ public class SendNoEncryption extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(true);
-                uploadMessageImg.setVisible(false);
-                messageImgLabel.setVisible(false);
+                uploadPanelMessage.setVisible(false);
             }
         });
 
@@ -196,8 +197,17 @@ public class SendNoEncryption extends Component {
                         return;
                     }
                 } else if(imageRadio.isSelected()){
-//                    info = Information.getInformationFromImage();
-                    return; // TODO
+                    if (contentImageFile.exists()){
+                        try {
+                            info = Information.getInformationFromImage(containerImage.getPath());
+                        } catch (IllegalTypeException ex) {
+                            throw new RuntimeException(ex);
+                            // TODO error handling
+                        }
+                    } else {
+                        // TODO error handling
+                        return;
+                    }
                 } else {
                     // TODO error handling
                     return;
@@ -214,7 +224,7 @@ public class SendNoEncryption extends Component {
 
                 crypter = new EmptyCrypter();
 
-                encodeButton.setEnabled(false);
+//                encodeButton.setEnabled(false);
 
                 EncodeTask task = new EncodeTask(coder, crypter, info, new EncodeFinishedHandler() {
                     @Override
@@ -254,22 +264,6 @@ public class SendNoEncryption extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 containerImage.copyToClipboard();
-
-            }
-        });
-
-        progressBar.addPropertyChangeListener(new PropertyChangeListener() {
-            //ToDo Progress anbinden
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("progress" == evt.getPropertyName()) {
-                    int progress = (Integer) evt.getNewValue();
-                    progressBar.setValue(progress);
-                    /*
-                    taskOutput.append(String.format(
-                            "Completed %d%% of task.\n", task.getProgress()));
-                     */
-                }
             }
         });
 
