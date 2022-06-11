@@ -7,8 +7,8 @@ import java.awt.event.ActionListener;
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class StartChooseType {
-    private JTextPane SendDescr;
-    private JTextPane receiveDescr;
+    private JLabel sendDesc;
+    private JLabel receiveDesc;
     private JButton closeButton;
     private JButton sendButton;
     private JButton receiveButton;
@@ -39,19 +39,9 @@ public class StartChooseType {
         });
     }
 
-    public JButton getCloseButton() {
-        return closeButton;
-    }
-
-    public JButton getSendButton() {
-        return sendButton;
-    }
-
-    public JButton getReceiveButton() {
-        return receiveButton;
-    }
-
+    // region getter
     public JPanel getContentPane() {
         return contentPane;
     }
+    // endregion
 }
