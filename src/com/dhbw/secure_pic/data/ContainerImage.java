@@ -57,7 +57,7 @@ public class ContainerImage {
             default -> null;
         };
         if (this.type == null)
-            throw new IllegalTypeException("Invalid path given for image file. Recognized extension '" + extension + "'.");
+            throw new IllegalTypeException("Invalid path or file format given for image file. Recognized extension: '" + extension + "'.");
 
         // read in image from path
         try {
@@ -69,7 +69,6 @@ public class ContainerImage {
 
     /**
      * Utility method extracting file extension from path.<br>
-     * Not really related to ContainerImage.
      *
      * @param path with file extension to be extracted.
      *
@@ -128,6 +127,7 @@ public class ContainerImage {
      * @param g green value to be set.
      * @param b blue value to be set.
      */
+    //TODO Remove the input of a if it is a constant anyway
     public void setARGB(int x, int y, byte a, byte r, byte g, byte b) {
         // set alpha to 100% due to library not reacting to alpha values correctly
         a = (byte) 255;
@@ -153,6 +153,7 @@ public class ContainerImage {
      *
      * @return calculated values in form af array.
      */
+    //TODO values[0] is always the same? Looking at setARGB, it isn't even really used since a is set as a constant there
     public byte[] getARGB(int x, int y) {
         // get argb value from buffered image
         int argbValue = this.image.getRGB(x, y);
@@ -164,7 +165,6 @@ public class ContainerImage {
         values[1] = (byte) (argbValue >> 16);   // red value
         values[2] = (byte) (argbValue >> 8);    // green value
         values[3] = (byte) (argbValue);         // blue value
-
         return values;
     }
 
@@ -175,6 +175,8 @@ public class ContainerImage {
     public int getHeight() {
         return this.image.getHeight();
     }
+
+    //TODO cleanup unused Getters
 
     public String getPath() {
         return path;
