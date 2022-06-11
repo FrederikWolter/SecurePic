@@ -23,17 +23,12 @@ public class ImageConverter extends Component {
     private JProgressBar progressBar;
     private JButton convertButton;
     private JButton uploadButton;
-    private JPanel Uploadpanel;
+    private JPanel uploadPanel;
     private JLabel showImage;
-
-
-    final FileSelect fs = new FileSelect();
 
     public ImageConverter(Gui parent) {
         // region listener
-        final FileSelect fs = new FileSelect();
-
-        Uploadpanel.setDropTarget(new DropTarget() {
+        uploadPanel.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
@@ -61,7 +56,7 @@ public class ImageConverter extends Component {
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
                 if (e.getSource() == uploadButton) {
-                    File file = fs.selectFile(ImageConverter.this);
+                    File file = new FileSelect().selectFile(ImageConverter.this);
                     //ToDo Bildanzeige über das buffered Img aus dem ConatainerImg
                     BufferedImage bufferedImage = null;
                     try {
