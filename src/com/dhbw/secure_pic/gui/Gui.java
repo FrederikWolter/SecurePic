@@ -24,9 +24,9 @@ public class Gui {
     public Gui(){
         frame = new JFrame("Image Converter");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(800,500);
+        frame.setSize(1200,750);
         frame.setLocationRelativeTo(null);
-        frame.setMinimumSize(new Dimension(800, 500));
+        frame.setMinimumSize(new Dimension(1200, 750));
         frame.setIconImage(new ImageIcon("SecurePic/com/dhbw/secure_pic/gui/images/icon.jpg").getImage());
 
         cards = new CardLayout(5,5);

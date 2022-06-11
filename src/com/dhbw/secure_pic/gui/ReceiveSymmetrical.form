@@ -33,7 +33,7 @@
             </constraints>
             <properties>
               <background color="-3422958"/>
-              <text value="Back"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="back"/>
             </properties>
           </component>
           <vspacer id="3e872">
@@ -51,7 +51,7 @@
                 <item value="LSB"/>
                 <item value="PlusMinusOne"/>
               </model>
-              <toolTipText value="Coding Algorithm"/>
+              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="coding.algorithm"/>
             </properties>
             <clientProperties>
               <html.disable class="java.lang.Boolean" value="false"/>
@@ -76,6 +76,7 @@
                 <item value="Encrypting Algorithm..."/>
                 <item value="AES"/>
               </model>
+              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="encrypting.algorithm"/>
             </properties>
             <clientProperties>
               <html.disable class="java.lang.Boolean" value="false"/>
@@ -106,7 +107,7 @@
             <properties>
               <background color="-3422958"/>
               <enabled value="false"/>
-              <text value="Decode"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="decode"/>
             </properties>
           </component>
           <grid id="1aae8" binding="uploadPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -122,7 +123,7 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Path"/>
+                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="path"/>
                   <visible value="true"/>
                 </properties>
               </component>
@@ -131,8 +132,8 @@
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="Upload"/>
-                  <toolTipText value="Recieved Container Img"/>
+                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload"/>
+                  <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="received.container.image"/>
                   <visible value="true"/>
                 </properties>
                 <clientProperties>
@@ -147,7 +148,7 @@
             </constraints>
             <properties>
               <labelFor value="96e78"/>
-              <text value="Password"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="password"/>
             </properties>
           </component>
         </children>
@@ -157,7 +158,7 @@
           <grid row="0" column="1" row-span="2" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Label"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="label"/>
         </properties>
       </component>
       <component id="468d8" class="javax.swing.JButton" binding="exportButton" default-binding="true">

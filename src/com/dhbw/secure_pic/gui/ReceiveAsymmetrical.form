@@ -204,7 +204,7 @@
         </constraints>
         <properties>
           <labelFor value="a582c"/>
-          <text value="private Key"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="private.key"/>
         </properties>
       </component>
       <component id="6f861" class="javax.swing.JLabel">
@@ -213,16 +213,7 @@
         </constraints>
         <properties>
           <labelFor value="d6e51"/>
-          <text value="public Key"/>
-        </properties>
-      </component>
-      <component id="62503" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <labelFor value="701d6"/>
-          <text value="Auswahl Codier Algorithmus"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="public.key"/>
         </properties>
       </component>
       <component id="c5977" class="javax.swing.JLabel">
@@ -231,7 +222,7 @@
         </constraints>
         <properties>
           <labelFor value="2cc4e"/>
-          <text value="Auswahl Codier Algorithmus"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="choose.encrypting.algorithm"/>
         </properties>
       </component>
       <component id="c4ca7" class="javax.swing.JLabel">
@@ -239,7 +230,7 @@
           <grid row="11" column="7" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Eingabe private Key"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="input.private.key"/>
         </properties>
       </component>
       <grid id="3bd2b" binding="uploadPanel1" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -344,7 +335,7 @@
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Private Key Image"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="private.key.image"/>
               <visible value="true"/>
             </properties>
           </component>
@@ -370,6 +361,15 @@
         <properties>
           <selected value="false"/>
           <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="encode.public.key.into.selected.container.image"/>
+        </properties>
+      </component>
+      <component id="62503" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <labelFor value="701d6"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="choose.coding.algorithm"/>
         </properties>
       </component>
     </children>

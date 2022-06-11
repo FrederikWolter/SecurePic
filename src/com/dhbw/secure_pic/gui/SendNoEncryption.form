@@ -74,7 +74,7 @@
               <rows value="0"/>
               <tabSize value="4"/>
               <text value=""/>
-              <toolTipText value="Message"/>
+              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="message"/>
               <wrapStyleWord value="true"/>
             </properties>
           </component>
@@ -142,7 +142,7 @@
               <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Coding Algorithm"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="coding.algorithm"/>
             </properties>
           </component>
           <component id="9585" class="javax.swing.JButton" binding="encodeButton" default-binding="true">

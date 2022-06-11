@@ -27,6 +27,13 @@ public class SecurePic {
      * @param args currently not used.
      */
     public static void main(String[] args) {
+        // Maybe use new Look and Feel for a better design and user experience?
+        /*try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            //UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }*/
         SwingUtilities.invokeLater(Gui::new);
     }
 }
