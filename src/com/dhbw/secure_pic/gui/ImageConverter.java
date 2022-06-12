@@ -40,7 +40,7 @@ public class ImageConverter extends Component {
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
-                        ImageIcon imageIcon = new ImageIcon(bufferedImage);
+                        ImageIcon imageIcon = new ImageIcon(Gui.getScaledImage(bufferedImage, 600, 600));
                         showImage.setText("");
                         showImage.setIcon(imageIcon);
                     }
@@ -64,7 +64,7 @@ public class ImageConverter extends Component {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                    ImageIcon imageIcon = new ImageIcon(bufferedImage);
+                    ImageIcon imageIcon = new ImageIcon(Gui.getScaledImage(bufferedImage, 600, 600));
                     showImage.setText("");
                     showImage.setIcon(imageIcon);
                 }
