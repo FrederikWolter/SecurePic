@@ -199,8 +199,8 @@
           <component id="d8e0e" class="javax.swing.JTextArea" binding="messageText">
             <constraints>
               <grid row="6" column="0" row-span="1" col-span="3" vsize-policy="1" hsize-policy="1" anchor="0" fill="2" indent="1" use-parent-layout="false">
-                <preferred-size width="550" height="50"/>
-                <maximum-size width="550" height="300"/>
+                <preferred-size width="450" height="50"/>
+                <maximum-size width="450" height="300"/>
               </grid>
             </constraints>
             <properties>

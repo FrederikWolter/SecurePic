@@ -155,7 +155,7 @@
               <html.disable class="java.lang.Boolean" value="false"/>
             </clientProperties>
           </component>
-          <component id="d472d" class="javax.swing.JPasswordField" binding="publicKey">
+          <component id="d472d" class="javax.swing.JPasswordField" binding="publicKeyInput">
             <constraints>
               <grid row="16" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
@@ -271,8 +271,8 @@
           <component id="77fbe" class="javax.swing.JTextArea" binding="messageText">
             <constraints>
               <grid row="6" column="0" row-span="1" col-span="3" vsize-policy="1" hsize-policy="1" anchor="0" fill="2" indent="1" use-parent-layout="false">
-                <preferred-size width="550" height="50"/>
-                <maximum-size width="550" height="300"/>
+                <preferred-size width="450" height="50"/>
+                <maximum-size width="450" height="300"/>
               </grid>
             </constraints>
             <properties>
@@ -302,6 +302,8 @@
     <group name="messageType">
       <member id="76"/>
       <member id="799f4"/>
+      <member id="2e502"/>
+      <member id="6fe60"/>
     </group>
   </buttonGroups>
 </form>
