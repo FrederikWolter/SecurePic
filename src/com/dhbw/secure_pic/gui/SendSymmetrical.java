@@ -35,7 +35,6 @@ public class SendSymmetrical extends Component {
 
     // region swing attributes
     private JPanel contentPane;
-    private JButton uploadContainerImg;
     private JButton backButton;
     private JRadioButton imageRadio;
     private JRadioButton textRadio;
@@ -49,9 +48,10 @@ public class SendSymmetrical extends Component {
     private JProgressBar progressBar;
     private JLabel showImageLabel;
     private JPanel uploadPanel;
-    private JLabel messageImgLabel;
     private JPanel uploadPanelMessage;
+    private JLabel messageImg;
     private JButton uploadMessageImg;
+    private JButton uploadContainer;
     // endregion
 
     // region attributes
@@ -94,8 +94,8 @@ public class SendSymmetrical extends Component {
             public void finishedContainerImageLoad(ContainerImage image) {
                 contentImage = image;
 
-                messageImgLabel.setText("");
-                messageImgLabel.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(),
+                messageImg.setText("");
+                messageImg.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(),
                         messageImageDisplayWidth,
                         messageImageDisplayHeight)));
             }
@@ -144,7 +144,7 @@ public class SendSymmetrical extends Component {
             }
         });
 
-        uploadContainerImg.addActionListener(new ActionListener() {
+        uploadContainer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 File file = new FileSelect().selectFile(SendSymmetrical.this);
@@ -181,6 +181,7 @@ public class SendSymmetrical extends Component {
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(false);
                 uploadPanelMessage.setVisible(true);
+
             }
         });
 

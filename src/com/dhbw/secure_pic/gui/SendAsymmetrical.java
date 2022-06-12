@@ -39,18 +39,18 @@ public class SendAsymmetrical extends Component {
     private JRadioButton imageRadio;
     private JRadioButton textRadio;
     private JTextArea messageText;
-    private JComboBox codeComboBox;
-    private JComboBox encryptComboBox;
-    private JPasswordField passwordField;
     private JButton encodeButton;
-    private JButton uploadContainerImg;
+    private JButton uploadContainer;
     private JButton copyToClipboardButton;
     private JButton exportButton;
     private JPanel uploadPanel;
     private JLabel showImageLabel;
-    private JLabel messageImgLabel;
     private JPanel uploadPanelMessage;
     private JButton uploadMessageImg;
+    private JComboBox codeComboBox;
+    private JComboBox encryptComboBox;
+    private JPasswordField publicKeyInput;
+    private JLabel messageImg;
     // endregion
 
     // region attributes
@@ -92,8 +92,8 @@ public class SendAsymmetrical extends Component {
             public void finishedContainerImageLoad(ContainerImage image) {
                 contentImage = image;
 
-                messageImgLabel.setText("");
-                messageImgLabel.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(),
+                messageImg.setText("");
+                messageImg.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(),
                         messageImageDisplayWidth,
                         messageImageDisplayHeight)));
             }
@@ -141,7 +141,7 @@ public class SendAsymmetrical extends Component {
             }
         });
 
-        uploadContainerImg.addActionListener(new ActionListener() {
+        uploadContainer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 File file = new FileSelect().selectFile(SendAsymmetrical.this);
@@ -186,6 +186,7 @@ public class SendAsymmetrical extends Component {
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(true);
                 uploadPanelMessage.setVisible(false);
+
             }
         });
 
@@ -239,7 +240,7 @@ public class SendAsymmetrical extends Component {
                 }
 
                 if (encryptComboBox.getSelectedItem() == "RSA"){
-                    String publicKey = new String(passwordField.getPassword());
+                    String publicKey = new String(publicKeyInput.getPassword());
                     if(publicKey.length() > 0){
 //                        crypter = new RSA(publicKey); // TODO get public key?
                         crypter = new AES(publicKey);

@@ -47,8 +47,8 @@ public class SendNoEncryption extends Component {
     private JButton exportButton;
     private JPanel uploadPanel;
     private JLabel showImageLabel;
-    private JLabel messageImgLabel;
     private JPanel uploadPanelMessage;
+    private JLabel messageImg;
 
     // endregion
 
@@ -81,9 +81,7 @@ public class SendNoEncryption extends Component {
                 containerImage = image;
 
                 showImageLabel.setText("");
-                showImageLabel.setIcon(new ImageIcon(Gui.getScaledImage(containerImage.getImage(),
-                        containerImageDisplayWidth,
-                        containerImageDisplayHeight)));
+                showImageLabel.setIcon(new ImageIcon(Gui.getScaledImage(containerImage.getImage(), 350, 350)));
             }
         };
 
@@ -92,8 +90,8 @@ public class SendNoEncryption extends Component {
             public void finishedContainerImageLoad(ContainerImage image) {
                 contentImage = image;
 
-                messageImgLabel.setText("");
-                messageImgLabel.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(),
+                messageImg.setText("");
+                messageImg.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(),
                         messageImageDisplayWidth,
                         messageImageDisplayHeight)));
             }
@@ -252,6 +250,9 @@ public class SendNoEncryption extends Component {
                 });
                 task.addPropertyChangeListener(propertyChangeListener);
                 task.execute();
+
+                exportButton.setEnabled(true);
+                copyToClipboardButton.setEnabled(true);
             }
         });
 
