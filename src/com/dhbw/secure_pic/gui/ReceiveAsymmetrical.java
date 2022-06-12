@@ -49,8 +49,6 @@ public class ReceiveAsymmetrical extends Component {
     private JProgressBar progressBar;
     private JPanel uploadPanel1;
     private JPanel uploadPanel2;
-    private JPanel uploadPanel3;
-    private JButton uploadPrivateKey;
     private JButton CtcbKeyImage;
     private JButton exportKeyImageButton;
 
@@ -211,12 +209,6 @@ public class ReceiveAsymmetrical extends Component {
                     int progress = (Integer) evt.getNewValue();
                     progressBar.setValue(progress);
                 }
-            }
-        });
-        uploadPrivateKey.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
             }
         });
     }

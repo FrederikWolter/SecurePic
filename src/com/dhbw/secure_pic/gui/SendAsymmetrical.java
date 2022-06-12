@@ -1,9 +1,19 @@
 package com.dhbw.secure_pic.gui;
 
+import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
+import com.dhbw.secure_pic.coder.Coder;
+import com.dhbw.secure_pic.coder.LeastSignificantBit;
+import com.dhbw.secure_pic.coder.PlusMinusOne;
+import com.dhbw.secure_pic.crypter.AES;
+import com.dhbw.secure_pic.crypter.Crypter;
 import com.dhbw.secure_pic.data.ContainerImage;
+import com.dhbw.secure_pic.data.Information;
+import com.dhbw.secure_pic.gui.utility.EncodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
 import com.dhbw.secure_pic.gui.utility.LoadFinishedHandler;
+import com.dhbw.secure_pic.gui.utility.SaveSelect;
 import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
+import com.dhbw.secure_pic.pipelines.EncodeTask;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.IOException;
 
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
@@ -38,8 +49,10 @@ public class SendAsymmetrical extends Component {
     private JButton uploadMessageImg;
     private JComboBox codeComboBox;
     private JComboBox encryptComboBox;
-    private JPasswordField publicKey;
+    private JPasswordField publicKeyInput;
     private JLabel messageImg;
+    private JPanel uploadPanel3;
+    private JButton uploadPrivateKey;
     // endregion
 
     // region attributes
@@ -229,7 +242,7 @@ public class SendAsymmetrical extends Component {
                 }
 
                 if (encryptComboBox.getSelectedItem() == "RSA"){
-                    String publicKey = new String(publicKey.getPassword());
+                    String publicKey = new String(publicKeyInput.getPassword());
                     if(publicKey.length() > 0){
 //                        crypter = new RSA(publicKey); // TODO get public key?
                         crypter = new AES(publicKey);
