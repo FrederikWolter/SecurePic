@@ -29,6 +29,8 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
+// FIXME comment (normal comments + JDocs) # only delete if final#
+
 public class SendSymmetrical extends Component {
 
     // region swing attributes

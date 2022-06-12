@@ -57,7 +57,7 @@ public class ImageConverter extends Component {
                 //Handle open button action.
                 if (e.getSource() == uploadButton) {
                     File file = new FileSelect().selectFile(ImageConverter.this);
-                    //ToDo Bildanzeige über das buffered Img aus dem ConatainerImg
+                    //ToDo Bildanzeige über das buffered Img aus dem ContainerImg
                     BufferedImage bufferedImage = null;
                     try {
                         bufferedImage = ImageIO.read(file);

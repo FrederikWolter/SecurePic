@@ -43,11 +43,26 @@ public class SendAsymmetrical extends Component {
     // endregion
 
     // region attributes
-    private ContainerImage containerImage;
-    private ContainerImage contentImage;
+    private transient ContainerImage containerImage;
+    private transient ContainerImage contentImage;
+
+    private final int containerImageDisplayHeight = 550;
+    private final int containerImageDisplayWidth = 550;
+    private final int messageImageDisplayHeight = 250;
+    private final int messageImageDisplayWidth = 250;
     // endregion
 
     public SendAsymmetrical(Gui parent) {
+
+        PropertyChangeListener propertyChangeListener = new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if ("progress".equals(evt.getPropertyName())) {
+                    int progress = (Integer) evt.getNewValue();
+                    progressBar.setValue(progress);
+                }
+            }
+        };
 
         LoadFinishedHandler finishedContainerImageLoad = new LoadFinishedHandler() {
             @Override
@@ -55,7 +70,9 @@ public class SendAsymmetrical extends Component {
                 containerImage = image;
 
                 showImageLabel.setText("");
-                showImageLabel.setIcon(new ImageIcon(containerImage.getImage()));
+                showImageLabel.setIcon(new ImageIcon(Gui.getScaledImage(containerImage.getImage(),
+                        containerImageDisplayWidth,
+                        containerImageDisplayHeight)));
             }
         };
 
@@ -65,7 +82,9 @@ public class SendAsymmetrical extends Component {
                 contentImage = image;
 
                 messageImg.setText("");
-                messageImg.setIcon(new ImageIcon(contentImage.getImage()));
+                messageImg.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(),
+                        messageImageDisplayWidth,
+                        messageImageDisplayHeight)));
             }
         };
 
@@ -75,8 +94,10 @@ public class SendAsymmetrical extends Component {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
                     java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
 
-                    for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
-                        new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad).execute();
+                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
+                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
+                        task.addPropertyChangeListener(propertyChangeListener);
+                        task.execute();
                     }
                 } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();
@@ -91,7 +112,9 @@ public class SendAsymmetrical extends Component {
                     java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
 
                     for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
-                        new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad).execute();
+                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
+                        task.addPropertyChangeListener(propertyChangeListener);
+                        task.execute();
                     }
                 } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();
@@ -110,10 +133,15 @@ public class SendAsymmetrical extends Component {
         uploadContainer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Handle open button action.
                 File file = new FileSelect().selectFile(SendAsymmetrical.this);
-                //TODO error handling?
-                new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad).execute();
+
+                if(file == null){
+                    return;
+                }
+
+                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
+                task.addPropertyChangeListener(propertyChangeListener);
+                task.execute();
 
                 encodeButton.setEnabled(true);
             }
@@ -122,10 +150,15 @@ public class SendAsymmetrical extends Component {
         uploadMessageImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Handle open button action.
                 File file = new FileSelect().selectFile(SendAsymmetrical.this);
-                //TODO error handling?
-                new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad).execute();
+
+                if(file == null){
+                    return;
+                }
+
+                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
+                task.addPropertyChangeListener(propertyChangeListener);
+                task.execute();
             }
         });
 
@@ -147,42 +180,109 @@ public class SendAsymmetrical extends Component {
         });
 
         encodeButton.addActionListener(new ActionListener() {
+            //ToDo Encode Pipeline
+            //ToDo load Public key from Image
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                encodeButton.setEnabled(false);
-                //ToDo Encode Pipeline
-                //ToDo Logik zur Vollständigkeit und Korrektheit der ausgewählten Parameter und deren Verwendung
 
-                exportButton.setEnabled(true);
-                copyToClipboardButton.setEnabled(true);
+                Information info;
+                Coder coder;
+                Crypter crypter;
+
+                if (containerImage == null){
+                    // TODO error handling
+                    return;
+                }
+
+                if (textRadio.isSelected()){
+                    if (messageText.getText().length() > 0){
+                        info = Information.getInformationFromString(messageText.getText());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Bitte gebe einen Text ein, der in das Bild codiert werden soll.");
+                        return;
+                    }
+                } else if(imageRadio.isSelected()){
+                    if (contentImage != null){
+                        try {
+                            info = Information.getInformationFromImage(contentImage.getPath());
+                        } catch (IllegalTypeException ex) {
+                            throw new RuntimeException(ex);
+                            // TODO error handling
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, das in das Trägerbild codiert werden soll.");
+                        return;
+                    }
+                } else {
+                    // TODO error handling
+                    return;
+                }
+
+                if (codeComboBox.getSelectedItem() == "LSB"){
+                    coder = new LeastSignificantBit(containerImage);
+                } else if(codeComboBox.getSelectedItem() == "PM1"){
+                    coder = new PlusMinusOne(containerImage);
+                } else {
+                    // TODO error handling
+                    return;
+                }
+
+                if (encryptComboBox.getSelectedItem() == "RSA"){
+                    String publicKey = new String(publicKey.getPassword());
+                    if(publicKey.length() > 0){
+//                        crypter = new RSA(publicKey); // TODO get public key?
+                        crypter = new AES(publicKey);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Bitte gebe einen Öffentlichen Schlüssel ein, mit dem die Information verschlüsselt werden soll.");
+                        return;
+                    }
+                } else {
+                    // TODO error handling
+                    return;
+                }
+
+//                encodeButton.setEnabled(false);
+
+                EncodeTask task = new EncodeTask(coder, crypter, info, new EncodeFinishedHandler() {
+                    @Override
+                    public void finishedEncode(ContainerImage image) {
+                        contentImage = image;
+
+                        exportButton.setEnabled(true);
+                        copyToClipboardButton.setEnabled(true);
+                        encodeButton.setEnabled(true);
+                    }
+                });
+                task.addPropertyChangeListener(propertyChangeListener);
+                task.execute();
             }
         });
 
         exportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //ToDo Exportfunktion schreiben
+                File file = new SaveSelect().selectDir(SendAsymmetrical.this);
+
+                if(file == null){
+                    return;
+                }
+
+                try {
+                    containerImage.exportImg(file.getPath());
+                } catch (IOException | IllegalTypeException ex) {
+                    throw new RuntimeException(ex); // TODO error handling
+                }
             }
         });
 
         copyToClipboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //ToDo Exportfunktion schreiben
-
+                containerImage.copyToClipboard();
             }
         });
 
-        progressBar.addPropertyChangeListener(new PropertyChangeListener() {
-            //ToDo Progress anbinden
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("progress" == evt.getPropertyName()) {
-                    int progress = (Integer) evt.getNewValue();
-                    progressBar.setValue(progress);
-                }
-            }
-        });
         // endregion
     }
 
