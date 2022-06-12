@@ -51,6 +51,8 @@ public class SendAsymmetrical extends Component {
     private JComboBox encryptComboBox;
     private JPasswordField publicKeyInput;
     private JLabel messageImg;
+    private JPanel uploadPanel3;
+    private JButton uploadPrivateKey;
     // endregion
 
     // region attributes

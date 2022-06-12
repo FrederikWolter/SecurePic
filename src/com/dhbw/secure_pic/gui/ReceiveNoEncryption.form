@@ -1,23 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.dhbw.secure_pic.gui.ReceiveNoEncryption">
-  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="3" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="7" column-count="10" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="307"/>
+      <xy x="20" y="20" width="856" height="492"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
       <component id="ce539" class="javax.swing.JProgressBar" binding="progressBar">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="6" column="0" row-span="1" col-span="10" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
       </component>
-      <grid id="4dd1b" layout-manager="GridLayoutManager" row-count="8" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <hspacer id="88c21">
+        <constraints>
+          <grid row="5" column="2" row-span="1" col-span="4" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+      <component id="7d47d" class="javax.swing.JButton" binding="exportButton" default-binding="true">
+        <constraints>
+          <grid row="5" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <enabled value="false"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="export"/>
+        </properties>
+      </component>
+      <component id="2ac21" class="javax.swing.JButton" binding="copyToClipboardButton" default-binding="true">
+        <constraints>
+          <grid row="5" column="7" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <enabled value="false"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="copy.to.clipboard"/>
+        </properties>
+      </component>
+      <component id="491d7" class="javax.swing.JLabel" binding="messageOutput">
+        <constraints>
+          <grid row="3" column="2" row-span="1" col-span="8" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="OutputLabel"/>
+        </properties>
+      </component>
+      <vspacer id="81e0a">
+        <constraints>
+          <grid row="4" column="6" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <vspacer id="83849">
+        <constraints>
+          <grid row="0" column="6" row-span="3" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <grid id="5859b" layout-manager="GridLayoutManager" row-count="12" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="0" column="0" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="6" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <visible value="true"/>
@@ -27,29 +68,24 @@
         </clientProperties>
         <border type="none"/>
         <children>
-          <component id="6ee9f" class="javax.swing.JButton" binding="backButton" default-binding="true">
+          <vspacer id="c9ffa">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <background color="-3422958"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="back"/>
-            </properties>
-          </component>
-          <vspacer id="15d98">
-            <constraints>
-              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="cbc13" class="javax.swing.JComboBox" binding="comboBox_CodAlg">
+          <vspacer id="c011a">
             <constraints>
-              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="1" use-parent-layout="false"/>
+              <grid row="6" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <component id="75c91" class="javax.swing.JComboBox" binding="codeComboBox">
+            <constraints>
+              <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="1" use-parent-layout="false"/>
             </constraints>
             <properties>
               <model>
-                <item value="Coding Algorithm..."/>
                 <item value="LSB"/>
-                <item value="PlusMinusOne"/>
+                <item value="PM1"/>
               </model>
               <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="coding.algorithm"/>
             </properties>
@@ -57,52 +93,58 @@
               <html.disable class="java.lang.Boolean" value="false"/>
             </clientProperties>
           </component>
-          <component id="41856" class="javax.swing.JButton" binding="decodeButton" default-binding="true">
+          <component id="3a7d7" class="javax.swing.JButton" binding="decodeButton">
             <constraints>
-              <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="11" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-3422958"/>
               <enabled value="false"/>
               <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="decode"/>
+              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="encode"/>
             </properties>
           </component>
-          <vspacer id="21338">
+          <vspacer id="1fb82">
             <constraints>
-              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="8" column="0" row-span="3" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <vspacer id="2bb51">
+          <component id="62eb" class="javax.swing.JLabel">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </vspacer>
-          <component id="db252" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="received.container.image"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="coding.algorithm"/>
             </properties>
           </component>
-          <grid id="61bed" binding="uploadPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+          <grid id="39a15" binding="uploadPanelContainer" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="5" left="5" bottom="5" right="5"/>
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="3" column="0" row-span="3" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="450" height="200"/>
+              </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <background color="-4934476"/>
+              <visible value="true"/>
+            </properties>
             <border type="none"/>
             <children>
-              <component id="59036" class="javax.swing.JLabel">
+              <component id="53438" class="javax.swing.JLabel" binding="containerImg">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="350" height="50"/>
+                    <maximum-size width="350" height="350"/>
+                  </grid>
                 </constraints>
                 <properties>
+                  <foreground color="-16777216"/>
+                  <horizontalAlignment value="0"/>
+                  <horizontalTextPosition value="0"/>
                   <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="path"/>
                   <visible value="true"/>
                 </properties>
               </component>
-              <component id="5f709" class="javax.swing.JButton" binding="uploadContainerImg">
+              <component id="f4623" class="javax.swing.JButton" binding="uploadContainerImg">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -117,39 +159,27 @@
               </component>
             </children>
           </grid>
+          <component id="74a69" class="javax.swing.JButton" binding="backButton">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="100" height="35"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-5658199"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="back"/>
+            </properties>
+          </component>
+          <component id="db252" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="received.container.image"/>
+            </properties>
+          </component>
         </children>
       </grid>
-      <component id="e1bda" class="javax.swing.JButton" binding="exportButton" default-binding="true">
-        <constraints>
-          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <enabled value="false"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="export"/>
-        </properties>
-      </component>
-      <hspacer id="1027e">
-        <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </hspacer>
-      <component id="d66dc" class="javax.swing.JButton" binding="copyToClipboardButton" default-binding="true">
-        <constraints>
-          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <enabled value="false"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="copy.to.clipboard"/>
-        </properties>
-      </component>
-      <component id="e39a6" class="javax.swing.JLabel" binding="MessageOutput">
-        <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value=""/>
-        </properties>
-      </component>
     </children>
   </grid>
 </form>

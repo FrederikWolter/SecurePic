@@ -20,21 +20,21 @@ public class ReceiveNoEncryption extends Component {
     private JPanel contentPane;
     private JProgressBar progressBar;
     private JButton backButton;
-    private JComboBox comboBox_CodAlg;
     private JButton decodeButton;
     private JButton uploadContainerImg;
     private JLabel ConatainerImg;
-    private JPanel RightPanel;
     private JButton copyToClipboardButton;
     private JButton exportButton;
-    private JLabel MessageOutput;
-    private JPanel uploadPanel;
+    private JLabel messageOutput;
+    private JComboBox codeComboBox;
+    private JPanel uploadPanelContainer;
+    private JLabel containerImg;
     private JTextPane outTextPane;
 
 
     public ReceiveNoEncryption(Gui parent) {
 
-        uploadPanel.setDropTarget(new DropTarget() {
+        uploadPanelContainer.setDropTarget(new DropTarget() {
             @Override
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {

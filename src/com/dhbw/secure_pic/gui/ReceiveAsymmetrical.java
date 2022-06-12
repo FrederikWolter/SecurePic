@@ -25,34 +25,28 @@ public class ReceiveAsymmetrical extends Component {
     private JPanel contentPane;
     private JLabel descrPblImg;
     private JLabel descrRecImg;
-    private JButton uploadButtonKeyImage;
-    private JComboBox comboBox_CodAlg;
-    private JComboBox comboBox_EncAlg;
-    private JButton uploadButtonConatainerImg;
     private JCheckBox encodePublicKeyIntoCheckBox;
     private JButton generateKeyButton;
     private JTextField privateKeyOutput;
     private JTextField publicKeyOutput;
-    private JTextField privateKeyInput;
     private JButton decodeButton;
-    private JButton backButton;
-    private JLabel KeyImg;
-    private JLabel ContainerImage;
-    private JPanel OutputMessage;
-    private JLabel MessageOutput;
     private JButton copyToClipboardButton;
     private JButton exportButton;
-    private JLabel OutputKeyImage;
-    private JButton KeyExport;
+    private JLabel outputKeyImage;
+    private JButton keyExport;
     private JButton ctcbKey;
-    private JLabel KeyImageOutput;
     private JProgressBar progressBar;
-    private JPanel uploadPanel1;
-    private JPanel uploadPanel2;
-    private JPanel uploadPanel3;
-    private JButton uploadPrivateKey;
-    private JButton CtcbKeyImage;
-    private JButton exportKeyImageButton;
+    private JPanel uploadPanelContainer;
+    private JLabel containerImg;
+    private JButton uploadContainerImg;
+    private JPanel uploadPanelKey;
+    private JButton backButton;
+    private JButton uploadButtonKeyImg;
+    private JLabel keyImg;
+    private JLabel messageOutput;
+    private JComboBox codeComboBox;
+    private JComboBox encryptComboBox;
+    private JTextField privateKeyInput;
 
     final FileSelect fs = new FileSelect();
     private transient com.dhbw.secure_pic.data.ContainerImage containerImage;
@@ -61,7 +55,7 @@ public class ReceiveAsymmetrical extends Component {
     public ReceiveAsymmetrical(Gui parent) {
 
 
-        uploadPanel1.setDropTarget(new DropTarget() {
+        uploadPanelContainer.setDropTarget(new DropTarget() {
             @Override
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
@@ -79,7 +73,7 @@ public class ReceiveAsymmetrical extends Component {
                 decodeButton.setEnabled(true);
             }
         });
-        uploadPanel2.setDropTarget(new DropTarget() {
+        uploadPanelKey.setDropTarget(new DropTarget() {
             @Override
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
@@ -104,7 +98,7 @@ public class ReceiveAsymmetrical extends Component {
             }
         });
 
-        uploadButtonKeyImage.addActionListener(new ActionListener() {
+        uploadButtonKeyImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
@@ -117,11 +111,11 @@ public class ReceiveAsymmetrical extends Component {
                     ex.printStackTrace();
                 }
                 ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                KeyImg.setText("");
-                KeyImg.setIcon(imageIcon);
+                keyImg.setText("");
+                keyImg.setIcon(imageIcon);
             }
         });
-        uploadButtonConatainerImg.addActionListener(new ActionListener() {
+        uploadContainerImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
@@ -134,8 +128,8 @@ public class ReceiveAsymmetrical extends Component {
                     ex.printStackTrace();
                 }
                 ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                ContainerImage.setText("");
-                ContainerImage.setIcon(imageIcon);
+                containerImg.setText("");
+                containerImg.setIcon(imageIcon);
                 decodeButton.setEnabled(true);
             }
         });
@@ -148,7 +142,7 @@ public class ReceiveAsymmetrical extends Component {
                 privateKeyOutput.setText(privateKey);
                 privateKeyInput.setText(privateKey);
                 publicKeyOutput.setText(publicKey);
-                exportKeyImageButton.setEnabled(true);
+                keyExport.setEnabled(true);
                 ctcbKey.setEnabled(true);
                 //ToDo Bildanzeige
             }
@@ -157,13 +151,13 @@ public class ReceiveAsymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(encodePublicKeyIntoCheckBox.isSelected()){
-                    uploadPanel2.setVisible(true);
-                    OutputKeyImage.setVisible(true);
+                    uploadPanelKey.setVisible(true);
+                    outputKeyImage.setVisible(true);
                     descrPblImg.setVisible(true);
                 }
                 else{
-                    uploadPanel2.setVisible(false);
-                    OutputKeyImage.setVisible(false);
+                    uploadPanelKey.setVisible(false);
+                    outputKeyImage.setVisible(false);
                     descrPblImg.setVisible(false);
                 }
             }
@@ -186,7 +180,7 @@ public class ReceiveAsymmetrical extends Component {
 
             }
         });
-        KeyExport.addActionListener(new ActionListener() {
+        keyExport.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -211,12 +205,6 @@ public class ReceiveAsymmetrical extends Component {
                     int progress = (Integer) evt.getNewValue();
                     progressBar.setValue(progress);
                 }
-            }
-        });
-        uploadPrivateKey.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
             }
         });
     }

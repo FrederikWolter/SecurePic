@@ -19,26 +19,22 @@ import java.io.File;
 public class ReceiveSymmetrical extends Component {
     private JProgressBar progressBar;
     private JButton backButton;
-    private JComboBox cryptComboBox;
     private JButton decodeButton;
-    private JPasswordField passwordPasswordField;
-    private JPanel RightPanel;
     private JLabel messageOutput;
     private JButton copyToClipboardButton;
     private JButton exportButton;
-    private JLabel ContainerImgAnzeige;
-    private JTextPane outTextPane;
     private JComboBox encryptComboBox;
     private JPasswordField passwordField;
     private JPanel contentPane;
-    private JPanel uploadPanel;
     private JButton uploadContainerImg;
+    private JPanel uploadPanelContainer;
+    private JLabel containerImg;
     private JComboBox codeComboBox;
 
     final FileSelect fs = new FileSelect();
 
     public ReceiveSymmetrical(Gui parent) {
-        uploadPanel.setDropTarget(new DropTarget() {
+        uploadPanelContainer.setDropTarget(new DropTarget() {
             @Override
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
@@ -120,4 +116,7 @@ public class ReceiveSymmetrical extends Component {
         return contentPane;
     }
 
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+    }
 }
