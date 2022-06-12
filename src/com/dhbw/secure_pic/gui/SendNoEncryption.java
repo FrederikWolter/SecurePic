@@ -90,8 +90,8 @@ public class SendNoEncryption extends Component {
             public void finishedContainerImageLoad(ContainerImage image) {
                 contentImage = image;
 
-                messageImgLabel.setText("");
-                messageImgLabel.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(),
+                messageImg.setText("");
+                messageImg.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(),
                         messageImageDisplayWidth,
                         messageImageDisplayHeight)));
             }

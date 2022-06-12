@@ -24,7 +24,7 @@ public class Gui {
     public Gui(){
         frame = new JFrame("Image Converter");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(1200,750);
+        frame.setSize((int) (frame.getHeight()*1.78),750);
         frame.setLocationRelativeTo(null);
         frame.setMinimumSize(new Dimension(1200, 750));
         frame.setIconImage(new ImageIcon("SecurePic/com/dhbw/secure_pic/gui/images/icon.jpg").getImage());
