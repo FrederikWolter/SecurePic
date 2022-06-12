@@ -104,18 +104,18 @@
             </constraints>
             <properties>
               <enabled value="false"/>
-              <text value="Encode"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="encode"/>
               <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="encode"/>
             </properties>
           </component>
           <vspacer id="f5247">
             <constraints>
-              <grid row="14" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="15" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
           <vspacer id="bcc">
             <constraints>
-              <grid row="12" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="13" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
           <component id="733b7" class="javax.swing.JLabel">

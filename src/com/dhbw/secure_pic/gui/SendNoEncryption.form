@@ -57,6 +57,29 @@
               <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="textmessage"/>
             </properties>
           </component>
+          <vspacer id="38ba8">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <component id="dfde3" class="javax.swing.JTextArea" binding="messageText">
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="2" hsize-policy="1" anchor="0" fill="2" indent="1" use-parent-layout="false">
+                <preferred-size width="250" height="50"/>
+                <maximum-size width="250" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-2499106"/>
+              <lineWrap value="true"/>
+              <margin top="5" left="5" bottom="5" right="5"/>
+              <rows value="0"/>
+              <tabSize value="4"/>
+              <text value=""/>
+              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="message"/>
+              <wrapStyleWord value="true"/>
+            </properties>
+          </component>
           <vspacer id="b8e84">
             <constraints>
               <grid row="10" column="0" row-span="1" col-span="6" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>

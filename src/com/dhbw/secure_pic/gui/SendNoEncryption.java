@@ -55,7 +55,11 @@ public class SendNoEncryption extends Component {
     // region attributes
     private transient ContainerImage containerImage;
     private transient ContainerImage contentImage;
-    private transient File contentImageFile;
+
+    private final int containerImageDisplayHeight = 550;
+    private final int containerImageDisplayWidth = 550;
+    private final int messageImageDisplayHeight = 250;
+    private final int messageImageDisplayWidth = 250;
     // endregion
 
 
@@ -86,8 +90,10 @@ public class SendNoEncryption extends Component {
             public void finishedContainerImageLoad(ContainerImage image) {
                 contentImage = image;
 
-                messageImg.setText("");
-                messageImg.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(), 150, 120)));
+                messageImgLabel.setText("");
+                messageImgLabel.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(),
+                        messageImageDisplayWidth,
+                        messageImageDisplayHeight)));
             }
         };
 
@@ -116,10 +122,7 @@ public class SendNoEncryption extends Component {
                     java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
 
                     for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
-                        //TODO error handling?
-
-                        contentImageFile = file;
-                        ContainerImageLoadTask task = new ContainerImageLoadTask(contentImageFile.getPath(), finishedContentImageLoad);
+                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
                         task.addPropertyChangeListener(propertyChangeListener);
                         task.execute();
                     }
@@ -140,9 +143,12 @@ public class SendNoEncryption extends Component {
         uploadContainer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Handle open button action.
                 File file = new FileSelect().selectFile(SendNoEncryption.this);
-                // TODO error handling?
+
+                if(file == null){
+                    return;
+                }
+
                 ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
                 task.addPropertyChangeListener(propertyChangeListener);
                 task.execute();
@@ -153,13 +159,14 @@ public class SendNoEncryption extends Component {
 
         uploadMessageImg.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {    // TODO use path instead?
-                //Handle open button action.
+            public void actionPerformed(ActionEvent e) {
                 File file = new FileSelect().selectFile(SendNoEncryption.this);
-                //TODO error handling?
 
-                contentImageFile = file;
-                ContainerImageLoadTask task = new ContainerImageLoadTask(contentImageFile.getPath(), finishedContentImageLoad);
+                if(file == null){
+                    return;
+                }
+
+                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
                 task.addPropertyChangeListener(propertyChangeListener);
                 task.execute();
             }
@@ -198,19 +205,19 @@ public class SendNoEncryption extends Component {
                     if (messageText.getText().length() > 0){
                         info = Information.getInformationFromString(messageText.getText());
                     } else {
-                        // TODO error handling
+                        JOptionPane.showMessageDialog(null, "Bitte gebe einen Text ein, der in das Bild codiert werden soll.");
                         return;
                     }
                 } else if(imageRadio.isSelected()){
-                    if (contentImageFile.exists()){
+                    if (contentImage != null){
                         try {
-                            info = Information.getInformationFromImage(containerImage.getPath());
+                            info = Information.getInformationFromImage(contentImage.getPath());
                         } catch (IllegalTypeException ex) {
                             throw new RuntimeException(ex);
                             // TODO error handling
                         }
                     } else {
-                        // TODO error handling
+                        JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, das in das Trägerbild codiert werden soll.");
                         return;
                     }
                 } else {
@@ -244,9 +251,6 @@ public class SendNoEncryption extends Component {
                 task.addPropertyChangeListener(propertyChangeListener);
                 task.execute();
 
-                //ToDo Encode Pipeline
-                //ToDo Logik zur Vollständigkeit und Korrektheit der ausgewählten Parameter und deren Verwendung
-
                 exportButton.setEnabled(true);
                 copyToClipboardButton.setEnabled(true);
             }
@@ -256,6 +260,10 @@ public class SendNoEncryption extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 File file = new SaveSelect().selectDir(SendNoEncryption.this);
+
+                if(file == null){
+                    return;
+                }
 
                 try {
                     containerImage.exportImg(file.getPath());
