@@ -29,6 +29,8 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
+// FIXME comment (normal comments + JDocs) # only delete if final#
+
 public class SendSymmetrical extends Component {
 
     // region swing attributes
@@ -42,7 +44,6 @@ public class SendSymmetrical extends Component {
     private JComboBox encryptComboBox;
     private JPasswordField passwordField;
     private JButton encodeButton;
-    private JButton uploadMessageButton;
     private JButton copyToClipboardButton;
     private JButton exportButton;
     private JProgressBar progressBar;
@@ -50,13 +51,17 @@ public class SendSymmetrical extends Component {
     private JPanel uploadPanel;
     private JLabel messageImgLabel;
     private JPanel uploadPanelMessage;
-    private JLabel MessageImg;
     private JButton uploadMessageImg;
     // endregion
 
     // region attributes
     private transient ContainerImage containerImage;
     private transient ContainerImage contentImage;
+
+    private final int containerImageDisplayHeight = 550;
+    private final int containerImageDisplayWidth = 550;
+    private final int messageImageDisplayHeight = 250;
+    private final int messageImageDisplayWidth = 250;
     // endregion
 
     public SendSymmetrical(Gui parent) {
@@ -78,7 +83,9 @@ public class SendSymmetrical extends Component {
                 containerImage = image;
 
                 showImageLabel.setText("");
-                showImageLabel.setIcon(new ImageIcon(containerImage.getImage()));
+                showImageLabel.setIcon(new ImageIcon(Gui.getScaledImage(containerImage.getImage(),
+                        containerImageDisplayWidth,
+                        containerImageDisplayHeight)));
             }
         };
 
@@ -88,7 +95,9 @@ public class SendSymmetrical extends Component {
                 contentImage = image;
 
                 messageImgLabel.setText("");
-                messageImgLabel.setIcon(new ImageIcon(contentImage.getImage()));
+                messageImgLabel.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(),
+                        messageImageDisplayWidth,
+                        messageImageDisplayHeight)));
             }
         };
 
@@ -117,7 +126,9 @@ public class SendSymmetrical extends Component {
                     java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
 
                     for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
-                        new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad).execute();
+                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
+                        task.addPropertyChangeListener(propertyChangeListener);
+                        task.execute();
                     }
                 } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();
@@ -136,9 +147,12 @@ public class SendSymmetrical extends Component {
         uploadContainerImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Handle open button action.
                 File file = new FileSelect().selectFile(SendSymmetrical.this);
-                // TODO error handling?
+
+                if(file == null){
+                    return;
+                }
+
                 ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
                 task.addPropertyChangeListener(propertyChangeListener);
                 task.execute();
@@ -150,9 +164,12 @@ public class SendSymmetrical extends Component {
         uploadMessageImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Handle open button action.
                 File file = new FileSelect().selectFile(SendSymmetrical.this);
-                // TODO error handling?
+
+                if(file == null){
+                    return;
+                }
+
                 ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
                 task.addPropertyChangeListener(propertyChangeListener);
                 task.execute();
@@ -163,9 +180,7 @@ public class SendSymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(false);
-                uploadMessageButton.setVisible(true);
-                showImageLabel.setVisible(true);
-
+                uploadPanelMessage.setVisible(true);
             }
         });
 
@@ -173,8 +188,7 @@ public class SendSymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(true);
-                uploadMessageButton.setVisible(false);
-                showImageLabel.setVisible(false);
+                uploadPanelMessage.setVisible(false);
             }
         });
 
@@ -195,12 +209,21 @@ public class SendSymmetrical extends Component {
                     if (messageText.getText().length() > 0){
                         info = Information.getInformationFromString(messageText.getText());
                     } else {
-                        // TODO error handling
+                        JOptionPane.showMessageDialog(null, "Bitte gebe einen Text ein, der in das Bild codiert werden soll.");
                         return;
                     }
                 } else if(imageRadio.isSelected()){
-//                    info = Information.getInformationFromImage();
-                    return; // TODO
+                    if (contentImage != null){
+                        try {
+                            info = Information.getInformationFromImage(contentImage.getPath());
+                        } catch (IllegalTypeException ex) {
+                            throw new RuntimeException(ex);
+                            // TODO error handling
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, das in das Trägerbild codiert werden soll.");
+                        return;
+                    }
                 } else {
                     // TODO error handling
                     return;
@@ -220,14 +243,15 @@ public class SendSymmetrical extends Component {
                     if(password.length() > 0){
                         crypter = new AES(password);
                     }else{
-                        return; // TODO error handling;
+                        JOptionPane.showMessageDialog(null, "Bitte gebe ein Passwort ein, mit dem die Information verschlüsselt werden soll.");
+                        return;
                     }
                 } else {
                     // TODO error handling
                     return;
                 }
 
-                encodeButton.setEnabled(false);
+//                encodeButton.setEnabled(false);
 
                 EncodeTask task = new EncodeTask(coder, crypter, info, new EncodeFinishedHandler() {
                     @Override
@@ -249,6 +273,10 @@ public class SendSymmetrical extends Component {
             public void actionPerformed(ActionEvent e) {
                 File file = new SaveSelect().selectDir(SendSymmetrical.this);
 
+                if(file == null){
+                    return;
+                }
+
                 try {
                     containerImage.exportImg(file.getPath());
                 } catch (IOException | IllegalTypeException ex) {
@@ -261,17 +289,6 @@ public class SendSymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 containerImage.copyToClipboard();
-            }
-        });
-
-        progressBar.addPropertyChangeListener(new PropertyChangeListener() {
-            //ToDo Progress anbinden
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("progress" == evt.getPropertyName()) {
-                    int progress = (Integer) evt.getNewValue();
-                    progressBar.setValue(progress);
-                }
             }
         });
 
