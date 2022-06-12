@@ -212,7 +212,7 @@ public class SendAsymmetrical extends Component {
                     if (messageText.getText().length() > 0){
                         info = Information.getInformationFromString(messageText.getText());
                     } else {
-                        JOptionPane.showMessageDialog(null, "Bitte gebe einen Text ein, der in das Bild codiert werden soll.");
+                        JOptionPane.showMessageDialog(null, "Warnung", "Bitte gebe einen Text ein, der in das Bild codiert werden soll.", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                 } else if(imageRadio.isSelected()){
@@ -224,7 +224,7 @@ public class SendAsymmetrical extends Component {
                             // TODO error handling
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, das in das Trägerbild codiert werden soll.");
+                        JOptionPane.showMessageDialog(null, "Warnung", "Bitte lade einen Bild, das in das Trägerbild codiert werden soll.", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                 } else {
@@ -247,7 +247,7 @@ public class SendAsymmetrical extends Component {
 //                        crypter = new RSA(publicKey); // TODO get public key?
                         crypter = new AES(publicKey);
                     }else{
-                        JOptionPane.showMessageDialog(null, "Bitte gebe einen Öffentlichen Schlüssel ein, mit dem die Information verschlüsselt werden soll.");
+                        JOptionPane.showMessageDialog(null, "Warnung", "Bitte gebe einen Öffentlichen Schlüssel ein, mit dem die Information verschlüsselt werden soll.", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                 } else {
@@ -283,6 +283,7 @@ public class SendAsymmetrical extends Component {
 
                 try {
                     containerImage.exportImg(file.getPath());
+                    JOptionPane.showMessageDialog(null, "Erfolg", "Das codierte Bild wurde erfolgreich exportiert.", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException | IllegalTypeException ex) {
                     throw new RuntimeException(ex); // TODO error handling
                 }
