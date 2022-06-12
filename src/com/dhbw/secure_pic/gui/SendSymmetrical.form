@@ -1,17 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.dhbw.secure_pic.gui.SendSymmetrical">
-  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-    <margin top="5" left="20" bottom="10" right="20"/>
+  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="666" height="629"/>
+      <xy x="20" y="20" width="652" height="578"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <grid id="ddb3" layout-manager="GridLayoutManager" row-count="19" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="ed03f" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="56e4e" class="javax.swing.JButton" binding="copyToClipboardButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <enabled value="false"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="copy.to.clipboard"/>
+            </properties>
+          </component>
+          <component id="1acdc" class="javax.swing.JButton" binding="exportButton" default-binding="true">
+            <constraints>
+              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <defaultCapable value="false"/>
+              <enabled value="false"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="export"/>
+            </properties>
+          </component>
+          <grid id="6590e" binding="uploadPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-5658199"/>
+              <foreground color="-16777216"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="70303" class="javax.swing.JButton" binding="uploadContainer">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload"/>
+                </properties>
+              </component>
+              <component id="c2f0a" class="javax.swing.JLabel" binding="showImageLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font size="20"/>
+                  <foreground color="-1973791"/>
+                  <horizontalAlignment value="10"/>
+                  <horizontalTextPosition value="10"/>
+                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="drag.and.drop.upload"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <hspacer id="463b9">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </hspacer>
+        </children>
+      </grid>
+      <grid id="ddb3" layout-manager="GridLayoutManager" row-count="17" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="350" height="-1"/>
+            <maximum-size width="350" height="-1"/>
+          </grid>
         </constraints>
         <properties>
           <visible value="true"/>
@@ -21,9 +91,20 @@
         </clientProperties>
         <border type="none"/>
         <children>
+          <component id="9005" class="javax.swing.JButton" binding="backButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-4934476"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="back"/>
+            </properties>
+          </component>
           <vspacer id="eb038">
             <constraints>
-              <grid row="5" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="2" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="20"/>
+              </grid>
             </constraints>
           </vspacer>
           <component id="d839d" class="javax.swing.JRadioButton" binding="imageRadio">
@@ -36,7 +117,7 @@
           </component>
           <component id="e34be" class="javax.swing.JRadioButton" binding="textRadio">
             <constraints>
-              <grid row="4" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="5" use-parent-layout="false"/>
+              <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="5" use-parent-layout="false"/>
             </constraints>
             <properties>
               <enabled value="true"/>
@@ -44,19 +125,31 @@
               <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="textmessage"/>
             </properties>
           </component>
-          <vspacer id="d7ee2">
+          <component id="c3f65" class="javax.swing.JTextArea" binding="messageText">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="6" column="0" row-span="1" col-span="2" vsize-policy="2" hsize-policy="1" anchor="0" fill="3" indent="1" use-parent-layout="false">
+                <preferred-size width="290" height="50"/>
+                <maximum-size width="290" height="-1"/>
+              </grid>
             </constraints>
-          </vspacer>
+            <properties>
+              <background color="-1973791"/>
+              <lineWrap value="true"/>
+              <margin top="5" left="5" bottom="5" right="5"/>
+              <tabSize value="4"/>
+              <text value=""/>
+              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="message"/>
+              <wrapStyleWord value="true"/>
+            </properties>
+          </component>
           <vspacer id="58df1">
             <constraints>
-              <grid row="10" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
           <component id="3a951" class="javax.swing.JComboBox" binding="codeComboBox">
             <constraints>
-              <grid row="11" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="1" use-parent-layout="false"/>
+              <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
             </constraints>
             <properties>
               <model>
@@ -71,7 +164,7 @@
           </component>
           <component id="67e34" class="javax.swing.JComboBox" binding="encryptComboBox">
             <constraints>
-              <grid row="13" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="1" fill="0" indent="1" use-parent-layout="false"/>
+              <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="9" fill="0" indent="1" use-parent-layout="false"/>
             </constraints>
             <properties>
               <model>
@@ -85,22 +178,23 @@
           </component>
           <component id="6cb5b" class="javax.swing.JPasswordField" binding="passwordField">
             <constraints>
-              <grid row="16" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
+              <grid row="14" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="290" height="-1"/>
               </grid>
             </constraints>
             <properties>
+              <margin top="2" left="10" bottom="5" right="10"/>
               <toolTipText value="Password"/>
             </properties>
           </component>
           <vspacer id="ccff2">
             <constraints>
-              <grid row="17" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="15" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
           <component id="ab5ce" class="javax.swing.JButton" binding="encodeButton" default-binding="true">
             <constraints>
-              <grid row="18" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="16" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <enabled value="false"/>
@@ -110,17 +204,19 @@
           </component>
           <vspacer id="f5247">
             <constraints>
-              <grid row="15" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="12" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
           <vspacer id="bcc">
             <constraints>
-              <grid row="13" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+              <grid row="10" column="0" row-span="1" col-span="2" vsize-policy="2" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="20"/>
+              </grid>
             </constraints>
           </vspacer>
           <component id="733b7" class="javax.swing.JLabel">
             <constraints>
-              <grid row="11" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="coding.algorithm"/>
@@ -128,42 +224,35 @@
           </component>
           <component id="7bceb" class="javax.swing.JLabel">
             <constraints>
-              <grid row="13" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="encrypting.algorithm"/>
             </properties>
           </component>
           <grid id="cc194" binding="uploadPanelMessage" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="5" left="5" bottom="5" right="5"/>
+            <margin top="6" left="6" bottom="6" right="0"/>
             <constraints>
-              <grid row="7" column="0" row-span="3" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                <preferred-size width="450" height="200"/>
-              </grid>
+              <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <background color="-4934476"/>
+              <background color="-1973791"/>
               <visible value="false"/>
             </properties>
             <border type="none"/>
             <children>
               <component id="a231a" class="javax.swing.JLabel" binding="messageImg">
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="350" height="50"/>
-                    <maximum-size width="350" height="350"/>
-                  </grid>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <horizontalAlignment value="0"/>
-                  <horizontalTextPosition value="0"/>
                   <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="path"/>
                   <visible value="true"/>
                 </properties>
               </component>
               <component id="8607f" class="javax.swing.JButton" binding="uploadMessageImg">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload"/>
@@ -178,45 +267,21 @@
           </grid>
           <component id="8b1f" class="javax.swing.JLabel">
             <constraints>
-              <grid row="15" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="13" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <labelFor value="6cb5b"/>
               <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="password.for.encryption"/>
             </properties>
           </component>
-          <component id="8d7a7" class="javax.swing.JButton" binding="backButton" default-binding="true">
+          <vspacer id="d7ee2">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="100" height="35"/>
-              </grid>
+              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties>
-              <background color="-5658199"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="back"/>
-            </properties>
-          </component>
-          <component id="d8e0e" class="javax.swing.JTextArea" binding="messageText">
+          </vspacer>
+          <component id="bc77f" class="javax.swing.JLabel">
             <constraints>
-              <grid row="6" column="0" row-span="1" col-span="3" vsize-policy="1" hsize-policy="1" anchor="0" fill="2" indent="1" use-parent-layout="false">
-                <preferred-size width="450" height="50"/>
-                <maximum-size width="450" height="300"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-4934476"/>
-              <lineWrap value="true"/>
-              <margin top="5" left="5" bottom="5" right="5"/>
-              <rows value="0"/>
-              <tabSize value="4"/>
-              <text value=""/>
-              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="message"/>
-              <wrapStyleWord value="true"/>
-            </properties>
-          </component>
-          <component id="c5fc0" class="javax.swing.JLabel">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Auwahl Message Typ"/>
@@ -226,76 +291,10 @@
       </grid>
       <component id="565f3" class="javax.swing.JProgressBar" binding="progressBar">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
       </component>
-      <grid id="fb882" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-        <margin top="0" left="0" bottom="0" right="0"/>
-        <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties/>
-        <border type="none"/>
-        <children>
-          <component id="7672e" class="javax.swing.JButton" binding="copyToClipboardButton" default-binding="true">
-            <constraints>
-              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <enabled value="false"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="copy.to.clipboard"/>
-            </properties>
-          </component>
-          <component id="bd9ee" class="javax.swing.JButton" binding="exportButton" default-binding="true">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <enabled value="false"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="export"/>
-            </properties>
-          </component>
-          <grid id="92d0c" binding="uploadPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <autoscrolls value="false"/>
-              <background color="-4934476"/>
-            </properties>
-            <border type="none"/>
-            <children>
-              <component id="45c23" class="javax.swing.JButton" binding="uploadContainer">
-                <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <horizontalTextPosition value="0"/>
-                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload"/>
-                </properties>
-              </component>
-              <component id="84334" class="javax.swing.JLabel" binding="showImageLabel">
-                <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <foreground color="-16777216"/>
-                  <horizontalAlignment value="10"/>
-                  <horizontalTextPosition value="10"/>
-                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="drag.and.drop.upload"/>
-                </properties>
-              </component>
-            </children>
-          </grid>
-          <hspacer id="b4015">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-          </hspacer>
-        </children>
-      </grid>
     </children>
   </grid>
   <buttonGroups>
