@@ -18,7 +18,7 @@ public class StartChooseType {
         closeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parent.show("1");
+                parent.close();
             }
         });
 
