@@ -28,20 +28,18 @@ public class SendAsymmetrical extends Component {
     private JRadioButton imageRadio;
     private JRadioButton textRadio;
     private JTextArea messageText;
-    private JComboBox codeComboBox;
-    private JComboBox encryptComboBox;
-    private JPasswordField passwordField;
     private JButton encodeButton;
-    private JButton uploadMessage;
-    private JButton uploadContainerImg;
+    private JButton uploadContainer;
     private JButton copyToClipboardButton;
     private JButton exportButton;
     private JPanel uploadPanel;
     private JLabel showImageLabel;
-    private JLabel messageImgLabel;
     private JPanel uploadPanelMessage;
-    private JLabel MessageImg;
     private JButton uploadMessageImg;
+    private JComboBox codeComboBox;
+    private JComboBox encryptComboBox;
+    private JPasswordField publicKey;
+    private JLabel messageImg;
     // endregion
 
     // region attributes
@@ -66,8 +64,8 @@ public class SendAsymmetrical extends Component {
             public void finishedContainerImageLoad(ContainerImage image) {
                 contentImage = image;
 
-                messageImgLabel.setText("");
-                messageImgLabel.setIcon(new ImageIcon(contentImage.getImage()));
+                messageImg.setText("");
+                messageImg.setIcon(new ImageIcon(contentImage.getImage()));
             }
         };
 
@@ -109,7 +107,7 @@ public class SendAsymmetrical extends Component {
             }
         });
 
-        uploadContainerImg.addActionListener(new ActionListener() {
+        uploadContainer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
@@ -135,8 +133,7 @@ public class SendAsymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(false);
-                uploadMessage.setVisible(true);
-                messageImgLabel.setVisible(true);
+                uploadPanelMessage.setVisible(true);
             }
         });
 
@@ -144,8 +141,8 @@ public class SendAsymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(true);
-                uploadMessage.setVisible(false);
-                messageImgLabel.setVisible(false);
+                uploadPanelMessage.setVisible(false);
+
             }
         });
 

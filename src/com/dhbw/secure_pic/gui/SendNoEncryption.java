@@ -47,8 +47,8 @@ public class SendNoEncryption extends Component {
     private JButton exportButton;
     private JPanel uploadPanel;
     private JLabel showImageLabel;
-    private JLabel messageImgLabel;
     private JPanel uploadPanelMessage;
+    private JLabel messageImg;
 
     // endregion
 
@@ -86,8 +86,8 @@ public class SendNoEncryption extends Component {
             public void finishedContainerImageLoad(ContainerImage image) {
                 contentImage = image;
 
-                messageImgLabel.setText("");
-                messageImgLabel.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(), 150, 120)));
+                messageImg.setText("");
+                messageImg.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(), 150, 120)));
             }
         };
 
@@ -116,7 +116,12 @@ public class SendNoEncryption extends Component {
                     java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
 
                     for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
-                        new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad).execute();
+                        //TODO error handling?
+
+                        contentImageFile = file;
+                        ContainerImageLoadTask task = new ContainerImageLoadTask(contentImageFile.getPath(), finishedContentImageLoad);
+                        task.addPropertyChangeListener(propertyChangeListener);
+                        task.execute();
                     }
                 } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();

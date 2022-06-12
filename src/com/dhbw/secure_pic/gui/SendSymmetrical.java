@@ -33,7 +33,6 @@ public class SendSymmetrical extends Component {
 
     // region swing attributes
     private JPanel contentPane;
-    private JButton uploadContainerImg;
     private JButton backButton;
     private JRadioButton imageRadio;
     private JRadioButton textRadio;
@@ -42,16 +41,15 @@ public class SendSymmetrical extends Component {
     private JComboBox encryptComboBox;
     private JPasswordField passwordField;
     private JButton encodeButton;
-    private JButton uploadMessageButton;
     private JButton copyToClipboardButton;
     private JButton exportButton;
     private JProgressBar progressBar;
     private JLabel showImageLabel;
     private JPanel uploadPanel;
-    private JLabel messageImgLabel;
     private JPanel uploadPanelMessage;
-    private JLabel MessageImg;
+    private JLabel messageImg;
     private JButton uploadMessageImg;
+    private JButton uploadContainer;
     // endregion
 
     // region attributes
@@ -87,8 +85,8 @@ public class SendSymmetrical extends Component {
             public void finishedContainerImageLoad(ContainerImage image) {
                 contentImage = image;
 
-                messageImgLabel.setText("");
-                messageImgLabel.setIcon(new ImageIcon(contentImage.getImage()));
+                messageImg.setText("");
+                messageImg.setIcon(new ImageIcon(contentImage.getImage()));
             }
         };
 
@@ -133,7 +131,7 @@ public class SendSymmetrical extends Component {
             }
         });
 
-        uploadContainerImg.addActionListener(new ActionListener() {
+        uploadContainer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
@@ -163,8 +161,7 @@ public class SendSymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(false);
-                uploadMessageButton.setVisible(true);
-                showImageLabel.setVisible(true);
+                uploadPanelMessage.setVisible(true);
 
             }
         });
@@ -173,8 +170,7 @@ public class SendSymmetrical extends Component {
             @Override
             public void actionPerformed(ActionEvent e) {
                 messageText.setVisible(true);
-                uploadMessageButton.setVisible(false);
-                showImageLabel.setVisible(false);
+                uploadPanelMessage.setVisible(true);
             }
         });
 
