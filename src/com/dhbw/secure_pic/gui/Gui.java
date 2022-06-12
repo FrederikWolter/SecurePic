@@ -29,7 +29,7 @@ public class Gui {
         frame.setMinimumSize(new Dimension(1200, 750));
         frame.setIconImage(new ImageIcon("SecurePic/com/dhbw/secure_pic/gui/images/icon.jpg").getImage());
 
-        cards = new CardLayout(5,5);
+        cards = new CardLayout(6,6);
         contentPane = new JPanel(cards);
         frame.add(contentPane);
 
