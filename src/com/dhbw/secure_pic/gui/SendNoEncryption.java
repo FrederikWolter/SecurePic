@@ -81,7 +81,9 @@ public class SendNoEncryption extends Component {
                 containerImage = image;
 
                 showImageLabel.setText("");
-                showImageLabel.setIcon(new ImageIcon(Gui.getScaledImage(containerImage.getImage(), 350, 350)));
+                showImageLabel.setIcon(new ImageIcon(Gui.getScaledImage(containerImage.getImage(),
+                        containerImageDisplayWidth,
+                        containerImageDisplayHeight)));
             }
         };
 
@@ -250,9 +252,6 @@ public class SendNoEncryption extends Component {
                 });
                 task.addPropertyChangeListener(propertyChangeListener);
                 task.execute();
-
-                exportButton.setEnabled(true);
-                copyToClipboardButton.setEnabled(true);
             }
         });
 
