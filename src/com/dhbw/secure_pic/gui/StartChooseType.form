@@ -26,7 +26,7 @@
         </constraints>
         <properties>
           <background color="-5658199"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="close.btn"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="back.btn"/>
         </properties>
       </component>
       <vspacer id="2808">
