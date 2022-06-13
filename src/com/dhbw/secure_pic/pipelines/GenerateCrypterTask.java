@@ -1,5 +1,6 @@
 package com.dhbw.secure_pic.pipelines;
 
+import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.crypter.Crypter;
 import com.dhbw.secure_pic.gui.utility.GenerateCrypterFinishedHandler;
 
@@ -28,12 +29,12 @@ public class GenerateCrypterTask extends SwingWorker<Crypter, Void> {
     }
 
     @Override
-    protected Crypter doInBackground() {
+    protected Crypter doInBackground() throws CrypterException {
         // initialize progress property.
         setProgress(0);
 
         // generate Keys of Crypter
-        this.crypter.generateKey(progress -> setProgress(progress));
+        //this.crypter.generateKey(progress -> setProgress(progress));
 
         // update progress
         setProgress(100);
