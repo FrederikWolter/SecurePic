@@ -61,46 +61,49 @@
           <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <component id="ffbfb" class="javax.swing.JTextPane" binding="noencDesc">
-        <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="350" height="50"/>
-            <maximum-size width="500" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <editable value="false"/>
-          <enabled value="true"/>
-          <font size="16"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="no.encr.descr.btn"/>
-        </properties>
-      </component>
       <component id="28e66" class="javax.swing.JTextPane" binding="symmetricalDesc">
         <constraints>
-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="350" height="50"/>
-            <maximum-size width="500" height="-1"/>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="2" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="350" height="-1"/>
           </grid>
         </constraints>
         <properties>
           <editable value="false"/>
           <enabled value="true"/>
           <font size="16"/>
+          <margin top="10" left="10" bottom="10" right="10"/>
+          <opaque value="false"/>
           <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="symm.encr.descr.btn"/>
         </properties>
       </component>
       <component id="e15f5" class="javax.swing.JTextPane" binding="asymmetricalDesc">
         <constraints>
-          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="350" height="50"/>
-            <maximum-size width="500" height="-1"/>
+          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="2" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="350" height="-1"/>
           </grid>
         </constraints>
         <properties>
           <editable value="false"/>
           <enabled value="true"/>
           <font size="16"/>
+          <margin top="10" left="10" bottom="10" right="10"/>
+          <opaque value="false"/>
           <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="asymm.encr.descr.btn"/>
+        </properties>
+      </component>
+      <component id="ffbfb" class="javax.swing.JTextPane" binding="noencDesc">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="350" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <enabled value="true"/>
+          <font size="16"/>
+          <margin top="10" left="10" bottom="10" right="10"/>
+          <opaque value="false"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="no.encr.descr.btn"/>
         </properties>
       </component>
     </children>
