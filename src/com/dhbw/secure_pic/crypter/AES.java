@@ -27,6 +27,7 @@ public class AES extends Crypter {
     // endregion
 
     /**
+     * Constructor for class {@link AES}
      * @param password is the password entered by the user
      */
     public AES(String password) {
@@ -36,19 +37,27 @@ public class AES extends Crypter {
 
     /**
      * @param information contains the message to encrypt
+     *
+     * @return overwritten {@link Information}
+     *
+     * @throws CrypterException
      */
     @Override
     public Information encrypt(Information information, ProgressMonitor monitor) throws CrypterException {
-        // TODO use progressMonitor
         try {
             Cipher encryptionCipher = Cipher.getInstance(algorithm);
             encryptionCipher.init(Cipher.ENCRYPT_MODE, key);
 
+            monitor.updateProgress(50);
+
             byte[] encryptedBytes = encryptionCipher.doFinal(information.getData());
             byte[] outPutBytes = Base64.getEncoder().encode(encryptedBytes);
-
             information.setEncryptedData(outPutBytes);
+
+            monitor.updateProgress(100);
+
             return information;
+
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
             throw CrypterException.handleException(e);    // wrap exceptions thrown by crypter to CrypterException
         }
@@ -57,31 +66,35 @@ public class AES extends Crypter {
 
     /**
      * @param information contains the encrypted message to decrypt
+     *
+     * @return overwritten {@link Information}
+     *
+     * @throws CrypterException
      */
     @Override
     public Information decrypt(Information information, ProgressMonitor monitor) throws CrypterException {
-        // TODO use progressMonitor
         try {
             Cipher decryptionCipher = Cipher.getInstance(algorithm);
             decryptionCipher.init(Cipher.DECRYPT_MODE, key);
-            byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
 
+            monitor.updateProgress(50);
+
+            byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
             information.setEncryptedData(decryptedBytes);
+
+            monitor.updateProgress(100);
+
             return information;
+
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
             throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException
         }
     }
 
-    @Override
-    public void generateKey(ProgressMonitor monitor) {
-        // TODO extract key generation to here & use progressMonitor
-    }
-
     /**
      * @param password is the password given by the user turned into a 32-byte array
      *
-     * @return secret is the generated key
+     * @return generated {@link SecretKey}
      */
     private SecretKey getKeyFromPassword(String password) {
 

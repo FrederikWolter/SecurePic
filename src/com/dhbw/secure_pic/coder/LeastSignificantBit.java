@@ -29,7 +29,7 @@ public class LeastSignificantBit extends Coder {
     /**
      * Encode in the already set container image the given information.
      *
-     * @param info information be encoded into container image.
+     * @param info information to be encoded into container image.
      *
      * @return encoded container image.
      *

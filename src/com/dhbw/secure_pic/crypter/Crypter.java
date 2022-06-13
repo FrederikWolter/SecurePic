@@ -21,6 +21,4 @@ public abstract class Crypter {
 
     public abstract Information decrypt(Information information, ProgressMonitor monitor) throws CrypterException;
 
-    public abstract void generateKey(ProgressMonitor monitor);
-
 }

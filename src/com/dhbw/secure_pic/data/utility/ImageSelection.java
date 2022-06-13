@@ -6,7 +6,7 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 
 /**
- * Utility class making images able to copy to clip board, like StringSelection does for Strings.
+ * Utility class enabling the possibility to copy images to clip board, like StringSelection does for Strings.
  *
  * @author Frederik Wolter
  * @see <a href="http://www.java2s.com/Book/Java/Examples/Copy_and_paste_image_to_and_from_System_Clipboard.htm">Link</a>

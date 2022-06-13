@@ -8,7 +8,9 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import java.math.BigInteger;
 import java.security.*;
+import java.security.spec.*;
 import java.util.Base64;
 
 // FIXME comment
@@ -27,6 +29,12 @@ public class RSA extends Crypter {
     private final PublicKey publicKey;
     private final String algorithm;
     // endregion
+
+    /** Enum representing the available key types. */
+    enum keyType {
+        PUBLIC,
+        PRIVATE
+    }
 
     /**
      * This constructor is used for generating the KeyPair.
@@ -47,69 +55,155 @@ public class RSA extends Crypter {
     }
 
     /**
-     * This constructor is used for RSA Encryption as it is used by the sender
+     * This constructor is used for RSA Encryption/Decryption depending on its usage as a sender or receiver
      *
-     * @param publicKey is the only key needed for encryption so privateKey is set to NULL
+     * @param password is the password given by the user. This could be a public or private key the user entered as a String
+     * @param type the type of the given password. Either private or public.
      */
-    public RSA(PublicKey publicKey) {
-        this.privateKey = null;
-        this.publicKey = publicKey;
+    public RSA(String password, keyType type) throws CrypterException {
         this.algorithm = "RSA";
-    }
+        switch (type){
+            case PUBLIC -> {
+                this.privateKey = null;
+                this.publicKey = (PublicKey) getKeyFromString(password, type);
+            }
+            case PRIVATE -> {
+                this.publicKey = null;
+                this.privateKey = (PrivateKey) getKeyFromString(password, type);
+            }
+            default -> {
+                this.privateKey = null;
+                this.publicKey = null;
+            }
+        }
 
-    /**
-     * This constructor is used for RSA Decryption as it is used by the receiver
-     *
-     * @param privateKey is the only key needed for decryption so publicKey is set to NULL
-     */
-    public RSA(PrivateKey privateKey) {
-        this.privateKey = privateKey;
-        this.publicKey = null;
-        this.algorithm = "RSA";
     }
 
     /**
      * @param information contains the message to encrypt
+     *
+     * @return overwritten {@link Information}
+     *
+     * @throws CrypterException
      */
     @Override
     public Information encrypt(Information information, ProgressMonitor monitor) throws CrypterException {
-        // TODO use progressMonitor
         try {
             Cipher encryptCipher = Cipher.getInstance(algorithm);
             encryptCipher.init(Cipher.ENCRYPT_MODE, publicKey);
 
+            monitor.updateProgress(50);
+
             byte[] encryptedBytes = encryptCipher.doFinal(information.getData());
             byte[] outPutBytes = Base64.getEncoder().encode(encryptedBytes);
-
             information.setEncryptedData(outPutBytes);
+
+            monitor.updateProgress(100);
+
             return information;
+
         }  catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
             throw CrypterException.handleException(e);    // wrap exceptions thrown by crypter to CrypterException
         }
     }
 
     /**
-     * @param information contains the encrypted message to decrypt
+     * @param information contains the message to decrypt
+     *
+     * @return overwritten {@link Information}
+     *
+     * @throws CrypterException
      */
     @Override
     public Information decrypt(Information information, ProgressMonitor monitor) throws CrypterException {
-        // TODO use progressMonitor
         try {
             Cipher decryptionCipher = Cipher.getInstance(algorithm);
             decryptionCipher.init(Cipher.DECRYPT_MODE, privateKey);
-            byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
 
+            monitor.updateProgress(50);
+
+            byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
             information.setEncryptedData(decryptedBytes);
+
+            monitor.updateProgress(100);
+
             return information;
+
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
             throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException
         }
     }
 
-    @Override
-    public void generateKey(ProgressMonitor monitor) {
-        // TODO extract key generation to here, leave constructor as POJO; use progressMonitor
+    /**
+     * Converts a public/private Key entered as a String into a valid Type of Key which can be used by {@link RSA} for encryption/decryption
+     *
+     * @param password is the password given by the user. This could be a public or private key the user entered as a String
+     * @param type the type of the given password. Either private or public.
+     * @return A valid Key
+     * @throws CrypterException
+     */
+    private Key getKeyFromString(String password, keyType type) throws CrypterException {
+
+        Key key;
+        int i = password.lastIndexOf("/");
+
+        try{
+            KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
+            BigInteger m =  new BigInteger(password.substring(0,i));
+            BigInteger e =  new BigInteger(password.substring(i+1));
+            if(type.equals(keyType.PRIVATE)) {
+                key = keyFactory.generatePrivate(new RSAPrivateKeySpec(m, e));
+            } else{
+                key = keyFactory.generatePublic(new RSAPublicKeySpec(m, e));
+            }
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e){
+            throw CrypterException.handleException(e);
+        }
+
+        return key;
     }
+
+    /** Converts a public key into a String which can be saved by the user to use for encryption.
+     *
+     * @return A String version of the public Key which can only be used if split  at the correct position
+     * @throws CrypterException
+     */
+    public String getPublicKeyString() throws CrypterException {
+
+        String keyString;
+
+        try {
+            KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
+            RSAPublicKeySpec publicKeySpec = keyFactory.getKeySpec(publicKey,RSAPublicKeySpec.class);
+            keyString = publicKeySpec.getModulus().toString() + "/" + publicKeySpec.getPublicExponent().toString();
+        } catch( NoSuchAlgorithmException | InvalidKeySpecException e){
+            throw CrypterException.handleException(e);
+        }
+
+        return keyString;
+    }
+
+    /** Converts a private key into a String which can be saved by the user to use for decryption.
+     *
+     * @return A String version of the private Key which can only be used if split  at the correct position
+     * @throws CrypterException
+     */
+    public String getPrivateKeyString() throws CrypterException {
+
+        String keyString;
+
+        try {
+            KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
+            RSAPrivateKeySpec privateKeySpec = keyFactory.getKeySpec(privateKey,RSAPrivateCrtKeySpec.class);
+            keyString = privateKeySpec.getModulus().toString() + "/" + privateKeySpec.getPrivateExponent().toString();
+        } catch( NoSuchAlgorithmException | InvalidKeySpecException e){
+            throw CrypterException.handleException(e);
+        }
+
+        return keyString;
+    }
+
+    //FIXME check if still needed
 
     // region getter
     // Getters are used to output the keys to the user
