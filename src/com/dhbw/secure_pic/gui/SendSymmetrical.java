@@ -259,7 +259,7 @@ public class SendSymmetrical extends Component {
                 EncodeTask task = new EncodeTask(coder, crypter, info, new EncodeFinishedHandler() {
                     @Override
                     public void finishedEncode(ContainerImage image) {
-                        contentImage = image;
+                        containerImage = image;
 
                         exportButton.setEnabled(true);
                         copyToClipboardButton.setEnabled(true);
