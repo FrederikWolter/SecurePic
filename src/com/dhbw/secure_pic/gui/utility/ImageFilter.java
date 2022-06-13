@@ -15,10 +15,10 @@ import java.io.File;
 public class ImageFilter extends FileFilter {
 
     // FIXME static necessary?
-    public static final String JPEG = "jpeg";
+    public static final String JPEG = "jpeg.radiobtn";
     public static final String JPG = "jpg";
-    public static final String GIF = "gif";
-    public static final String PNG = "png";
+    public static final String GIF = "gif.radiobtn";
+    public static final String PNG = "png.radiobtn";
 
 
     //Accept all directories and all gif, jpg, or png files.

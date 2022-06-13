@@ -70,7 +70,7 @@ public class SendSymmetrical extends Component {
         PropertyChangeListener propertyChangeListener = new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if ("progress".equals(evt.getPropertyName())) {
+                if ("progress.lbl".equals(evt.getPropertyName())) {
                     int progress = (Integer) evt.getNewValue();
                     progressBar.setValue(progress);
                 }

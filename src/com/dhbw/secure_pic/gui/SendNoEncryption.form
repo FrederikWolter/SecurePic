@@ -29,7 +29,7 @@
             </constraints>
             <properties>
               <background color="-5658199"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="back"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="back.btn"/>
             </properties>
           </component>
           <vspacer id="79cec">
@@ -44,7 +44,7 @@
               <grid row="3" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="1" anchor="8" fill="0" indent="5" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image.radiobtn"/>
             </properties>
           </component>
           <component id="3c017" class="javax.swing.JRadioButton" binding="textRadio">
@@ -54,7 +54,7 @@
             <properties>
               <enabled value="true"/>
               <selected value="true"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="textmessage"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="textmessage.btn"/>
             </properties>
           </component>
           <vspacer id="38ba8">
@@ -76,7 +76,7 @@
                 <item value="LSB"/>
                 <item value="PM1"/>
               </model>
-              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="coding.algorithm"/>
+              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="coding.algorithm.tooltip"/>
             </properties>
             <clientProperties>
               <html.disable class="java.lang.Boolean" value="false"/>
@@ -93,7 +93,7 @@
             </constraints>
             <properties>
               <labelFor value="c5050"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="coding.algorithm"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="coding.algorithm.tooltip"/>
             </properties>
           </component>
           <component id="9585" class="javax.swing.JButton" binding="encodeButton" default-binding="true">
@@ -102,7 +102,7 @@
             </constraints>
             <properties>
               <enabled value="false"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="encode"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="encode.btn"/>
             </properties>
           </component>
           <vspacer id="38ba8">
@@ -142,7 +142,7 @@
                   <foreground color="-16777216"/>
                   <horizontalAlignment value="0"/>
                   <horizontalTextPosition value="0"/>
-                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="path"/>
+                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="dad.instr.lbl"/>
                   <visible value="true"/>
                 </properties>
               </component>
@@ -151,8 +151,8 @@
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload"/>
-                  <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="received.container.image"/>
+                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload.btn"/>
+                  <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="rec.cont.img.lbl"/>
                   <visible value="true"/>
                 </properties>
                 <clientProperties>
@@ -175,7 +175,7 @@
               <rows value="0"/>
               <tabSize value="4"/>
               <text value=""/>
-              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="message"/>
+              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="msg.lbl"/>
               <wrapStyleWord value="true"/>
             </properties>
           </component>
@@ -204,7 +204,7 @@
             </constraints>
             <properties>
               <enabled value="false"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="copy.to.clipboard"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="copy.to.clipboard.btn"/>
             </properties>
           </component>
           <component id="1e145" class="javax.swing.JButton" binding="exportButton" default-binding="true">
@@ -213,7 +213,7 @@
             </constraints>
             <properties>
               <enabled value="false"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="export"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="export.btn"/>
             </properties>
           </component>
           <grid id="d0507" binding="uploadPanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -232,7 +232,7 @@
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload"/>
+                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload.btn"/>
                 </properties>
               </component>
               <component id="50d15" class="javax.swing.JLabel" binding="showImageLabel">

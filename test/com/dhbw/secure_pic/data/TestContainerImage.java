@@ -18,7 +18,7 @@ public class TestContainerImage {
         String path;
 
         path = "test/com/dhbw/secure_pic/data/PNG_Test.png";
-        assertEquals("png", ContainerImage.getFileExtension(path));
+        assertEquals("png.radiobtn", ContainerImage.getFileExtension(path));
 
         path = "E:\\User\\Horst\\Team Picture\\main.py";
         assertEquals("py", ContainerImage.getFileExtension(path));

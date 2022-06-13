@@ -14,7 +14,7 @@
         </constraints>
         <properties>
           <background color="-4934476"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="back"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="back.btn"/>
         </properties>
       </component>
       <vspacer id="8b149">
@@ -29,7 +29,7 @@
           </grid>
         </constraints>
         <properties>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="beschreibung.englisch.keine.verschlusselung"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="no.encr.descr.btn"/>
         </properties>
       </component>
       <component id="bf5a0" class="javax.swing.JLabel" binding="asymmetricalDesc">
@@ -39,7 +39,7 @@
           </grid>
         </constraints>
         <properties>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="beschreibung.englisch.asymmetrische"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="asymm.encr.descr.btn"/>
         </properties>
       </component>
       <component id="3d568" class="javax.swing.JLabel" binding="symmetricalDesc">
@@ -49,7 +49,7 @@
           </grid>
         </constraints>
         <properties>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="beschreibung.englisch.symmetrische"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="symm.encr.descr.btn"/>
         </properties>
       </component>
       <component id="31bd2" class="javax.swing.JButton" binding="noEncryptionButton" default-binding="true">
@@ -58,7 +58,7 @@
         </constraints>
         <properties>
           <font size="20"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="no.encryption"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="no.encr.btn"/>
         </properties>
       </component>
       <vspacer id="fcc16">
@@ -74,7 +74,7 @@
         </constraints>
         <properties>
           <font size="20"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="symmetrical"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="symm.btn"/>
         </properties>
       </component>
       <component id="34360" class="javax.swing.JButton" binding="asymmetricalButton" default-binding="true">
@@ -83,7 +83,7 @@
         </constraints>
         <properties>
           <font size="20"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="asymmetrical"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="asymm.btn"/>
         </properties>
       </component>
       <vspacer id="c364d">
