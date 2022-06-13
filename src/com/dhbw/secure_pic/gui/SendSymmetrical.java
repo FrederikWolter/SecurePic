@@ -29,6 +29,8 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
+import static javax.swing.JOptionPane.WARNING_MESSAGE;
+
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class SendSymmetrical extends Component {
@@ -210,7 +212,7 @@ public class SendSymmetrical extends Component {
                     if (messageText.getText().length() > 0){
                         info = Information.getInformationFromString(messageText.getText());
                     } else {
-                        JOptionPane.showMessageDialog(null, "Bitte gebe einen Text ein, der in das Bild codiert werden soll.");
+                        JOptionPane.showMessageDialog(null, "Bitte gebe einen Text ein, der in das Bild codiert werden soll.", "Warnung", WARNING_MESSAGE);
                         return;
                     }
                 } else if(imageRadio.isSelected()){
@@ -222,7 +224,7 @@ public class SendSymmetrical extends Component {
                             // TODO error handling
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, das in das Trägerbild codiert werden soll.");
+                        JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, das in das Trägerbild codiert werden soll.", "Warnung", WARNING_MESSAGE);
                         return;
                     }
                 } else {
@@ -244,7 +246,7 @@ public class SendSymmetrical extends Component {
                     if(password.length() > 0){
                         crypter = new AES(password);
                     }else{
-                        JOptionPane.showMessageDialog(null, "Bitte gebe ein Passwort ein, mit dem die Information verschlüsselt werden soll.");
+                        JOptionPane.showMessageDialog(null, "Bitte gebe ein Passwort ein, mit dem die Information verschlüsselt werden soll.", "Warnung", WARNING_MESSAGE);
                         return;
                     }
                 } else {
