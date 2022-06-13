@@ -282,6 +282,7 @@ public class SendSymmetrical extends Component {
 
                 try {
                     containerImage.exportImg(file.getPath());
+                    JOptionPane.showMessageDialog(null, "Das codierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException | IllegalTypeException ex) {
                     throw new RuntimeException(ex); // TODO error handling
                 }

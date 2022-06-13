@@ -197,7 +197,7 @@ public class ReceiveNoEncryption extends Component {
 
                 try {
                     ImageIO.write(contentInformation.toImage(), "png", file);
-                    JOptionPane.showMessageDialog(null, "Das codierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Das decodierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex); // FIXME error handling
                 }
