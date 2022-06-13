@@ -6,6 +6,7 @@ import com.dhbw.secure_pic.coder.LeastSignificantBit;
 import com.dhbw.secure_pic.coder.PlusMinusOne;
 import com.dhbw.secure_pic.crypter.AES;
 import com.dhbw.secure_pic.crypter.Crypter;
+import com.dhbw.secure_pic.crypter.EmptyCrypter;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.gui.utility.EncodeFinishedHandler;
@@ -27,6 +28,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+
+import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
@@ -53,16 +56,19 @@ public class SendAsymmetrical extends Component {
     private JLabel messageImg;
     private JPanel uploadPanel3;
     private JButton uploadPrivateKey;
+    private JLabel keyImg;
     // endregion
 
     // region attributes
     private transient ContainerImage containerImage;
     private transient ContainerImage contentImage;
 
+    private transient ContainerImage keyImage;
+
     private final int containerImageDisplayHeight = 550;
     private final int containerImageDisplayWidth = 550;
-    private final int messageImageDisplayHeight = 250;
-    private final int messageImageDisplayWidth = 250;
+    private final int messageImageDisplayHeight = 200;
+    private final int messageImageDisplayWidth = 200;
     // endregion
 
     public SendAsymmetrical(Gui parent) {
@@ -101,6 +107,18 @@ public class SendAsymmetrical extends Component {
             }
         };
 
+        LoadFinishedHandler finishedKeyImageLoad = new LoadFinishedHandler() {
+            @Override
+            public void finishedContainerImageLoad(ContainerImage image) {
+                keyImage = image;
+
+                keyImg.setText("");
+                keyImg.setIcon(new ImageIcon(Gui.getScaledImage(keyImage.getImage(),
+                        messageImageDisplayWidth,
+                        messageImageDisplayHeight)));
+            }
+        };
+
         uploadPanel.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
@@ -118,6 +136,7 @@ public class SendAsymmetrical extends Component {
                 encodeButton.setEnabled(true);
             }
         });
+
         uploadPanelMessage.setDropTarget(new DropTarget() {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
@@ -126,6 +145,23 @@ public class SendAsymmetrical extends Component {
 
                     for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
                         ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
+                        task.addPropertyChangeListener(propertyChangeListener);
+                        task.execute();
+                    }
+                } catch (Exception ex) {    // TODO error handling?
+                    ex.printStackTrace();
+                }
+            }
+        });
+
+        uploadPanel3.setDropTarget(new DropTarget() {
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+                    evt.acceptDrop(DnDConstants.ACTION_COPY);
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
+
+                    for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
+                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedKeyImageLoad);
                         task.addPropertyChangeListener(propertyChangeListener);
                         task.execute();
                     }
@@ -243,11 +279,16 @@ public class SendAsymmetrical extends Component {
 
                 if (encryptComboBox.getSelectedItem() == "RSA"){
                     String publicKey = new String(publicKeyInput.getPassword());
-                    if(publicKey.length() > 0){
+                    if(keyImage != null){
+                        // region decode key
+                        // TODO decode key
+                        crypter = new AES(publicKey);
+                        // endregion
+                    } else if(publicKey.length() > 0){
 //                        crypter = new RSA(publicKey); // TODO get public key?
                         crypter = new AES(publicKey);
                     }else{
-                        JOptionPane.showMessageDialog(null, "Bitte gebe einen Öffentlichen Schlüssel ein, mit dem die Information verschlüsselt werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Bitte gebe einen Öffentlichen Schlüssel ein in Form des erhaltenen Bildes oder als Text, mit dem die Information verschlüsselt werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                 } else {
