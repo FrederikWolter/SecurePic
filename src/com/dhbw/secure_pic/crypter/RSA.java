@@ -8,12 +8,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.*;
 import java.util.Base64;
@@ -60,11 +55,12 @@ public class RSA extends Crypter {
     }
 
     /**
-     * This constructor is used for RSA Encryption as it is used by the sender
+     * This constructor is used for RSA Encryption/Decryption depending on its usage as a sender or receiver
      *
-     * @param password is the only key needed for encryption so privateKey is set to NULL
+     * @param password is the password given by the user. This could be a public or private key the user entered as a String
+     * @param type the type of the given password. Either private or public.
      */
-    public RSA(String password, keyType type) throws NoSuchAlgorithmException, InvalidKeySpecException, CrypterException, IOException {
+    public RSA(String password, keyType type) throws CrypterException {
         this.algorithm = "RSA";
         switch (type){
             case PUBLIC -> {
@@ -72,8 +68,8 @@ public class RSA extends Crypter {
                 this.publicKey = (PublicKey) getKeyFromString(password, type);
             }
             case PRIVATE -> {
-                this.privateKey = (PrivateKey) getKeyFromString(password, type);;
                 this.publicKey = null;
+                this.privateKey = (PrivateKey) getKeyFromString(password, type);
             }
             default -> {
                 this.privateKey = null;
@@ -138,34 +134,71 @@ public class RSA extends Crypter {
         }
     }
 
-    private Key getKeyFromString(String password, keyType type) throws NoSuchAlgorithmException, InvalidKeySpecException, CrypterException {
+    /**
+     * Converts a public/private Key entered as a String into a valid Type of Key which can be used by {@link RSA} for encryption/decryption
+     *
+     * @param password is the password given by the user. This could be a public or private key the user entered as a String
+     * @param type the type of the given password. Either private or public.
+     * @return A valid Key
+     * @throws CrypterException
+     */
+    private Key getKeyFromString(String password, keyType type) throws CrypterException {
 
-        KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
-        Key key = null;
+        Key key;
         int i = password.lastIndexOf("/");
 
-        BigInteger m =  new BigInteger(password.substring(0,i));
-        BigInteger e =  new BigInteger(password.substring(i+1));
-        if(type.equals(keyType.PRIVATE)) {
-            key = keyFactory.generatePrivate(new RSAPrivateKeySpec(m, e));
-        } else{
-            key = keyFactory.generatePublic(new RSAPublicKeySpec(m, e));
+        try{
+            KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
+            BigInteger m =  new BigInteger(password.substring(0,i));
+            BigInteger e =  new BigInteger(password.substring(i+1));
+            if(type.equals(keyType.PRIVATE)) {
+                key = keyFactory.generatePrivate(new RSAPrivateKeySpec(m, e));
+            } else{
+                key = keyFactory.generatePublic(new RSAPublicKeySpec(m, e));
+            }
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e){
+            throw CrypterException.handleException(e);
         }
+
         return key;
     }
 
-    public String getPublicKeyAsString() throws NoSuchAlgorithmException, InvalidKeySpecException {
-        KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
-        RSAPublicKeySpec publicKeySpec = keyFactory.getKeySpec(publicKey,RSAPublicKeySpec.class);
-        String keyString = publicKeySpec.getModulus().toString() + "/" + publicKeySpec.getPublicExponent().toString();
+    /** Converts a public key into a String which can be saved by the user to use for encryption.
+     *
+     * @return A String version of the public Key which can only be used if split  at the correct position
+     * @throws CrypterException
+     */
+    public String getPublicKeyString() throws CrypterException {
+
+        String keyString;
+
+        try {
+            KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
+            RSAPublicKeySpec publicKeySpec = keyFactory.getKeySpec(publicKey,RSAPublicKeySpec.class);
+            keyString = publicKeySpec.getModulus().toString() + "/" + publicKeySpec.getPublicExponent().toString();
+        } catch( NoSuchAlgorithmException | InvalidKeySpecException e){
+            throw CrypterException.handleException(e);
+        }
 
         return keyString;
     }
 
-    public String getPrivateKeyAsString() throws NoSuchAlgorithmException, InvalidKeySpecException {
-        KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
-        RSAPrivateKeySpec privateKeySpec = keyFactory.getKeySpec(privateKey,RSAPrivateCrtKeySpec.class);
-        String keyString = privateKeySpec.getModulus().toString() + "/" + privateKeySpec.getPrivateExponent().toString();
+    /** Converts a private key into a String which can be saved by the user to use for decryption.
+     *
+     * @return A String version of the private Key which can only be used if split  at the correct position
+     * @throws CrypterException
+     */
+    public String getPrivateKeyString() throws CrypterException {
+
+        String keyString;
+
+        try {
+            KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
+            RSAPrivateKeySpec privateKeySpec = keyFactory.getKeySpec(privateKey,RSAPrivateCrtKeySpec.class);
+            keyString = privateKeySpec.getModulus().toString() + "/" + privateKeySpec.getPrivateExponent().toString();
+        } catch( NoSuchAlgorithmException | InvalidKeySpecException e){
+            throw CrypterException.handleException(e);
+        }
 
         return keyString;
     }

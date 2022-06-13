@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 
 import static org.junit.Assert.assertEquals;
@@ -29,8 +28,8 @@ public class TestRSA {
 
         //Multiple RSA are used to simulate the communication between multiple devices
         RSA generateKeyRSA = new RSA();
-        String publicKey = generateKeyRSA.getPublicKeyAsString();
-        String privateKey = generateKeyRSA.getPrivateKeyAsString();
+        String publicKey = generateKeyRSA.getPublicKeyString();
+        String privateKey = generateKeyRSA.getPrivateKeyString();
 
         RSA encryptRSA = new RSA(publicKey, RSA.keyType.PUBLIC);
         encryptRSA.encrypt(information, progress -> { /* empty */ });
