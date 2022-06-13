@@ -4,6 +4,11 @@ import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.data.Information;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
@@ -17,19 +22,21 @@ import static org.junit.Assert.assertNotEquals;
 public class TestRSA {
 
     @Test
-    public void testRSAEncryptDecrypt() throws CrypterException {
+    public void testRSAEncryptDecrypt() throws CrypterException, NoSuchAlgorithmException, InvalidKeySpecException, IOException {
 
         String message = "Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!";
         Information information = Information.getInformationFromString(message);
 
         //Multiple RSA are used to simulate the communication between multiple devices
         RSA generateKeyRSA = new RSA();
+        String publicKey = generateKeyRSA.getPublicKeyAsString();
+        String privateKey = generateKeyRSA.getPrivateKeyAsString();
 
-        RSA encryptRSA = new RSA(generateKeyRSA.getPublicKey());
+        RSA encryptRSA = new RSA(publicKey, RSA.keyType.PUBLIC);
         encryptRSA.encrypt(information, progress -> { /* empty */ });
         assertNotEquals(information.toText(), message);
 
-        RSA decryptRSA = new RSA(generateKeyRSA.getPrivateKey());
+        RSA decryptRSA = new RSA(privateKey, RSA.keyType.PRIVATE);
         decryptRSA.decrypt(information, progress -> { /* empty */ });
         assertEquals(information.toText(), message);
     }

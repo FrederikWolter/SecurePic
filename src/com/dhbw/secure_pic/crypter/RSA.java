@@ -8,7 +8,14 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
+import java.security.spec.*;
 import java.util.Base64;
 
 // FIXME comment
@@ -27,6 +34,12 @@ public class RSA extends Crypter {
     private final PublicKey publicKey;
     private final String algorithm;
     // endregion
+
+    /** Enum representing the available key types. */
+    enum keyType {
+        PUBLIC,
+        PRIVATE
+    }
 
     /**
      * This constructor is used for generating the KeyPair.
@@ -49,23 +62,25 @@ public class RSA extends Crypter {
     /**
      * This constructor is used for RSA Encryption as it is used by the sender
      *
-     * @param publicKey is the only key needed for encryption so privateKey is set to NULL
+     * @param password is the only key needed for encryption so privateKey is set to NULL
      */
-    public RSA(PublicKey publicKey) {
-        this.privateKey = null;
-        this.publicKey = publicKey;
+    public RSA(String password, keyType type) throws NoSuchAlgorithmException, InvalidKeySpecException, CrypterException, IOException {
         this.algorithm = "RSA";
-    }
+        switch (type){
+            case PUBLIC -> {
+                this.privateKey = null;
+                this.publicKey = (PublicKey) getKeyFromString(password, type);
+            }
+            case PRIVATE -> {
+                this.privateKey = (PrivateKey) getKeyFromString(password, type);;
+                this.publicKey = null;
+            }
+            default -> {
+                this.privateKey = null;
+                this.publicKey = null;
+            }
+        }
 
-    /**
-     * This constructor is used for RSA Decryption as it is used by the receiver
-     *
-     * @param privateKey is the only key needed for decryption so publicKey is set to NULL
-     */
-    public RSA(PrivateKey privateKey) {
-        this.privateKey = privateKey;
-        this.publicKey = null;
-        this.algorithm = "RSA";
     }
 
     /**
@@ -122,6 +137,40 @@ public class RSA extends Crypter {
             throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException
         }
     }
+
+    private Key getKeyFromString(String password, keyType type) throws NoSuchAlgorithmException, InvalidKeySpecException, CrypterException {
+
+        KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
+        Key key = null;
+        int i = password.lastIndexOf("/");
+
+        BigInteger m =  new BigInteger(password.substring(0,i));
+        BigInteger e =  new BigInteger(password.substring(i+1));
+        if(type.equals(keyType.PRIVATE)) {
+            key = keyFactory.generatePrivate(new RSAPrivateKeySpec(m, e));
+        } else{
+            key = keyFactory.generatePublic(new RSAPublicKeySpec(m, e));
+        }
+        return key;
+    }
+
+    public String getPublicKeyAsString() throws NoSuchAlgorithmException, InvalidKeySpecException {
+        KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
+        RSAPublicKeySpec publicKeySpec = keyFactory.getKeySpec(publicKey,RSAPublicKeySpec.class);
+        String keyString = publicKeySpec.getModulus().toString() + "/" + publicKeySpec.getPublicExponent().toString();
+
+        return keyString;
+    }
+
+    public String getPrivateKeyAsString() throws NoSuchAlgorithmException, InvalidKeySpecException {
+        KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
+        RSAPrivateKeySpec privateKeySpec = keyFactory.getKeySpec(privateKey,RSAPrivateCrtKeySpec.class);
+        String keyString = privateKeySpec.getModulus().toString() + "/" + privateKeySpec.getPrivateExponent().toString();
+
+        return keyString;
+    }
+
+    //FIXME check if still needed
 
     // region getter
     // Getters are used to output the keys to the user
