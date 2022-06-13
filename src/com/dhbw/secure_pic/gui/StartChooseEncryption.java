@@ -9,12 +9,12 @@ import java.awt.event.ActionListener;
 public class StartChooseEncryption {
     private JPanel contentPane;
     private JButton backButton;
-    private JLabel noEncryptDesc;
-    private JLabel asymmetricalDesc;
-    private JLabel symmetricalDesc;
     private JButton noEncryptionButton;
     private JButton symmetricalButton;
     private JButton asymmetricalButton;
+    private JTextPane noencDesc;
+    private JTextPane symmetricalDesc;
+    private JTextPane asymmetricalDesc;
 
     public StartChooseEncryption(Gui parent){
 

@@ -7,12 +7,12 @@ import java.awt.event.ActionListener;
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
 public class StartChooseType {
-    private JLabel sendDesc;
-    private JLabel receiveDesc;
     private JButton closeButton;
     private JButton sendButton;
     private JButton receiveButton;
     private JPanel contentPane;
+    private JTextPane sendDesc;
+    private JTextPane receiveDesc;
 
     public StartChooseType(Gui parent) {
         closeButton.addActionListener(new ActionListener() {
