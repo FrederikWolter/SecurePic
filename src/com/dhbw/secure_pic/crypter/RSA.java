@@ -31,7 +31,7 @@ public class RSA extends Crypter {
     // endregion
 
     /** Enum representing the available key types. */
-    enum keyType {
+    public enum keyType {
         PUBLIC,
         PRIVATE
     }

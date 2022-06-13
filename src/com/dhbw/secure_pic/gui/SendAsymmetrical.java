@@ -1,5 +1,6 @@
 package com.dhbw.secure_pic.gui;
 
+import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.coder.Coder;
 import com.dhbw.secure_pic.coder.LeastSignificantBit;
@@ -7,13 +8,12 @@ import com.dhbw.secure_pic.coder.PlusMinusOne;
 import com.dhbw.secure_pic.crypter.AES;
 import com.dhbw.secure_pic.crypter.Crypter;
 import com.dhbw.secure_pic.crypter.EmptyCrypter;
+import com.dhbw.secure_pic.crypter.RSA;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
-import com.dhbw.secure_pic.gui.utility.EncodeFinishedHandler;
-import com.dhbw.secure_pic.gui.utility.FileSelect;
-import com.dhbw.secure_pic.gui.utility.LoadFinishedHandler;
-import com.dhbw.secure_pic.gui.utility.SaveSelect;
+import com.dhbw.secure_pic.gui.utility.*;
 import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
+import com.dhbw.secure_pic.pipelines.DecodeTask;
 import com.dhbw.secure_pic.pipelines.EncodeTask;
 
 import javax.swing.*;
@@ -280,13 +280,47 @@ public class SendAsymmetrical extends Component {
                 if (encryptComboBox.getSelectedItem() == "RSA"){
                     String publicKey = new String(publicKeyInput.getPassword());
                     if(keyImage != null){
-                        // region decode key
-                        // TODO decode key
-                        crypter = new AES(publicKey);
-                        // endregion
+                        return;
+//                        // region decode key
+//                        // TODO decode key
+//
+//                        Coder coderPublicKey;
+//                        Crypter crypterPublicKey = new EmptyCrypter();
+//
+//                        if (codeComboBox.getSelectedItem() == "LSB"){
+//                            coderPublicKey = new LeastSignificantBit(keyImage);
+//                        } else if(codeComboBox.getSelectedItem() == "PM1"){
+//                            coderPublicKey = new PlusMinusOne(keyImage);
+//                        } else {
+//                            // FIXME error handling
+//                            return;
+//                        }
+//
+//                        DecodeTask task = new DecodeTask(coderPublicKey, crypterPublicKey, new DecodeFinishedHandler() {
+//                            @Override
+//                            public void finishedDecode(Information info) {
+//                                Information.Type type = info.getType();
+//                                if (type == Information.Type.TEXT) {
+//                                    messageOutput.setText(info.toText());
+//                                } else {
+//                                    JOptionPane.showMessageDialog(null, "Etwas ist schiefgelaufen, das Bild für den öffentlichen Schlüssel enthält keinen Schlüssel.", "Fehler", JOptionPane.ERROR_MESSAGE);
+//                                    return;
+//                                }
+//                            }
+//                        });
+//                        task.addPropertyChangeListener(propertyChangeListener);
+//                        task.execute();
+//
+//
+//                        crypter = new AES(publicKey);
+//                        // endregion
                     } else if(publicKey.length() > 0){
-//                        crypter = new RSA(publicKey); // TODO get public key?
-                        crypter = new AES(publicKey);
+                        // TODO get public key?
+                        try {
+                            crypter = new RSA(publicKey, RSA.keyType.PUBLIC);
+                        } catch (CrypterException ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }else{
                         JOptionPane.showMessageDialog(null, "Bitte gebe einen Öffentlichen Schlüssel ein in Form des erhaltenen Bildes oder als Text, mit dem die Information verschlüsselt werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
                         return;
