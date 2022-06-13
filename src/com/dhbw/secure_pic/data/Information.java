@@ -46,7 +46,7 @@ public class Information {
     // endregion
 
     /** Enum representing the available Information types. */
-    enum Type {
+    public enum Type {
         TEXT,
         IMAGE_PNG,
         IMAGE_JPG,
@@ -166,7 +166,7 @@ public class Information {
         int length = buffer.getInt();
         int typeRaw = buffer.getInt();
 
-        if (typeRaw < Type.values().length) {   // validate type
+        if (0 <= typeRaw && typeRaw < Type.values().length) {   // validate type
             type = Type.values()[typeRaw];
         } else {
             throw new IllegalTypeException("Invalid content type in received data: " + typeRaw);
