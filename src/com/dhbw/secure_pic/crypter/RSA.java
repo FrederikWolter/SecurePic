@@ -50,7 +50,7 @@ public class RSA extends Crypter {
             this.publicKey = pair.getPublic();
             this.algorithm = "RSA";
         } catch (NoSuchAlgorithmException e) {
-            throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException
+            throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException    // FIXME remove?
         }
     }
 

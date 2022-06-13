@@ -1,7 +1,20 @@
 package com.dhbw.secure_pic.gui;
 
+import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
+import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
+import com.dhbw.secure_pic.coder.Coder;
+import com.dhbw.secure_pic.coder.LeastSignificantBit;
+import com.dhbw.secure_pic.coder.PlusMinusOne;
+import com.dhbw.secure_pic.crypter.AES;
+import com.dhbw.secure_pic.crypter.Crypter;
+import com.dhbw.secure_pic.crypter.EmptyCrypter;
+import com.dhbw.secure_pic.crypter.RSA;
 import com.dhbw.secure_pic.data.ContainerImage;
-import com.dhbw.secure_pic.gui.utility.FileSelect;
+import com.dhbw.secure_pic.data.Information;
+import com.dhbw.secure_pic.gui.utility.*;
+import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
+import com.dhbw.secure_pic.pipelines.DecodeTask;
+import com.dhbw.secure_pic.pipelines.EncodeTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -18,10 +31,15 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
+import static javax.swing.JOptionPane.WARNING_MESSAGE;
+
 // FIXME comment (normal comments + JDocs) # only delete if final#
-//ToDo ganzes Form überarbeiten und nochmal aktualisieren
+
+// TODO show text not in label but Textarea for automatic line breaks!
 
 public class ReceiveAsymmetrical extends Component {
+
+    // region swing attributes
     private JPanel contentPane;
     private JLabel descrPblImg;
     private JLabel descrRecImg;
@@ -47,13 +65,56 @@ public class ReceiveAsymmetrical extends Component {
     private JComboBox codeComboBox;
     private JComboBox encryptComboBox;
     private JTextField privateKeyInput;
+    // endregion
 
-    final FileSelect fs = new FileSelect();
-    private transient com.dhbw.secure_pic.data.ContainerImage containerImage;
-    private transient ContainerImage contentImage;
+    // region attributes
+    private transient ContainerImage containerImage;
+    private transient ContainerImage keyImage;
+    private transient Information contentInformation;
+
+    private final int containerImageDisplayHeight = 140;
+    private final int containerImageDisplayWidth = 300;
+    private final int messageImageDisplayHeight = 150;
+    private final int messageImageDisplayWidth = 400;
+    // endregion
 
     public ReceiveAsymmetrical(Gui parent) {
 
+        PropertyChangeListener propertyChangeListener = new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if ("progress".equals(evt.getPropertyName())) {
+                    int progress = (Integer) evt.getNewValue();
+                    progressBar.setValue(progress);
+                }
+            }
+        };
+
+        LoadFinishedHandler finishedContainerImageLoad = new LoadFinishedHandler() {
+            @Override
+            public void finishedContainerImageLoad(ContainerImage image) {
+                containerImage = image;
+
+                containerImg.setText("");
+                containerImg.setIcon(new ImageIcon(Gui.getScaledImage(containerImage.getImage(),
+                        containerImageDisplayWidth,
+                        containerImageDisplayHeight)));
+            }
+        };
+
+        LoadFinishedHandler finishedKeyImageLoad = new LoadFinishedHandler() {
+            @Override
+            public void finishedContainerImageLoad(ContainerImage image) {
+                keyImage = image;
+
+                keyImg.setText("");
+                keyImg.setIcon(new ImageIcon(Gui.getScaledImage(keyImage.getImage(),
+                        containerImageDisplayWidth,
+                        containerImageDisplayHeight)));
+
+                encodePublicKeyIntoCheckBox.setSelected(true);
+            }
+        };
 
         uploadPanelContainer.setDropTarget(new DropTarget() {
             @Override
@@ -62,17 +123,18 @@ public class ReceiveAsymmetrical extends Component {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
                     java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
 
-                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
-
-                        //ToDo nochmal anpassen
-
+                    for (File file : droppedFiles) { // FIXME allow multiple files? no? GENERAL
+                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
+                        task.addPropertyChangeListener(propertyChangeListener);
+                        task.execute();
                     }
-                } catch (Exception ex) {    // TODO error handling?
+                } catch (Exception ex) {    // FIXME error handling?
                     ex.printStackTrace();
                 }
                 decodeButton.setEnabled(true);
             }
         });
+
         uploadPanelKey.setDropTarget(new DropTarget() {
             @Override
             public synchronized void drop(DropTargetDropEvent evt) {
@@ -80,17 +142,18 @@ public class ReceiveAsymmetrical extends Component {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
                     java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
 
-                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
-
-                        //ToDo nochmal anpassen
+                    for (File file : droppedFiles) { // FIXME allow multiple files? no? GENERAL
+                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedKeyImageLoad);
+                        task.addPropertyChangeListener(propertyChangeListener);
+                        task.execute();
                     }
-
-                } catch (Exception ex) {    // TODO error handling?
+                } catch (Exception ex) {    // FIXME error handling?
                     ex.printStackTrace();
                 }
             }
         });
 
+        // region listener
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -101,112 +164,239 @@ public class ReceiveAsymmetrical extends Component {
         uploadButtonKeyImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Handle open button action.
                 File file = new FileSelect().selectFile(ReceiveAsymmetrical.this);
-                // TODO use load task for that
-                BufferedImage bufferedImage = null;
-                try {
-                    bufferedImage = ImageIO.read(file);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+
+                if(file == null){
+                    return;
                 }
-                ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                keyImg.setText("");
-                keyImg.setIcon(imageIcon);
+
+                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedKeyImageLoad);
+                task.addPropertyChangeListener(propertyChangeListener);
+                task.execute();
             }
         });
+
         uploadContainerImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Handle open button action.
                 File file = new FileSelect().selectFile(ReceiveAsymmetrical.this);
-                // TODO use load task for that
-                BufferedImage bufferedImage = null;
-                try {
-                    bufferedImage = ImageIO.read(file);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+
+                if(file == null){
+                    return;
                 }
-                ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                containerImg.setText("");
-                containerImg.setIcon(imageIcon);
+
+                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
+                task.addPropertyChangeListener(propertyChangeListener);
+                task.execute();
+
                 decodeButton.setEnabled(true);
             }
         });
+
         generateKeyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //ToDo Key generation
-                String privateKey = "";
-                String publicKey = "";
+
+                Crypter crypter;
+                String privateKey;
+                String publicKey;
+
+                if(encryptComboBox.getSelectedItem() == "RSA"){
+                    try {
+                        crypter = new RSA();
+
+                        privateKey = ((RSA) crypter).getPrivateKeyString();
+                        publicKey = ((RSA) crypter).getPublicKeyString();
+
+                    } catch (CrypterException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                } else {
+                    // FIXME error handling?
+                    return;
+                }
+
                 privateKeyOutput.setText(privateKey);
-                privateKeyInput.setText(privateKey);
                 publicKeyOutput.setText(publicKey);
+
+                privateKeyInput.setText(privateKey);
+                privateKeyInput.setEditable(false);
+
                 keyExport.setEnabled(true);
                 ctcbKey.setEnabled(true);
-                //ToDo Bildanzeige
-            }
-        });
-        encodePublicKeyIntoCheckBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+
                 if(encodePublicKeyIntoCheckBox.isSelected()){
-                    uploadPanelKey.setVisible(true);
-                    outputKeyImage.setVisible(true);
-                    descrPblImg.setVisible(true);
+                    if(keyImage != null){
+                        // region encode public key
+                        Coder coder;
+                        Crypter noOpCrypter = new EmptyCrypter();
+                        Information info = Information.getInformationFromString(publicKey);
+
+                        if (codeComboBox.getSelectedItem() == "LSB"){
+                            coder = new LeastSignificantBit(keyImage);
+                        } else if(codeComboBox.getSelectedItem() == "PM1"){
+                            coder = new PlusMinusOne(keyImage);
+                        } else {
+                            // TODO error handling
+                            return;
+                        }
+
+                        EncodeTask task = new EncodeTask(coder, noOpCrypter, info, new EncodeFinishedHandler() {
+                            @Override
+                            public void finishedEncode(ContainerImage image) {
+                                keyImage = image;
+
+                                keyExport.setEnabled(true);
+                                ctcbKey.setEnabled(true);
+                                outputKeyImage.setIcon(new ImageIcon(Gui.getScaledImage(keyImage.getImage(),
+                                        containerImageDisplayWidth,
+                                        containerImageDisplayHeight)));
+                            }
+                        });
+                        task.addPropertyChangeListener(propertyChangeListener);
+                        task.execute();
+                        // endregion
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, in das der öffentliche Schlüssel codiert werden soll.", "Warnung", WARNING_MESSAGE);
+                        return;
+                    }
                 }
-                else{
-                    uploadPanelKey.setVisible(false);
-                    outputKeyImage.setVisible(false);
-                    descrPblImg.setVisible(false);
-                }
             }
         });
-        exportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
-        copyToClipboardButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        ctcbKey.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        keyExport.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
         decodeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                decodeButton.setEnabled(false);
 
+                Coder coder;
+                Crypter crypter;
 
-                exportButton.setEnabled(true);
-                copyToClipboardButton.setEnabled(true);
+                if (containerImage == null){
+                    // FIXME error handling
+                    return;
+                }
 
+                if (codeComboBox.getSelectedItem() == "LSB"){
+                    coder = new LeastSignificantBit(containerImage);
+                } else if(codeComboBox.getSelectedItem() == "PM1"){
+                    coder = new PlusMinusOne(containerImage);
+                } else {
+                    // FIXME error handling
+                    return;
+                }
+
+                if (encryptComboBox.getSelectedItem() == "RSA"){
+                    String privateKey = privateKeyInput.getText();
+                    if(privateKey.length() > 20){
+                        try {
+                            crypter = new RSA(privateKey, RSA.keyType.PRIVATE);
+                        } catch (CrypterException ex) {
+                            throw new RuntimeException(ex);
+                            // FIXME error handling
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Bitte gebe den privaten Schlüssel ein, mit dem die Information entschlüsselt werden soll.", "Warnung", WARNING_MESSAGE);
+                        return;
+                    }
+                } else {
+                    // TODO error handling
+                    return;
+                }
+
+//                decodeButton.setEnabled(false);
+
+                DecodeTask task = new DecodeTask(coder, crypter, new DecodeFinishedHandler() {
+                    @Override
+                    public void finishedDecode(Information info) {
+                        contentInformation = info;
+
+                        Information.Type type = info.getType();
+                        if (type == Information.Type.TEXT) {
+                            messageOutput.setText(info.toText());
+                        } else if (type == Information.Type.IMAGE_PNG || type == Information.Type.IMAGE_GIF || type == Information.Type.IMAGE_JPG){
+                            exportButton.setEnabled(true);
+                            try{
+                                messageOutput.setText("");
+                                messageOutput.setIcon(new ImageIcon(Gui.getScaledImage(info.toImage(),
+                                        messageImageDisplayWidth,
+                                        messageImageDisplayHeight)));
+                            }catch (IOException e){
+                                System.out.println(e);
+                                // FIXME error handling?
+                            }
+                        } else {
+                            // FIXME error handling?
+                        }
+
+                        copyToClipboardButton.setEnabled(true);
+                        decodeButton.setEnabled(true);
+                    }
+                });
+                task.addPropertyChangeListener(propertyChangeListener);
+                task.execute();
             }
         });
-        progressBar.addPropertyChangeListener(new PropertyChangeListener() {
-            //ToDo Progress anbinden
+
+        exportButton.addActionListener(new ActionListener() {
             @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("progress" == evt.getPropertyName()) {
-                    int progress = (Integer) evt.getNewValue();
-                    progressBar.setValue(progress);
+            public void actionPerformed(ActionEvent e) {
+                File file = new SaveSelect().selectDir(ReceiveAsymmetrical.this);
+
+                if(file == null){
+                    return;
+                }
+
+                if(contentInformation.getType() == Information.Type.TEXT)
+                    return;
+
+                try {
+                    ImageIO.write(contentInformation.toImage(), "png", file);
+                    JOptionPane.showMessageDialog(null, "Das decodierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex); // FIXME error handling
                 }
             }
         });
+
+        copyToClipboardButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    contentInformation.copyToClipboard();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                    // FIXME error handing?
+                }
+            }
+        });
+
+        ctcbKey.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                keyImage.copyToClipboard();
+            }
+        });
+
+        keyExport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                File file = new SaveSelect().selectDir(ReceiveAsymmetrical.this);
+
+                if(file == null)
+                    return;
+
+                try {
+                    keyImage.exportImg(file.getPath());
+                    JOptionPane.showMessageDialog(null, "Das codierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException | IllegalTypeException ex) {
+                    throw new RuntimeException(ex); // TODO error handling
+                }
+            }
+        });
+
+        // endregion
     }
 
     public JPanel getContentPane() {
