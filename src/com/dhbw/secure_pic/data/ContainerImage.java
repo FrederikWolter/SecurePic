@@ -52,7 +52,7 @@ public class ContainerImage {
 
         // get image type
         this.type = switch (extension) {
-            case "png.radiobtn" -> PNG;
+            case "png" -> PNG;
             case "jpg" -> JPG;
             default -> null;
         };
@@ -93,7 +93,7 @@ public class ContainerImage {
      */
     public void exportImg(String destPath) throws IOException, IllegalTypeException {
         String format = switch (this.type) {
-            case PNG -> "png.radiobtn";
+            case PNG -> "png";
             case JPG -> "jpg";
         };
 

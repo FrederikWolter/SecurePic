@@ -114,9 +114,9 @@ public class Information {
 
         // get image type
         Type type = switch (extension) {
-            case "png.radiobtn" -> IMAGE_PNG;
+            case "png" -> IMAGE_PNG;
             case "jpg" -> IMAGE_JPG;
-            case "gif.radiobtn" -> IMAGE_GIF;
+            case "gif" -> IMAGE_GIF;
             default -> null;
         };
         if (type == null)

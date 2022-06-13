@@ -24,12 +24,12 @@ public class TestAES {
 
         //Multiple AES are used to simulate the communication between multiple devices
 
-        AES encryptAES = new AES("pw.lbl");
+        AES encryptAES = new AES("password");
 
         encryptAES.encrypt(information, progress -> { /* empty */ });
         assertNotEquals(information.toText(), message);
 
-        AES decryptAES = new AES("pw.lbl");
+        AES decryptAES = new AES("password");
         decryptAES.decrypt(information, progress -> { /* empty */});
         assertEquals(information.toText(), message);
     }
