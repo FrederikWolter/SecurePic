@@ -79,7 +79,7 @@ public class ContainerImage {
         int i = path.lastIndexOf(".");
         if (i > 0) extension = path.substring(i + 1);
 
-        return extension;
+        return extension.toLowerCase();
     }
 
     /**
