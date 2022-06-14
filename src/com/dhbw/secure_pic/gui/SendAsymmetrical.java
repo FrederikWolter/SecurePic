@@ -54,6 +54,7 @@ public class SendAsymmetrical extends Component {
     private JPanel uploadPanel3;
     private JButton uploadPrivateKey;
     private JLabel keyImg;
+    private JScrollPane messageTextScroll;
     // endregion
 
     // region attributes
@@ -63,7 +64,7 @@ public class SendAsymmetrical extends Component {
 
     private final int containerImageDisplayHeight = 550;
     private final int containerImageDisplayWidth = 550;
-    private final int messageImageDisplayHeight = 150;
+    private final int messageImageDisplayHeight = 110;
     private final int messageImageDisplayWidth = 200;
     // endregion
 
@@ -256,7 +257,7 @@ public class SendAsymmetrical extends Component {
         imageRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                messageText.setVisible(false);
+                messageTextScroll.setVisible(false);
                 uploadPanelMessage.setVisible(true);
             }
         });
@@ -264,7 +265,7 @@ public class SendAsymmetrical extends Component {
         textRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                messageText.setVisible(true);
+                messageTextScroll.setVisible(true);
                 uploadPanelMessage.setVisible(false);
 
             }
