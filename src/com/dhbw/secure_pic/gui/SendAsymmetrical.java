@@ -6,14 +6,13 @@ import com.dhbw.secure_pic.coder.Coder;
 import com.dhbw.secure_pic.coder.LeastSignificantBit;
 import com.dhbw.secure_pic.coder.PlusMinusOne;
 import com.dhbw.secure_pic.crypter.Crypter;
+import com.dhbw.secure_pic.crypter.EmptyCrypter;
 import com.dhbw.secure_pic.crypter.RSA;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
-import com.dhbw.secure_pic.gui.utility.EncodeFinishedHandler;
-import com.dhbw.secure_pic.gui.utility.FileSelect;
-import com.dhbw.secure_pic.gui.utility.LoadFinishedHandler;
-import com.dhbw.secure_pic.gui.utility.SaveSelect;
+import com.dhbw.secure_pic.gui.utility.*;
 import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
+import com.dhbw.secure_pic.pipelines.DecodeTask;
 import com.dhbw.secure_pic.pipelines.EncodeTask;
 
 import javax.swing.*;
@@ -60,12 +59,11 @@ public class SendAsymmetrical extends Component {
     // region attributes
     private transient ContainerImage containerImage;
     private transient ContainerImage contentImage;
-
     private transient ContainerImage keyImage;
 
     private final int containerImageDisplayHeight = 550;
     private final int containerImageDisplayWidth = 550;
-    private final int messageImageDisplayHeight = 200;
+    private final int messageImageDisplayHeight = 150;
     private final int messageImageDisplayWidth = 200;
     // endregion
 
@@ -114,6 +112,35 @@ public class SendAsymmetrical extends Component {
                 keyImg.setIcon(new ImageIcon(Gui.getScaledImage(keyImage.getImage(),
                         messageImageDisplayWidth,
                         messageImageDisplayHeight)));
+
+                // region decode key
+                Coder coderPublicKey;
+                Crypter crypterPublicKey = new EmptyCrypter();
+
+                if (codeComboBox.getSelectedItem() == "LSB"){
+                    coderPublicKey = new LeastSignificantBit(keyImage);
+                } else if(codeComboBox.getSelectedItem() == "PM1"){
+                    coderPublicKey = new PlusMinusOne(keyImage);
+                } else {
+                    // FIXME error handling
+                    return;
+                }
+
+                DecodeTask task = new DecodeTask(coderPublicKey, crypterPublicKey, new DecodeFinishedHandler() {
+                    @Override
+                    public void finishedDecode(Information info) {
+                        Information.Type type = info.getType();
+                        if (type == Information.Type.TEXT) {    // FIXME check if plausible key?
+                            publicKeyInput.setText(info.toText());
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Etwas ist schiefgelaufen, das Bild für den öffentlichen Schlüssel enthält keinen Schlüssel.", "Fehler", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    }
+                });
+                task.addPropertyChangeListener(propertyChangeListener);
+                task.execute();
+                // endregion
             }
         };
 
@@ -211,6 +238,21 @@ public class SendAsymmetrical extends Component {
             }
         });
 
+        uploadPrivateKey.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                File file = new FileSelect().selectFile(SendAsymmetrical.this);
+
+                if(file == null){
+                    return;
+                }
+
+                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedKeyImageLoad);
+                task.addPropertyChangeListener(propertyChangeListener);
+                task.execute();
+            }
+        });
+
         imageRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -229,8 +271,6 @@ public class SendAsymmetrical extends Component {
         });
 
         encodeButton.addActionListener(new ActionListener() {
-            // TODO load Public key from Image
-
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -278,42 +318,7 @@ public class SendAsymmetrical extends Component {
 
                 if (encryptComboBox.getSelectedItem() == "RSA"){
                     String publicKey = new String(publicKeyInput.getPassword());
-                    if(keyImage != null){
-                        return;
-                        // region decode key
-//                        // TODO decode key
-//
-//                        Coder coderPublicKey;
-//                        Crypter crypterPublicKey = new EmptyCrypter();
-//
-//                        if (codeComboBox.getSelectedItem() == "LSB"){
-//                            coderPublicKey = new LeastSignificantBit(keyImage);
-//                        } else if(codeComboBox.getSelectedItem() == "PM1"){
-//                            coderPublicKey = new PlusMinusOne(keyImage);
-//                        } else {
-//                            // FIXME error handling
-//                            return;
-//                        }
-//
-//                        DecodeTask task = new DecodeTask(coderPublicKey, crypterPublicKey, new DecodeFinishedHandler() {
-//                            @Override
-//                            public void finishedDecode(Information info) {
-//                                Information.Type type = info.getType();
-//                                if (type == Information.Type.TEXT) {
-//                                    messageOutput.setText(info.toText());
-//                                } else {
-//                                    JOptionPane.showMessageDialog(null, "Etwas ist schiefgelaufen, das Bild für den öffentlichen Schlüssel enthält keinen Schlüssel.", "Fehler", JOptionPane.ERROR_MESSAGE);
-//                                    return;
-//                                }
-//                            }
-//                        });
-//                        task.addPropertyChangeListener(propertyChangeListener);
-//                        task.execute();
-//
-//
-//                        crypter = new AES(publicKey);
-                        // endregion
-                    } else if(publicKey.length() > 0){
+                    if(publicKey.length() > 0){
                         try {
                             crypter = new RSA(publicKey, RSA.keyType.PUBLIC);
                         } catch (CrypterException ex) {
@@ -321,7 +326,7 @@ public class SendAsymmetrical extends Component {
                             // FIXME error handling?
                         }
                     }else{
-                        JOptionPane.showMessageDialog(null, "Bitte gebe einen Öffentlichen Schlüssel ein in Form des erhaltenen Bildes oder als Text, mit dem die Information verschlüsselt werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Bitte gebe einen öffentlichen Schlüssel ein in Form des erhaltenen Bildes oder als Text, mit dem die Information verschlüsselt werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                 } else {
