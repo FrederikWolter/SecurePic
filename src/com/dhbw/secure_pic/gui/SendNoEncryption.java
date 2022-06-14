@@ -51,6 +51,7 @@ public class SendNoEncryption extends Component {
     private JLabel showImageLabel;
     private JPanel uploadPanelMessage;
     private JLabel messageImg;
+    private JScrollPane messageTextScroll;
 
     // endregion
 
@@ -60,7 +61,7 @@ public class SendNoEncryption extends Component {
 
     private final int containerImageDisplayHeight = 550;
     private final int containerImageDisplayWidth = 550;
-    private final int messageImageDisplayHeight = 250;
+    private final int messageImageDisplayHeight = 200;
     private final int messageImageDisplayWidth = 250;
     // endregion
 
@@ -179,7 +180,7 @@ public class SendNoEncryption extends Component {
         imageRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                messageText.setVisible(false);
+                messageTextScroll.setVisible(false);
                 uploadPanelMessage.setVisible(true);
             }
         });
@@ -187,7 +188,7 @@ public class SendNoEncryption extends Component {
         textRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                messageText.setVisible(true);
+                messageTextScroll.setVisible(true);
                 uploadPanelMessage.setVisible(false);
             }
         });
