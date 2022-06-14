@@ -110,12 +110,12 @@ public class SendSymmetrical extends Component {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
                     java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
 
-                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
+                    for (File file : droppedFiles) { // FIXME allow multiple files? no? GENERAL
                         ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
                         task.addPropertyChangeListener(propertyChangeListener);
                         task.execute();
                     }
-                } catch (Exception ex) {    // TODO error handling?
+                } catch (Exception ex) {    // FIXME error handling?
                     ex.printStackTrace();
                 }
                 encodeButton.setEnabled(true);
@@ -127,12 +127,12 @@ public class SendSymmetrical extends Component {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
                     java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
 
-                    for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
+                    for (File file : droppedFiles) {    // FIXME allow multiple files? no? GENERAL
                         ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
                         task.addPropertyChangeListener(propertyChangeListener);
                         task.execute();
                     }
-                } catch (Exception ex) {    // TODO error handling?
+                } catch (Exception ex) {    // FIXME error handling?
                     ex.printStackTrace();
                 }
             }
@@ -204,7 +204,7 @@ public class SendSymmetrical extends Component {
                 Crypter crypter;
 
                 if (containerImage == null){
-                    // TODO error handling
+                    // FIXME error handling
                     return;
                 }
 
@@ -221,14 +221,14 @@ public class SendSymmetrical extends Component {
                             info = Information.getInformationFromImage(contentImage.getPath());
                         } catch (IllegalTypeException ex) {
                             throw new RuntimeException(ex);
-                            // TODO error handling
+                            // FIXME error handling
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, das in das Trägerbild codiert werden soll.", "Warnung", WARNING_MESSAGE);
                         return;
                     }
                 } else {
-                    // TODO error handling
+                    // FIXME error handling
                     return;
                 }
 
@@ -237,7 +237,7 @@ public class SendSymmetrical extends Component {
                 } else if(codeComboBox.getSelectedItem() == "PM1"){
                     coder = new PlusMinusOne(containerImage);
                 } else {
-                    // TODO error handling
+                    // FIXME error handling
                     return;
                 }
 
@@ -250,7 +250,7 @@ public class SendSymmetrical extends Component {
                         return;
                     }
                 } else {
-                    // TODO error handling
+                    // FIXME error handling
                     return;
                 }
 
@@ -284,7 +284,7 @@ public class SendSymmetrical extends Component {
                     containerImage.exportImg(file.getPath());
                     JOptionPane.showMessageDialog(null, "Das codierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException | IllegalTypeException ex) {
-                    throw new RuntimeException(ex); // TODO error handling
+                    throw new RuntimeException(ex); // FIXME error handling
                 }
             }
         });

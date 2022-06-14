@@ -159,7 +159,7 @@ public class ReceiveSymmetrical extends Component {
                         return;
                     }
                 } else {
-                    // TODO error handling
+                    // FIXME error handling
                     return;
                 }
 

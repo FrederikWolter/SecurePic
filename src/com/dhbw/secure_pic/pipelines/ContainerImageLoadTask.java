@@ -37,7 +37,7 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
 
         // create new ContainerImage instance from path
         ContainerImage containerImage = new ContainerImage(this.path);
-        // TODO use progress inside method? use design pattern for setProgress from called method https://stackoverflow.com/a/24946032/13777031
+        // FIXME use progress inside method? use design pattern for setProgress from called method https://stackoverflow.com/a/24946032/13777031
 
         // update progress
         setProgress(100);

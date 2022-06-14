@@ -58,7 +58,6 @@ public class EncodeTask extends SwingWorker<ContainerImage, Void> {
         setProgress(100);
 
         return encodedImage;
-        // TODO use setProgress(): https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ProgressBarDemoProject/src/components/ProgressBarDemo.java
     }
 
     @Override

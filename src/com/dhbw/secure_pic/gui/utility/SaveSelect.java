@@ -10,8 +10,10 @@ import java.io.File;
 
 /**
  *
- * @author Kai Schwab, Frederik WOlter
+ * @author Kai Schwab, Frederik Wolter
  */
+
+// FIXME no JPEG?
 
 public class SaveSelect {
     private final JFileChooser fileChooser = new JFileChooser();
@@ -24,7 +26,7 @@ public class SaveSelect {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             return fileChooser.getSelectedFile();
         } else {
-            // TODO error handling?
+            // FIXME error handling?
             return null;
         }
     }

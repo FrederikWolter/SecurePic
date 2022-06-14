@@ -196,7 +196,6 @@ public class ReceiveAsymmetrical extends Component {
         generateKeyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //ToDo Key generation
 
                 Crypter crypter;
                 String privateKey;
@@ -238,7 +237,7 @@ public class ReceiveAsymmetrical extends Component {
                         } else if(codeComboBox.getSelectedItem() == "PM1"){
                             coder = new PlusMinusOne(keyImage);
                         } else {
-                            // TODO error handling
+                            // FIXME error handling
                             return;
                         }
 
@@ -301,7 +300,7 @@ public class ReceiveAsymmetrical extends Component {
                         return;
                     }
                 } else {
-                    // TODO error handling
+                    // FIXME error handling
                     return;
                 }
 
@@ -391,7 +390,7 @@ public class ReceiveAsymmetrical extends Component {
                     keyImage.exportImg(file.getPath());
                     JOptionPane.showMessageDialog(null, "Das codierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException | IllegalTypeException ex) {
-                    throw new RuntimeException(ex); // TODO error handling
+                    throw new RuntimeException(ex); // FIXME error handling
                 }
             }
         });

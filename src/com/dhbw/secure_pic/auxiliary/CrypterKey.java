@@ -11,7 +11,7 @@ public class CrypterKey extends SecretKeySpec {
     }
 
     private void createNewKey() {
-        // TODO
+        // FIXME implement? or delete?
     }
 
 }

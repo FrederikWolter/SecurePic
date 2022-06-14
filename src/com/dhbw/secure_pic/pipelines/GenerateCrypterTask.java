@@ -40,7 +40,6 @@ public class GenerateCrypterTask extends SwingWorker<Crypter, Void> {
         setProgress(100);
 
         return this.crypter;
-        // TODO use setProgress(): https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ProgressBarDemoProject/src/components/ProgressBarDemo.java
     }
 
     @Override

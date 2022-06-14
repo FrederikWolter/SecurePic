@@ -14,7 +14,7 @@ import java.security.spec.*;
 import java.util.Base64;
 
 // FIXME comment
-// TODO do more work self instead of handing it over to library?
+// FIXME do more work self instead of handing it over to library?
 
 /**
  * This class implements the RSA encryption method used to encrypt/decrypt messages.<br>

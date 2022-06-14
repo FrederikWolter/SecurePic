@@ -24,7 +24,7 @@ public class FileSelect {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             return fileChooser.getSelectedFile();
         } else {
-            // TODO error handling?
+            // FIXME error handling?
             return null;
         }
     }

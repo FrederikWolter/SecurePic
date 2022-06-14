@@ -54,7 +54,6 @@ public class DecodeTask extends SwingWorker<Information, Void> {
         setProgress(100);
 
         return this.information;
-        // TODO use setProgress(): https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ProgressBarDemoProject/src/components/ProgressBarDemo.java
     }
 
     @Override
