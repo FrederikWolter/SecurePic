@@ -15,7 +15,7 @@ public class BitFetcher {
     /**
      * Constructor for BitFetcher class.
      *
-     * @param bytes array from wich to fetch the bits.
+     * @param bytes array from which to fetch the bits.
      */
     public BitFetcher(byte[] bytes) {
         this.bytes = bytes;

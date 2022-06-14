@@ -86,6 +86,7 @@ public class ReceiveSymmetrical extends Component {
         };
 
         uploadPanelContainer.setDropTarget(new DropTarget() {
+            @Override
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
