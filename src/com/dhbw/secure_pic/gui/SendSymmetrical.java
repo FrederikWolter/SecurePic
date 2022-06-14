@@ -54,6 +54,7 @@ public class SendSymmetrical extends Component {
     private JLabel messageImg;
     private JButton uploadMessageImg;
     private JButton uploadContainer;
+    private JScrollPane messageTextScroll;
     // endregion
 
     // region attributes
@@ -62,7 +63,7 @@ public class SendSymmetrical extends Component {
 
     private final int containerImageDisplayHeight = 550;
     private final int containerImageDisplayWidth = 550;
-    private final int messageImageDisplayHeight = 250;
+    private final int messageImageDisplayHeight = 200;
     private final int messageImageDisplayWidth = 250;
     // endregion
 
@@ -181,16 +182,15 @@ public class SendSymmetrical extends Component {
         imageRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                messageText.setVisible(false);
+                messageTextScroll.setVisible(false);
                 uploadPanelMessage.setVisible(true);
-
             }
         });
 
         textRadio.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                messageText.setVisible(true);
+                messageTextScroll.setVisible(true);
                 uploadPanelMessage.setVisible(false);
             }
         });
