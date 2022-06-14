@@ -79,7 +79,7 @@ public class AES extends Crypter {
 
             monitor.updateProgress(50);
 
-            byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
+            byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.getData()));
             information.setEncryptedData(decryptedBytes);
 
             monitor.updateProgress(100);
