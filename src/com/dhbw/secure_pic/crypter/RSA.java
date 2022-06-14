@@ -8,12 +8,15 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.RSAPrivateCrtKeySpec;
 import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.RSAPublicKeySpec;
+import java.util.Arrays;
 import java.util.Base64;
 
 // FIXME comment
@@ -97,15 +100,28 @@ public class RSA extends Crypter {
 
             monitor.updateProgress(50);
 
-            byte[] encryptedBytes = encryptCipher.doFinal(information.getData());
-            byte[] outPutBytes = Base64.getEncoder().encode(encryptedBytes);
-            information.setEncryptedData(outPutBytes);
+            byte[] informationToEncrypt = information.getData();
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            for(int i=0; i<informationToEncrypt.length;i+=200){
+                byte[] subArray;
+                if(informationToEncrypt.length - i > i+200){
+                    subArray = Arrays.copyOfRange(informationToEncrypt, i, Math.min(i+200,informationToEncrypt.length - i));
+                } else {
+                    subArray = Arrays.copyOfRange(informationToEncrypt, i, Math.min(i+200,informationToEncrypt.length));
+                }
+                byte[] encryptedBlock = encryptCipher.doFinal(subArray);;
+                byte[] outPutBytes = Base64.getEncoder().encode(encryptedBlock);
+
+                byteArrayOutputStream.write(outPutBytes);
+            }
+
+            information.setEncryptedData(byteArrayOutputStream.toByteArray());
 
             monitor.updateProgress(100);
 
             return information;
 
-        }  catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
+        }  catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IOException | IllegalBlockSizeException | BadPaddingException e){
             throw CrypterException.handleException(e);    // wrap exceptions thrown by crypter to CrypterException
         }
     }
@@ -125,14 +141,30 @@ public class RSA extends Crypter {
 
             monitor.updateProgress(50);
 
-            byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.getData()));
-            information.setEncryptedData(decryptedBytes);
+            byte[] informationToDecrypt = information.getData();
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+            for(int i=0; i<informationToDecrypt.length;i+=344){
+
+                byte[] subArray;
+
+                if(informationToDecrypt.length - i > i+344){
+                    subArray = Arrays.copyOfRange(informationToDecrypt, i, Math.min(i+344,informationToDecrypt.length - i));
+                } else {
+                    subArray = Arrays.copyOfRange(informationToDecrypt, i, Math.min(i+344,informationToDecrypt.length));
+                }
+
+                byte[] decryptedBlock = decryptionCipher.doFinal(Base64.getDecoder().decode(subArray));
+                byteArrayOutputStream.write(decryptedBlock);
+            }
+
+            information.setEncryptedData(byteArrayOutputStream.toByteArray());
 
             monitor.updateProgress(100);
 
             return information;
 
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | IOException | BadPaddingException e){
             throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException
         }
     }

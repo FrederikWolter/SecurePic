@@ -23,7 +23,7 @@ public class TestRSA {
     @Test
     public void testRSAEncryptDecrypt() throws CrypterException, NoSuchAlgorithmException, InvalidKeySpecException, IOException {
 
-        String message = "Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!";
+        String message = "Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!";
         Information information = Information.getInformationFromString(message);
 
         //Multiple RSA are used to simulate the communication between multiple devices
