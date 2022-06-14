@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.util.concurrent.ExecutionException;
 
 // FIXME comment
-// TODO see in general https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html
+// see e.g. https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html
 
 /**
  * Background task for loading selected image from the drive and forming it into a container image.

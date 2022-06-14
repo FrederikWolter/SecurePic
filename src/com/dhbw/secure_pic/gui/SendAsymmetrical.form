@@ -147,7 +147,7 @@
               <lineWrap value="true"/>
               <margin top="5" left="5" bottom="5" right="5"/>
               <text value=""/>
-              <toolTipText value="Message"/>
+              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="msg.lbl"/>
               <wrapStyleWord value="true"/>
             </properties>
           </component>
