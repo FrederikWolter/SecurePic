@@ -73,7 +73,7 @@
           <editable value="false"/>
           <enabled value="true"/>
           <font size="16"/>
-          <margin top="10" left="10" bottom="10" right="10"/>
+          <margin top="10" left="15" bottom="10" right="15"/>
           <opaque value="false"/>
           <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="send.descr.btn"/>
         </properties>
@@ -88,7 +88,7 @@
           <editable value="false"/>
           <enabled value="true"/>
           <font size="16"/>
-          <margin top="10" left="10" bottom="10" right="10"/>
+          <margin top="10" left="15" bottom="10" right="15"/>
           <opaque value="false"/>
           <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="rec.descr.btn"/>
         </properties>
