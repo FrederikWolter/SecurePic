@@ -57,7 +57,7 @@ public class ContainerImage {
             default -> null;
         };
         if (this.type == null)
-            throw new IllegalTypeException("Invalid path or file format given for image file. Recognized extension: '" + extension + "'.");
+            throw new IllegalTypeException("Invalid path or file format given for image file. Extension: '" + extension + "'.");
 
         // read in image from path
         try {
