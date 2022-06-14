@@ -70,7 +70,7 @@ public class ReceiveAsymmetrical extends Component {
     private transient ContainerImage keyImage;
     private transient Information contentInformation;
 
-    private final int containerImageDisplayHeight = 140;
+    private final int containerImageDisplayHeight = 130;
     private final int containerImageDisplayWidth = 300;
     private final int messageImageDisplayHeight = 150;
     private final int messageImageDisplayWidth = 400;
