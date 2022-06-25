@@ -4,8 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-
 // FIXME comment (normal comments + JDocs) # only delete if final#
+
+/**
+ * Class to combine every GUI Window and creating the main Frame and its settings
+ *
+ * @author Hassan El-Khalil
+ */
 
 public class Gui {
 
@@ -21,14 +26,19 @@ public class Gui {
         SEND, RECEIVE
     }
 
+    /**
+     * Constructor setting up the main Frame and combining the different windows as ContentPanes
+     *
+     */
     public Gui(){
+        //Frame settings
         frame = new JFrame("Image Converter");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize((int) (frame.getHeight()*1.78),750);
         frame.setLocationRelativeTo(null);
         frame.setMinimumSize(new Dimension(1200, 750));
         frame.setIconImage(new ImageIcon("SecurePic/com/dhbw/secure_pic/gui/images/icon.jpg").getImage());
-
+        //Setting the CardLayout
         cards = new CardLayout(6,6);
         contentPane = new JPanel(cards);
         frame.add(contentPane);
@@ -36,7 +46,7 @@ public class Gui {
         // FIXME make sub panels extend JPanel to simplify this construct > https://stackoverflow.com/questions/45677253/manage-java-cardlayout-jpanels-created-with-different-classes
 
         // FIXME use static final string for identifiers
-
+        //Adding each Frame to the JPanel
         JPanel imageConverterPanel = new ImageConverter(this).getContentPane();
         contentPane.add (imageConverterPanel, "1");
         JPanel startChooseTypePanel = new StartChooseType(this).getContentPane();
@@ -56,9 +66,6 @@ public class Gui {
         JPanel sendSymmetricalPanel = new SendSymmetrical(this).getContentPane();
         contentPane.add (sendSymmetricalPanel, "9");
 
-        //receiveOptions.setBackground(Color.PINK); // FIXME remove test code
-        //panelCont.add (receiveOptions, "3");
-
         frame.setVisible(true);
     }
 
@@ -69,16 +76,6 @@ public class Gui {
     public void close(){
         frame.dispose();
     }
-
-    // region getter & setter
-    public void setType(Type type){
-        this.type = type;
-    }
-
-    public Type getType(){
-        return this.type;
-    }
-    // endregion
 
     // see https://stackoverflow.com/a/6714381/13777031, https://stackoverflow.com/a/10245583/13777031
     public static BufferedImage getScaledImage(BufferedImage srcImg, int maxWidth, int maxHeight){
@@ -112,4 +109,14 @@ public class Gui {
 
         return resizedImg;
     }
+
+    // region getter & setter
+    public void setType(Type type){
+        this.type = type;
+    }
+
+    public Type getType(){
+        return this.type;
+    }
+    // endregion
 }

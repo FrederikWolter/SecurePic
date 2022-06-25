@@ -6,6 +6,12 @@ import java.awt.event.ActionListener;
 
 // FIXME comment (normal comments + JDocs) # only delete if final#
 
+/**
+ * Class for the Choose-Encryption window. In this window one can choose the type of encryption to encrypt the message with.
+ * The structure and the components are managed in the StartChooseEncryption.form
+ *
+ * @author Hassan El-Khalil
+ */
 public class StartChooseEncryption {
     private JPanel contentPane;
     private JButton backButton;
@@ -17,7 +23,7 @@ public class StartChooseEncryption {
     private JTextPane asymmetricalDesc;
 
     public StartChooseEncryption(Gui parent){
-
+        // Set an ActionListener for the different encryption-Buttons. When pressed you get transferred to the corresponding window.
         noEncryptionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

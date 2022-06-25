@@ -5,9 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 // FIXME comment (normal comments + JDocs) # only delete if final#
-
+/**
+ * Class for the Choose-Type window. In this window one can choose between the send-Function and the receive-Function.
+ * The structure and the components are managed in the StartChooseType.form
+ *
+ * @author Hassan El-Khalil
+ */
 public class StartChooseType {
-    private JButton closeButton;
+    private JButton backButton;
     private JButton sendButton;
     private JButton receiveButton;
     private JPanel contentPane;
@@ -15,7 +20,8 @@ public class StartChooseType {
     private JTextPane receiveDesc;
 
     public StartChooseType(Gui parent) {
-        closeButton.addActionListener(new ActionListener() {
+        // Set an ActionListener for each Button sending the user to the corresponding window
+        backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 parent.show("1");
