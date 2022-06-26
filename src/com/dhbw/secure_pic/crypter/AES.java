@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 // FIXME comment
-// TODO do more work self instead of handing it over to library?
+// FIXME do more work self instead of handing it over to library?
 
 /**
  * This class implements the AES encryption method used to encrypt/decrypt messages.<br>
@@ -79,7 +79,7 @@ public class AES extends Crypter {
 
             monitor.updateProgress(50);
 
-            byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.toText()));
+            byte[] decryptedBytes = decryptionCipher.doFinal(Base64.getDecoder().decode(information.getData()));
             information.setEncryptedData(decryptedBytes);
 
             monitor.updateProgress(100);

@@ -57,7 +57,7 @@ public class ContainerImage {
             default -> null;
         };
         if (this.type == null)
-            throw new IllegalTypeException("Invalid path or file format given for image file. Recognized extension: '" + extension + "'.");
+            throw new IllegalTypeException("Invalid path or file format given for image file. Extension: '" + extension + "'.");
 
         // read in image from path
         try {
@@ -76,10 +76,10 @@ public class ContainerImage {
      */
     public static String getFileExtension(String path) {
         String extension = "";
-        int i = path.lastIndexOf('.');
+        int i = path.lastIndexOf(".");
         if (i > 0) extension = path.substring(i + 1);
 
-        return extension;
+        return extension.toLowerCase();
     }
 
     /**
@@ -105,6 +105,8 @@ public class ContainerImage {
     /**
      * Copy container image to Windows clip board. <br>
      * Works for images and text.
+     *
+     * This may throw a warning when coping a png, see <a href="https://stackoverflow.com/a/64598247/13777031">here</a>.
      */
     public void copyToClipboard() {
         // get clipboard
@@ -127,7 +129,7 @@ public class ContainerImage {
      * @param g green value to be set.
      * @param b blue value to be set.
      */
-    //TODO Remove the input of a if it is a constant anyway
+    // FIXME Remove the input of a if it is a constant anyway
     public void setARGB(int x, int y, byte a, byte r, byte g, byte b) {
         // set alpha to 100% due to library not reacting to alpha values correctly
         a = (byte) 255;
@@ -153,7 +155,7 @@ public class ContainerImage {
      *
      * @return calculated values in form af array.
      */
-    //TODO values[0] is always the same? Looking at setARGB, it isn't even really used since a is set as a constant there
+    // FIXME values[0] is always the same? Looking at setARGB, it isn't even really used since a is set as a constant there
     public byte[] getARGB(int x, int y) {
         // get argb value from buffered image
         int argbValue = this.image.getRGB(x, y);
@@ -176,7 +178,7 @@ public class ContainerImage {
         return this.image.getHeight();
     }
 
-    //TODO cleanup unused Getters
+    // FIXME cleanup unused Getters
 
     public String getPath() {
         return path;

@@ -40,7 +40,6 @@ public class GenerateCrypterTask extends SwingWorker<Crypter, Void> {
         setProgress(100);
 
         return this.crypter;
-        // TODO use setProgress(): https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ProgressBarDemoProject/src/components/ProgressBarDemo.java
     }
 
     @Override
@@ -51,8 +50,11 @@ public class GenerateCrypterTask extends SwingWorker<Crypter, Void> {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+            e.getCause().printStackTrace();
+            String msg = String.format("Fehler beim Erzeugen der Verschlüsselung:%n'%s'", e.getMessage().split(":", 2)[1]);
+            JOptionPane.showMessageDialog(null, msg, "Fehler", JOptionPane.ERROR_MESSAGE);
         }
-        // TODO error handling: https://stackoverflow.com/a/6524300/13777031
+        // FIXME error handling: https://stackoverflow.com/a/6524300/13777031
+        // see https://stackoverflow.com/questions/18462826/split-string-only-on-first-instance-java
     }
 }

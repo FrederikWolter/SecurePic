@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.util.concurrent.ExecutionException;
 
 // FIXME comment
-// TODO see in general https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html
+// see e.g. https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html
 
 /**
  * Background task for loading selected image from the drive and forming it into a container image.
@@ -37,7 +37,7 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
 
         // create new ContainerImage instance from path
         ContainerImage containerImage = new ContainerImage(this.path);
-        // TODO use progress inside method? use design pattern for setProgress from called method https://stackoverflow.com/a/24946032/13777031
+        // FIXME use progress inside method? use design pattern for setProgress from called method https://stackoverflow.com/a/24946032/13777031
 
         // update progress
         setProgress(100);
@@ -53,8 +53,10 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+            e.getCause().printStackTrace();
+            String msg = String.format("Fehler beim Laden des Bildes:%n'%s'", e.getMessage().split(":", 2)[1]);
+            JOptionPane.showMessageDialog(null, msg, "Fehler", JOptionPane.ERROR_MESSAGE);
         }
-        // TODO error handling: https://stackoverflow.com/a/6524300/13777031
+        // FIXME error handling: https://stackoverflow.com/a/6524300/13777031
     }
 }

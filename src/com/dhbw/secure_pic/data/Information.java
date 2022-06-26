@@ -46,7 +46,7 @@ public class Information {
     // endregion
 
     /** Enum representing the available Information types. */
-    enum Type {
+    public enum Type {
         TEXT,
         IMAGE_PNG,
         IMAGE_JPG,
@@ -153,7 +153,7 @@ public class Information {
      *
      * @throws IllegalTypeException if type id is not legal.
      */
-    public static Information getInformationFromData(byte[] dataRaw) throws IllegalTypeException {
+    public static Information getInformationFromData(byte[] dataRaw) throws IllegalTypeException, IllegalLengthException {
         // using ByteBuffer for handling binary data
         // see https://stackoverflow.com/a/1936865/13777031, https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html
         ByteBuffer buffer = ByteBuffer.wrap(dataRaw)
@@ -166,10 +166,14 @@ public class Information {
         int length = buffer.getInt();
         int typeRaw = buffer.getInt();
 
-        if (typeRaw < Type.values().length) {   // validate type
+        if (0 <= typeRaw && typeRaw < Type.values().length) {   // validate type
             type = Type.values()[typeRaw];
         } else {
             throw new IllegalTypeException("Invalid content type in received data: " + typeRaw);
+        }
+
+        if (length == 0){
+            throw new IllegalLengthException("Invalid information length: " + length);
         }
 
         // build data object

@@ -28,11 +28,6 @@ public class TestContainerImage {
     }
 
     @Test
-    public void testExportImg() {
-        assert false;
-    }
-
-    @Test
     public void testCopyToClipboard() throws IllegalTypeException {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
         image.copyToClipboard();

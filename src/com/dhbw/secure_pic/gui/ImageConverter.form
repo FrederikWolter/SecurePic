@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.dhbw.secure_pic.gui.ImageConverter">
+  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="15" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="407"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="975ee" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="16"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="sw.created.by.lbl"/>
+        </properties>
+      </component>
+      <component id="33322" class="javax.swing.JButton" binding="secretButton">
+        <constraints>
+          <grid row="14" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <alignmentY value="0.5"/>
+          <borderPainted value="false"/>
+          <contentAreaFilled value="false"/>
+          <font style="2"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="secret.btn"/>
+        </properties>
+      </component>
+      <component id="96cbd" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="14" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="4" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="thanks.lbl"/>
+        </properties>
+      </component>
+      <component id="cebb8" class="javax.swing.JProgressBar" binding="progressBar">
+        <constraints>
+          <grid row="13" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <string value="-- %"/>
+          <stringPainted value="true"/>
+          <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="progress.lbl"/>
+          <verifyInputWhenFocusTarget value="true"/>
+        </properties>
+      </component>
+      <component id="4ba78" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="14" style="1"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="from.lbl"/>
+        </properties>
+      </component>
+      <component id="54adb" class="javax.swing.JRadioButton" default-binding="true">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="130" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="14"/>
+          <selected value="false"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="png.radiobtn"/>
+        </properties>
+      </component>
+      <component id="347fc" class="javax.swing.JRadioButton" default-binding="true">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="130" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="14"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="jpeg.radiobtn"/>
+        </properties>
+      </component>
+      <component id="8a936" class="javax.swing.JRadioButton" default-binding="true">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="130" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="14"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="gif.radiobtn"/>
+        </properties>
+      </component>
+      <vspacer id="e063d">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="14"/>
+          </grid>
+        </constraints>
+      </vspacer>
+      <component id="e6776" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="14" style="1"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="to.lbl"/>
+        </properties>
+      </component>
+      <component id="912ee" class="javax.swing.JRadioButton" default-binding="true">
+        <constraints>
+          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="130" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="14"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="png.radiobtn"/>
+        </properties>
+      </component>
+      <component id="1dbb2" class="javax.swing.JRadioButton" default-binding="true">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="130" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="14"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="jpeg.radiobtn"/>
+        </properties>
+      </component>
+      <component id="7ab05" class="javax.swing.JRadioButton" default-binding="true">
+        <constraints>
+          <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="130" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="14"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="gif.radiobtn"/>
+        </properties>
+      </component>
+      <component id="3aa80" class="javax.swing.JButton" binding="convertButton">
+        <constraints>
+          <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="160" height="30"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="convert.btn"/>
+        </properties>
+      </component>
+      <vspacer id="1c2de">
+        <constraints>
+          <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="14"/>
+          </grid>
+        </constraints>
+      </vspacer>
+      <grid id="5188a" binding="uploadPanel" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="1" row-span="13" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-5658199"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="bcbe4" class="javax.swing.JButton" binding="uploadButton" default-binding="true">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="-1" height="30"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload.btn"/>
+              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="rec.cont.img.lbl"/>
+            </properties>
+          </component>
+          <vspacer id="6b274">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <component id="a391c" class="javax.swing.JLabel" binding="showImage">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <font size="20"/>
+              <foreground color="-1973791"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload.file.to.convert.lbl"/>
+            </properties>
+          </component>
+          <vspacer id="b9ad8">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+        </children>
+      </grid>
+      <component id="fdb28" class="javax.swing.JRadioButton" default-binding="true">
+        <constraints>
+          <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="130" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="14"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="pdf.radiobtn"/>
+        </properties>
+      </component>
+      <vspacer id="612a7">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+    </children>
+  </grid>
+  <buttonGroups>
+    <group name="in">
+      <member id="54adb"/>
+      <member id="347fc"/>
+      <member id="8a936"/>
+    </group>
+    <group name="out">
+      <member id="912ee"/>
+      <member id="1dbb2"/>
+      <member id="7ab05"/>
+      <member id="fdb28"/>
+    </group>
+  </buttonGroups>
+</form>

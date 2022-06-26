@@ -58,7 +58,6 @@ public class EncodeTask extends SwingWorker<ContainerImage, Void> {
         setProgress(100);
 
         return encodedImage;
-        // TODO use setProgress(): https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ProgressBarDemoProject/src/components/ProgressBarDemo.java
     }
 
     @Override
@@ -69,8 +68,10 @@ public class EncodeTask extends SwingWorker<ContainerImage, Void> {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+            e.getCause().printStackTrace();
+            String msg = String.format("Fehler beim Codieren:%n'%s'", e.getMessage().split(":", 2)[1]);
+            JOptionPane.showMessageDialog(null, msg, "Fehler", JOptionPane.ERROR_MESSAGE);
         }
-        // TODO error handling: https://stackoverflow.com/a/6524300/13777031
+        // FIXME error handling: https://stackoverflow.com/a/6524300/13777031
     }
 }
