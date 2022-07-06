@@ -7,7 +7,7 @@ import com.dhbw.secure_pic.gui.utility.LoadFinishedHandler;
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;
 
-// FIXME comment
+// TODO comment
 // see e.g. https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html
 
 /**
@@ -37,7 +37,7 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
 
         // create new ContainerImage instance from path
         ContainerImage containerImage = new ContainerImage(this.path);
-        // FIXME use progress inside method? use design pattern for setProgress from called method https://stackoverflow.com/a/24946032/13777031
+        // TODO use progress inside method? use design pattern for setProgress from called method https://stackoverflow.com/a/24946032/13777031
 
         // update progress
         setProgress(100);
@@ -57,6 +57,6 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
             String msg = String.format("Fehler beim Laden des Bildes:%n'%s'", e.getMessage().split(":", 2)[1]);
             JOptionPane.showMessageDialog(null, msg, "Fehler", JOptionPane.ERROR_MESSAGE);
         }
-        // FIXME error handling: https://stackoverflow.com/a/6524300/13777031
+        // TODO error handling: https://stackoverflow.com/a/6524300/13777031
     }
 }

@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
 
-// FIXME comment
+// TODO comment
 
 public class TestBitAssembler {
 

@@ -28,7 +28,7 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
-// FIXME comment (normal comments + JDocs) # only delete if final#
+// TODO comment (normal comments + JDocs) # only delete if final#
 
 public class SendAsymmetrical extends Component {
 
@@ -123,7 +123,7 @@ public class SendAsymmetrical extends Component {
                 } else if(codeComboBox.getSelectedItem() == "PM1"){
                     coderPublicKey = new PlusMinusOne(keyImage);
                 } else {
-                    // FIXME error handling
+                    // TODO error handling
                     return;
                 }
 
@@ -131,7 +131,7 @@ public class SendAsymmetrical extends Component {
                     @Override
                     public void finishedDecode(Information info) {
                         Information.Type type = info.getType();
-                        if (type == Information.Type.TEXT) {    // FIXME check if plausible key?
+                        if (type == Information.Type.TEXT) {    // TODO check if plausible key?
                             publicKeyInput.setText(info.toText());
                         } else {
                             JOptionPane.showMessageDialog(null, "Etwas ist schiefgelaufen, das Bild für den öffentlichen Schlüssel enthält keinen Schlüssel.", "Fehler", JOptionPane.ERROR_MESSAGE);
@@ -150,14 +150,14 @@ public class SendAsymmetrical extends Component {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // TODO cleanup cast?
 
-                    for (File file : droppedFiles) { // FIXME allow multiple files? no? GENERAL
+                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
                         ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
                         task.addPropertyChangeListener(propertyChangeListener);
                         task.execute();
                     }
-                } catch (Exception ex) {    // FIXME error handling?
+                } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();
                 }
                 encodeButton.setEnabled(true);
@@ -169,14 +169,14 @@ public class SendAsymmetrical extends Component {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // TODO cleanup cast?
 
-                    for (File file : droppedFiles) {    // FIXME allow multiple files? no? GENERAL
+                    for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
                         ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
                         task.addPropertyChangeListener(propertyChangeListener);
                         task.execute();
                     }
-                } catch (Exception ex) {    // FIXME error handling?
+                } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();
                 }
             }
@@ -186,14 +186,14 @@ public class SendAsymmetrical extends Component {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // TODO cleanup cast?
 
-                    for (File file : droppedFiles) {    // FIXME allow multiple files? no? GENERAL
+                    for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
                         ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedKeyImageLoad);
                         task.addPropertyChangeListener(propertyChangeListener);
                         task.execute();
                     }
-                } catch (Exception ex) {    // FIXME error handling?
+                } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();
                 }
             }
@@ -280,7 +280,7 @@ public class SendAsymmetrical extends Component {
                 Crypter crypter;
 
                 if (containerImage == null){
-                    // FIXME error handling
+                    // TODO error handling
                     return;
                 }
 
@@ -297,14 +297,14 @@ public class SendAsymmetrical extends Component {
                             info = Information.getInformationFromImage(contentImage.getPath());
                         } catch (IllegalTypeException ex) {
                             throw new RuntimeException(ex);
-                            // FIXME error handling
+                            // TODO error handling
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, das in das Trägerbild codiert werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                 } else {
-                    // FIXME error handling
+                    // TODO error handling
                     return;
                 }
 
@@ -313,7 +313,7 @@ public class SendAsymmetrical extends Component {
                 } else if(codeComboBox.getSelectedItem() == "PM1"){
                     coder = new PlusMinusOne(containerImage);
                 } else {
-                    // FIXME error handling
+                    // TODO error handling
                     return;
                 }
 
@@ -324,14 +324,14 @@ public class SendAsymmetrical extends Component {
                             crypter = new RSA(publicKey, RSA.keyType.PUBLIC);
                         } catch (CrypterException ex) {
                             throw new RuntimeException(ex);
-                            // FIXME error handling?
+                            // TODO error handling?
                         }
                     }else{
                         JOptionPane.showMessageDialog(null, "Bitte gebe einen öffentlichen Schlüssel ein in Form des erhaltenen Bildes oder als Text, mit dem die Information verschlüsselt werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                 } else {
-                    // FIXME error handling
+                    // TODO error handling
                     return;
                 }
 
@@ -365,7 +365,7 @@ public class SendAsymmetrical extends Component {
                     containerImage.exportImg(file.getPath());
                     JOptionPane.showMessageDialog(null, "Das codierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException | IllegalTypeException ex) {
-                    throw new RuntimeException(ex); // FIXME error handling
+                    throw new RuntimeException(ex); // TODO error handling
                 }
             }
         });

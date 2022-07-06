@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-// FIXME comment
+// TODO comment
 
 /**
  * @author Frederik Wolter
@@ -78,7 +78,7 @@ public class TestLeastSignificantBit {
         assertNull(info2.toText());
         info2.copyToClipboard();
 
-        // FIXME automatic test?
+        // TODO automatic test?
     }
 
     @Test

@@ -15,7 +15,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-// FIXME comment (normal comments + JDocs) # only delete if final#
+// TODO comment (normal comments + JDocs) # only delete if final#
 
 public class ImageConverter extends Component {
     private JPanel contentPane;

@@ -31,7 +31,7 @@ import java.io.IOException;
 
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
-// FIXME comment (normal comments + JDocs) # only delete if final#
+// TODO comment (normal comments + JDocs) # only delete if final#
 
 // TODO show text not in label but Textarea for automatic line breaks!
 
@@ -119,14 +119,14 @@ public class ReceiveAsymmetrical extends Component {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // TODO cleanup cast?
 
-                    for (File file : droppedFiles) { // FIXME allow multiple files? no? GENERAL
+                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
                         ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
                         task.addPropertyChangeListener(propertyChangeListener);
                         task.execute();
                     }
-                } catch (Exception ex) {    // FIXME error handling?
+                } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();
                 }
                 decodeButton.setEnabled(true);
@@ -138,14 +138,14 @@ public class ReceiveAsymmetrical extends Component {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // TODO cleanup cast?
 
-                    for (File file : droppedFiles) { // FIXME allow multiple files? no? GENERAL
+                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
                         ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedKeyImageLoad);
                         task.addPropertyChangeListener(propertyChangeListener);
                         task.execute();
                     }
-                } catch (Exception ex) {    // FIXME error handling?
+                } catch (Exception ex) {    // TODO error handling?
                     ex.printStackTrace();
                 }
             }
@@ -210,7 +210,7 @@ public class ReceiveAsymmetrical extends Component {
                         throw new RuntimeException(ex);
                     }
                 } else {
-                    // FIXME error handling?
+                    // TODO error handling?
                     return;
                 }
 
@@ -235,7 +235,7 @@ public class ReceiveAsymmetrical extends Component {
                         } else if(codeComboBox.getSelectedItem() == "PM1"){
                             coder = new PlusMinusOne(keyImage);
                         } else {
-                            // FIXME error handling
+                            // TODO error handling
                             return;
                         }
 
@@ -271,7 +271,7 @@ public class ReceiveAsymmetrical extends Component {
                 Crypter crypter;
 
                 if (containerImage == null){
-                    // FIXME error handling
+                    // TODO error handling
                     return;
                 }
 
@@ -280,7 +280,7 @@ public class ReceiveAsymmetrical extends Component {
                 } else if(codeComboBox.getSelectedItem() == "PM1"){
                     coder = new PlusMinusOne(containerImage);
                 } else {
-                    // FIXME error handling
+                    // TODO error handling
                     return;
                 }
 
@@ -291,14 +291,14 @@ public class ReceiveAsymmetrical extends Component {
                             crypter = new RSA(privateKey, RSA.keyType.PRIVATE);
                         } catch (CrypterException ex) {
                             throw new RuntimeException(ex);
-                            // FIXME error handling
+                            // TODO error handling
                         }
                     }else{
                         JOptionPane.showMessageDialog(null, "Bitte gebe den privaten Schlüssel ein, mit dem die Information entschlüsselt werden soll.", "Warnung", WARNING_MESSAGE);
                         return;
                     }
                 } else {
-                    // FIXME error handling
+                    // TODO error handling
                     return;
                 }
 
@@ -321,10 +321,10 @@ public class ReceiveAsymmetrical extends Component {
                                         messageImageDisplayHeight)));
                             }catch (IOException e){
                                 System.out.println(e);
-                                // FIXME error handling?
+                                // TODO error handling?
                             }
                         } else {
-                            // FIXME error handling?
+                            // TODO error handling?
                         }
 
                         copyToClipboardButton.setEnabled(true);
@@ -352,7 +352,7 @@ public class ReceiveAsymmetrical extends Component {
                     ImageIO.write(contentInformation.toImage(), "png", file);
                     JOptionPane.showMessageDialog(null, "Das decodierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
-                    throw new RuntimeException(ex); // FIXME error handling
+                    throw new RuntimeException(ex); // TODO error handling
                 }
             }
         });
@@ -364,7 +364,7 @@ public class ReceiveAsymmetrical extends Component {
                     contentInformation.copyToClipboard();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
-                    // FIXME error handing?
+                    // TODO error handing?
                 }
             }
         });
@@ -388,7 +388,7 @@ public class ReceiveAsymmetrical extends Component {
                     keyImage.exportImg(file.getPath());
                     JOptionPane.showMessageDialog(null, "Das codierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException | IllegalTypeException ex) {
-                    throw new RuntimeException(ex); // FIXME error handling
+                    throw new RuntimeException(ex); // TODO error handling
                 }
             }
         });

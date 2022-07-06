@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-// FIXME comment
+// TODO comment
 
 /**
  * @author Frederik Wolter
@@ -31,7 +31,7 @@ public class TestContainerImage {
     public void testCopyToClipboard() throws IllegalTypeException {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
         image.copyToClipboard();
-        // FIXME add automatic test?
+        // TODO add automatic test?
     }
 
     @Test

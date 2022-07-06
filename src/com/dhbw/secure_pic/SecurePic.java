@@ -4,15 +4,17 @@ import com.dhbw.secure_pic.gui.Gui;
 
 import javax.swing.*;
 
-// FIXME comment (normal comments + JDocs) # only delete if final#
+// TODO comment (normal comments + JDocs) # only delete if final#
 
-// FIXME run code reformat & cleanup before pull request to main
+// TODO run code reformat & cleanup before pull request to main
 
-// FIXME extract Strings into string resource
+// TODO extract Strings into string resource
 
-// FIXME universal naming theme with descriptive names for all swing elements
+// TODO universal naming theme with descriptive names for all swing elements
 
-// FIXME generalize functionality of views to one class?
+// TODO generalize functionality of views to one class?
+
+// TODO extract hardcoded strings: https://www.jetbrains.com/help/idea/hard-coded-string-literals.html#extract
 
 /**
  * Main entry point to application - providing the main method.

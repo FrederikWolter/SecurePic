@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-// FIXME comment (normal comments + JDocs) # only delete if final#
+// TODO comment (normal comments + JDocs) # only delete if final#
 
 /**
  * Class to combine every GUI Window and creating the main Frame and its settings
@@ -43,9 +43,9 @@ public class Gui {
         contentPane = new JPanel(cards);
         frame.add(contentPane);
 
-        // FIXME make sub panels extend JPanel to simplify this construct > https://stackoverflow.com/questions/45677253/manage-java-cardlayout-jpanels-created-with-different-classes
+        // TODO make sub panels extend JPanel to simplify this construct > https://stackoverflow.com/questions/45677253/manage-java-cardlayout-jpanels-created-with-different-classes
 
-        // FIXME use static final string for identifiers
+        // TODO use static final string for identifiers
         //Adding each Frame to the JPanel
         JPanel imageConverterPanel = new ImageConverter(this).getContentPane();
         contentPane.add (imageConverterPanel, "1");

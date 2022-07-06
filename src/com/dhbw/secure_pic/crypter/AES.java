@@ -10,8 +10,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-// FIXME comment
-// FIXME do more work self instead of handing it over to library?
+// TODO comment
+// TODO do more work self instead of handing it over to library?
 
 /**
  * This class implements the AES encryption method used to encrypt/decrypt messages.<br>

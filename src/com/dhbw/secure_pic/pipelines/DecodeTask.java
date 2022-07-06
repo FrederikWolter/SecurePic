@@ -11,7 +11,7 @@ import com.dhbw.secure_pic.gui.utility.DecodeFinishedHandler;
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;
 
-// FIXME comment
+// TODO comment
 
 /**
  * @author Thu Giang Tran, Frederik Wolter
@@ -68,6 +68,6 @@ public class DecodeTask extends SwingWorker<Information, Void> {
             String msg = String.format("Fehler beim Decodieren:%n'%s'", e.getMessage().split(":", 2)[1]);
             JOptionPane.showMessageDialog(null, msg, "Fehler", JOptionPane.ERROR_MESSAGE);
         }
-        // FIXME error handling: https://stackoverflow.com/a/6524300/13777031
+        // TODO error handling: https://stackoverflow.com/a/6524300/13777031
     }
 }

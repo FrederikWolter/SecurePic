@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
-// FIXME comment (normal comments + JDocs) # only delete if final#
+// TODO comment (normal comments + JDocs) # only delete if final#
 
 // see https://docs.oracle.com/javase/tutorial/uiswing/components/filechooser.html
 
@@ -24,7 +24,7 @@ public class FileSelect {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             return fileChooser.getSelectedFile();
         } else {
-            // FIXME error handling?
+            // TODO error handling?
             return null;
         }
     }

@@ -19,8 +19,8 @@ import java.security.spec.RSAPublicKeySpec;
 import java.util.Arrays;
 import java.util.Base64;
 
-// FIXME comment
-// FIXME do more work self instead of handing it over to library?
+// TODO comment
+// TODO do more work self instead of handing it over to library?
 
 /**
  * This class implements the RSA encryption method used to encrypt/decrypt messages.<br>
@@ -56,7 +56,7 @@ public class RSA extends Crypter {
             this.publicKey = pair.getPublic();
             this.algorithm = "RSA";
         } catch (NoSuchAlgorithmException e) {
-            throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException    // FIXME remove?
+            throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException    // TODO remove?
         }
     }
 
@@ -109,7 +109,7 @@ public class RSA extends Crypter {
                 } else {
                     subArray = Arrays.copyOfRange(informationToEncrypt, i, Math.min(i+200,informationToEncrypt.length));
                 }
-                byte[] encryptedBlock = encryptCipher.doFinal(subArray);;
+                byte[] encryptedBlock = encryptCipher.doFinal(subArray);
                 byte[] outPutBytes = Base64.getEncoder().encode(encryptedBlock);
 
                 byteArrayOutputStream.write(outPutBytes);
@@ -238,7 +238,7 @@ public class RSA extends Crypter {
         return keyString;
     }
 
-    //FIXME check if still needed
+    //TODO check if still needed
 
     // region getter
     // Getters are used to output the keys to the user

@@ -6,7 +6,7 @@ import javax.crypto.NoSuchPaddingException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 
-// FIXME comment
+// TODO comment
 
 /**
  * Class representing a custom exception for signaling that there was a problem in the classes extending Crypter.

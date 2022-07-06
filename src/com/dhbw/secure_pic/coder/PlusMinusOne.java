@@ -9,7 +9,7 @@ import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
-// FIXME comment
+// TODO comment
 
 /**
  * Class representing the interpretation of the encoding algorithm 'PlusMinusOne'.

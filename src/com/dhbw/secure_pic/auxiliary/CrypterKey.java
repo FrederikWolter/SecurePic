@@ -2,16 +2,16 @@ package com.dhbw.secure_pic.auxiliary;
 
 import javax.crypto.spec.SecretKeySpec;
 
-// FIXME comment
+// TODO comment
 
 public class CrypterKey extends SecretKeySpec {
 
     public CrypterKey(byte[] key, String algorithm) {
-        super(key, algorithm);
+        super(key, algorithm);  // TODO unsed? cleanup?
     }
 
     private void createNewKey() {
-        // FIXME implement? or delete?
+        // TODO implement? or delete?
     }
 
 }

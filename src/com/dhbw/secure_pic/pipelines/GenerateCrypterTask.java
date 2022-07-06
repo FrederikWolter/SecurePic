@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.util.concurrent.ExecutionException;
 
 
-// FIXME comment
+// TODO comment
 
 /**
  * @author Thu Giang Tran, Frederik Wolter
@@ -54,7 +54,7 @@ public class GenerateCrypterTask extends SwingWorker<Crypter, Void> {
             String msg = String.format("Fehler beim Erzeugen der Verschlüsselung:%n'%s'", e.getMessage().split(":", 2)[1]);
             JOptionPane.showMessageDialog(null, msg, "Fehler", JOptionPane.ERROR_MESSAGE);
         }
-        // FIXME error handling: https://stackoverflow.com/a/6524300/13777031
+        // TODO error handling: https://stackoverflow.com/a/6524300/13777031
         // see https://stackoverflow.com/questions/18462826/split-string-only-on-first-instance-java
     }
 }

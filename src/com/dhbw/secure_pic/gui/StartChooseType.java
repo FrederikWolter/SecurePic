@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// FIXME comment (normal comments + JDocs) # only delete if final#
+// TODO comment (normal comments + JDocs) # only delete if final#
 /**
  * Class for the Choose-Type window. In this window one can choose between the send-Function and the receive-Function.
  * The structure and the components are managed in the StartChooseType.form

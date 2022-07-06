@@ -7,8 +7,8 @@ import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
-// FIXME comment
-// FIXME fill up with random data til capacity?
+// TODO comment
+// TODO fill up with random data til capacity?
 
 /**
  * This class implements the Coder used to code/decode information into container images.<br>

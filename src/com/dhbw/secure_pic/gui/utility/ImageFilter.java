@@ -3,7 +3,7 @@ package com.dhbw.secure_pic.gui.utility;
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
-// FIXME comment (normal comments + JDocs) # only delete if final#
+// TODO comment (normal comments + JDocs) # only delete if final#
 
 // see https://docs.oracle.com/javase/tutorial/uiswing/components/filechooser.html
 
@@ -14,7 +14,7 @@ import java.io.File;
 
 public class ImageFilter extends FileFilter {
 
-    // FIXME static necessary?
+    // TODO static necessary?
     public static final String JPEG = "jpeg";
     public static final String JPG = "jpg";
     public static final String GIF = "gif";
