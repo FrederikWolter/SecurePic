@@ -113,5 +113,19 @@ public class GuiView extends Component {
     }
 
 
+    protected static ActionListener getInformationTypeListener(int visible, JScrollPane text, JPanel image){
+        return e -> {
+            text.setVisible(false);
+            image.setVisible(false);
+
+            if (visible == 1) {
+                image.setVisible(true);
+            } else {
+                text.setVisible(true);
+            }
+        };
+    }
+
+
 
 }

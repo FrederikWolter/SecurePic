@@ -102,21 +102,9 @@ public class SendNoEncryption extends GuiView {
 
         uploadMessageImg.addActionListener(getImageUploadListener(this, finishedContentImageLoad, progressBar));
 
-        imageRadio.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                messageTextScroll.setVisible(false);
-                uploadPanelMessage.setVisible(true);
-            }
-        });
+        imageRadio.addActionListener(getInformationTypeListener(1, messageTextScroll, uploadPanelMessage));
 
-        textRadio.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                messageTextScroll.setVisible(true);
-                uploadPanelMessage.setVisible(false);
-            }
-        });
+        textRadio.addActionListener(getInformationTypeListener(0, messageTextScroll, uploadPanelMessage));
 
         encodeButton.addActionListener(new ActionListener() {
             @Override
