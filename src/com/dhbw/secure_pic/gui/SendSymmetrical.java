@@ -55,36 +55,29 @@ public class SendSymmetrical extends GuiViewSend {
      * @param parent parent Gui object
      */
     public SendSymmetrical(Gui parent) {
+        // region finished handler
+        LoadImageFinishedHandler finishedContainerImageLoad = image -> {
+            containerImage = image;
 
-        LoadImageFinishedHandler finishedContainerImageLoad = new LoadImageFinishedHandler() {
-            @Override
-            public void finishedImageLoad(ContainerImage image) {
-                containerImage = image;
+            showImageLabel.setText("");
+            showImageLabel.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(), IMAGE_WIDTH_5, IMAGE_HEIGHT_5)));
 
-                showImageLabel.setText("");
-                showImageLabel.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
-                        IMAGE_WIDTH_5,
-                        IMAGE_HEIGHT_5)));
-
-                encodeButton.setEnabled(true);
-            }
+            encodeButton.setEnabled(true);
         };
 
-        LoadImageFinishedHandler finishedContentImageLoad = new LoadImageFinishedHandler() {
-            @Override
-            public void finishedImageLoad(ContainerImage image) {
-                contentImage = image;
+        LoadImageFinishedHandler finishedContentImageLoad = image -> {
+            contentImage = image;
 
-                messageImg.setText("");
-                messageImg.setIcon(new ImageIcon(getScaledImage(contentImage.getImage(),
-                        IMAGE_WIDTH_2,
-                        IMAGE_HEIGHT_4)));
-            }
+            messageImg.setText("");
+            messageImg.setIcon(new ImageIcon(getScaledImage(contentImage.getImage(), IMAGE_WIDTH_2, IMAGE_HEIGHT_4)));
         };
+        // endregion
 
+        // region drop targets
         uploadPanel.setDropTarget(getDropTargetListener(finishedContainerImageLoad, progressBar));
 
         uploadPanelMessage.setDropTarget(getDropTargetListener(finishedContentImageLoad, progressBar));
+        // endregion
 
 
         // region listener

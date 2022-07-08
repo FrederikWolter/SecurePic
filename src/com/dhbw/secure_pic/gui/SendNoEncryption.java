@@ -44,36 +44,29 @@ public class SendNoEncryption extends GuiViewSend {
 
 
     public SendNoEncryption(Gui parent) {
+        // region finished listener
+        LoadImageFinishedHandler finishedContainerImageLoad = image -> {
+            containerImage = image;
 
-        LoadImageFinishedHandler finishedContainerImageLoad = new LoadImageFinishedHandler() {
-            @Override
-            public void finishedImageLoad(ContainerImage image) {
-                containerImage = image;
+            showImageLabel.setText("");
+            showImageLabel.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(), IMAGE_WIDTH_5, IMAGE_HEIGHT_5)));
 
-                showImageLabel.setText("");
-                showImageLabel.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
-                        IMAGE_WIDTH_5,
-                        IMAGE_HEIGHT_5)));
-
-                encodeButton.setEnabled(true);
-            }
+            encodeButton.setEnabled(true);
         };
 
-        LoadImageFinishedHandler finishedContentImageLoad = new LoadImageFinishedHandler() {
-            @Override
-            public void finishedImageLoad(ContainerImage image) {
-                contentImage = image;
+        LoadImageFinishedHandler finishedContentImageLoad = image -> {
+            contentImage = image;
 
-                messageImg.setText("");
-                messageImg.setIcon(new ImageIcon(getScaledImage(contentImage.getImage(),
-                        IMAGE_WIDTH_2,
-                        IMAGE_HEIGHT_4)));
-            }
+            messageImg.setText("");
+            messageImg.setIcon(new ImageIcon(getScaledImage(contentImage.getImage(), IMAGE_WIDTH_2, IMAGE_HEIGHT_4)));
         };
+        // endregion
 
+        // region drop targets
         uploadPanel.setDropTarget(getDropTargetListener(finishedContainerImageLoad, progressBar));
 
         uploadPanelMessage.setDropTarget(getDropTargetListener(finishedContentImageLoad, progressBar));
+        // endregion
 
         // region listener
         backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
@@ -94,20 +87,20 @@ public class SendNoEncryption extends GuiViewSend {
                 Coder coder;
                 Crypter crypter;
 
-                if (containerImage == null){
+                if (containerImage == null) {
                     // TODO error handling
                     return;
                 }
 
-                if (textRadio.isSelected()){
-                    if (messageText.getText().length() > 0){
+                if (textRadio.isSelected()) {
+                    if (messageText.getText().length() > 0) {
                         info = Information.getInformationFromString(messageText.getText());
                     } else {
                         JOptionPane.showMessageDialog(null, "Bitte gebe einen Text ein, der in das Bild codiert werden soll.", "Warnung", WARNING_MESSAGE);
                         return;
                     }
-                } else if(imageRadio.isSelected()){
-                    if (contentImage != null){
+                } else if (imageRadio.isSelected()) {
+                    if (contentImage != null) {
                         try {
                             info = Information.getInformationFromImage(contentImage.getPath());
                         } catch (IllegalTypeException ex) {
@@ -123,9 +116,9 @@ public class SendNoEncryption extends GuiViewSend {
                     return;
                 }
 
-                if (codeComboBox.getSelectedItem() == "LSB"){
+                if (codeComboBox.getSelectedItem() == "LSB") {
                     coder = new LeastSignificantBit(containerImage);
-                } else if(codeComboBox.getSelectedItem() == "PM1"){
+                } else if (codeComboBox.getSelectedItem() == "PM1") {
                     coder = new PlusMinusOne(containerImage);
                 } else {
                     // TODO error handling

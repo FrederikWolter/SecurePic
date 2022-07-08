@@ -54,79 +54,67 @@ public class SendAsymmetrical extends GuiViewSend {
     // endregion
 
     public SendAsymmetrical(Gui parent) {
+        // region finished listener
+        LoadImageFinishedHandler finishedContainerImageLoad = image -> {
+            containerImage = image;
 
-        LoadImageFinishedHandler finishedContainerImageLoad = new LoadImageFinishedHandler() {
-            @Override
-            public void finishedImageLoad(ContainerImage image) {
-                containerImage = image;
+            showImageLabel.setText("");
+            showImageLabel.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(), IMAGE_WIDTH_5, IMAGE_HEIGHT_5)));
 
-                showImageLabel.setText("");
-                showImageLabel.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
-                        IMAGE_WIDTH_5,
-                        IMAGE_HEIGHT_5)));
-
-                encodeButton.setEnabled(true);
-            }
+            encodeButton.setEnabled(true);
         };
 
-        LoadImageFinishedHandler finishedContentImageLoad = new LoadImageFinishedHandler() {
-            @Override
-            public void finishedImageLoad(ContainerImage image) {
-                contentImage = image;
+        LoadImageFinishedHandler finishedContentImageLoad = image -> {
+            contentImage = image;
 
-                messageImg.setText("");
-                messageImg.setIcon(new ImageIcon(getScaledImage(contentImage.getImage(),
-                        IMAGE_WIDTH_1,
-                        IMAGE_HEIGHT_1)));
-            }
+            messageImg.setText("");
+            messageImg.setIcon(new ImageIcon(getScaledImage(contentImage.getImage(), IMAGE_WIDTH_1, IMAGE_HEIGHT_1)));
         };
 
-        LoadImageFinishedHandler finishedKeyImageLoad = new LoadImageFinishedHandler() {
-            @Override
-            public void finishedImageLoad(ContainerImage image) {
-                keyImage = image;
+        LoadImageFinishedHandler finishedKeyImageLoad = image -> {
+            keyImage = image;
 
-                keyImg.setText("");
-                keyImg.setIcon(new ImageIcon(getScaledImage(keyImage.getImage(),
-                        IMAGE_WIDTH_1,
-                        IMAGE_HEIGHT_1)));
+            keyImg.setText("");
+            keyImg.setIcon(new ImageIcon(getScaledImage(keyImage.getImage(), IMAGE_WIDTH_1, IMAGE_HEIGHT_1)));
 
-                // region decode key
-                Coder coderPublicKey;
-                Crypter crypterPublicKey = new EmptyCrypter();
+            // region decode key
+            Coder coderPublicKey;
+            Crypter crypterPublicKey = new EmptyCrypter();
 
-                if (codeComboBox.getSelectedItem() == "LSB"){
-                    coderPublicKey = new LeastSignificantBit(keyImage);
-                } else if(codeComboBox.getSelectedItem() == "PM1"){
-                    coderPublicKey = new PlusMinusOne(keyImage);
-                } else {
-                    // TODO error handling
-                    return;
-                }
+            if (codeComboBox.getSelectedItem() == "LSB"){
+                coderPublicKey = new LeastSignificantBit(keyImage);
+            } else if(codeComboBox.getSelectedItem() == "PM1"){
+                coderPublicKey = new PlusMinusOne(keyImage);
+            } else {
+                // TODO error handling
+                return;
+            }
 
-                DecodeTask task = new DecodeTask(coderPublicKey, crypterPublicKey, new DecodeFinishedHandler() {
-                    @Override
-                    public void finishedDecode(Information info) {
-                        Information.Type type = info.getType();
-                        if (type == Information.Type.TEXT) {    // TODO check if plausible key?
-                            publicKeyInput.setText(info.toText());
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Etwas ist schiefgelaufen, das Bild für den öffentlichen Schlüssel enthält keinen Schlüssel.", "Fehler", JOptionPane.ERROR_MESSAGE);
-                            return;
-                        }
+            DecodeTask task = new DecodeTask(coderPublicKey, crypterPublicKey, new DecodeFinishedHandler() {
+                @Override
+                public void finishedDecode(Information info) {
+                    Information.Type type = info.getType();
+                    if (type == Information.Type.TEXT) {    // TODO check if plausible key?
+                        publicKeyInput.setText(info.toText());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Etwas ist schiefgelaufen, das Bild für den öffentlichen Schlüssel enthält keinen Schlüssel.", "Fehler", JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
-                });
-                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                task.execute();
-                // endregion
-            }
+                }
+            });
+            task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
+            task.execute();
+            // endregion
         };
+        // endregion
 
+        // region drop targets
         uploadPanelContainer.setDropTarget(getDropTargetListener(finishedContainerImageLoad, progressBar));
 
         uploadPanelMessage.setDropTarget(getDropTargetListener(finishedContentImageLoad, progressBar));
 
         uploadPanelKey.setDropTarget(getDropTargetListener(finishedKeyImageLoad, progressBar));
+        // endregion
 
 
         // region listeners

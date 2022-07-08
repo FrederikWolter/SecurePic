@@ -1,6 +1,5 @@
 package com.dhbw.secure_pic.gui;
 
-import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 
 import javax.swing.*;
@@ -18,27 +17,26 @@ public class ImageConverter extends GuiView {
     private JButton convertButton;
     private JButton uploadButton;
     private JPanel uploadPanel;
-    private JLabel showImageLabel;
+    private JLabel imageLabel;
     // endregion
 
     public ImageConverter(Gui parent) {
-        LoadImageFinishedHandler finishedImageLoad = new LoadImageFinishedHandler() {
-            @Override
-            public void finishedImageLoad(ContainerImage image) {
-                containerImage = image;
+        // region finished listener
+        LoadImageFinishedHandler finishedImageLoad = image -> {
+            containerImage = image;
 
-                showImageLabel.setText("");
-                showImageLabel.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
-                        IMAGE_WIDTH_5,
-                        IMAGE_HEIGHT_5)));
+            imageLabel.setText("");
+            imageLabel.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(), IMAGE_WIDTH_5, IMAGE_HEIGHT_5)));
 
-                convertButton.setEnabled(false); // the converter functionality is not implemented
-            }
+            convertButton.setEnabled(false); // the converter functionality is not implemented
         };
+        // endregion
+
+        // region drop target
+        uploadPanel.setDropTarget(getDropTargetListener(finishedImageLoad, progressBar));
+        // endregion
 
         // region listener
-        uploadPanel.setDropTarget(getDropTargetListener(finishedImageLoad, progressBar));
-
         uploadButton.addActionListener(getImageUploadListener(this, finishedImageLoad, progressBar));
 
         secretButton.addActionListener(e -> {

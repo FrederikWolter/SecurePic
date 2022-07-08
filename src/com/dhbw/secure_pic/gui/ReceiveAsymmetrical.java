@@ -62,39 +62,31 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
     // endregion
 
     public ReceiveAsymmetrical(Gui parent) {
+        // region finished handler
+        LoadImageFinishedHandler finishedContainerImageLoad = image -> {
+            containerImage = image;
 
-        LoadImageFinishedHandler finishedContainerImageLoad = new LoadImageFinishedHandler() {
-            @Override
-            public void finishedImageLoad(ContainerImage image) {
-                containerImage = image;
+            containerImg.setText("");
+            containerImg.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(), IMAGE_WIDTH_3, IMAGE_HEIGHT_2)));
 
-                containerImg.setText("");
-                containerImg.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
-                        IMAGE_WIDTH_3,
-                        IMAGE_HEIGHT_2)));
-
-                decodeButton.setEnabled(true);
-            }
+            decodeButton.setEnabled(true);
         };
 
-        LoadImageFinishedHandler finishedKeyImageLoad = new LoadImageFinishedHandler() {
-            @Override
-            public void finishedImageLoad(ContainerImage image) {
-                keyImage = image;
+        LoadImageFinishedHandler finishedKeyImageLoad = image -> {
+            keyImage = image;
 
-                keyImg.setText("");
-                keyImg.setIcon(new ImageIcon(getScaledImage(keyImage.getImage(),
-                        IMAGE_WIDTH_3,
-                        IMAGE_HEIGHT_2)));
+            keyImg.setText("");
+            keyImg.setIcon(new ImageIcon(getScaledImage(keyImage.getImage(), IMAGE_WIDTH_3, IMAGE_HEIGHT_2)));
 
-                encodePublicKeyIntoCheckBox.setSelected(true);
-            }
+            encodePublicKeyIntoCheckBox.setSelected(true);
         };
+        // endregion
 
+        // region drop targets
         uploadPanelContainer.setDropTarget(getDropTargetListener(finishedContainerImageLoad, progressBar));
 
         uploadPanelKey.setDropTarget(getDropTargetListener(finishedKeyImageLoad, progressBar));
-
+        // endregion
 
         // region listener
         backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));

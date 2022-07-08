@@ -40,22 +40,20 @@ public class ReceiveSymmetrical extends GuiViewReceive {
     // endregion
 
     public ReceiveSymmetrical(Gui parent) {
+        // region finished handler
+        LoadImageFinishedHandler finishedContainerImageLoad = image -> {
+            containerImage = image;
 
-        LoadImageFinishedHandler finishedContainerImageLoad = new LoadImageFinishedHandler() {
-            @Override
-            public void finishedImageLoad(ContainerImage image) {
-                containerImage = image;
+            containerImg.setText("");
+            containerImg.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(), IMAGE_WIDTH_1, IMAGE_HEIGHT_4)));
 
-                containerImg.setText("");
-                containerImg.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
-                        IMAGE_WIDTH_1,
-                        IMAGE_HEIGHT_4)));
-
-                decodeButton.setEnabled(true);
-            }
+            decodeButton.setEnabled(true);
         };
+        // endregion
 
+        // region drop targets
         uploadPanelContainer.setDropTarget(getDropTargetListener(finishedContainerImageLoad, progressBar));
+        // endregion
 
 
         // region listener
