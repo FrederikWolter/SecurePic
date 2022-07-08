@@ -1,71 +1,69 @@
 package com.dhbw.secure_pic.gui;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-// TODO comment (normal comments + JDocs) # only delete if final#
 
 /**
- * Class for the Choose-Encryption window. In this window one can choose the type of encryption to encrypt the message with.
- * The structure and the components are managed in the StartChooseEncryption.form
+ * Class representing Choose-Encryption {@link GuiView}.<br>
+ * User can choose between the types of encryption. The layout of the view is defined in 'StartChooseEncryption.form'.
  *
- * @author Hassan El-Khalil
+ * @author Hassan El-Khalil, Kai Schwab, Frederik Wolter
  */
 public class StartChooseEncryption extends GuiView {
+    // region swing attributes
     private JPanel contentPane;
     private JButton backButton;
     private JButton noEncryptionButton;
     private JButton symmetricalButton;
     private JButton asymmetricalButton;
-    private JTextPane noencDesc;
-    private JTextPane symmetricalDesc;
-    private JTextPane asymmetricalDesc;
+    // endregion
 
-    public StartChooseEncryption(Gui parent){
-        // Set an ActionListener for the different encryption-Buttons. When pressed you get transferred to the corresponding window.
-        noEncryptionButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(parent.getType() == Gui.Type.RECEIVE){
-                    parent.showView(Gui.View.RECEIVE_NO_ENCRYPTION);
-                } else {
-                    parent.showView(Gui.View.SEND_NO_ENCRYPTION);
-                }
-            }
-        });
-        symmetricalButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(parent.getType() == Gui.Type.RECEIVE){
-                    parent.showView(Gui.View.RECEIVE_SYMMETRICAL);
-                } else {
-                    parent.showView(Gui.View.SEND_SYMMETRICAL);
-                }
-            }
-        });
-        asymmetricalButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(parent.getType() == Gui.Type.RECEIVE){
-                    parent.showView(Gui.View.RECEIVE_ASYMMETRICAL);
-                } else {
-                    parent.showView(Gui.View.SEND_ASYMMETRICAL);
-                }
+    /**
+     * Constructor of {@link StartChooseEncryption}.
+     *
+     * @param parent parent Gui object
+     */
+    public StartChooseEncryption(Gui parent) {
+        // region listener
+
+        backButton.addActionListener(e ->
+                parent.showView(Gui.View.START_CHOOSE_TYPE)
+        );
+
+        noEncryptionButton.addActionListener(e -> {
+            if (parent.getType() == Gui.Type.RECEIVE) {     // which type was chosen before?
+                parent.showView(Gui.View.RECEIVE_NO_ENCRYPTION);
+            } else {
+                parent.showView(Gui.View.SEND_NO_ENCRYPTION);
             }
         });
 
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.showView(Gui.View.START_CHOOSE_TYPE);
+        symmetricalButton.addActionListener(e -> {
+            if (parent.getType() == Gui.Type.RECEIVE) {     // which type was chosen before?
+                parent.showView(Gui.View.RECEIVE_SYMMETRICAL);
+            } else {
+                parent.showView(Gui.View.SEND_SYMMETRICAL);
             }
         });
+
+        asymmetricalButton.addActionListener(e -> {
+            if (parent.getType() == Gui.Type.RECEIVE) {     // which type was chosen before?
+                parent.showView(Gui.View.RECEIVE_ASYMMETRICAL);
+            } else {
+                parent.showView(Gui.View.SEND_ASYMMETRICAL);
+            }
+        });
+
+        // endregion
     }
 
     // region getter
+
+    /**
+     * @return ContentPane
+     */
     public JPanel getContentPane() {
         return contentPane;
     }
+
     // endregion
 }
