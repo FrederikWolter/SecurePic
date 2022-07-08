@@ -35,9 +35,10 @@ public class Gui {
         //Frame settings
         frame = new JFrame("Image Converter");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize((int) (frame.getHeight()*1.78),750);
+        frame.setSize(1200,750);
         frame.setLocationRelativeTo(null);
-        frame.setMinimumSize(new Dimension(1200, 750));
+        frame.setMinimumSize(new Dimension(1200, 750));     // there is a bug in swing,
+                                                                        // related to Windows scaling displays and minimum windows size, this can lead to problems
         frame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icon.jpg"))).getImage());
 
         //Setting the CardLayout
