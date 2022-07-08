@@ -18,6 +18,8 @@ import javax.swing.*;
 
 // TODO unify comments spaces
 
+// TODO rename ContainerImageLoadTask to ImageLoadTask ?
+
 /**
  * Main entry point to application - providing the main method.
  *

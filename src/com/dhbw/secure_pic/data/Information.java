@@ -243,7 +243,7 @@ public class Information {
         if (this.type == IMAGE_PNG || type == IMAGE_JPG || type == IMAGE_GIF) {
             // convert data to BufferedImage
             InputStream inputStream = new ByteArrayInputStream(data);
-            return ImageIO.read(inputStream);
+            return ImageIO.read(inputStream);   // TODO catch exception
         }
         return null;
     }

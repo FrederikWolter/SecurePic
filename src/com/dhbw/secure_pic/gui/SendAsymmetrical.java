@@ -10,19 +10,15 @@ import com.dhbw.secure_pic.crypter.EmptyCrypter;
 import com.dhbw.secure_pic.crypter.RSA;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
-import com.dhbw.secure_pic.gui.utility.*;
 import com.dhbw.secure_pic.gui.utility.handler.DecodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.handler.EncodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
-import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
 import com.dhbw.secure_pic.pipelines.DecodeTask;
 import com.dhbw.secure_pic.pipelines.EncodeTask;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 

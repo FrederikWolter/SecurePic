@@ -9,21 +9,12 @@ import com.dhbw.secure_pic.crypter.EmptyCrypter;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.gui.utility.handler.EncodeFinishedHandler;
-import com.dhbw.secure_pic.gui.utility.FileSelect;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
-import com.dhbw.secure_pic.gui.utility.SaveSelect;
-import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
 import com.dhbw.secure_pic.pipelines.EncodeTask;
 
 import javax.swing.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DropTarget;
-import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
