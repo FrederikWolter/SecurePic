@@ -54,16 +54,6 @@ public class ReceiveNoEncryption extends GuiView {
 
     public ReceiveNoEncryption(Gui parent) {
 
-        PropertyChangeListener propertyChangeListener = new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("progress".equals(evt.getPropertyName())) {
-                    int progress = (Integer) evt.getNewValue();
-                    progressBar.setValue(progress);
-                }
-            }
-        };
-
         LoadFinishedHandler finishedContainerImageLoad = new LoadFinishedHandler() {
             @Override
             public void finishedContainerImageLoad(ContainerImage image) {
@@ -84,7 +74,7 @@ public class ReceiveNoEncryption extends GuiView {
 
                     for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
                         ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
-                        task.addPropertyChangeListener(propertyChangeListener);
+                        task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
                         task.execute();
                     }
                 } catch (Exception ex) {    // TODO error handling?
@@ -112,7 +102,7 @@ public class ReceiveNoEncryption extends GuiView {
                 }
 
                 ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
-                task.addPropertyChangeListener(propertyChangeListener);
+                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
                 task.execute();
 
                 decodeButton.setEnabled(true);
@@ -172,7 +162,7 @@ public class ReceiveNoEncryption extends GuiView {
                         decodeButton.setEnabled(true);
                     }
                 });
-                task.addPropertyChangeListener(propertyChangeListener);
+                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
                 task.execute();
             }
         });

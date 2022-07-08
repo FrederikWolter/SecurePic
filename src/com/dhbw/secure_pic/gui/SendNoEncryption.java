@@ -62,16 +62,6 @@ public class SendNoEncryption extends GuiView {
 
     public SendNoEncryption(Gui parent) {
 
-        PropertyChangeListener propertyChangeListener = new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("progress".equals(evt.getPropertyName())) {
-                    int progress = (Integer) evt.getNewValue();
-                    progressBar.setValue(progress);
-                }
-            }
-        };
-
         LoadFinishedHandler finishedContainerImageLoad = new LoadFinishedHandler() {
             @Override
             public void finishedContainerImageLoad(ContainerImage image) {
@@ -104,7 +94,7 @@ public class SendNoEncryption extends GuiView {
 
                     for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
                         ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
-                        task.addPropertyChangeListener(propertyChangeListener);
+                        task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
                         task.execute();
                     }
                 } catch (Exception ex) {    // TODO error handling?
@@ -122,7 +112,7 @@ public class SendNoEncryption extends GuiView {
 
                     for (File file : droppedFiles) {    // TODO allow multiple files? no? GENERAL
                         ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
-                        task.addPropertyChangeListener(propertyChangeListener);
+                        task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
                         task.execute();
                     }
                 } catch (Exception ex) {    // TODO error handling?
@@ -149,7 +139,7 @@ public class SendNoEncryption extends GuiView {
                 }
 
                 ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
-                task.addPropertyChangeListener(propertyChangeListener);
+                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
                 task.execute();
 
                 encodeButton.setEnabled(true);
@@ -166,7 +156,7 @@ public class SendNoEncryption extends GuiView {
                 }
 
                 ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
-                task.addPropertyChangeListener(propertyChangeListener);
+                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
                 task.execute();
             }
         });
@@ -247,7 +237,7 @@ public class SendNoEncryption extends GuiView {
                         encodeButton.setEnabled(true);
                     }
                 });
-                task.addPropertyChangeListener(propertyChangeListener);
+                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
                 task.execute();
             }
         });

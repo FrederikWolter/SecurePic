@@ -2,6 +2,7 @@ package com.dhbw.secure_pic.gui;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeListener;
 
 // TODO comment
 
@@ -54,6 +55,15 @@ public class GuiView extends Component {
         g2.dispose();
 
         return resizedImg;
+    }
+
+    protected static PropertyChangeListener getPropertyChangeListener(JProgressBar progressBar){
+        return evt -> {
+            if ("progress".equals(evt.getPropertyName())) { // update progress event?
+                int progress = (Integer) evt.getNewValue(); // get progress value from event
+                progressBar.setValue(progress);             // update progressbar
+            }
+        };
     }
 
 }
