@@ -60,10 +60,6 @@ public class SendSymmetrical extends GuiView {
     private transient ContainerImage containerImage;
     private transient ContainerImage contentImage;
 
-    private final int containerImageDisplayHeight = 550;
-    private final int containerImageDisplayWidth = 550;
-    private final int messageImageDisplayHeight = 200;
-    private final int messageImageDisplayWidth = 250;
     // endregion
 
     public SendSymmetrical(Gui parent) {
@@ -86,8 +82,8 @@ public class SendSymmetrical extends GuiView {
 
                 showImageLabel.setText("");
                 showImageLabel.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
-                        containerImageDisplayWidth,
-                        containerImageDisplayHeight)));
+                        IMAGE_WIDTH_5,
+                        IMAGE_HEIGHT_5)));
             }
         };
 
@@ -98,8 +94,8 @@ public class SendSymmetrical extends GuiView {
 
                 messageImg.setText("");
                 messageImg.setIcon(new ImageIcon(getScaledImage(contentImage.getImage(),
-                        messageImageDisplayWidth,
-                        messageImageDisplayHeight)));
+                        IMAGE_WIDTH_2,
+                        IMAGE_HEIGHT_4)));
             }
         };
 

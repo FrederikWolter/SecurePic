@@ -71,11 +71,6 @@ public class ReceiveAsymmetrical extends GuiView {
     private transient ContainerImage containerImage;
     private transient ContainerImage keyImage;
     private transient Information contentInformation;
-
-    private final int containerImageDisplayHeight = 130;
-    private final int containerImageDisplayWidth = 300;
-    private final int messageImageDisplayHeight = 150;
-    private final int messageImageDisplayWidth = 400;
     // endregion
 
     public ReceiveAsymmetrical(Gui parent) {
@@ -97,8 +92,8 @@ public class ReceiveAsymmetrical extends GuiView {
 
                 containerImg.setText("");
                 containerImg.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
-                        containerImageDisplayWidth,
-                        containerImageDisplayHeight)));
+                        IMAGE_WIDTH_3,
+                        IMAGE_HEIGHT_2)));
             }
         };
 
@@ -109,8 +104,8 @@ public class ReceiveAsymmetrical extends GuiView {
 
                 keyImg.setText("");
                 keyImg.setIcon(new ImageIcon(getScaledImage(keyImage.getImage(),
-                        containerImageDisplayWidth,
-                        containerImageDisplayHeight)));
+                        IMAGE_WIDTH_3,
+                        IMAGE_HEIGHT_2)));
 
                 encodePublicKeyIntoCheckBox.setSelected(true);
             }
@@ -249,8 +244,8 @@ public class ReceiveAsymmetrical extends GuiView {
                                 keyExport.setEnabled(true);
                                 ctcbKey.setEnabled(true);
                                 outputKeyImage.setIcon(new ImageIcon(getScaledImage(keyImage.getImage(),
-                                        containerImageDisplayWidth,
-                                        containerImageDisplayHeight)));
+                                        IMAGE_WIDTH_3,
+                                        IMAGE_HEIGHT_2)));
                             }
                         });
                         task.addPropertyChangeListener(propertyChangeListener);
@@ -319,8 +314,8 @@ public class ReceiveAsymmetrical extends GuiView {
                             try{
                                 messageOutput.setText("");
                                 messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(),
-                                        messageImageDisplayWidth,
-                                        messageImageDisplayHeight)));
+                                        IMAGE_WIDTH_4,
+                                        IMAGE_HEIGHT_3)));
                             }catch (IOException e){
                                 System.out.println(e);
                                 // TODO error handling?

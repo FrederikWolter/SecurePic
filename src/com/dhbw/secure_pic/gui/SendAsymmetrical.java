@@ -63,11 +63,6 @@ public class SendAsymmetrical extends GuiView {
     private transient ContainerImage containerImage;
     private transient ContainerImage contentImage;
     private transient ContainerImage keyImage;
-
-    private final int containerImageDisplayHeight = 550;
-    private final int containerImageDisplayWidth = 550;
-    private final int messageImageDisplayHeight = 110;
-    private final int messageImageDisplayWidth = 200;
     // endregion
 
     public SendAsymmetrical(Gui parent) {
@@ -89,8 +84,8 @@ public class SendAsymmetrical extends GuiView {
 
                 showImageLabel.setText("");
                 showImageLabel.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
-                        containerImageDisplayWidth,
-                        containerImageDisplayHeight)));
+                        IMAGE_WIDTH_5,
+                        IMAGE_HEIGHT_5)));
             }
         };
 
@@ -101,8 +96,8 @@ public class SendAsymmetrical extends GuiView {
 
                 messageImg.setText("");
                 messageImg.setIcon(new ImageIcon(getScaledImage(contentImage.getImage(),
-                        messageImageDisplayWidth,
-                        messageImageDisplayHeight)));
+                        IMAGE_WIDTH_1,
+                        IMAGE_HEIGHT_1)));
             }
         };
 
@@ -113,8 +108,8 @@ public class SendAsymmetrical extends GuiView {
 
                 keyImg.setText("");
                 keyImg.setIcon(new ImageIcon(getScaledImage(keyImage.getImage(),
-                        messageImageDisplayWidth,
-                        messageImageDisplayHeight)));
+                        IMAGE_WIDTH_1,
+                        IMAGE_HEIGHT_1)));
 
                 // region decode key
                 Coder coderPublicKey;

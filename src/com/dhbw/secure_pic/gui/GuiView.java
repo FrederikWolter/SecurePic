@@ -7,6 +7,21 @@ import java.awt.image.BufferedImage;
 
 public class GuiView extends Component {
 
+    // region constants
+    public static final int IMAGE_HEIGHT_5 = 550;
+    public static final int IMAGE_HEIGHT_4 = 200;
+    public static final int IMAGE_HEIGHT_3 = 150;
+    public static final int IMAGE_HEIGHT_2 = 130;
+    public static final int IMAGE_HEIGHT_1 = 110;
+
+    public static final int IMAGE_WIDTH_5 = 550;
+    public static final int IMAGE_WIDTH_4 = 400;
+    public static final int IMAGE_WIDTH_3 = 300;
+    public static final int IMAGE_WIDTH_2 = 250;
+    public static final int IMAGE_WIDTH_1 = 200;
+
+    // endregion
+
 
     // see https://stackoverflow.com/a/6714381/13777031, https://stackoverflow.com/a/10245583/13777031
     public static BufferedImage getScaledImage(BufferedImage srcImg, int maxWidth, int maxHeight) {

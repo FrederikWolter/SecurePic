@@ -54,10 +54,6 @@ public class ReceiveSymmetrical extends GuiView {
     private transient ContainerImage containerImage;
     private transient Information contentInformation;
 
-    private final int containerImageDisplayHeight = 200;
-    private final int containerImageDisplayWidth = 200;
-    private final int messageImageDisplayHeight = 550;
-    private final int messageImageDisplayWidth = 550;
     // endregion
 
     public ReceiveSymmetrical(Gui parent) {
@@ -79,8 +75,8 @@ public class ReceiveSymmetrical extends GuiView {
 
                 containerImg.setText("");
                 containerImg.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
-                        containerImageDisplayWidth,
-                        containerImageDisplayHeight)));
+                        IMAGE_WIDTH_1,
+                        IMAGE_HEIGHT_4)));
             }
         };
 
@@ -177,8 +173,8 @@ public class ReceiveSymmetrical extends GuiView {
                             try{
                                 messageOutput.setText("");
                                 messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(),
-                                        messageImageDisplayWidth,
-                                        messageImageDisplayHeight)));
+                                        IMAGE_WIDTH_5,
+                                        IMAGE_HEIGHT_5)));
                             }catch (IOException e){
                                 System.out.println(e);
                                 // TODO error handling?
