@@ -1,8 +1,18 @@
 package com.dhbw.secure_pic.gui;
 
+import com.dhbw.secure_pic.data.ContainerImage;
+import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
+import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
+
+import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetDropEvent;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 
 // TODO comment
 
@@ -20,7 +30,6 @@ public class GuiView extends Component {
     public static final int IMAGE_WIDTH_3 = 300;
     public static final int IMAGE_WIDTH_2 = 250;
     public static final int IMAGE_WIDTH_1 = 200;
-
     // endregion
 
 
@@ -62,6 +71,27 @@ public class GuiView extends Component {
             if ("progress".equals(evt.getPropertyName())) { // update progress event?
                 int progress = (Integer) evt.getNewValue(); // get progress value from event
                 progressBar.setValue(progress);             // update progressbar
+            }
+        };
+    }
+
+    protected static DropTarget getDropTargetListener(LoadImageFinishedHandler handler, JProgressBar progressBar){
+        return new DropTarget() {
+            @Override
+            public synchronized void drop(DropTargetDropEvent evt) {
+                try {
+                    evt.acceptDrop(DnDConstants.ACTION_COPY);
+                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // TODO cleanup cast?
+
+                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
+                        // start load task
+                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), handler);
+                        task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
+                        task.execute();
+                    }
+                } catch (Exception ex) {    // TODO error handling?
+                    ex.printStackTrace();
+                }
             }
         };
     }

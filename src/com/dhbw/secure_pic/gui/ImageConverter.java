@@ -1,6 +1,8 @@
 package com.dhbw.secure_pic.gui;
 
+import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
+import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -23,32 +25,23 @@ public class ImageConverter extends GuiView {
     private JButton convertButton;
     private JButton uploadButton;
     private JPanel uploadPanel;
-    private JLabel showImage;
+    private JLabel showImageLabel;
 
     public ImageConverter(Gui parent) {
-        // region listener
-        uploadPanel.setDropTarget(new DropTarget() {
-            public synchronized void drop(DropTargetDropEvent evt) {
-                try {
-                    evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
-                    for (File file : droppedFiles) {
-                        BufferedImage bufferedImage = null;
-                        try {
-                            bufferedImage = ImageIO.read(file);
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-                        ImageIcon imageIcon = new ImageIcon(getScaledImage(bufferedImage, 600, 600));
-                        showImage.setText("");
-                        showImage.setIcon(imageIcon);
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
+        LoadImageFinishedHandler finishedImageLoad = new LoadImageFinishedHandler() {
+            @Override
+            public void finishedImageLoad(ContainerImage image) {
+                containerImage = image;
 
+                showImageLabel.setText("");
+                showImageLabel.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
+                        IMAGE_WIDTH_5,
+                        IMAGE_HEIGHT_5)));
+            }
+        };
+
+        // region listener
+        uploadPanel.setDropTarget(getDropTargetListener(finishedImageLoad, progressBar));
 
         uploadButton.addActionListener(new ActionListener() {
             @Override
@@ -64,8 +57,8 @@ public class ImageConverter extends GuiView {
                         ex.printStackTrace();
                     }
                     ImageIcon imageIcon = new ImageIcon(getScaledImage(bufferedImage, 600, 600));
-                    showImage.setText("");
-                    showImage.setIcon(imageIcon);
+                    showImageLabel.setText("");
+                    showImageLabel.setIcon(imageIcon);
                 }
             }
         });

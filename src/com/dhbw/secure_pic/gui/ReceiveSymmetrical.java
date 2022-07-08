@@ -22,8 +22,6 @@ import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -53,7 +51,6 @@ public class ReceiveSymmetrical extends GuiView {
     // region attributes
     private transient ContainerImage containerImage;
     private transient Information contentInformation;
-
     // endregion
 
     public ReceiveSymmetrical(Gui parent) {
@@ -67,27 +64,13 @@ public class ReceiveSymmetrical extends GuiView {
                 containerImg.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
                         IMAGE_WIDTH_1,
                         IMAGE_HEIGHT_4)));
+
+                decodeButton.setEnabled(true);
             }
         };
 
-        uploadPanelContainer.setDropTarget(new DropTarget() {
-            @Override
-            public synchronized void drop(DropTargetDropEvent evt) {
-                try {
-                    evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // TODO cleanup cast?
+        uploadPanelContainer.setDropTarget(getDropTargetListener(finishedContainerImageLoad, progressBar));
 
-                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
-                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
-                        task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                        task.execute();
-                    }
-                } catch (Exception ex) {    // TODO error handling?
-                    ex.printStackTrace();
-                }
-                decodeButton.setEnabled(true);
-            }
-        });
 
         // region listener
         uploadContainerImg.addActionListener(new ActionListener() {

@@ -26,8 +26,6 @@ import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -84,6 +82,8 @@ public class ReceiveAsymmetrical extends GuiView {
                 containerImg.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
                         IMAGE_WIDTH_3,
                         IMAGE_HEIGHT_2)));
+
+                decodeButton.setEnabled(true);
             }
         };
 
@@ -101,42 +101,10 @@ public class ReceiveAsymmetrical extends GuiView {
             }
         };
 
-        uploadPanelContainer.setDropTarget(new DropTarget() {
-            @Override
-            public synchronized void drop(DropTargetDropEvent evt) {
-                try {
-                    evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // TODO cleanup cast?
+        uploadPanelContainer.setDropTarget(getDropTargetListener(finishedContainerImageLoad, progressBar));
 
-                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
-                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
-                        task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                        task.execute();
-                    }
-                } catch (Exception ex) {    // TODO error handling?
-                    ex.printStackTrace();
-                }
-                decodeButton.setEnabled(true);
-            }
-        });
+        uploadPanelKey.setDropTarget(getDropTargetListener(finishedKeyImageLoad, progressBar));
 
-        uploadPanelKey.setDropTarget(new DropTarget() {
-            @Override
-            public synchronized void drop(DropTargetDropEvent evt) {
-                try {
-                    evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // TODO cleanup cast?
-
-                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
-                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedKeyImageLoad);
-                        task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                        task.execute();
-                    }
-                } catch (Exception ex) {    // TODO error handling?
-                    ex.printStackTrace();
-                }
-            }
-        });
 
         // region listener
         backButton.addActionListener(new ActionListener() {
