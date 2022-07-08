@@ -104,7 +104,7 @@ public class GuiView extends Component {
 
     protected static ActionListener getImageUploadListener(Component parent, LoadImageFinishedHandler handler, JProgressBar progressBar){
         return e -> {
-            File file = new FileSelect().selectFile(parent);
+            File file = new FileSelect().select(parent, false);
 
             if(file == null) return;    // if no file selected -> simply stop load process
 

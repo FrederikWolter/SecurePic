@@ -22,7 +22,7 @@ public class GuiViewReceive extends GuiView{
 
     protected ActionListener getExportListener(Component parent){
         return e -> {
-            File file = new FileSelect().selectFile(parent);
+            File file = new FileSelect().select(parent, true);
 
             if (file == null) return;   // if no destination selected -> simply stop export process
 

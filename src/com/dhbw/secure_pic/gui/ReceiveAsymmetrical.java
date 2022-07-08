@@ -280,7 +280,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
         keyExport.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = new SaveSelect().selectDir(ReceiveAsymmetrical.this);
+                File file = new FileSelect().select(ReceiveAsymmetrical.this, true);
 
                 if(file == null)
                     return;
