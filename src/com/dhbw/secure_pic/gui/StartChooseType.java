@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
  *
  * @author Hassan El-Khalil
  */
-public class StartChooseType {
+public class StartChooseType extends GuiView {
     private JButton backButton;
     private JButton sendButton;
     private JButton receiveButton;
@@ -24,7 +24,7 @@ public class StartChooseType {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parent.show("1");
+                parent.showView(Gui.View.IMAGE_CONVERTER);
             }
         });
 
@@ -32,7 +32,7 @@ public class StartChooseType {
             @Override
             public void actionPerformed(ActionEvent e) {
                 parent.setType(Gui.Type.RECEIVE);
-                parent.show("3");
+                parent.showView(Gui.View.START_CHOOSE_ENCRYPTION);
             }
         });
 
@@ -40,7 +40,7 @@ public class StartChooseType {
             @Override
             public void actionPerformed(ActionEvent e) {
                 parent.setType(Gui.Type.SEND);
-                parent.show("3");
+                parent.showView(Gui.View.START_CHOOSE_ENCRYPTION);
             }
         });
     }

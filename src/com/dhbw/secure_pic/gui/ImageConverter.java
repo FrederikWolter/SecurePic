@@ -4,7 +4,6 @@ import com.dhbw.secure_pic.gui.utility.FileSelect;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
@@ -17,7 +16,7 @@ import java.io.IOException;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
-public class ImageConverter extends Component {
+public class ImageConverter extends GuiView {
     private JPanel contentPane;
     private JButton secretButton;
     private JProgressBar progressBar;
@@ -40,7 +39,7 @@ public class ImageConverter extends Component {
                         } catch (IOException ex) {
                             ex.printStackTrace();
                         }
-                        ImageIcon imageIcon = new ImageIcon(Gui.getScaledImage(bufferedImage, 600, 600));
+                        ImageIcon imageIcon = new ImageIcon(getScaledImage(bufferedImage, 600, 600));
                         showImage.setText("");
                         showImage.setIcon(imageIcon);
                     }
@@ -64,7 +63,7 @@ public class ImageConverter extends Component {
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-                    ImageIcon imageIcon = new ImageIcon(Gui.getScaledImage(bufferedImage, 600, 600));
+                    ImageIcon imageIcon = new ImageIcon(getScaledImage(bufferedImage, 600, 600));
                     showImage.setText("");
                     showImage.setIcon(imageIcon);
                 }
@@ -75,7 +74,7 @@ public class ImageConverter extends Component {
             public void actionPerformed(ActionEvent e) {
                 // set new window title
                 ((JFrame) SwingUtilities.getWindowAncestor(contentPane)).setTitle("SecurePic");
-                parent.show("2");
+                parent.showView(Gui.View.START_CHOOSE_TYPE);
             }
         });
         // endregion

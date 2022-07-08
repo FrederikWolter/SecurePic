@@ -16,7 +16,6 @@ import com.dhbw.secure_pic.pipelines.DecodeTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
@@ -32,7 +31,7 @@ import java.io.IOException;
 
 // TODO show text not in label but Textarea for automatic line breaks!
 
-public class ReceiveNoEncryption extends Component {
+public class ReceiveNoEncryption extends GuiView {
     // region swing attributes
     private JPanel contentPane;
     private JProgressBar progressBar;
@@ -75,7 +74,7 @@ public class ReceiveNoEncryption extends Component {
                 containerImage = image;
 
                 containerImg.setText("");
-                containerImg.setIcon(new ImageIcon(Gui.getScaledImage(containerImage.getImage(),
+                containerImg.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
                         containerImageDisplayWidth,
                         containerImageDisplayHeight)));
             }
@@ -103,7 +102,7 @@ public class ReceiveNoEncryption extends Component {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parent.show("3");
+                parent.showView(Gui.View.START_CHOOSE_ENCRYPTION);
             }
         });
 
@@ -162,7 +161,7 @@ public class ReceiveNoEncryption extends Component {
                             exportButton.setEnabled(true);
                             try{
                                 messageOutput.setText("");
-                                messageOutput.setIcon(new ImageIcon(Gui.getScaledImage(info.toImage(),
+                                messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(),
                                         messageImageDisplayWidth,
                                         messageImageDisplayHeight)));
                             }catch (IOException e){

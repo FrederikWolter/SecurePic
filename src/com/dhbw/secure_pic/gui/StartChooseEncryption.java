@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
  *
  * @author Hassan El-Khalil
  */
-public class StartChooseEncryption {
+public class StartChooseEncryption extends GuiView {
     private JPanel contentPane;
     private JButton backButton;
     private JButton noEncryptionButton;
@@ -28,9 +28,9 @@ public class StartChooseEncryption {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(parent.getType() == Gui.Type.RECEIVE){
-                    parent.show("4");
+                    parent.showView(Gui.View.RECEIVE_NO_ENCRYPTION);
                 } else {
-                    parent.show("7");
+                    parent.showView(Gui.View.SEND_NO_ENCRYPTION);
                 }
             }
         });
@@ -38,9 +38,9 @@ public class StartChooseEncryption {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(parent.getType() == Gui.Type.RECEIVE){
-                    parent.show("6");
+                    parent.showView(Gui.View.RECEIVE_SYMMETRICAL);
                 } else {
-                    parent.show("9");
+                    parent.showView(Gui.View.SEND_SYMMETRICAL);
                 }
             }
         });
@@ -48,9 +48,9 @@ public class StartChooseEncryption {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(parent.getType() == Gui.Type.RECEIVE){
-                    parent.show("5");
+                    parent.showView(Gui.View.RECEIVE_ASYMMETRICAL);
                 } else {
-                    parent.show("8");
+                    parent.showView(Gui.View.SEND_ASYMMETRICAL);
                 }
             }
         });
@@ -58,7 +58,7 @@ public class StartChooseEncryption {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parent.show("2");
+                parent.showView(Gui.View.START_CHOOSE_TYPE);
             }
         });
     }

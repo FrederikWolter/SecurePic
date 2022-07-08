@@ -17,7 +17,6 @@ import com.dhbw.secure_pic.pipelines.EncodeTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
@@ -35,7 +34,7 @@ import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
 // TODO show text not in label but Textarea for automatic line breaks!
 
-public class ReceiveAsymmetrical extends Component {
+public class ReceiveAsymmetrical extends GuiView {
 
     // region swing attributes
     private JPanel contentPane;
@@ -94,7 +93,7 @@ public class ReceiveAsymmetrical extends Component {
                 containerImage = image;
 
                 containerImg.setText("");
-                containerImg.setIcon(new ImageIcon(Gui.getScaledImage(containerImage.getImage(),
+                containerImg.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
                         containerImageDisplayWidth,
                         containerImageDisplayHeight)));
             }
@@ -106,7 +105,7 @@ public class ReceiveAsymmetrical extends Component {
                 keyImage = image;
 
                 keyImg.setText("");
-                keyImg.setIcon(new ImageIcon(Gui.getScaledImage(keyImage.getImage(),
+                keyImg.setIcon(new ImageIcon(getScaledImage(keyImage.getImage(),
                         containerImageDisplayWidth,
                         containerImageDisplayHeight)));
 
@@ -155,7 +154,7 @@ public class ReceiveAsymmetrical extends Component {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parent.show("3");
+                parent.showView(Gui.View.START_CHOOSE_ENCRYPTION);
             }
         });
 
@@ -246,7 +245,7 @@ public class ReceiveAsymmetrical extends Component {
 
                                 keyExport.setEnabled(true);
                                 ctcbKey.setEnabled(true);
-                                outputKeyImage.setIcon(new ImageIcon(Gui.getScaledImage(keyImage.getImage(),
+                                outputKeyImage.setIcon(new ImageIcon(getScaledImage(keyImage.getImage(),
                                         containerImageDisplayWidth,
                                         containerImageDisplayHeight)));
                             }
@@ -316,7 +315,7 @@ public class ReceiveAsymmetrical extends Component {
                             exportButton.setEnabled(true);
                             try{
                                 messageOutput.setText("");
-                                messageOutput.setIcon(new ImageIcon(Gui.getScaledImage(info.toImage(),
+                                messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(),
                                         messageImageDisplayWidth,
                                         messageImageDisplayHeight)));
                             }catch (IOException e){

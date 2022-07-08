@@ -16,7 +16,6 @@ import com.dhbw.secure_pic.pipelines.DecodeTask;
 import com.dhbw.secure_pic.pipelines.EncodeTask;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
@@ -30,7 +29,7 @@ import java.io.IOException;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
-public class SendAsymmetrical extends Component {
+public class SendAsymmetrical extends GuiView {
 
     // region swing attributes
     private JPanel contentPane;
@@ -86,7 +85,7 @@ public class SendAsymmetrical extends Component {
                 containerImage = image;
 
                 showImageLabel.setText("");
-                showImageLabel.setIcon(new ImageIcon(Gui.getScaledImage(containerImage.getImage(),
+                showImageLabel.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(),
                         containerImageDisplayWidth,
                         containerImageDisplayHeight)));
             }
@@ -98,7 +97,7 @@ public class SendAsymmetrical extends Component {
                 contentImage = image;
 
                 messageImg.setText("");
-                messageImg.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(),
+                messageImg.setIcon(new ImageIcon(getScaledImage(contentImage.getImage(),
                         messageImageDisplayWidth,
                         messageImageDisplayHeight)));
             }
@@ -110,7 +109,7 @@ public class SendAsymmetrical extends Component {
                 keyImage = image;
 
                 keyImg.setText("");
-                keyImg.setIcon(new ImageIcon(Gui.getScaledImage(keyImage.getImage(),
+                keyImg.setIcon(new ImageIcon(getScaledImage(keyImage.getImage(),
                         messageImageDisplayWidth,
                         messageImageDisplayHeight)));
 
@@ -203,7 +202,7 @@ public class SendAsymmetrical extends Component {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                parent.show("3");
+                parent.showView(Gui.View.START_CHOOSE_ENCRYPTION);
             }
         });
 
