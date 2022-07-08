@@ -1,4 +1,4 @@
-package com.dhbw.secure_pic.gui.utility;
+package com.dhbw.secure_pic.gui.utility.handler;
 
 import com.dhbw.secure_pic.data.Information;
 

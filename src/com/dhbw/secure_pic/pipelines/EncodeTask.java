@@ -6,7 +6,7 @@ import com.dhbw.secure_pic.coder.Coder;
 import com.dhbw.secure_pic.crypter.Crypter;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
-import com.dhbw.secure_pic.gui.utility.EncodeFinishedHandler;
+import com.dhbw.secure_pic.gui.utility.handler.EncodeFinishedHandler;
 
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;

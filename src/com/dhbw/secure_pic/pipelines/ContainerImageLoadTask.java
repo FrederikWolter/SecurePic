@@ -2,7 +2,7 @@ package com.dhbw.secure_pic.pipelines;
 
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.data.ContainerImage;
-import com.dhbw.secure_pic.gui.utility.LoadFinishedHandler;
+import com.dhbw.secure_pic.gui.utility.handler.LoadFinishedHandler;
 
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;

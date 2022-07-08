@@ -2,7 +2,7 @@ package com.dhbw.secure_pic.pipelines;
 
 import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.crypter.Crypter;
-import com.dhbw.secure_pic.gui.utility.GenerateCrypterFinishedHandler;
+import com.dhbw.secure_pic.gui.utility.handler.GenerateCrypterFinishedHandler;
 
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;

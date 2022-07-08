@@ -6,7 +6,7 @@ import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.coder.Coder;
 import com.dhbw.secure_pic.crypter.Crypter;
 import com.dhbw.secure_pic.data.Information;
-import com.dhbw.secure_pic.gui.utility.DecodeFinishedHandler;
+import com.dhbw.secure_pic.gui.utility.handler.DecodeFinishedHandler;
 
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;
