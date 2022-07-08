@@ -14,16 +14,10 @@ import com.dhbw.secure_pic.gui.utility.*;
 import com.dhbw.secure_pic.gui.utility.handler.DecodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.handler.EncodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
-import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
 import com.dhbw.secure_pic.pipelines.DecodeTask;
 import com.dhbw.secure_pic.pipelines.EncodeTask;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DropTarget;
-import java.awt.dnd.DropTargetDropEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -240,7 +234,6 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                         if (type == Information.Type.TEXT) {
                             messageOutput.setText(info.toText());
                         } else if (type == Information.Type.IMAGE_PNG || type == Information.Type.IMAGE_GIF || type == Information.Type.IMAGE_JPG){
-                            exportButton.setEnabled(true);
                             try{
                                 messageOutput.setText("");
                                 messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(),
@@ -253,7 +246,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                         } else {
                             // TODO error handling?
                         }
-
+                        exportButton.setEnabled(true);
                         copyToClipboardButton.setEnabled(true);
                         decodeButton.setEnabled(true);
                     }
@@ -263,26 +256,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
             }
         });
 
-        exportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new SaveSelect().selectDir(ReceiveAsymmetrical.this);
-
-                if(file == null){
-                    return;
-                }
-
-                if(contentInformation.getType() == Information.Type.TEXT)
-                    return;
-
-                try {
-                    ImageIO.write(contentInformation.toImage(), "png", file);
-                    JOptionPane.showMessageDialog(null, "Das decodierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex); // TODO error handling
-                }
-            }
-        });
+        exportButton.addActionListener(getExportListener(this));
 
         copyToClipboardButton.addActionListener(new ActionListener() {
             @Override
