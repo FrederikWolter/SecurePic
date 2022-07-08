@@ -63,7 +63,7 @@
           <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="send.btn"/>
         </properties>
       </component>
-      <component id="62678" class="javax.swing.JTextPane" binding="sendDesc">
+      <component id="62678" class="javax.swing.JTextPane">
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="2" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="350" height="-1"/>
@@ -78,7 +78,7 @@
           <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="send.descr.btn"/>
         </properties>
       </component>
-      <component id="6575e" class="javax.swing.JTextPane" binding="receiveDesc">
+      <component id="6575e" class="javax.swing.JTextPane">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="2" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="350" height="-1"/>
