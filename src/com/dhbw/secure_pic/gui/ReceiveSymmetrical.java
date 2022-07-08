@@ -31,7 +31,7 @@ import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
 // TODO show text not in label but Textarea for automatic line breaks!
 
-public class ReceiveSymmetrical extends GuiView {
+public class ReceiveSymmetrical extends GuiViewReceive {
     // region swing attributes
     private JProgressBar progressBar;
     private JButton backButton;
@@ -46,11 +46,6 @@ public class ReceiveSymmetrical extends GuiView {
     private JPanel uploadPanelContainer;
     private JLabel containerImg;
     private JComboBox codeComboBox;
-    // endregion
-
-    // region attributes
-    private transient ContainerImage containerImage;
-    private transient Information contentInformation;
     // endregion
 
     public ReceiveSymmetrical(Gui parent) {

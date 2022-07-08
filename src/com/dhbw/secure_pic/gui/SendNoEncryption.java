@@ -29,7 +29,7 @@ import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
-public class SendNoEncryption extends GuiView {
+public class SendNoEncryption extends GuiViewSend {
 
     // region swing attributes
     private JPanel contentPane;
@@ -50,11 +50,6 @@ public class SendNoEncryption extends GuiView {
     private JLabel messageImg;
     private JScrollPane messageTextScroll;
 
-    // endregion
-
-    // region attributes
-    private transient ContainerImage containerImage;
-    private transient ContainerImage contentImage;
     // endregion
 
 
@@ -171,23 +166,7 @@ public class SendNoEncryption extends GuiView {
             }
         });
 
-        exportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new SaveSelect().selectDir(SendNoEncryption.this);
-
-                if(file == null){
-                    return;
-                }
-
-                try {
-                    containerImage.exportImg(file.getPath());
-                    JOptionPane.showMessageDialog(null, "Das codierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException | IllegalTypeException ex) {
-                    throw new RuntimeException(ex); // TODO error handling
-                }
-            }
-        });
+        exportButton.addActionListener(getExportListener(this));
 
         copyToClipboardButton.addActionListener(new ActionListener() {
             @Override

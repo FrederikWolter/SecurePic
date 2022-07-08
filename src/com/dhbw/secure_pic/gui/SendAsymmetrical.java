@@ -26,7 +26,7 @@ import java.io.IOException;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
-public class SendAsymmetrical extends GuiView {
+public class SendAsymmetrical extends GuiViewSend {
 
     // region swing attributes
     private JPanel contentPane;
@@ -54,8 +54,6 @@ public class SendAsymmetrical extends GuiView {
     // endregion
 
     // region attributes
-    private transient ContainerImage containerImage;
-    private transient ContainerImage contentImage;
     private transient ContainerImage keyImage;
     // endregion
 
@@ -235,23 +233,7 @@ public class SendAsymmetrical extends GuiView {
             }
         });
 
-        exportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new SaveSelect().selectDir(SendAsymmetrical.this);
-
-                if(file == null){
-                    return;
-                }
-
-                try {
-                    containerImage.exportImg(file.getPath());
-                    JOptionPane.showMessageDialog(null, "Das codierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException | IllegalTypeException ex) {
-                    throw new RuntimeException(ex); // TODO error handling
-                }
-            }
-        });
+        exportButton.addActionListener(getExportListener(this));
 
         copyToClipboardButton.addActionListener(new ActionListener() {
             @Override

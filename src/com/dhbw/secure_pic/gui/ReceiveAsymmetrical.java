@@ -35,7 +35,7 @@ import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
 // TODO show text not in label but Textarea for automatic line breaks!
 
-public class ReceiveAsymmetrical extends GuiView {
+public class ReceiveAsymmetrical extends GuiViewReceive {
 
     // region swing attributes
     private JPanel contentPane;
@@ -66,9 +66,7 @@ public class ReceiveAsymmetrical extends GuiView {
     // endregion
 
     // region attributes
-    private transient ContainerImage containerImage;
     private transient ContainerImage keyImage;
-    private transient Information contentInformation;
     // endregion
 
     public ReceiveAsymmetrical(Gui parent) {

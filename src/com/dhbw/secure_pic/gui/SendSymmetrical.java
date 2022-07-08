@@ -29,7 +29,13 @@ import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
-public class SendSymmetrical extends GuiView {
+/**
+ * Class representing Send-Symmetrical {@link GuiView}.<br>
+ *
+ * @author Kai Schwab, Frederik Wolter
+ */
+
+public class SendSymmetrical extends GuiViewSend {
 
     // region swing attributes
     private JPanel contentPane;
@@ -53,12 +59,11 @@ public class SendSymmetrical extends GuiView {
     private JScrollPane messageTextScroll;
     // endregion
 
-    // region attributes
-    private transient ContainerImage containerImage;
-    private transient ContainerImage contentImage;
-
-    // endregion
-
+    /**
+     * Constructor of {@link SendSymmetrical}.
+     *
+     * @param parent parent Gui object
+     */
     public SendSymmetrical(Gui parent) {
 
         LoadImageFinishedHandler finishedContainerImageLoad = new LoadImageFinishedHandler() {
@@ -179,30 +184,9 @@ public class SendSymmetrical extends GuiView {
             }
         });
 
-        exportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new SaveSelect().selectDir(SendSymmetrical.this);
+        exportButton.addActionListener(getExportListener(this));
 
-                if(file == null){
-                    return;
-                }
-
-                try {
-                    containerImage.exportImg(file.getPath());
-                    JOptionPane.showMessageDialog(null, "Das codierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException | IllegalTypeException ex) {
-                    throw new RuntimeException(ex); // TODO error handling
-                }
-            }
-        });
-
-        copyToClipboardButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                containerImage.copyToClipboard();
-            }
-        });
+        copyToClipboardButton.addActionListener(e -> containerImage.copyToClipboard());
 
         // endregion
     }

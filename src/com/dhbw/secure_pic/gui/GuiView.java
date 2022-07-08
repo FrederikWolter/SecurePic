@@ -34,6 +34,9 @@ public class GuiView extends Component {
     public static final int IMAGE_WIDTH_1 = 200;
     // endregion
 
+    // region attributes
+    protected transient ContainerImage containerImage;
+    // endregion
 
     // see https://stackoverflow.com/a/6714381/13777031, https://stackoverflow.com/a/10245583/13777031
     public static BufferedImage getScaledImage(BufferedImage srcImg, int maxWidth, int maxHeight) {
@@ -109,20 +112,6 @@ public class GuiView extends Component {
             ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), handler);
             task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
             task.execute();
-        };
-    }
-
-
-    protected static ActionListener getInformationTypeListener(int visible, JScrollPane text, JPanel image){
-        return e -> {
-            text.setVisible(false);
-            image.setVisible(false);
-
-            if (visible == 1) {
-                image.setVisible(true);
-            } else {
-                text.setVisible(true);
-            }
         };
     }
 
