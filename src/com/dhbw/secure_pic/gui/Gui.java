@@ -105,5 +105,12 @@ public class Gui {
         return this.type;
     }
 
+    /**
+     * @return main frame
+     */
+    public JFrame getFrame() {
+        return frame;
+    }
+
     // endregion
 }

@@ -24,9 +24,10 @@ public class StartChooseType extends GuiView {
      */
     public StartChooseType(Gui parent) {
         // region listener
-        backButton.addActionListener(e ->
-            parent.showView(Gui.View.IMAGE_CONVERTER)
-        );
+        backButton.addActionListener(e -> {
+            parent.getFrame().setTitle("Image Converter");  // change window title
+            parent.showView(Gui.View.IMAGE_CONVERTER);
+        });
 
         receiveButton.addActionListener(e -> {
             parent.setType(Gui.Type.RECEIVE);   // save chosen type in gui
