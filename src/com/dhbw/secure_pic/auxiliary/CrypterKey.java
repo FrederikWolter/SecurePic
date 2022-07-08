@@ -7,7 +7,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class CrypterKey extends SecretKeySpec {
 
     public CrypterKey(byte[] key, String algorithm) {
-        super(key, algorithm);  // TODO unsed? cleanup?
+        super(key, algorithm);  // TODO unused? cleanup?
     }
 
     private void createNewKey() {

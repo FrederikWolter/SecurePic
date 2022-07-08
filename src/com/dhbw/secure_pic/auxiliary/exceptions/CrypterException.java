@@ -33,7 +33,7 @@ public class CrypterException extends Exception {
             return new CrypterException("The data was not padded using the expected mechanism. Please try again or contact support with this detailed message: '" + e.getMessage() + "'");
         }
         if (e instanceof IOException) {
-            return new CrypterException("An I/O Error occured. Please try again or contact support with this detailed message: '" + e.getMessage() + "'");
+            return new CrypterException("An I/O Error occurred. Please try again or contact support with this detailed message: '" + e.getMessage() + "'");
         }
         // default
         return new CrypterException("Oops, looks like something went wrong. Please try again or contact the support with this detailed message: '" + e.getMessage() + "'");

@@ -98,7 +98,6 @@ public class SendAsymmetrical extends GuiViewSend {
                         publicKeyInput.setText(info.toText());
                     } else {
                         JOptionPane.showMessageDialog(null, "Etwas ist schiefgelaufen, das Bild für den öffentlichen Schlüssel enthält keinen Schlüssel.", "Fehler", JOptionPane.ERROR_MESSAGE);
-                        return;
                     }
                 }
             });

@@ -163,7 +163,6 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
 
                     } else {
                         JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, in das der öffentliche Schlüssel codiert werden soll.", "Warnung", WARNING_MESSAGE);
-                        return;
                     }
                 }
             }
