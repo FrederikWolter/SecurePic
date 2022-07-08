@@ -3,6 +3,7 @@ package com.dhbw.secure_pic.gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
@@ -37,7 +38,8 @@ public class Gui {
         frame.setSize((int) (frame.getHeight()*1.78),750);
         frame.setLocationRelativeTo(null);
         frame.setMinimumSize(new Dimension(1200, 750));
-        frame.setIconImage(new ImageIcon("SecurePic/com/dhbw/secure_pic/gui/images/icon.jpg").getImage());
+        frame.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/icon.jpg"))).getImage());
+
         //Setting the CardLayout
         cards = new CardLayout(6,6);
         contentPane = new JPanel(cards);
