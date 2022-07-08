@@ -9,7 +9,7 @@ import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.gui.utility.handler.DecodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
-import com.dhbw.secure_pic.gui.utility.handler.LoadFinishedHandler;
+import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.SaveSelect;
 import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
 import com.dhbw.secure_pic.pipelines.DecodeTask;
@@ -58,9 +58,9 @@ public class ReceiveSymmetrical extends GuiView {
 
     public ReceiveSymmetrical(Gui parent) {
 
-        LoadFinishedHandler finishedContainerImageLoad = new LoadFinishedHandler() {
+        LoadImageFinishedHandler finishedContainerImageLoad = new LoadImageFinishedHandler() {
             @Override
-            public void finishedContainerImageLoad(ContainerImage image) {
+            public void finishedImageLoad(ContainerImage image) {
                 containerImage = image;
 
                 containerImg.setText("");

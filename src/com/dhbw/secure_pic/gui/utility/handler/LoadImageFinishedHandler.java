@@ -8,8 +8,8 @@ import com.dhbw.secure_pic.data.ContainerImage;
  * @author Fredeirk Wolter
  */
 
-public interface LoadFinishedHandler {
+public interface LoadImageFinishedHandler {
 
-    void finishedContainerImageLoad(ContainerImage image);
+    void finishedImageLoad(ContainerImage image);
 
 }

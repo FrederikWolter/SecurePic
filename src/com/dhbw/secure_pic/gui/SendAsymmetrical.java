@@ -13,7 +13,7 @@ import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.gui.utility.*;
 import com.dhbw.secure_pic.gui.utility.handler.DecodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.handler.EncodeFinishedHandler;
-import com.dhbw.secure_pic.gui.utility.handler.LoadFinishedHandler;
+import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
 import com.dhbw.secure_pic.pipelines.DecodeTask;
 import com.dhbw.secure_pic.pipelines.EncodeTask;
@@ -67,9 +67,9 @@ public class SendAsymmetrical extends GuiView {
 
     public SendAsymmetrical(Gui parent) {
 
-        LoadFinishedHandler finishedContainerImageLoad = new LoadFinishedHandler() {
+        LoadImageFinishedHandler finishedContainerImageLoad = new LoadImageFinishedHandler() {
             @Override
-            public void finishedContainerImageLoad(ContainerImage image) {
+            public void finishedImageLoad(ContainerImage image) {
                 containerImage = image;
 
                 showImageLabel.setText("");

@@ -2,7 +2,7 @@ package com.dhbw.secure_pic.pipelines;
 
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.data.ContainerImage;
-import com.dhbw.secure_pic.gui.utility.handler.LoadFinishedHandler;
+import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;
@@ -21,11 +21,11 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
     /** Path to image which should be loaded. */
     private final String path;
     /** Calling gui class must be a LoadFinishedHandler to handle when containerImageLoad finishes */
-    private final LoadFinishedHandler caller;
+    private final LoadImageFinishedHandler caller;
     // endregion
 
 
-    public ContainerImageLoadTask(String path, LoadFinishedHandler caller) {
+    public ContainerImageLoadTask(String path, LoadImageFinishedHandler caller) {
         this.path = path;
         this.caller = caller;
     }
@@ -49,7 +49,7 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
     protected void done() {
         try {
             ContainerImage image = get();
-            this.caller.finishedContainerImageLoad(image);
+            this.caller.finishedImageLoad(image);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {
