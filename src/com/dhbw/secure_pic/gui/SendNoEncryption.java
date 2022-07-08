@@ -157,7 +157,7 @@ public class SendNoEncryption extends GuiViewSend {
             }
         });
 
-        exportButton.addActionListener(getExportListener(this));
+        exportButton.addActionListener(getExportImageListener(this));
 
         copyToClipboardButton.addActionListener(new ActionListener() {
             @Override

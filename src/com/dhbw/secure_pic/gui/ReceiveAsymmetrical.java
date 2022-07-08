@@ -256,7 +256,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
             }
         });
 
-        exportButton.addActionListener(getExportListener(this));
+        exportButton.addActionListener(getExportInformationListener(this));
 
         copyToClipboardButton.addActionListener(new ActionListener() {
             @Override
@@ -280,14 +280,15 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
         keyExport.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().select(ReceiveAsymmetrical.this, true);
+                File file = new FileSelect().select(ReceiveAsymmetrical.this, true, new FileFilter(new FileFilter.Extension[]{
+                        FileFilter.Extension.PNG // TODO ?
+                }));
 
-                if(file == null)
-                    return;
+                if(file == null) return;
 
                 try {
                     keyImage.exportImg(file.getPath());
-                    JOptionPane.showMessageDialog(null, "Das codierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Das Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException | IllegalTypeException ex) {
                     throw new RuntimeException(ex); // TODO error handling
                 }

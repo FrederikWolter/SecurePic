@@ -1,6 +1,7 @@
 package com.dhbw.secure_pic.gui;
 
 import com.dhbw.secure_pic.data.Information;
+import com.dhbw.secure_pic.gui.utility.FileFilter;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
 
 import javax.imageio.ImageIO;
@@ -20,19 +21,29 @@ public class GuiViewReceive extends GuiView{
     protected transient Information contentInformation;
     // endregion
 
-    protected ActionListener getExportListener(Component parent){
+    protected ActionListener getExportInformationListener(Component parent){
         return e -> {
-            File file = new FileSelect().select(parent, true);
+            FileFilter filter;
+            if(contentInformation.getType() == Information.Type.TEXT){
+                filter = new FileFilter(new FileFilter.Extension[]{
+                        FileFilter.Extension.TXT
+                });
+            } else {
+                filter = new FileFilter(new FileFilter.Extension[]{
+                        FileFilter.Extension.PNG
+                });
+            }
+
+            File file = new FileSelect().select(parent, true, filter);
 
             if (file == null) return;   // if no destination selected -> simply stop export process
 
             try {
                 if(contentInformation.getType() == Information.Type.TEXT) { // TEXT
-                    new BufferedWriter(new FileWriter(file.getPath() + ".txt", true))
+                    new BufferedWriter(new FileWriter(file.getPath(), true))   // TODO missing extension autocomplete?
                         .append("\n")
                         .append(contentInformation.toText())
                         .close();
-                    return; // TODO
                 } else {    // IMAGE
                     ImageIO.write(contentInformation.toImage(), "png", file);   // TODO type?
                     JOptionPane.showMessageDialog(null, "Das Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);

@@ -1,6 +1,7 @@
 package com.dhbw.secure_pic.gui.utility;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.io.File;
 
@@ -17,9 +18,10 @@ import java.io.File;
 public class FileSelect {
     private final JFileChooser fileChooser = new JFileChooser();
 
-    public File select(Component parent, boolean type) {
-        fileChooser.addChoosableFileFilter(new ImageFilter());
+    public File select(Component parent, boolean type, FileFilter filter) {
+        fileChooser.addChoosableFileFilter(filter);
         fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home") + System.getProperty("file.separator")+ "Downloads"));
 
         int returnVal;
         if(type){

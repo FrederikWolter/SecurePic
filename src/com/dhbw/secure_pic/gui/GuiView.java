@@ -1,6 +1,7 @@
 package com.dhbw.secure_pic.gui;
 
 import com.dhbw.secure_pic.data.ContainerImage;
+import com.dhbw.secure_pic.gui.utility.FileFilter;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
@@ -104,7 +105,11 @@ public class GuiView extends Component {
 
     protected static ActionListener getImageUploadListener(Component parent, LoadImageFinishedHandler handler, JProgressBar progressBar){
         return e -> {
-            File file = new FileSelect().select(parent, false);
+            File file = new FileSelect().select(parent, false, new FileFilter(new FileFilter.Extension[]{
+                    FileFilter.Extension.JPEG,
+                    FileFilter.Extension.JPG,
+                    FileFilter.Extension.PNG
+            }));
 
             if(file == null) return;    // if no file selected -> simply stop load process
 

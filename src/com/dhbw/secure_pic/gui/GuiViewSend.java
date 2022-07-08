@@ -2,6 +2,7 @@ package com.dhbw.secure_pic.gui;
 
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.data.ContainerImage;
+import com.dhbw.secure_pic.gui.utility.FileFilter;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
 
 import javax.swing.*;
@@ -19,9 +20,11 @@ public class GuiViewSend extends GuiView {
     // endregion
 
 
-    protected ActionListener getExportListener(Component parent){
+    protected ActionListener getExportImageListener(Component parent){
         return e -> {
-            File file = new FileSelect().select(parent, true);
+            File file = new FileSelect().select(parent, true, new FileFilter(new FileFilter.Extension[]{
+                    FileFilter.Extension.PNG // TODO ?
+            }));
 
             if (file == null) return;   // if no destination selected -> simply stop export process
 

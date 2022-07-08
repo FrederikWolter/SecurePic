@@ -229,7 +229,7 @@ public class SendAsymmetrical extends GuiViewSend {
             }
         });
 
-        exportButton.addActionListener(getExportListener(this));
+        exportButton.addActionListener(getExportImageListener(this));
 
         copyToClipboardButton.addActionListener(new ActionListener() {
             @Override

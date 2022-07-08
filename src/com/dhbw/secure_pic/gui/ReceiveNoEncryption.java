@@ -123,7 +123,7 @@ public class ReceiveNoEncryption extends GuiViewReceive {
             }
         });
 
-        exportButton.addActionListener(getExportListener(this));
+        exportButton.addActionListener(getExportInformationListener(this));
 
         copyToClipboardButton.addActionListener(new ActionListener() {
             @Override
