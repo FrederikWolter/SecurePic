@@ -54,6 +54,7 @@ public class ContainerImage {
         this.type = switch (extension) {
             case "png" -> PNG;
             case "jpg" -> JPG;
+            case "jpeg" -> JPG;
             default -> null;
         };
         if (this.type == null)
