@@ -33,7 +33,8 @@ public abstract class Coder {
     }
 
 
-    public abstract ContainerImage encode(Information info, ProgressMonitor monitor) throws InsufficientCapacityException;
+    public abstract ContainerImage encode(Information info, ProgressMonitor monitor)
+            throws InsufficientCapacityException;
 
     public abstract Information decode(ProgressMonitor monitor) throws IllegalTypeException, IllegalLengthException;
 

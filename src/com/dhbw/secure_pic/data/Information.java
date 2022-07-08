@@ -153,7 +153,8 @@ public class Information {
      *
      * @throws IllegalTypeException if type id is not legal.
      */
-    public static Information getInformationFromData(byte[] dataRaw) throws IllegalTypeException, IllegalLengthException {
+    public static Information getInformationFromData(byte[] dataRaw)
+            throws IllegalTypeException, IllegalLengthException {
         // using ByteBuffer for handling binary data
         // see https://stackoverflow.com/a/1936865/13777031, https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html
         ByteBuffer buffer = ByteBuffer.wrap(dataRaw)
@@ -172,7 +173,7 @@ public class Information {
             throw new IllegalTypeException("Invalid content type in received data: " + typeRaw);
         }
 
-        if (length == 0){
+        if (length == 0) {
             throw new IllegalLengthException("Invalid information length: " + length);
         }
 

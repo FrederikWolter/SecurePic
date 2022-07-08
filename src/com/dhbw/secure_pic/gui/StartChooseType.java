@@ -20,6 +20,7 @@ public class StartChooseType extends GuiView {
 
     /**
      * Constructor of {@link StartChooseType}.
+     *
      * @param parent parent Gui object
      */
     public StartChooseType(Gui parent) {

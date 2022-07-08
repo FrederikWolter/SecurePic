@@ -5,7 +5,6 @@ import com.dhbw.secure_pic.coder.LeastSignificantBit;
 import com.dhbw.secure_pic.coder.PlusMinusOne;
 import com.dhbw.secure_pic.crypter.Crypter;
 import com.dhbw.secure_pic.crypter.EmptyCrypter;
-import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.gui.utility.handler.DecodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
@@ -65,14 +64,14 @@ public class ReceiveNoEncryption extends GuiViewReceive {
                 Coder coder;
                 Crypter crypter;
 
-                if (containerImage == null){
+                if (containerImage == null) {
                     // TODO error handling
                     return;
                 }
 
-                if (codeComboBox.getSelectedItem() == "LSB"){
+                if (codeComboBox.getSelectedItem() == "LSB") {
                     coder = new LeastSignificantBit(containerImage);
-                } else if(codeComboBox.getSelectedItem() == "PM1"){
+                } else if (codeComboBox.getSelectedItem() == "PM1") {
                     coder = new PlusMinusOne(containerImage);
                 } else {
                     // TODO error handling
@@ -91,13 +90,13 @@ public class ReceiveNoEncryption extends GuiViewReceive {
                         Information.Type type = info.getType();
                         if (type == Information.Type.TEXT) {
                             messageOutput.setText(info.toText());
-                        } else if (type == Information.Type.IMAGE_PNG || type == Information.Type.IMAGE_GIF || type == Information.Type.IMAGE_JPG){
-                            try{
+                        } else if (type == Information.Type.IMAGE_PNG || type == Information.Type.IMAGE_GIF || type == Information.Type.IMAGE_JPG) {
+                            try {
                                 messageOutput.setText("");
                                 messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(),
-                                        IMAGE_WIDTH_5,
-                                        IMAGE_HEIGHT_5)));
-                            }catch (IOException e){
+                                                                                   IMAGE_WIDTH_5,
+                                                                                   IMAGE_HEIGHT_5)));
+                            } catch (IOException e) {
                                 System.out.println(e);
                                 // TODO error handling?
                             }

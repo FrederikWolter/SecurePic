@@ -81,9 +81,9 @@ public class SendAsymmetrical extends GuiViewSend {
             Coder coderPublicKey;
             Crypter crypterPublicKey = new EmptyCrypter();
 
-            if (codeComboBox.getSelectedItem() == "LSB"){
+            if (codeComboBox.getSelectedItem() == "LSB") {
                 coderPublicKey = new LeastSignificantBit(keyImage);
-            } else if(codeComboBox.getSelectedItem() == "PM1"){
+            } else if (codeComboBox.getSelectedItem() == "PM1") {
                 coderPublicKey = new PlusMinusOne(keyImage);
             } else {
                 // TODO error handling
@@ -139,20 +139,20 @@ public class SendAsymmetrical extends GuiViewSend {
                 Coder coder;
                 Crypter crypter;
 
-                if (containerImage == null){
+                if (containerImage == null) {
                     // TODO error handling
                     return;
                 }
 
-                if (textRadio.isSelected()){
-                    if (messageText.getText().length() > 0){
+                if (textRadio.isSelected()) {
+                    if (messageText.getText().length() > 0) {
                         info = Information.getInformationFromString(messageText.getText());
                     } else {
                         JOptionPane.showMessageDialog(null, "Bitte gebe einen Text ein, der in das Bild codiert werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
-                } else if(imageRadio.isSelected()){
-                    if (contentImage != null){
+                } else if (imageRadio.isSelected()) {
+                    if (contentImage != null) {
                         try {
                             info = Information.getInformationFromImage(contentImage.getPath());
                         } catch (IllegalTypeException ex) {
@@ -168,25 +168,25 @@ public class SendAsymmetrical extends GuiViewSend {
                     return;
                 }
 
-                if (codeComboBox.getSelectedItem() == "LSB"){
+                if (codeComboBox.getSelectedItem() == "LSB") {
                     coder = new LeastSignificantBit(containerImage);
-                } else if(codeComboBox.getSelectedItem() == "PM1"){
+                } else if (codeComboBox.getSelectedItem() == "PM1") {
                     coder = new PlusMinusOne(containerImage);
                 } else {
                     // TODO error handling
                     return;
                 }
 
-                if (encryptComboBox.getSelectedItem() == "RSA"){
+                if (encryptComboBox.getSelectedItem() == "RSA") {
                     String publicKey = new String(publicKeyInput.getPassword());
-                    if(publicKey.length() > 0){
+                    if (publicKey.length() > 0) {
                         try {
                             crypter = new RSA(publicKey, RSA.keyType.PUBLIC);
                         } catch (CrypterException ex) {
                             throw new RuntimeException(ex);
                             // TODO error handling?
                         }
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "Bitte gebe einen öffentlichen Schlüssel ein in Form des erhaltenen Bildes oder als Text, mit dem die Information verschlüsselt werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
                         return;
                     }

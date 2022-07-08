@@ -72,7 +72,7 @@ public class GuiView extends Component {
         return resizedImg;
     }
 
-    protected static PropertyChangeListener getPropertyChangeListener(JProgressBar progressBar){
+    protected static PropertyChangeListener getPropertyChangeListener(JProgressBar progressBar) {
         return evt -> {
             if ("progress".equals(evt.getPropertyName())) { // update progress event?
                 int progress = (Integer) evt.getNewValue(); // get progress value from event
@@ -81,7 +81,7 @@ public class GuiView extends Component {
         };
     }
 
-    protected static DropTarget getDropTargetListener(LoadImageFinishedHandler handler, JProgressBar progressBar){
+    protected static DropTarget getDropTargetListener(LoadImageFinishedHandler handler, JProgressBar progressBar) {
         return new DropTarget() {
             @Override
             public synchronized void drop(DropTargetDropEvent evt) {
@@ -103,7 +103,7 @@ public class GuiView extends Component {
     }
 
 
-    protected static ActionListener getImageUploadListener(Component parent, LoadImageFinishedHandler handler, JProgressBar progressBar){
+    protected static ActionListener getImageUploadListener(Component parent, LoadImageFinishedHandler handler, JProgressBar progressBar) {
         return e -> {
             File file = new FileSelect().select(parent, false, new FileFilter(new FileFilter.Extension[]{
                     FileFilter.Extension.JPEG,
@@ -111,7 +111,7 @@ public class GuiView extends Component {
                     FileFilter.Extension.PNG
             }));
 
-            if(file == null) return;    // if no file selected -> simply stop load process
+            if (file == null) return;    // if no file selected -> simply stop load process
 
             // start load task
             ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), handler);
@@ -119,7 +119,5 @@ public class GuiView extends Component {
             task.execute();
         };
     }
-
-
 
 }

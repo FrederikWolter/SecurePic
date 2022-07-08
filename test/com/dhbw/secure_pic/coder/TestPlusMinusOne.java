@@ -39,7 +39,8 @@ public class TestPlusMinusOne {
     }
 
     @Test
-    public void testEncodeDecodeFileText() throws IllegalTypeException, InsufficientCapacityException, IOException, IllegalLengthException {
+    public void testEncodeDecodeFileText()
+            throws IllegalTypeException, InsufficientCapacityException, IOException, IllegalLengthException {
         // send
         String in = "This is a Test 123456öäü?0§";
         Information info = Information.getInformationFromString(in);
@@ -61,7 +62,8 @@ public class TestPlusMinusOne {
     }
 
     @Test
-    public void testEncodeDecodeFileIMG() throws IllegalTypeException, InsufficientCapacityException, IOException, IllegalLengthException {
+    public void testEncodeDecodeFileIMG()
+            throws IllegalTypeException, InsufficientCapacityException, IOException, IllegalLengthException {
         // send
         Information info = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/cat_small.jpg");
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");

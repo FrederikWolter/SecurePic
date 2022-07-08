@@ -47,7 +47,7 @@ public class DecodeTask extends SwingWorker<Information, Void> {
 
         // decrypt information
         this.information = this.crypter.decrypt(this.information,
-                progress -> setProgress((int) (progress * 0.5 + 50))    // progress 50 - 100
+                                                progress -> setProgress((int) (progress * 0.5 + 50))    // progress 50 - 100
         );
 
         // update progress

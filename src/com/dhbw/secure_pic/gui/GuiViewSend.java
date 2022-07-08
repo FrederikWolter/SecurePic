@@ -19,8 +19,20 @@ public class GuiViewSend extends GuiView {
     protected transient ContainerImage contentImage;
     // endregion
 
+    protected static ActionListener getInformationTypeListener(int visible, JScrollPane text, JPanel image) {
+        return e -> {
+            text.setVisible(false);
+            image.setVisible(false);
 
-    protected ActionListener getExportImageListener(Component parent){
+            if (visible == 1) {
+                image.setVisible(true);
+            } else {
+                text.setVisible(true);
+            }
+        };
+    }
+
+    protected ActionListener getExportImageListener(Component parent) {
         return e -> {
             File file = new FileSelect().select(parent, true, new FileFilter(new FileFilter.Extension[]{
                     FileFilter.Extension.PNG // TODO ?
@@ -33,19 +45,6 @@ public class GuiViewSend extends GuiView {
                 JOptionPane.showMessageDialog(null, "Das Bild wurde erfolgreich exportiert.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException | IllegalTypeException ex) {
                 throw new RuntimeException(ex); // TODO error handling
-            }
-        };
-    }
-
-    protected static ActionListener getInformationTypeListener(int visible, JScrollPane text, JPanel image){
-        return e -> {
-            text.setVisible(false);
-            image.setVisible(false);
-
-            if (visible == 1) {
-                image.setVisible(true);
-            } else {
-                text.setVisible(true);
             }
         };
     }

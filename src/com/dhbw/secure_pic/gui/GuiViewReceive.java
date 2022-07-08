@@ -15,16 +15,16 @@ import java.io.IOException;
 
 // TODO comment
 
-public class GuiViewReceive extends GuiView{
+public class GuiViewReceive extends GuiView {
 
     // region attributes
     protected transient Information contentInformation;
     // endregion
 
-    protected ActionListener getExportInformationListener(Component parent){
+    protected ActionListener getExportInformationListener(Component parent) {
         return e -> {
             FileFilter filter;
-            if(contentInformation.getType() == Information.Type.TEXT){
+            if (contentInformation.getType() == Information.Type.TEXT) {
                 filter = new FileFilter(new FileFilter.Extension[]{
                         FileFilter.Extension.TXT
                 });
@@ -39,14 +39,14 @@ public class GuiViewReceive extends GuiView{
             if (file == null) return;   // if no destination selected -> simply stop export process
 
             try {
-                if(contentInformation.getType() == Information.Type.TEXT) { // TEXT
+                if (contentInformation.getType() == Information.Type.TEXT) { // TEXT
                     new BufferedWriter(new FileWriter(file.getPath(), true))   // TODO missing extension autocomplete?
-                        .append("\n")
-                        .append(contentInformation.toText())
-                        .close();
+                            .append("\n")
+                            .append(contentInformation.toText())
+                            .close();
                 } else {    // IMAGE
                     ImageIO.write(contentInformation.toImage(), "png", file);   // TODO type?
-                    JOptionPane.showMessageDialog(null, "Das Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Das Bild wurde erfolgreich exportiert.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (IOException ex) {
                 throw new RuntimeException(ex); // TODO error handling

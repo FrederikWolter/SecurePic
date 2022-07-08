@@ -12,7 +12,6 @@ import java.io.File;
 // see https://docs.oracle.com/javase/tutorial/uiswing/components/filechooser.html
 
 /**
- *
  * @author Kai Schwab, Frederik WOlter
  */
 public class FileSelect {
@@ -21,10 +20,10 @@ public class FileSelect {
     public File select(Component parent, boolean type, FileFilter filter) {
         fileChooser.addChoosableFileFilter(filter);
         fileChooser.setAcceptAllFileFilterUsed(false);
-        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home") + System.getProperty("file.separator")+ "Downloads"));
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home") + System.getProperty("file.separator") + "Downloads"));
 
         int returnVal;
-        if(type){
+        if (type) {
             returnVal = fileChooser.showSaveDialog(parent);
         } else {
             returnVal = fileChooser.showOpenDialog(parent);

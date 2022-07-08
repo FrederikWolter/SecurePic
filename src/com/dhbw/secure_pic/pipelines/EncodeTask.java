@@ -46,12 +46,12 @@ public class EncodeTask extends SwingWorker<ContainerImage, Void> {
 
         // encrypt information
         this.information = this.crypter.encrypt(this.information,
-                progress -> setProgress((int) (progress * 0.5))     // progress 0 - 50
+                                                progress -> setProgress((int) (progress * 0.5))     // progress 0 - 50
         );
 
         // encode information
         ContainerImage encodedImage = this.coder.encode(this.information,
-                progress -> setProgress((int) (progress * 0.5 + 50))    // progress 50 - 100
+                                                        progress -> setProgress((int) (progress * 0.5 + 50))    // progress 50 - 100
         );
 
         // update progress

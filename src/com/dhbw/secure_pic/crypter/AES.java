@@ -28,6 +28,7 @@ public class AES extends Crypter {
 
     /**
      * Constructor for class {@link AES}
+     *
      * @param password is the password entered by the user
      */
     public AES(String password) {
@@ -58,7 +59,8 @@ public class AES extends Crypter {
 
             return information;
 
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException |
+                 BadPaddingException e) {
             throw CrypterException.handleException(e);    // wrap exceptions thrown by crypter to CrypterException
         }
     }
@@ -86,7 +88,8 @@ public class AES extends Crypter {
 
             return information;
 
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException |
+                 BadPaddingException e) {
             throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException
         }
     }

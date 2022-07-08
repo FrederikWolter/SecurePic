@@ -10,7 +10,8 @@ import com.dhbw.secure_pic.crypter.EmptyCrypter;
 import com.dhbw.secure_pic.crypter.RSA;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
-import com.dhbw.secure_pic.gui.utility.*;
+import com.dhbw.secure_pic.gui.utility.FileFilter;
+import com.dhbw.secure_pic.gui.utility.FileSelect;
 import com.dhbw.secure_pic.gui.utility.handler.DecodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.handler.EncodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
@@ -104,7 +105,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                 String privateKey;
                 String publicKey;
 
-                if(encryptComboBox.getSelectedItem() == "RSA"){
+                if (encryptComboBox.getSelectedItem() == "RSA") {
                     try {
                         crypter = new RSA();
 
@@ -128,16 +129,16 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                 keyExport.setEnabled(true);
                 copyToClipboardKey.setEnabled(true);
 
-                if(encodePublicKeyIntoCheckBox.isSelected()){
-                    if(keyImage != null){
+                if (encodePublicKeyIntoCheckBox.isSelected()) {
+                    if (keyImage != null) {
                         // region encode public key
                         Coder coder;
                         Crypter noOpCrypter = new EmptyCrypter();
                         Information info = Information.getInformationFromString(publicKey);
 
-                        if (codeComboBox.getSelectedItem() == "LSB"){
+                        if (codeComboBox.getSelectedItem() == "LSB") {
                             coder = new LeastSignificantBit(keyImage);
-                        } else if(codeComboBox.getSelectedItem() == "PM1"){
+                        } else if (codeComboBox.getSelectedItem() == "PM1") {
                             coder = new PlusMinusOne(keyImage);
                         } else {
                             // TODO error handling
@@ -152,8 +153,8 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                                 keyExport.setEnabled(true);
                                 copyToClipboardKey.setEnabled(true);
                                 outputKeyImage.setIcon(new ImageIcon(getScaledImage(keyImage.getImage(),
-                                        IMAGE_WIDTH_3,
-                                        IMAGE_HEIGHT_2)));
+                                                                                    IMAGE_WIDTH_3,
+                                                                                    IMAGE_HEIGHT_2)));
                             }
                         });
                         task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
@@ -175,30 +176,30 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                 Coder coder;
                 Crypter crypter;
 
-                if (containerImage == null){
+                if (containerImage == null) {
                     // TODO error handling
                     return;
                 }
 
-                if (codeComboBox.getSelectedItem() == "LSB"){
+                if (codeComboBox.getSelectedItem() == "LSB") {
                     coder = new LeastSignificantBit(containerImage);
-                } else if(codeComboBox.getSelectedItem() == "PM1"){
+                } else if (codeComboBox.getSelectedItem() == "PM1") {
                     coder = new PlusMinusOne(containerImage);
                 } else {
                     // TODO error handling
                     return;
                 }
 
-                if (encryptComboBox.getSelectedItem() == "RSA"){
+                if (encryptComboBox.getSelectedItem() == "RSA") {
                     String privateKey = privateKeyInput.getText();
-                    if(privateKey.length() > 20){
+                    if (privateKey.length() > 20) {
                         try {
                             crypter = new RSA(privateKey, RSA.keyType.PRIVATE);
                         } catch (CrypterException ex) {
                             throw new RuntimeException(ex);
                             // TODO error handling
                         }
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "Bitte gebe den privaten Schlüssel ein, mit dem die Information entschlüsselt werden soll.", "Warnung", WARNING_MESSAGE);
                         return;
                     }
@@ -217,13 +218,13 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                         Information.Type type = info.getType();
                         if (type == Information.Type.TEXT) {
                             messageOutput.setText(info.toText());
-                        } else if (type == Information.Type.IMAGE_PNG || type == Information.Type.IMAGE_GIF || type == Information.Type.IMAGE_JPG){
-                            try{
+                        } else if (type == Information.Type.IMAGE_PNG || type == Information.Type.IMAGE_GIF || type == Information.Type.IMAGE_JPG) {
+                            try {
                                 messageOutput.setText("");
                                 messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(),
-                                        IMAGE_WIDTH_4,
-                                        IMAGE_HEIGHT_3)));
-                            }catch (IOException e){
+                                                                                   IMAGE_WIDTH_4,
+                                                                                   IMAGE_HEIGHT_3)));
+                            } catch (IOException e) {
                                 System.out.println(e);
                                 // TODO error handling?
                             }
@@ -263,11 +264,11 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                         FileFilter.Extension.PNG // TODO ?
                 }));
 
-                if(file == null) return;
+                if (file == null) return;
 
                 try {
                     keyImage.exportImg(file.getPath());
-                    JOptionPane.showMessageDialog(null, "Das Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Das Bild wurde erfolgreich exportiert.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException | IllegalTypeException ex) {
                     throw new RuntimeException(ex); // TODO error handling
                 }

@@ -122,7 +122,7 @@ public class LeastSignificantBit extends Coder {
                 }
 
                 // update progress
-                if (information != null){
+                if (information != null) {
                     monitor.updateProgress((int) (assembler.getPosition() / (information.getLength()) * 8));
                 }
             }

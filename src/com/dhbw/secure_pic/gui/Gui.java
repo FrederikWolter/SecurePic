@@ -92,17 +92,17 @@ public class Gui {
     // region getter & setter
 
     /**
-     * @param type type of usage
-     */
-    public void setType(Type type) {
-        this.type = type;
-    }
-
-    /**
      * @return chosen type
      */
     public Type getType() {
         return this.type;
+    }
+
+    /**
+     * @param type type of usage
+     */
+    public void setType(Type type) {
+        this.type = type;
     }
 
     /**

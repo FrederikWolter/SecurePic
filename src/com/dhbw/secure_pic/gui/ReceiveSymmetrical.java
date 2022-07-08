@@ -5,7 +5,6 @@ import com.dhbw.secure_pic.coder.LeastSignificantBit;
 import com.dhbw.secure_pic.coder.PlusMinusOne;
 import com.dhbw.secure_pic.crypter.AES;
 import com.dhbw.secure_pic.crypter.Crypter;
-import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.gui.utility.handler.DecodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
@@ -68,25 +67,25 @@ public class ReceiveSymmetrical extends GuiViewReceive {
                 Coder coder;
                 Crypter crypter;
 
-                if (containerImage == null){
+                if (containerImage == null) {
                     // TODO error handling
                     return;
                 }
 
-                if (codeComboBox.getSelectedItem() == "LSB"){
+                if (codeComboBox.getSelectedItem() == "LSB") {
                     coder = new LeastSignificantBit(containerImage);
-                } else if(codeComboBox.getSelectedItem() == "PM1"){
+                } else if (codeComboBox.getSelectedItem() == "PM1") {
                     coder = new PlusMinusOne(containerImage);
                 } else {
                     // TODO error handling
                     return;
                 }
 
-                if (encryptComboBox.getSelectedItem() == "AES"){
+                if (encryptComboBox.getSelectedItem() == "AES") {
                     String password = new String(passwordField.getPassword());
-                    if(password.length() > 0){
+                    if (password.length() > 0) {
                         crypter = new AES(password);
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "Bitte gebe ein Passwort ein, mit dem die Information entschlüsselt werden soll.", "Warnung", WARNING_MESSAGE);
                         return;
                     }
@@ -105,13 +104,13 @@ public class ReceiveSymmetrical extends GuiViewReceive {
                         Information.Type type = info.getType();
                         if (type == Information.Type.TEXT) {
                             messageOutput.setText(info.toText());
-                        } else if (type == Information.Type.IMAGE_PNG || type == Information.Type.IMAGE_GIF || type == Information.Type.IMAGE_JPG){
-                            try{
+                        } else if (type == Information.Type.IMAGE_PNG || type == Information.Type.IMAGE_GIF || type == Information.Type.IMAGE_JPG) {
+                            try {
                                 messageOutput.setText("");
                                 messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(),
-                                        IMAGE_WIDTH_5,
-                                        IMAGE_HEIGHT_5)));
-                            }catch (IOException e){
+                                                                                   IMAGE_WIDTH_5,
+                                                                                   IMAGE_HEIGHT_5)));
+                            } catch (IOException e) {
                                 System.out.println(e);
                                 // TODO error handling?
                             }
