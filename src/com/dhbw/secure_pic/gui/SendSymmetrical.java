@@ -93,44 +93,11 @@ public class SendSymmetrical extends GuiView {
 
 
         // region listener
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.showView(Gui.View.START_CHOOSE_ENCRYPTION);
-            }
-        });
+        backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 
-        uploadContainer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(SendSymmetrical.this);
+        uploadContainer.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
 
-                if(file == null){
-                    return;
-                }
-
-                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
-                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                task.execute();
-
-                encodeButton.setEnabled(true);
-            }
-        });
-
-        uploadMessageImg.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(SendSymmetrical.this);
-
-                if(file == null){
-                    return;
-                }
-
-                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
-                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                task.execute();
-            }
-        });
+        uploadMessageImg.addActionListener(getImageUploadListener(this, finishedContentImageLoad, progressBar));
 
         imageRadio.addActionListener(new ActionListener() {
             @Override

@@ -77,22 +77,7 @@ public class ReceiveNoEncryption extends GuiView {
             }
         });
 
-        uploadContainerImg.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(ReceiveNoEncryption.this);
-
-                if(file == null){
-                    return;
-                }
-
-                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
-                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                task.execute();
-
-                decodeButton.setEnabled(true);
-            }
-        });
+        uploadContainerImg.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
 
         decodeButton.addActionListener(new ActionListener() {
             @Override

@@ -114,37 +114,11 @@ public class ReceiveAsymmetrical extends GuiView {
             }
         });
 
-        uploadButtonKeyImg.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(ReceiveAsymmetrical.this);
 
-                if(file == null){
-                    return;
-                }
+        uploadContainerImg.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
 
-                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedKeyImageLoad);
-                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                task.execute();
-            }
-        });
+        uploadButtonKeyImg.addActionListener(getImageUploadListener(this, finishedKeyImageLoad, progressBar));
 
-        uploadContainerImg.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(ReceiveAsymmetrical.this);
-
-                if(file == null){
-                    return;
-                }
-
-                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
-                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                task.execute();
-
-                decodeButton.setEnabled(true);
-            }
-        });
 
         generateKeyButton.addActionListener(new ActionListener() {
             @Override

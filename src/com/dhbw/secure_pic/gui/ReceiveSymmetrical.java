@@ -73,22 +73,7 @@ public class ReceiveSymmetrical extends GuiView {
 
 
         // region listener
-        uploadContainerImg.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(ReceiveSymmetrical.this);
-
-                if(file == null){
-                    return;
-                }
-
-                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
-                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                task.execute();
-
-                decodeButton.setEnabled(true);
-            }
-        });
+        uploadContainerImg.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
 
         backButton.addActionListener(new ActionListener() {
             @Override

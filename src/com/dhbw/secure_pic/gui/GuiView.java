@@ -1,6 +1,7 @@
 package com.dhbw.secure_pic.gui;
 
 import com.dhbw.secure_pic.data.ContainerImage;
+import com.dhbw.secure_pic.gui.utility.FileSelect;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
 
@@ -10,6 +11,7 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -95,5 +97,21 @@ public class GuiView extends Component {
             }
         };
     }
+
+
+    protected static ActionListener getImageUploadListener(Component parent, LoadImageFinishedHandler handler, JProgressBar progressBar){
+        return e -> {
+            File file = new FileSelect().selectFile(parent);
+
+            if(file == null) return;    // if no file selected -> simply stop load process
+
+            // start load task
+            ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), handler);
+            task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
+            task.execute();
+        };
+    }
+
+
 
 }

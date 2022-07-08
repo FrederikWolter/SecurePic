@@ -143,52 +143,11 @@ public class SendAsymmetrical extends GuiView {
             }
         });
 
-        uploadContainer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(SendAsymmetrical.this);
+        uploadContainer.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
 
-                if(file == null){
-                    return;
-                }
+        uploadMessageImg.addActionListener(getImageUploadListener(this, finishedContentImageLoad, progressBar));
 
-                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
-                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                task.execute();
-
-                encodeButton.setEnabled(true);
-            }
-        });
-
-        uploadMessageImg.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(SendAsymmetrical.this);
-
-                if(file == null){
-                    return;
-                }
-
-                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
-                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                task.execute();
-            }
-        });
-
-        uploadPrivateKey.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(SendAsymmetrical.this);
-
-                if(file == null){
-                    return;
-                }
-
-                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedKeyImageLoad);
-                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                task.execute();
-            }
-        });
+        uploadPrivateKey.addActionListener(getImageUploadListener(this, finishedKeyImageLoad, progressBar));
 
         imageRadio.addActionListener(new ActionListener() {
             @Override
