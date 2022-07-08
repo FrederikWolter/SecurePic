@@ -30,13 +30,13 @@ public class ReceiveSymmetrical extends GuiViewReceive {
     private JLabel messageOutput;
     private JButton copyToClipboardButton;
     private JButton exportButton;
-    private JComboBox encryptComboBox;
+    private JComboBox<String> encryptComboBox;
     private JPasswordField passwordField;
     private JPanel contentPane;
     private JButton uploadContainerImg;
     private JPanel uploadPanelContainer;
     private JLabel containerImg;
-    private JComboBox codeComboBox;
+    private JComboBox<String> codeComboBox;
     // endregion
 
     public ReceiveSymmetrical(Gui parent) {
@@ -59,14 +59,9 @@ public class ReceiveSymmetrical extends GuiViewReceive {
 
 
         // region listener
-        uploadContainerImg.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
+        backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.showView(Gui.View.START_CHOOSE_ENCRYPTION);
-            }
-        });
+        uploadContainerImg.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
 
         decodeButton.addActionListener(new ActionListener() {
             @Override

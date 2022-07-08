@@ -30,7 +30,7 @@ public class ReceiveNoEncryption extends GuiViewReceive {
     private JButton copyToClipboardButton;
     private JButton exportButton;
     private JLabel messageOutput;
-    private JComboBox codeComboBox;
+    private JComboBox<String> codeComboBox;
     private JPanel uploadPanelContainer;
     private JLabel containerImg;
     // endregion
@@ -56,12 +56,7 @@ public class ReceiveNoEncryption extends GuiViewReceive {
 
 
         // region listener
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.showView(Gui.View.START_CHOOSE_ENCRYPTION);
-            }
-        });
+        backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 
         uploadContainerImg.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
 

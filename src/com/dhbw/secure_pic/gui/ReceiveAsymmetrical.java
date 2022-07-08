@@ -33,18 +33,16 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
 
     // region swing attributes
     private JPanel contentPane;
-    private JLabel descrPblImg;
-    private JLabel descrRecImg;
     private JCheckBox encodePublicKeyIntoCheckBox;
     private JButton generateKeyButton;
     private JTextField privateKeyOutput;
     private JTextField publicKeyOutput;
     private JButton decodeButton;
-    private JButton copyToClipboardButton;
+    private JButton copyToClipboardContent;
     private JButton exportButton;
     private JLabel outputKeyImage;
     private JButton keyExport;
-    private JButton ctcbKey;
+    private JButton copyToClipboardKey;
     private JProgressBar progressBar;
     private JPanel uploadPanelContainer;
     private JLabel containerImg;
@@ -54,8 +52,8 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
     private JButton uploadButtonKeyImg;
     private JLabel keyImg;
     private JLabel messageOutput;
-    private JComboBox codeComboBox;
-    private JComboBox encryptComboBox;
+    private JComboBox<String> codeComboBox;
+    private JComboBox<String> encryptComboBox;
     private JTextField privateKeyInput;
     // endregion
 
@@ -99,13 +97,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
 
 
         // region listener
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.showView(Gui.View.START_CHOOSE_ENCRYPTION);
-            }
-        });
-
+        backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 
         uploadContainerImg.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
 
@@ -142,7 +134,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                 privateKeyInput.setEditable(false);
 
                 keyExport.setEnabled(true);
-                ctcbKey.setEnabled(true);
+                copyToClipboardKey.setEnabled(true);
 
                 if(encodePublicKeyIntoCheckBox.isSelected()){
                     if(keyImage != null){
@@ -166,7 +158,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                                 keyImage = image;
 
                                 keyExport.setEnabled(true);
-                                ctcbKey.setEnabled(true);
+                                copyToClipboardKey.setEnabled(true);
                                 outputKeyImage.setIcon(new ImageIcon(getScaledImage(keyImage.getImage(),
                                         IMAGE_WIDTH_3,
                                         IMAGE_HEIGHT_2)));
@@ -247,7 +239,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                             // TODO error handling?
                         }
                         exportButton.setEnabled(true);
-                        copyToClipboardButton.setEnabled(true);
+                        copyToClipboardContent.setEnabled(true);
                         decodeButton.setEnabled(true);
                     }
                 });
@@ -258,7 +250,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
 
         exportButton.addActionListener(getExportInformationListener(this));
 
-        copyToClipboardButton.addActionListener(new ActionListener() {
+        copyToClipboardContent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -270,12 +262,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
             }
         });
 
-        ctcbKey.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                keyImage.copyToClipboard();
-            }
-        });
+        copyToClipboardKey.addActionListener(e -> keyImage.copyToClipboard());
 
         keyExport.addActionListener(new ActionListener() {
             @Override
@@ -298,8 +285,12 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
         // endregion
     }
 
+    // region getter
+
     public JPanel getContentPane() {
         return contentPane;
     }
+
+    // endregion
 
 }

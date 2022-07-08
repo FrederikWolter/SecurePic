@@ -28,7 +28,7 @@ public class SendNoEncryption extends GuiViewSend {
     private JRadioButton imageRadio;
     private JRadioButton textRadio;
     private JTextArea messageText;
-    private JComboBox codeComboBox;
+    private JComboBox<String> codeComboBox;
     private JButton encodeButton;
     private JButton uploadMessageImg;
     private JButton uploadContainer;
@@ -40,7 +40,6 @@ public class SendNoEncryption extends GuiViewSend {
     private JPanel uploadPanelMessage;
     private JLabel messageImg;
     private JScrollPane messageTextScroll;
-
     // endregion
 
 
@@ -77,12 +76,7 @@ public class SendNoEncryption extends GuiViewSend {
         uploadPanelMessage.setDropTarget(getDropTargetListener(finishedContentImageLoad, progressBar));
 
         // region listener
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.showView(Gui.View.START_CHOOSE_ENCRYPTION);
-            }
-        });
+        backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 
         uploadContainer.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
 
@@ -159,12 +153,7 @@ public class SendNoEncryption extends GuiViewSend {
 
         exportButton.addActionListener(getExportImageListener(this));
 
-        copyToClipboardButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                containerImage.copyToClipboard();
-            }
-        });
+        copyToClipboardButton.addActionListener(e -> containerImage.copyToClipboard());
 
         // endregion
     }

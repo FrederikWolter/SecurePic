@@ -25,7 +25,6 @@ import static javax.swing.JOptionPane.WARNING_MESSAGE;
  *
  * @author Kai Schwab, Frederik Wolter
  */
-
 public class SendSymmetrical extends GuiViewSend {
 
     // region swing attributes
@@ -34,8 +33,8 @@ public class SendSymmetrical extends GuiViewSend {
     private JRadioButton imageRadio;
     private JRadioButton textRadio;
     private JTextArea messageText;
-    private JComboBox codeComboBox;
-    private JComboBox encryptComboBox;
+    private JComboBox<String> codeComboBox;
+    private JComboBox<String> encryptComboBox;
     private JPasswordField passwordField;
     private JButton encodeButton;
     private JButton copyToClipboardButton;
@@ -175,7 +174,7 @@ public class SendSymmetrical extends GuiViewSend {
             }
         });
 
-        exportButton.addActionListener(getExportListener(this));
+        exportButton.addActionListener(getExportImageListener(this));
 
         copyToClipboardButton.addActionListener(e -> containerImage.copyToClipboard());
 
@@ -183,8 +182,13 @@ public class SendSymmetrical extends GuiViewSend {
     }
 
     // region getter
+
+    /**
+     * @return ContentPane
+     */
     public JPanel getContentPane() {
         return contentPane;
     }
+
     // endregion
 }

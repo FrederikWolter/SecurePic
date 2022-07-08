@@ -39,8 +39,8 @@ public class SendAsymmetrical extends GuiViewSend {
     private JLabel showImageLabel;
     private JPanel uploadPanelMessage;
     private JButton uploadMessageImg;
-    private JComboBox codeComboBox;
-    private JComboBox encryptComboBox;
+    private JComboBox<String> codeComboBox;
+    private JComboBox<String> encryptComboBox;
     private JPasswordField publicKeyInput;
     private JLabel messageImg;
     private JPanel uploadPanelKey;
@@ -130,12 +130,7 @@ public class SendAsymmetrical extends GuiViewSend {
 
 
         // region listeners
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.showView(Gui.View.START_CHOOSE_ENCRYPTION);
-            }
-        });
+        backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 
         uploadContainer.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
 
@@ -231,12 +226,7 @@ public class SendAsymmetrical extends GuiViewSend {
 
         exportButton.addActionListener(getExportImageListener(this));
 
-        copyToClipboardButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                containerImage.copyToClipboard();
-            }
-        });
+        copyToClipboardButton.addActionListener(e -> containerImage.copyToClipboard());
 
         // endregion
     }
