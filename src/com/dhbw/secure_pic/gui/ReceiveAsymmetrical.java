@@ -156,7 +156,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                 try {
                     contentInformation.copyToClipboard();
                 } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Beim Kopieren des Inhalts ist ein Fehler aufgetreten: " + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Beim Kopieren des Inhalts ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

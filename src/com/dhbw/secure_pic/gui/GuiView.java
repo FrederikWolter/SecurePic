@@ -17,6 +17,7 @@ import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
@@ -24,6 +25,10 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
@@ -99,16 +104,15 @@ public class GuiView extends Component {
             public synchronized void drop(DropTargetDropEvent evt) {
                 try {
                     evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // TODO cleanup cast?
+                    @SuppressWarnings("unchecked")
+                    List<File> files = (List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
 
-                    for (File file : droppedFiles) { // TODO allow multiple files? no? GENERAL
-                        // start load task
-                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), handler);
-                        task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                        task.execute();
-                    }
-                } catch (Exception ex) {    // TODO error handling?
-                    ex.printStackTrace();
+                    // start load task
+                    ContainerImageLoadTask task = new ContainerImageLoadTask(files.get(0).getPath(), handler);  // only handle first file
+                    task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
+                    task.execute();
+                } catch (IOException | UnsupportedFlavorException ex) {    // this errors should be not critical, user can try again
+                    Logger.getLogger("GUI").log(Level.WARNING, String.format("DropException: '%s'", ex.getMessage()));
                 }
             }
         };
@@ -140,7 +144,7 @@ public class GuiView extends Component {
         } else if (codeComboBox.getSelectedItem() == "PM1") {
             coder = new PlusMinusOne(image);
         } else {
-            JOptionPane.showMessageDialog(null, "Der ausgewählte Codierung-Algorithmus entspricht keinem gültigen Wert: " + codeComboBox.getSelectedItem(), "Fehler", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Der ausgewählte Codierung-Algorithmus entspricht keinem gültigen Wert:\n" + codeComboBox.getSelectedItem(), "Fehler", JOptionPane.ERROR_MESSAGE);
             coder = null;
         }
         return coder;
@@ -162,17 +166,17 @@ public class GuiView extends Component {
                 String publicKey = new String(passwordField.getPassword());
                 if (publicKey.length() > 0) {
                     try {
-                        crypter = new RSA(publicKey,keyType);
+                        crypter = new RSA(publicKey, keyType);
                     } catch (CrypterException ex) {
-                        throw new RuntimeException(ex);
-                        // TODO error handling?
+                        JOptionPane.showMessageDialog(null, "Es ist ein Fehler beim Verarbeiten des Schlüssels aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                        crypter = null;
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Bitte gebe einen öffentlichen Schlüssel ein in Form des erhaltenen Bildes oder als Text, mit dem die Information verschlüsselt werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
                     crypter = null;
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Der ausgewählte Verschlüsselung-Algorithmus entspricht keinem gültigen Wert: " + encryptComboBox.getSelectedItem(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Der ausgewählte Verschlüsselung-Algorithmus entspricht keinem gültigen Wert:\n" + encryptComboBox.getSelectedItem(), "Fehler", JOptionPane.ERROR_MESSAGE);
                 crypter = null;
             }
         } else {    // no encryption

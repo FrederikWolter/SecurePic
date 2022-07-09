@@ -53,7 +53,7 @@ public class GuiViewReceive extends GuiView {
                     JOptionPane.showMessageDialog(null, "Das Bild wurde erfolgreich exportiert.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (IOException ex) {
-                throw new RuntimeException(ex); // TODO error handling
+                JOptionPane.showMessageDialog(null, "Beim Speichern des Bildes ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
             }
         };
     }
@@ -91,12 +91,11 @@ public class GuiViewReceive extends GuiView {
                         messageOutput.setVisible(true);
                         messageOutput.setText("");
                         messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(), imageWidth, imageHeight)));
-                    } catch (IOException e1) {
-                        System.out.println(e1);
-                        // TODO error handling?
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(null, "Beim Anzeigen des Bildes ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    // TODO error handling?
+                    JOptionPane.showMessageDialog(null, "Der Type des Inhalts der erhaltenen Information ist nicht bekannt:\n" + type, "Fehler", JOptionPane.ERROR_MESSAGE);
                 }
 
                 exportButton.setEnabled(true);
