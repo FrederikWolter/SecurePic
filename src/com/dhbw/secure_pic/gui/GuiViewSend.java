@@ -8,7 +8,6 @@ import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.gui.utility.FileFilter;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
-import com.dhbw.secure_pic.gui.utility.handler.EncodeFinishedHandler;
 import com.dhbw.secure_pic.pipelines.EncodeTask;
 
 import javax.swing.*;
@@ -52,7 +51,7 @@ public class GuiViewSend extends GuiView {
                 containerImage.exportImg(file.getPath());
                 JOptionPane.showMessageDialog(null, "Das Bild wurde erfolgreich exportiert.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException | IllegalTypeException ex) {
-                throw new RuntimeException(ex); // TODO error handling
+                JOptionPane.showMessageDialog(null, "Beim Speichern des Bildes ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
             }
         };
     }
@@ -87,8 +86,8 @@ public class GuiViewSend extends GuiView {
                     try {
                         info = Information.getInformationFromImage(contentImage.getPath());
                     } catch (IllegalTypeException ex) {
-                        throw new RuntimeException(ex);
-                        // TODO error handling
+                        JOptionPane.showMessageDialog(null, "Beim Laden des Bildes ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, das in das Trägerbild codiert werden soll.", "Warnung", WARNING_MESSAGE);

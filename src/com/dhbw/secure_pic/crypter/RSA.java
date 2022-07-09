@@ -246,7 +246,7 @@ public class RSA implements Crypter {
         return keyString;
     }
 
-    //TODO check if still needed
+    // TODO check if still needed
 
     // region getter
     // Getters are used to output the keys to the user

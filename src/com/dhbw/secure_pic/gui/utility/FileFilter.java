@@ -37,7 +37,7 @@ public class FileFilter extends javax.swing.filechooser.FileFilter {
         return extension.toUpperCase();
     }
 
-    //Accept all directories and all gif, jpg, or png files.
+    // Accept all directories and all gif, jpg, or png files.
     @Override
     public boolean accept(File f) {
         if (f.isDirectory()) return true;   // show subdirectories for navigation in file select
@@ -50,7 +50,7 @@ public class FileFilter extends javax.swing.filechooser.FileFilter {
         return false;
     }
 
-    //The description of this filter
+    // The description of this filter
     @Override
     public String getDescription() {
         String desc = "";

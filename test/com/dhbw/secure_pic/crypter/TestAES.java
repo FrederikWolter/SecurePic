@@ -22,7 +22,7 @@ public class TestAES {
         String message = "Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!";
         Information information = Information.getInformationFromString(message);
 
-        //Multiple AES are used to simulate the communication between multiple devices
+        // Multiple AES are used to simulate the communication between multiple devices
 
         AES encryptAES = new AES("password");
 

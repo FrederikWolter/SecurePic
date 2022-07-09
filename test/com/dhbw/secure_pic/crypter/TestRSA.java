@@ -27,7 +27,7 @@ public class TestRSA {
         String message = "Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!";
         Information information = Information.getInformationFromString(message);
 
-        //Multiple RSA are used to simulate the communication between multiple devices
+        // Multiple RSA are used to simulate the communication between multiple devices
         RSA generateKeyRSA = new RSA();
         String publicKey = generateKeyRSA.getPublicKeyString();
         String privateKey = generateKeyRSA.getPrivateKeyString();

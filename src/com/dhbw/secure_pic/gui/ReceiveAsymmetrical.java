@@ -103,10 +103,11 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                         privateKey = ((RSA) crypter).getPrivateKeyString();
                         publicKey = ((RSA) crypter).getPublicKeyString();
                     } catch (CrypterException ex) {
-                        throw new RuntimeException(ex);     // TODO error handling?
+                        JOptionPane.showMessageDialog(null, "Beim Laden des Schlüssels ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                        return;
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Der ausgewählte Verschlüsselung-Algorithmus entspricht keinem gültigen Wert: " + encryptComboBox.getSelectedItem(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Der ausgewählte Verschlüsselung-Algorithmus entspricht keinem gültigen Wert:\n" + encryptComboBox.getSelectedItem(), "Fehler", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -175,7 +176,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                     keyImage.exportImg(file.getPath());
                     JOptionPane.showMessageDialog(null, "Das Bild wurde erfolgreich exportiert.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException | IllegalTypeException ex) {
-                    throw new RuntimeException(ex); // TODO error handling
+                    JOptionPane.showMessageDialog(null, "Beim Speichern des Bildes ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

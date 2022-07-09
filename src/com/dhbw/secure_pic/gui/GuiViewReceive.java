@@ -60,7 +60,7 @@ public class GuiViewReceive extends GuiView {
 
 
     protected ActionListener getDecodeListener(JComboBox<String> codeComboBox, JComboBox<String> encryptComboBox,
-                                               JPasswordField passwordField, JLabel messageOutput, JScrollPane textOutputScroll, JTextArea textOutput,  int imageWidth,
+                                               JPasswordField passwordField, JLabel messageOutput, JScrollPane textOutputScroll, JTextArea textOutput, int imageWidth,
                                                int imageHeight, JButton exportButton, JButton copyToClipboardButton,
                                                JButton decodeButton, JProgressBar progressBar) {
         return e -> {

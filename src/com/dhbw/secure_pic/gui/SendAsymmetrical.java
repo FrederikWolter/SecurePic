@@ -73,11 +73,10 @@ public class SendAsymmetrical extends GuiViewSend {
             if (coderPublicKey == null) return;     // error massage done in getCoder
 
             DecodeTask task = new DecodeTask(coderPublicKey, crypterPublicKey, info -> {
-                Information.Type type = info.getType();
-                if (type == Information.Type.TEXT) {    // TODO check if plausible key?
+                if (info.getType() == Information.Type.TEXT && info.toText().length() >= 600) {
                     publicKeyInput.setText(info.toText());
                 } else {
-                    JOptionPane.showMessageDialog(null, "Etwas ist schiefgelaufen, das Bild für den öffentlichen Schlüssel enthält keinen Schlüssel.", "Fehler", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Das Bild für den öffentlichen Schlüssel enthält keinen plausiblen Schlüssel.", "Fehler", JOptionPane.ERROR_MESSAGE);
                 }
             });
             task.addPropertyChangeListener(getPropertyChangeListener(progressBar));

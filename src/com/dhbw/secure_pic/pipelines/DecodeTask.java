@@ -68,7 +68,7 @@ public class DecodeTask extends SwingWorker<Information, Void> {
             Thread.currentThread().interrupt(); // see SolarLint
         } catch (ExecutionException e) {
             e.getCause().printStackTrace();
-            String msg = String.format("Fehler beim Decodieren:%n'%s'", e.getMessage().split(":", 2)[1]);
+            String msg = String.format("Fehler beim Decodieren:%nStelle sicher, dass das Bild mit den gleichen Einstellungen codiert wurde.%n'%s'", e.getMessage().split(":", 2)[1]);
             JOptionPane.showMessageDialog(null, msg, "Fehler", JOptionPane.ERROR_MESSAGE);
         }
     }
