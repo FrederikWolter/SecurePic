@@ -10,6 +10,8 @@ import com.dhbw.secure_pic.gui.utility.handler.DecodeFinishedHandler;
 
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // TODO comment
 
@@ -25,8 +27,6 @@ public class DecodeTask extends SwingWorker<Information, Void> {
     private final Crypter crypter;
     /** Calling gui class must be a DecodeFinishedHandler to handle when decode finishes */
     private final DecodeFinishedHandler caller;
-    /** Information to work with. */
-    private Information information;
     // endregion
 
     public DecodeTask(Coder coder, Crypter crypter, DecodeFinishedHandler caller) {
@@ -41,19 +41,19 @@ public class DecodeTask extends SwingWorker<Information, Void> {
         setProgress(0);
 
         // decode information from container image
-        this.information = this.coder.decode(
+        Information information = this.coder.decode(
                 progress -> setProgress((int) (progress * 0.5))   // progress 0 - 50
         );
 
         // decrypt information
-        this.information = this.crypter.decrypt(this.information,
-                                                progress -> setProgress((int) (progress * 0.5 + 50))    // progress 50 - 100
+        information = this.crypter.decrypt(information,
+                                           progress -> setProgress((int) (progress * 0.5 + 50))    // progress 50 - 100
         );
 
         // update progress
         setProgress(100);
 
-        return this.information;
+        return information;
     }
 
     @Override
@@ -62,12 +62,14 @@ public class DecodeTask extends SwingWorker<Information, Void> {
             Information info = get();
             this.caller.finishedDecode(info);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            // this should not happen due to no code interrupting the pipeline
+            Logger.getLogger("DecodeTask")
+                    .log(Level.WARNING, String.format("InterruptedException was thrown: '%s'", e.getMessage()));
+            Thread.currentThread().interrupt(); // see SolarLint
         } catch (ExecutionException e) {
             e.getCause().printStackTrace();
             String msg = String.format("Fehler beim Decodieren:%n'%s'", e.getMessage().split(":", 2)[1]);
             JOptionPane.showMessageDialog(null, msg, "Fehler", JOptionPane.ERROR_MESSAGE);
         }
-        // TODO error handling: https://stackoverflow.com/a/6524300/13777031
     }
 }

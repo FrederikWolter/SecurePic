@@ -6,6 +6,8 @@ import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // TODO comment
 // see e.g. https://docs.oracle.com/javase/tutorial/uiswing/concurrency/index.html
@@ -37,7 +39,6 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
 
         // create new ContainerImage instance from path
         ContainerImage containerImage = new ContainerImage(this.path);
-        // TODO use progress inside method? use design pattern for setProgress from called method https://stackoverflow.com/a/24946032/13777031
 
         // update progress
         setProgress(100);
@@ -51,12 +52,14 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
             ContainerImage image = get();
             this.caller.finishedImageLoad(image);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            // this should not happen due to no code interrupting the pipeline
+            Logger.getLogger("ContainerImageLoadTask")
+                    .log(Level.WARNING, String.format("InterruptedException was thrown: '%s'", e.getMessage()));
+            Thread.currentThread().interrupt(); // see SolarLint
         } catch (ExecutionException e) {
             e.getCause().printStackTrace();
             String msg = String.format("Fehler beim Laden des Bildes:%n'%s'", e.getMessage().split(":", 2)[1]);
             JOptionPane.showMessageDialog(null, msg, "Fehler", JOptionPane.ERROR_MESSAGE);
         }
-        // TODO error handling: https://stackoverflow.com/a/6524300/13777031
     }
 }

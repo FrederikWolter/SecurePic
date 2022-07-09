@@ -10,6 +10,8 @@ import com.dhbw.secure_pic.gui.utility.handler.EncodeFinishedHandler;
 
 import javax.swing.*;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 // TODO comment
@@ -40,7 +42,8 @@ public class EncodeTask extends SwingWorker<ContainerImage, Void> {
     }
 
     @Override
-    protected ContainerImage doInBackground() throws CrypterException, InsufficientCapacityException {
+    protected ContainerImage doInBackground()
+            throws CrypterException, InsufficientCapacityException, InterruptedException {
         // initialize progress property.
         setProgress(0);
 
@@ -66,12 +69,14 @@ public class EncodeTask extends SwingWorker<ContainerImage, Void> {
             ContainerImage image = get();
             this.caller.finishedEncode(image);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            // this should not happen due to no code interrupting the pipeline
+            Logger.getLogger("EncodeTask")
+                    .log(Level.WARNING, String.format("InterruptedException was thrown: '%s'", e.getMessage()));
+            Thread.currentThread().interrupt(); // see SolarLint
         } catch (ExecutionException e) {
             e.getCause().printStackTrace();
             String msg = String.format("Fehler beim Codieren:%n'%s'", e.getMessage().split(":", 2)[1]);
             JOptionPane.showMessageDialog(null, msg, "Fehler", JOptionPane.ERROR_MESSAGE);
         }
-        // TODO error handling: https://stackoverflow.com/a/6524300/13777031
     }
 }
