@@ -6,7 +6,6 @@ import com.dhbw.secure_pic.crypter.RSA;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.gui.utility.FileFilter;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
-import com.dhbw.secure_pic.gui.utility.handler.DecodeFinishedHandler;
 import com.dhbw.secure_pic.pipelines.DecodeTask;
 
 import javax.imageio.ImageIO;
@@ -66,7 +65,7 @@ public class GuiViewReceive extends GuiView {
                                                JButton decodeButton, JProgressBar progressBar) {
         return e -> {
             if (containerImage == null) {
-                // TODO error handling
+                JOptionPane.showMessageDialog(null, "Es wurde kein Trägerbild fehlerfrei geladen.", "Fehler", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 

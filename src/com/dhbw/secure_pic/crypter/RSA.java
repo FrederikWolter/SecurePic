@@ -48,15 +48,15 @@ public class RSA implements Crypter {
      */
     public RSA() throws CrypterException {
         try {
-            KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
+            this.algorithm = "RSA";
+            KeyPairGenerator generator = KeyPairGenerator.getInstance(algorithm);
             generator.initialize(2048);
             KeyPair pair = generator.generateKeyPair();
 
             this.privateKey = pair.getPrivate();
             this.publicKey = pair.getPublic();
-            this.algorithm = "RSA";
         } catch (NoSuchAlgorithmException e) {
-            throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException    // TODO remove?
+            throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException
         }
     }
 

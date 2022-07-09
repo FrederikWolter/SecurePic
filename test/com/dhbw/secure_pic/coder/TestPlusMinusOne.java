@@ -80,7 +80,7 @@ public class TestPlusMinusOne {
         assertNull(info2.toText());
         info2.copyToClipboard();
 
-        // TODO automatic test?
+        // FIXME automatic test?
     }
 
     @Test

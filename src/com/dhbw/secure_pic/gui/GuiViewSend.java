@@ -63,7 +63,7 @@ public class GuiViewSend extends GuiView {
                                                JButton copyToClipboardButton, JButton encodeButton, JProgressBar progressBar) {
         return e -> {
             if (containerImage == null) {
-                // TODO error handling
+                JOptionPane.showMessageDialog(null, "Es wurde kein Trägerbild fehlerfrei geladen.", "Fehler", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 

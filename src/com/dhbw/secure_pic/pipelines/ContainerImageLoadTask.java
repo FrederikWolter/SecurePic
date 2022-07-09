@@ -54,7 +54,7 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
         } catch (InterruptedException e) {
             // this should not happen due to no code interrupting the pipeline
             Logger.getLogger("ContainerImageLoadTask")
-                    .log(Level.WARNING, String.format("InterruptedException was thrown: '%s'", e.getMessage()));
+                    .log(Level.WARNING, String.format("InterruptedException: '%s'", e.getMessage()));
             Thread.currentThread().interrupt(); // see SolarLint
         } catch (ExecutionException e) {
             e.getCause().printStackTrace();
