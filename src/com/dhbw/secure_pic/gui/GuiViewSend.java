@@ -3,6 +3,7 @@ package com.dhbw.secure_pic.gui;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.coder.Coder;
 import com.dhbw.secure_pic.crypter.Crypter;
+import com.dhbw.secure_pic.crypter.RSA;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.gui.utility.FileFilter;
@@ -68,7 +69,7 @@ public class GuiViewSend extends GuiView {
 
             Information info;
             Coder coder = getCoder(codeComboBox, containerImage);
-            Crypter crypter = getCrypter(encryptComboBox, passwordField);
+            Crypter crypter = getCrypter(encryptComboBox, passwordField, RSA.keyType.PUBLIC);
 
             if (coder == null) return;      // error massage done in getCoder
             if (crypter == null) return;    // error massage done in getCrypter

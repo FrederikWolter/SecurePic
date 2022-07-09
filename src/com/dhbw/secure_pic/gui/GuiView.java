@@ -146,7 +146,7 @@ public class GuiView extends Component {
         return coder;
     }
 
-    protected static Crypter getCrypter(JComboBox<String> encryptComboBox, JPasswordField passwordField) {
+    protected static Crypter getCrypter(JComboBox<String> encryptComboBox, JPasswordField passwordField, RSA.keyType keyType) {
         Crypter crypter;
 
         if (encryptComboBox != null) {
@@ -162,7 +162,7 @@ public class GuiView extends Component {
                 String publicKey = new String(passwordField.getPassword());
                 if (publicKey.length() > 0) {
                     try {
-                        crypter = new RSA(publicKey, RSA.keyType.PUBLIC);
+                        crypter = new RSA(publicKey,keyType);
                     } catch (CrypterException ex) {
                         throw new RuntimeException(ex);
                         // TODO error handling?
