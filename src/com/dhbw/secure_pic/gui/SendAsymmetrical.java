@@ -109,9 +109,7 @@ public class SendAsymmetrical extends GuiViewSend {
 
         // region drop targets
         uploadPanelContainer.setDropTarget(getDropTargetListener(finishedContainerImageLoad, progressBar));
-
         uploadPanelMessage.setDropTarget(getDropTargetListener(finishedContentImageLoad, progressBar));
-
         uploadPanelKey.setDropTarget(getDropTargetListener(finishedKeyImageLoad, progressBar));
         // endregion
 
@@ -120,101 +118,16 @@ public class SendAsymmetrical extends GuiViewSend {
         backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 
         uploadContainer.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
-
         uploadMessageImg.addActionListener(getImageUploadListener(this, finishedContentImageLoad, progressBar));
-
         uploadPrivateKey.addActionListener(getImageUploadListener(this, finishedKeyImageLoad, progressBar));
 
         imageRadio.addActionListener(getInformationTypeListener(1, messageTextScroll, uploadPanelMessage));
-
         textRadio.addActionListener(getInformationTypeListener(0, messageTextScroll, uploadPanelMessage));
 
-
-        encodeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                Information info;
-                Coder coder;
-                Crypter crypter;
-
-                if (containerImage == null) {
-                    // TODO error handling
-                    return;
-                }
-
-                if (textRadio.isSelected()) {
-                    if (messageText.getText().length() > 0) {
-                        info = Information.getInformationFromString(messageText.getText());
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Bitte gebe einen Text ein, der in das Bild codiert werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
-                        return;
-                    }
-                } else if (imageRadio.isSelected()) {
-                    if (contentImage != null) {
-                        try {
-                            info = Information.getInformationFromImage(contentImage.getPath());
-                        } catch (IllegalTypeException ex) {
-                            throw new RuntimeException(ex);
-                            // TODO error handling
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, das in das Trägerbild codiert werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
-                        return;
-                    }
-                } else {
-                    // TODO error handling
-                    return;
-                }
-
-                if (codeComboBox.getSelectedItem() == "LSB") {
-                    coder = new LeastSignificantBit(containerImage);
-                } else if (codeComboBox.getSelectedItem() == "PM1") {
-                    coder = new PlusMinusOne(containerImage);
-                } else {
-                    // TODO error handling
-                    return;
-                }
-
-                if (encryptComboBox.getSelectedItem() == "RSA") {
-                    String publicKey = new String(publicKeyInput.getPassword());
-                    if (publicKey.length() > 0) {
-                        try {
-                            crypter = new RSA(publicKey, RSA.keyType.PUBLIC);
-                        } catch (CrypterException ex) {
-                            throw new RuntimeException(ex);
-                            // TODO error handling?
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Bitte gebe einen öffentlichen Schlüssel ein in Form des erhaltenen Bildes oder als Text, mit dem die Information verschlüsselt werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
-                        return;
-                    }
-                } else {
-                    // TODO error handling
-                    return;
-                }
-
-//                encodeButton.setEnabled(false);
-
-                EncodeTask task = new EncodeTask(coder, crypter, info, new EncodeFinishedHandler() {
-                    @Override
-                    public void finishedEncode(ContainerImage image) {
-                        containerImage = image;
-
-                        exportButton.setEnabled(true);
-                        copyToClipboardButton.setEnabled(true);
-                        encodeButton.setEnabled(true);
-                    }
-                });
-                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                task.execute();
-            }
-        });
+        encodeButton.addActionListener(getEncodeListener(textRadio, imageRadio, messageText, codeComboBox, encryptComboBox, publicKeyInput, exportButton, copyToClipboardButton, encodeButton, progressBar));
 
         exportButton.addActionListener(getExportImageListener(this));
-
         copyToClipboardButton.addActionListener(e -> containerImage.copyToClipboard());
-
         // endregion
     }
 
