@@ -7,19 +7,14 @@ import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 // TODO comment
 
 /**
- * This class implements the Crypter used to encrypt/decrypt messages.<br>
- * Class is abstract, hence its functionality could only be used through its children.
+ * This interface represents the Crypter used to encrypt/decrypt messages.
  *
- * @author Kirolis Eskondis supported by Frederik Wolter
+ * @author Kirolis Eskondis, Frederik Wolter
  */
-public abstract class Crypter {
-    // TODO interface
+public interface Crypter {
 
-    /**
-     * @param information contains the message to encrypt/decrypt
-     */
-    public abstract Information encrypt(Information information, ProgressMonitor monitor) throws CrypterException;
+    Information encrypt(Information information, ProgressMonitor monitor) throws CrypterException;
 
-    public abstract Information decrypt(Information information, ProgressMonitor monitor) throws CrypterException;
+    Information decrypt(Information information, ProgressMonitor monitor) throws CrypterException;
 
 }

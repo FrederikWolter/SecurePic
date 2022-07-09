@@ -19,7 +19,7 @@ import java.util.Base64;
  *
  * @author Kirolis Eskondis supported by Frederik Wolter
  */
-public class AES extends Crypter {
+public class AES implements Crypter {
 
     // region attributes
     private final SecretKey key;

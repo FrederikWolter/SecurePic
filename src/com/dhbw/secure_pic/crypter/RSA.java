@@ -28,7 +28,7 @@ import java.util.Base64;
  *
  * @author Kirolis Eskondis
  */
-public class RSA extends Crypter {
+public class RSA implements Crypter {
 
     // region attributes
     private final PrivateKey privateKey;

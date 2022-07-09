@@ -31,7 +31,7 @@ public class TestContainerImage {
     public void testCopyToClipboard() throws IllegalTypeException {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
         image.copyToClipboard();
-        // TODO add automatic test?
+        // FIXME add automatic test?
     }
 
     @Test
@@ -40,19 +40,19 @@ public class TestContainerImage {
 
         byte[] result;
 
-        image.setARGB(0, 0, (byte) 255, (byte) 255, (byte) 0, (byte) 0);
+        image.setARGB(0, 0, (byte) 255, (byte) 0, (byte) 0);
         result = image.getARGB(0, 0);
         assertArrayEquals(result, new byte[]{(byte) 255, (byte) 255, (byte) 0, (byte) 0});
 
-        image.setARGB(0, 0, (byte) 255, (byte) 0, (byte) 255, (byte) 0);
+        image.setARGB(0, 0, (byte) 0, (byte) 255, (byte) 0);
         result = image.getARGB(0, 0);
         assertArrayEquals(result, new byte[]{(byte) 255, (byte) 0, (byte) 255, (byte) 0});
 
-        image.setARGB(0, 0, (byte) 255, (byte) 0, (byte) 0, (byte) 255);
+        image.setARGB(0, 0, (byte) 0, (byte) 0, (byte) 255);
         result = image.getARGB(0, 0);
         assertArrayEquals(result, new byte[]{(byte) 255, (byte) 0, (byte) 0, (byte) 255});
 
-        image.setARGB(0, 0, (byte) 255, (byte) 125, (byte) 106, (byte) 55);
+        image.setARGB(0, 0, (byte) 125, (byte) 106, (byte) 55);
         result = image.getARGB(0, 0);
         assertArrayEquals(result, new byte[]{(byte) 255, (byte) 125, (byte) 106, (byte) 55});
 

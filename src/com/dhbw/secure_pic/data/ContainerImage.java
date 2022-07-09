@@ -41,7 +41,8 @@ public class ContainerImage {
      *
      * @param path path to container image to be loaded given by user.
      *
-     * @throws IllegalTypeException
+     * @throws IllegalTypeException either the given file extension does not match any type
+     *                              or an error occurred during load.
      */
     public ContainerImage(String path) throws IllegalTypeException {
         // set attributes
@@ -89,7 +90,7 @@ public class ContainerImage {
      * @param destPath destination path for image to be saved to.
      *
      * @throws IOException
-     * @throws IllegalTypeException
+     * @throws IllegalTypeException given destination path file extension does not match the file type.
      */
     public void exportImg(String destPath) throws IOException, IllegalTypeException {
         String format = switch (this.type) {
@@ -121,22 +122,20 @@ public class ContainerImage {
     // region getter & setter
 
     /**
-     * Setter for single pixel values of buffered image.
+     * Setter for single pixel's rgb values of buffered image.
      *
      * @param x x value of pixel.
      * @param y y value of pixel.
-     * @param a alpha value (not supported).
      * @param r red value to be set.
      * @param g green value to be set.
      * @param b blue value to be set.
      */
-    // TODO Remove the input of a if it is a constant anyway
-    public void setARGB(int x, int y, byte a, byte r, byte g, byte b) {
-        // set alpha to 100% due to library not reacting to alpha values correctly
-        a = (byte) 255;
-
+    public void setARGB(int x, int y, byte r, byte g, byte b) {
         // create empty int (4 byte)
         int argbValue = 0;
+
+        // set alpha to 100% due to library not reacting to alpha values correctly
+        byte a = (byte) 255;
 
         // build argb value
         argbValue += (a & 0xff) << 24;   // alpha value
@@ -156,7 +155,6 @@ public class ContainerImage {
      *
      * @return calculated values in form af array.
      */
-    // TODO values[0] is always the same? Looking at setARGB, it isn't even really used since a is set as a constant there
     public byte[] getARGB(int x, int y) {
         // get argb value from buffered image
         int argbValue = this.image.getRGB(x, y);
@@ -171,24 +169,37 @@ public class ContainerImage {
         return values;
     }
 
+    /**
+     * @return width
+     */
     public int getWidth() {
         return this.image.getWidth();
     }
 
+    /**
+     * @return height
+     */
     public int getHeight() {
         return this.image.getHeight();
     }
 
-    // TODO cleanup unused Getters
-
+    /**
+     * @return path
+     */
     public String getPath() {
         return path;
     }
 
+    /**
+     * @return image
+     */
     public BufferedImage getImage() {
         return image;
     }
 
+    /**
+     * @return type
+     */
     public Type getType() {
         return type;
     }

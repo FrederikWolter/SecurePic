@@ -106,7 +106,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                         throw new RuntimeException(ex);     // TODO error handling?
                     }
                 } else {
-                    // TODO error handling?
+                    JOptionPane.showMessageDialog(null, "Der ausgewählte Verschlüsselung-Algorithmus entspricht keinem gültigen Wert: " + encryptComboBox.getSelectedItem(), "Fehler", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -156,8 +156,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                 try {
                     contentInformation.copyToClipboard();
                 } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                    // TODO error handing?
+                    JOptionPane.showMessageDialog(null, "Beim Kopieren des Inhalts ist ein Fehler aufgetreten: " + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

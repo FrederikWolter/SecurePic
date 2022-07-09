@@ -13,7 +13,7 @@ import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
  *
  * @author Kirolis Eskondis
  */
-public class EmptyCrypter extends Crypter {
+public class EmptyCrypter implements Crypter {
 
     @Override
     public Information encrypt(Information information, ProgressMonitor monitor) {

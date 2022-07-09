@@ -73,7 +73,7 @@ public class LeastSignificantBit extends Coder {
                 }
 
                 // set calculated argb value in image
-                super.image.setARGB(x, y, pixel[0], pixel[1], pixel[2], pixel[3]);
+                super.image.setARGB(x, y, pixel[1], pixel[2], pixel[3]);
 
                 // update progress
                 monitor.updateProgress((int) (fetcher.getPosition() / (infoLength) * 8));

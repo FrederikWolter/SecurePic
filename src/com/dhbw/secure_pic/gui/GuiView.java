@@ -172,7 +172,6 @@ public class GuiView extends Component {
                     crypter = null;
                 }
             } else {
-                // TODO error handling
                 JOptionPane.showMessageDialog(null, "Der ausgewählte Verschlüsselung-Algorithmus entspricht keinem gültigen Wert: " + encryptComboBox.getSelectedItem(), "Fehler", JOptionPane.ERROR_MESSAGE);
                 crypter = null;
             }

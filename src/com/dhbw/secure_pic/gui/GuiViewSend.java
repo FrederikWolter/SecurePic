@@ -94,21 +94,18 @@ public class GuiViewSend extends GuiView {
                     return;
                 }
             } else {
-                // TODO error handling
+                JOptionPane.showMessageDialog(null, "Keiner der RadioButton für den Nachrichten Inhalt ist ausgewählt.", "Fehler", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
 //            encodeButton.setEnabled(false);
 
-            EncodeTask task = new EncodeTask(coder, crypter, info, new EncodeFinishedHandler() {
-                @Override
-                public void finishedEncode(ContainerImage image) {
-                    containerImage = image;
+            EncodeTask task = new EncodeTask(coder, crypter, info, image -> {
+                containerImage = image;
 
-                    exportButton.setEnabled(true);
-                    copyToClipboardButton.setEnabled(true);
-                    encodeButton.setEnabled(true);
-                }
+                exportButton.setEnabled(true);
+                copyToClipboardButton.setEnabled(true);
+                encodeButton.setEnabled(true);
             });
             task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
             task.execute();
