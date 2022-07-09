@@ -44,7 +44,6 @@ public class ReceiveSymmetrical extends GuiViewReceive {
         uploadPanelContainer.setDropTarget(getDropTargetListener(finishedContainerImageLoad, progressBar));
         // endregion
 
-
         // region listener
         backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 

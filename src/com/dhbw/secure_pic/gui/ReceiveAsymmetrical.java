@@ -122,21 +122,14 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                 keyExport.setEnabled(true);
                 copyToClipboardKey.setEnabled(true);
 
+                // region encode public key
                 if (encodePublicKeyIntoCheckBox.isSelected()) {
                     if (keyImage != null) {
-                        // region encode public key
-                        Coder coder;
+                        Coder coder = getCoder(codeComboBox, keyImage);
                         Crypter noOpCrypter = new EmptyCrypter();
                         Information info = Information.getInformationFromString(publicKey);
 
-                        if (codeComboBox.getSelectedItem() == "LSB") {
-                            coder = new LeastSignificantBit(keyImage);
-                        } else if (codeComboBox.getSelectedItem() == "PM1") {
-                            coder = new PlusMinusOne(keyImage);
-                        } else {
-                            // TODO error handling
-                            return;
-                        }
+                        if (coder == null) return;      // error massage done in getCoder
 
                         EncodeTask task = new EncodeTask(coder, noOpCrypter, info, new EncodeFinishedHandler() {
                             @Override
@@ -152,11 +145,11 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                         });
                         task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
                         task.execute();
-                        // endregion
 
                     } else {
                         JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, in das der öffentliche Schlüssel codiert werden soll.", "Warnung", WARNING_MESSAGE);
                     }
+                    // endregion
                 }
             }
         });

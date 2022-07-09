@@ -66,23 +66,14 @@ public class SendAsymmetrical extends GuiViewSend {
 
         LoadImageFinishedHandler finishedKeyImageLoad = image -> {
             keyImage = image;
-
             keyImg.setText("");
             keyImg.setIcon(new ImageIcon(getScaledImage(keyImage.getImage(), IMAGE_WIDTH_1, IMAGE_HEIGHT_1)));
 
             // region decode key
-            Coder coderPublicKey;
+            Coder coderPublicKey = getCoder(codeComboBox, keyImage);
             Crypter crypterPublicKey = new EmptyCrypter();
 
-            // TODO extract getCoder & getCrypter?
-            if (codeComboBox.getSelectedItem() == "LSB") {
-                coderPublicKey = new LeastSignificantBit(keyImage);
-            } else if (codeComboBox.getSelectedItem() == "PM1") {
-                coderPublicKey = new PlusMinusOne(keyImage);
-            } else {
-                // TODO error handling
-                return;
-            }
+            if (coderPublicKey == null) return;     // error massage done in getCoder
 
             DecodeTask task = new DecodeTask(coderPublicKey, crypterPublicKey, new DecodeFinishedHandler() {
                 @Override

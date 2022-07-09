@@ -67,14 +67,18 @@ public class GuiViewSend extends GuiView {
                                                JPasswordField passwordField, JButton exportButton,
                                                JButton copyToClipboardButton, JButton encodeButton, JProgressBar progressBar) {
         return e -> {
-            Information info;
-            Coder coder;
-            Crypter crypter;
-
             if (containerImage == null) {
                 // TODO error handling
                 return;
             }
+
+            Information info;
+            Coder coder = getCoder(codeComboBox, containerImage);
+            Crypter crypter = getCrypter(encryptComboBox, passwordField);
+
+            if (coder == null) return;      // error massage done in getCoder
+            if (crypter == null) return;    // error massage done in getCrypter
+
 
             if (textRadio.isSelected()) {
                 if (messageText.getText().length() > 0) {
@@ -99,46 +103,6 @@ public class GuiViewSend extends GuiView {
                 // TODO error handling
                 return;
             }
-
-            if (codeComboBox.getSelectedItem() == "LSB") {
-                coder = new LeastSignificantBit(containerImage);
-            } else if (codeComboBox.getSelectedItem() == "PM1") {
-                coder = new PlusMinusOne(containerImage);
-            } else {
-                // TODO error handling
-                return;
-            }
-
-            if (encryptComboBox != null) {
-                if (encryptComboBox.getSelectedItem() == "AES") {
-                    String password = new String(passwordField.getPassword());
-                    if (password.length() > 0) {
-                        crypter = new AES(password);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Bitte gebe ein Passwort ein, mit dem die Information verschlüsselt werden soll.", "Warnung", WARNING_MESSAGE);
-                        return;
-                    }
-                } else if (encryptComboBox.getSelectedItem() == "RSA") {
-                    String publicKey = new String(passwordField.getPassword());
-                    if (publicKey.length() > 0) {
-                        try {
-                            crypter = new RSA(publicKey, RSA.keyType.PUBLIC);
-                        } catch (CrypterException ex) {
-                            throw new RuntimeException(ex);
-                            // TODO error handling?
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Bitte gebe einen öffentlichen Schlüssel ein in Form des erhaltenen Bildes oder als Text, mit dem die Information verschlüsselt werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
-                        return;
-                    }
-                } else {
-                    // TODO error handling
-                    return;
-                }
-            } else {    // no encryption
-                crypter = new EmptyCrypter();
-            }
-
 
 //            encodeButton.setEnabled(false);
 

@@ -130,7 +130,6 @@ public class Information {
             throw new IllegalTypeException("An error occurred loading the selected image: '" + e.getMessage() + "'");
         }
 
-
         // convert BufferedImage to byte[]
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {

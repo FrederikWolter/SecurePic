@@ -1,5 +1,13 @@
 package com.dhbw.secure_pic.gui;
 
+import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
+import com.dhbw.secure_pic.coder.Coder;
+import com.dhbw.secure_pic.coder.LeastSignificantBit;
+import com.dhbw.secure_pic.coder.PlusMinusOne;
+import com.dhbw.secure_pic.crypter.AES;
+import com.dhbw.secure_pic.crypter.Crypter;
+import com.dhbw.secure_pic.crypter.EmptyCrypter;
+import com.dhbw.secure_pic.crypter.RSA;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.gui.utility.FileFilter;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
@@ -16,6 +24,8 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+
+import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
 // TODO comment
 
@@ -42,7 +52,7 @@ public class GuiView extends Component {
     // endregion
 
     // see https://stackoverflow.com/a/6714381/13777031, https://stackoverflow.com/a/10245583/13777031
-    public static BufferedImage getScaledImage(BufferedImage srcImg, int maxWidth, int maxHeight) {
+    protected static BufferedImage getScaledImage(BufferedImage srcImg, int maxWidth, int maxHeight) {
         int originalWidth = srcImg.getWidth();
         int originalHeight = srcImg.getHeight();
         int newWidth = originalWidth;
@@ -119,6 +129,57 @@ public class GuiView extends Component {
             task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
             task.execute();
         };
+    }
+
+
+    protected static Coder getCoder(JComboBox<String> codeComboBox, ContainerImage image){
+        Coder coder;
+
+        if (codeComboBox.getSelectedItem() == "LSB") {
+            coder = new LeastSignificantBit(image);
+        } else if (codeComboBox.getSelectedItem() == "PM1") {
+            coder = new PlusMinusOne(image);
+        } else {
+            JOptionPane.showMessageDialog(null, "Der ausgewählte Codierung-Algorithmus entspricht keinem gültigen Wert: " + codeComboBox.getSelectedItem(), "Fehler", JOptionPane.ERROR_MESSAGE);
+            coder = null;
+        }
+        return coder;
+    }
+
+    protected static Crypter getCrypter(JComboBox<String> encryptComboBox, JPasswordField passwordField){
+        Crypter crypter;
+
+        if (encryptComboBox != null) {
+            if (encryptComboBox.getSelectedItem() == "AES") {
+                String password = new String(passwordField.getPassword());
+                if (password.length() > 0) {
+                    crypter = new AES(password);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Bitte gebe ein Passwort ein, mit dem die Information verschlüsselt werden soll.", "Warnung", WARNING_MESSAGE);
+                    crypter = null;
+                }
+            } else if (encryptComboBox.getSelectedItem() == "RSA") {
+                String publicKey = new String(passwordField.getPassword());
+                if (publicKey.length() > 0) {
+                    try {
+                        crypter = new RSA(publicKey, RSA.keyType.PUBLIC);
+                    } catch (CrypterException ex) {
+                        throw new RuntimeException(ex);
+                        // TODO error handling?
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Bitte gebe einen öffentlichen Schlüssel ein in Form des erhaltenen Bildes oder als Text, mit dem die Information verschlüsselt werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
+                    crypter = null;
+                }
+            } else {
+                // TODO error handling
+                JOptionPane.showMessageDialog(null, "Der ausgewählte Verschlüsselung-Algorithmus entspricht keinem gültigen Wert: " + encryptComboBox.getSelectedItem(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                crypter = null;
+            }
+        } else {    // no encryption
+            crypter = new EmptyCrypter();
+        }
+        return crypter;
     }
 
 }
