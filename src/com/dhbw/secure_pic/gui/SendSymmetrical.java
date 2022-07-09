@@ -1,22 +1,8 @@
 package com.dhbw.secure_pic.gui;
 
-import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
-import com.dhbw.secure_pic.coder.Coder;
-import com.dhbw.secure_pic.coder.LeastSignificantBit;
-import com.dhbw.secure_pic.coder.PlusMinusOne;
-import com.dhbw.secure_pic.crypter.AES;
-import com.dhbw.secure_pic.crypter.Crypter;
-import com.dhbw.secure_pic.data.ContainerImage;
-import com.dhbw.secure_pic.data.Information;
-import com.dhbw.secure_pic.gui.utility.handler.EncodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
-import com.dhbw.secure_pic.pipelines.EncodeTask;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 

@@ -1,14 +1,6 @@
 package com.dhbw.secure_pic.gui;
 
-import com.dhbw.secure_pic.coder.Coder;
-import com.dhbw.secure_pic.coder.LeastSignificantBit;
-import com.dhbw.secure_pic.coder.PlusMinusOne;
-import com.dhbw.secure_pic.crypter.Crypter;
-import com.dhbw.secure_pic.crypter.EmptyCrypter;
-import com.dhbw.secure_pic.data.Information;
-import com.dhbw.secure_pic.gui.utility.handler.DecodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
-import com.dhbw.secure_pic.pipelines.DecodeTask;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

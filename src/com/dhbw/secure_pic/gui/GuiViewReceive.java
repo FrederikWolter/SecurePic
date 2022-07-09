@@ -17,7 +17,6 @@ import com.dhbw.secure_pic.pipelines.DecodeTask;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -71,7 +70,7 @@ public class GuiViewReceive extends GuiView {
     protected ActionListener getDecodeListener(JComboBox<String> codeComboBox, JComboBox<String> encryptComboBox,
                                                JPasswordField passwordField, JLabel messageOutput, int imageWidth,
                                                int imageHeight, JButton exportButton, JButton copyToClipboardButton,
-                                               JButton decodeButton, JProgressBar progressBar){
+                                               JButton decodeButton, JProgressBar progressBar) {
         return e -> {
             Coder coder;
             Crypter crypter;
@@ -90,7 +89,7 @@ public class GuiViewReceive extends GuiView {
                 return;
             }
 
-            if(encryptComboBox != null){
+            if (encryptComboBox != null) {
                 if (encryptComboBox.getSelectedItem() == "AES") {
                     String password = new String(passwordField.getPassword());
                     if (password.length() > 0) {

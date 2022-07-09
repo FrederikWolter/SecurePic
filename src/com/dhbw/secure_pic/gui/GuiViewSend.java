@@ -18,7 +18,6 @@ import com.dhbw.secure_pic.pipelines.EncodeTask;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
@@ -66,7 +65,7 @@ public class GuiViewSend extends GuiView {
     protected ActionListener getEncodeListener(JRadioButton textRadio, JRadioButton imageRadio, JTextArea messageText,
                                                JComboBox<String> codeComboBox, JComboBox<String> encryptComboBox,
                                                JPasswordField passwordField, JButton exportButton,
-                                               JButton copyToClipboardButton, JButton encodeButton, JProgressBar progressBar){
+                                               JButton copyToClipboardButton, JButton encodeButton, JProgressBar progressBar) {
         return e -> {
             Information info;
             Coder coder;
@@ -110,7 +109,7 @@ public class GuiViewSend extends GuiView {
                 return;
             }
 
-            if(encryptComboBox != null){
+            if (encryptComboBox != null) {
                 if (encryptComboBox.getSelectedItem() == "AES") {
                     String password = new String(passwordField.getPassword());
                     if (password.length() > 0) {
