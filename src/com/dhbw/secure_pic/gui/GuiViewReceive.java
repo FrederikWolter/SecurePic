@@ -1,13 +1,7 @@
 package com.dhbw.secure_pic.gui;
 
-import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.coder.Coder;
-import com.dhbw.secure_pic.coder.LeastSignificantBit;
-import com.dhbw.secure_pic.coder.PlusMinusOne;
-import com.dhbw.secure_pic.crypter.AES;
 import com.dhbw.secure_pic.crypter.Crypter;
-import com.dhbw.secure_pic.crypter.EmptyCrypter;
-import com.dhbw.secure_pic.crypter.RSA;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.gui.utility.FileFilter;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
@@ -22,8 +16,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
 // TODO comment
 

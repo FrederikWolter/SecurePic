@@ -12,6 +12,7 @@ import java.io.IOException;
 // TODO show text not in label but Textarea for automatic line breaks!
 
 public class ReceiveSymmetrical extends GuiViewReceive {
+
     // region swing attributes
     private JProgressBar progressBar;
     private JButton backButton;

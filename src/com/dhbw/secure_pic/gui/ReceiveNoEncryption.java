@@ -12,6 +12,7 @@ import java.io.IOException;
 // TODO show text not in label but Textarea for automatic line breaks!
 
 public class ReceiveNoEncryption extends GuiViewReceive {
+
     // region swing attributes
     private JPanel contentPane;
     private JProgressBar progressBar;
@@ -25,7 +26,6 @@ public class ReceiveNoEncryption extends GuiViewReceive {
     private JPanel uploadPanelContainer;
     private JLabel containerImg;
     // endregion
-
 
     public ReceiveNoEncryption(Gui parent) {
         // region finished handler

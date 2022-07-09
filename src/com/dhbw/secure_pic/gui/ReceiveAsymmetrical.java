@@ -3,8 +3,6 @@ package com.dhbw.secure_pic.gui;
 import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.coder.Coder;
-import com.dhbw.secure_pic.coder.LeastSignificantBit;
-import com.dhbw.secure_pic.coder.PlusMinusOne;
 import com.dhbw.secure_pic.crypter.Crypter;
 import com.dhbw.secure_pic.crypter.EmptyCrypter;
 import com.dhbw.secure_pic.crypter.RSA;
@@ -12,7 +10,6 @@ import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.gui.utility.FileFilter;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
-import com.dhbw.secure_pic.gui.utility.handler.EncodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 import com.dhbw.secure_pic.pipelines.EncodeTask;
 
@@ -115,7 +112,6 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
 
                 privateKeyOutput.setText(privateKey);
                 publicKeyOutput.setText(publicKey);
-
                 privateKeyInput.setText(privateKey);
                 privateKeyInput.setEditable(false);
 
@@ -131,17 +127,14 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
 
                         if (coder == null) return;      // error massage done in getCoder
 
-                        EncodeTask task = new EncodeTask(coder, noOpCrypter, info, new EncodeFinishedHandler() {
-                            @Override
-                            public void finishedEncode(ContainerImage image) {
-                                keyImage = image;
+                        EncodeTask task = new EncodeTask(coder, noOpCrypter, info, image -> {
+                            keyImage = image;
 
-                                keyExport.setEnabled(true);
-                                copyToClipboardKey.setEnabled(true);
-                                outputKeyImage.setIcon(new ImageIcon(getScaledImage(keyImage.getImage(),
-                                                                                    IMAGE_WIDTH_3,
-                                                                                    IMAGE_HEIGHT_2)));
-                            }
+                            keyExport.setEnabled(true);
+                            copyToClipboardKey.setEnabled(true);
+                            outputKeyImage.setIcon(
+                                    new ImageIcon(getScaledImage(keyImage.getImage(), IMAGE_WIDTH_3, IMAGE_HEIGHT_2))
+                            );
                         });
                         task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
                         task.execute();
@@ -187,7 +180,6 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                 }
             }
         });
-
         // endregion
     }
 

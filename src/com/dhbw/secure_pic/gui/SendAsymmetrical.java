@@ -1,13 +1,10 @@
 package com.dhbw.secure_pic.gui;
 
 import com.dhbw.secure_pic.coder.Coder;
-import com.dhbw.secure_pic.coder.LeastSignificantBit;
-import com.dhbw.secure_pic.coder.PlusMinusOne;
 import com.dhbw.secure_pic.crypter.Crypter;
 import com.dhbw.secure_pic.crypter.EmptyCrypter;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
-import com.dhbw.secure_pic.gui.utility.handler.DecodeFinishedHandler;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 import com.dhbw.secure_pic.pipelines.DecodeTask;
 
@@ -75,15 +72,12 @@ public class SendAsymmetrical extends GuiViewSend {
 
             if (coderPublicKey == null) return;     // error massage done in getCoder
 
-            DecodeTask task = new DecodeTask(coderPublicKey, crypterPublicKey, new DecodeFinishedHandler() {
-                @Override
-                public void finishedDecode(Information info) {
-                    Information.Type type = info.getType();
-                    if (type == Information.Type.TEXT) {    // TODO check if plausible key?
-                        publicKeyInput.setText(info.toText());
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Etwas ist schiefgelaufen, das Bild für den öffentlichen Schlüssel enthält keinen Schlüssel.", "Fehler", JOptionPane.ERROR_MESSAGE);
-                    }
+            DecodeTask task = new DecodeTask(coderPublicKey, crypterPublicKey, info -> {
+                Information.Type type = info.getType();
+                if (type == Information.Type.TEXT) {    // TODO check if plausible key?
+                    publicKeyInput.setText(info.toText());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Etwas ist schiefgelaufen, das Bild für den öffentlichen Schlüssel enthält keinen Schlüssel.", "Fehler", JOptionPane.ERROR_MESSAGE);
                 }
             });
             task.addPropertyChangeListener(getPropertyChangeListener(progressBar));

@@ -132,7 +132,7 @@ public class GuiView extends Component {
     }
 
 
-    protected static Coder getCoder(JComboBox<String> codeComboBox, ContainerImage image){
+    protected static Coder getCoder(JComboBox<String> codeComboBox, ContainerImage image) {
         Coder coder;
 
         if (codeComboBox.getSelectedItem() == "LSB") {
@@ -146,7 +146,7 @@ public class GuiView extends Component {
         return coder;
     }
 
-    protected static Crypter getCrypter(JComboBox<String> encryptComboBox, JPasswordField passwordField){
+    protected static Crypter getCrypter(JComboBox<String> encryptComboBox, JPasswordField passwordField) {
         Crypter crypter;
 
         if (encryptComboBox != null) {

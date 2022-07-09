@@ -28,7 +28,6 @@ public class SendNoEncryption extends GuiViewSend {
     private JScrollPane messageTextScroll;
     // endregion
 
-
     public SendNoEncryption(Gui parent) {
         // region finished listener
         LoadImageFinishedHandler finishedContainerImageLoad = image -> {
