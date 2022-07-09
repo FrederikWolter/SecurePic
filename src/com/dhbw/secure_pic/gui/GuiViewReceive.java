@@ -1,17 +1,30 @@
 package com.dhbw.secure_pic.gui;
 
+import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
+import com.dhbw.secure_pic.coder.Coder;
+import com.dhbw.secure_pic.coder.LeastSignificantBit;
+import com.dhbw.secure_pic.coder.PlusMinusOne;
+import com.dhbw.secure_pic.crypter.AES;
+import com.dhbw.secure_pic.crypter.Crypter;
+import com.dhbw.secure_pic.crypter.EmptyCrypter;
+import com.dhbw.secure_pic.crypter.RSA;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.gui.utility.FileFilter;
 import com.dhbw.secure_pic.gui.utility.FileSelect;
+import com.dhbw.secure_pic.gui.utility.handler.DecodeFinishedHandler;
+import com.dhbw.secure_pic.pipelines.DecodeTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
 // TODO comment
 
@@ -51,6 +64,93 @@ public class GuiViewReceive extends GuiView {
             } catch (IOException ex) {
                 throw new RuntimeException(ex); // TODO error handling
             }
+        };
+    }
+
+
+    protected ActionListener getDecodeListener(JComboBox<String> codeComboBox, JComboBox<String> encryptComboBox,
+                                               JPasswordField passwordField, JLabel messageOutput, int imageWidth,
+                                               int imageHeight, JButton exportButton, JButton copyToClipboardButton,
+                                               JButton decodeButton, JProgressBar progressBar){
+        return e -> {
+            Coder coder;
+            Crypter crypter;
+
+            if (containerImage == null) {
+                // TODO error handling
+                return;
+            }
+
+            if (codeComboBox.getSelectedItem() == "LSB") {
+                coder = new LeastSignificantBit(containerImage);
+            } else if (codeComboBox.getSelectedItem() == "PM1") {
+                coder = new PlusMinusOne(containerImage);
+            } else {
+                // TODO error handling
+                return;
+            }
+
+            if(encryptComboBox != null){
+                if (encryptComboBox.getSelectedItem() == "AES") {
+                    String password = new String(passwordField.getPassword());
+                    if (password.length() > 0) {
+                        crypter = new AES(password);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Bitte gebe ein Passwort ein, mit dem die Information entschlüsselt werden soll.", "Warnung", WARNING_MESSAGE);
+                        return;
+                    }
+                } else if (encryptComboBox.getSelectedItem() == "RSA") {
+                    String privateKey = new String(passwordField.getPassword());
+                    if (privateKey.length() > 20) {
+                        try {
+                            crypter = new RSA(privateKey, RSA.keyType.PRIVATE);
+                        } catch (CrypterException ex) {
+                            throw new RuntimeException(ex);
+                            // TODO error handling
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Bitte gebe den privaten Schlüssel ein, mit dem die Information entschlüsselt werden soll.", "Warnung", WARNING_MESSAGE);
+                        return;
+                    }
+                } else {
+                    // TODO error handling
+                    return;
+                }
+            } else {    // no encryption
+                crypter = new EmptyCrypter();
+            }
+
+//                decodeButton.setEnabled(false);
+
+            DecodeTask task = new DecodeTask(coder, crypter, new DecodeFinishedHandler() {
+                @Override
+                public void finishedDecode(Information info) {
+                    contentInformation = info;
+
+                    Information.Type type = info.getType();
+                    if (type == Information.Type.TEXT) {
+                        messageOutput.setText(info.toText());
+                    } else if (type == Information.Type.IMAGE_PNG || type == Information.Type.IMAGE_GIF || type == Information.Type.IMAGE_JPG) {
+                        try {
+                            messageOutput.setText("");
+                            messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(),
+                                                                               imageWidth,
+                                                                               imageHeight)));
+                        } catch (IOException e) {
+                            System.out.println(e);
+                            // TODO error handling?
+                        }
+                    } else {
+                        // TODO error handling?
+                    }
+
+                    exportButton.setEnabled(true);
+                    copyToClipboardButton.setEnabled(true);
+                    decodeButton.setEnabled(true);
+                }
+            });
+            task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
+            task.execute();
         };
     }
 

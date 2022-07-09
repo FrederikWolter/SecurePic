@@ -55,7 +55,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
     private JLabel messageOutput;
     private JComboBox<String> codeComboBox;
     private JComboBox<String> encryptComboBox;
-    private JTextField privateKeyInput;
+    private JPasswordField privateKeyInput;
     // endregion
 
     // region attributes
@@ -85,7 +85,6 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
 
         // region drop targets
         uploadPanelContainer.setDropTarget(getDropTargetListener(finishedContainerImageLoad, progressBar));
-
         uploadPanelKey.setDropTarget(getDropTargetListener(finishedKeyImageLoad, progressBar));
         // endregion
 
@@ -93,9 +92,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
         backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 
         uploadContainerImg.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
-
         uploadButtonKeyImg.addActionListener(getImageUploadListener(this, finishedKeyImageLoad, progressBar));
-
 
         generateKeyButton.addActionListener(new ActionListener() {
             @Override
@@ -168,80 +165,9 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
             }
         });
 
-        decodeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                Coder coder;
-                Crypter crypter;
-
-                if (containerImage == null) {
-                    // TODO error handling
-                    return;
-                }
-
-                if (codeComboBox.getSelectedItem() == "LSB") {
-                    coder = new LeastSignificantBit(containerImage);
-                } else if (codeComboBox.getSelectedItem() == "PM1") {
-                    coder = new PlusMinusOne(containerImage);
-                } else {
-                    // TODO error handling
-                    return;
-                }
-
-                if (encryptComboBox.getSelectedItem() == "RSA") {
-                    String privateKey = privateKeyInput.getText();
-                    if (privateKey.length() > 20) {
-                        try {
-                            crypter = new RSA(privateKey, RSA.keyType.PRIVATE);
-                        } catch (CrypterException ex) {
-                            throw new RuntimeException(ex);
-                            // TODO error handling
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Bitte gebe den privaten Schlüssel ein, mit dem die Information entschlüsselt werden soll.", "Warnung", WARNING_MESSAGE);
-                        return;
-                    }
-                } else {
-                    // TODO error handling
-                    return;
-                }
-
-//                decodeButton.setEnabled(false);
-
-                DecodeTask task = new DecodeTask(coder, crypter, new DecodeFinishedHandler() {
-                    @Override
-                    public void finishedDecode(Information info) {
-                        contentInformation = info;
-
-                        Information.Type type = info.getType();
-                        if (type == Information.Type.TEXT) {
-                            messageOutput.setText(info.toText());
-                        } else if (type == Information.Type.IMAGE_PNG || type == Information.Type.IMAGE_GIF || type == Information.Type.IMAGE_JPG) {
-                            try {
-                                messageOutput.setText("");
-                                messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(),
-                                                                                   IMAGE_WIDTH_4,
-                                                                                   IMAGE_HEIGHT_3)));
-                            } catch (IOException e) {
-                                System.out.println(e);
-                                // TODO error handling?
-                            }
-                        } else {
-                            // TODO error handling?
-                        }
-                        exportButton.setEnabled(true);
-                        copyToClipboardContent.setEnabled(true);
-                        decodeButton.setEnabled(true);
-                    }
-                });
-                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                task.execute();
-            }
-        });
+        decodeButton.addActionListener(getDecodeListener(codeComboBox, encryptComboBox, privateKeyInput, messageOutput, IMAGE_WIDTH_4, IMAGE_HEIGHT_3, exportButton, copyToClipboardContent, decodeButton, progressBar));
 
         exportButton.addActionListener(getExportInformationListener(this));
-
         copyToClipboardContent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -253,7 +179,6 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                 }
             }
         });
-
         copyToClipboardKey.addActionListener(e -> keyImage.copyToClipboard());
 
         keyExport.addActionListener(new ActionListener() {

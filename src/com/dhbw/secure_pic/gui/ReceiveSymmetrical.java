@@ -60,76 +60,9 @@ public class ReceiveSymmetrical extends GuiViewReceive {
 
         uploadContainerImg.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
 
-        decodeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                Coder coder;
-                Crypter crypter;
-
-                if (containerImage == null) {
-                    // TODO error handling
-                    return;
-                }
-
-                if (codeComboBox.getSelectedItem() == "LSB") {
-                    coder = new LeastSignificantBit(containerImage);
-                } else if (codeComboBox.getSelectedItem() == "PM1") {
-                    coder = new PlusMinusOne(containerImage);
-                } else {
-                    // TODO error handling
-                    return;
-                }
-
-                if (encryptComboBox.getSelectedItem() == "AES") {
-                    String password = new String(passwordField.getPassword());
-                    if (password.length() > 0) {
-                        crypter = new AES(password);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Bitte gebe ein Passwort ein, mit dem die Information entschlüsselt werden soll.", "Warnung", WARNING_MESSAGE);
-                        return;
-                    }
-                } else {
-                    // TODO error handling
-                    return;
-                }
-
-//                decodeButton.setEnabled(false);
-
-                DecodeTask task = new DecodeTask(coder, crypter, new DecodeFinishedHandler() {
-                    @Override
-                    public void finishedDecode(Information info) {
-                        contentInformation = info;
-
-                        Information.Type type = info.getType();
-                        if (type == Information.Type.TEXT) {
-                            messageOutput.setText(info.toText());
-                        } else if (type == Information.Type.IMAGE_PNG || type == Information.Type.IMAGE_GIF || type == Information.Type.IMAGE_JPG) {
-                            try {
-                                messageOutput.setText("");
-                                messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(),
-                                                                                   IMAGE_WIDTH_5,
-                                                                                   IMAGE_HEIGHT_5)));
-                            } catch (IOException e) {
-                                System.out.println(e);
-                                // TODO error handling?
-                            }
-                        } else {
-                            // TODO error handling?
-                        }
-
-                        exportButton.setEnabled(true);
-                        copyToClipboardButton.setEnabled(true);
-                        decodeButton.setEnabled(true);
-                    }
-                });
-                task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                task.execute();
-            }
-        });
+        decodeButton.addActionListener(getDecodeListener(codeComboBox, encryptComboBox, passwordField, messageOutput, IMAGE_WIDTH_5, IMAGE_HEIGHT_5, exportButton, copyToClipboardButton, decodeButton, progressBar));
 
         exportButton.addActionListener(getExportInformationListener(this));
-
         copyToClipboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -141,14 +74,15 @@ public class ReceiveSymmetrical extends GuiViewReceive {
                 }
             }
         });
-
         // endregion
     }
 
     // region getter
+
     public JPanel getContentPane() {
         return contentPane;
     }
+
     // endregion
 
 }
