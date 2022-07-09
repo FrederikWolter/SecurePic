@@ -11,13 +11,15 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-// TODO comment
 
 /**
+ * Some test methods for testing {@link PlusMinusOne}.
+ *
  * @author Frederik Wolter
  */
 public class TestPlusMinusOne {
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
     public void testEncodeDecode() throws IllegalTypeException, InsufficientCapacityException, IllegalLengthException {
         // send
@@ -38,6 +40,7 @@ public class TestPlusMinusOne {
         assertEquals(in, out);
     }
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
     public void testEncodeDecodeFileText()
             throws IllegalTypeException, InsufficientCapacityException, IOException, IllegalLengthException {
@@ -61,6 +64,7 @@ public class TestPlusMinusOne {
         assertEquals(in, out);
     }
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
     public void testEncodeDecodeFileIMG()
             throws IllegalTypeException, InsufficientCapacityException, IOException, IllegalLengthException {
@@ -83,6 +87,7 @@ public class TestPlusMinusOne {
         // FIXME automatic test?
     }
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
     public void testGetCapacity() throws IllegalTypeException {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");

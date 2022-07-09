@@ -11,13 +11,14 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-// TODO comment
-
 /**
+ * Some test methods for testing {@link LeastSignificantBit}.
+ *
  * @author Frederik Wolter
  */
 public class TestLeastSignificantBit {
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
     public void testEncodeDecode() throws IllegalTypeException, InsufficientCapacityException, IllegalLengthException {
         // send
@@ -38,6 +39,7 @@ public class TestLeastSignificantBit {
         assertEquals(in, out);
     }
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
     public void testEncodeDecodeFileText()
             throws IllegalTypeException, InsufficientCapacityException, IOException, IllegalLengthException {
@@ -61,6 +63,7 @@ public class TestLeastSignificantBit {
         assertEquals(in, out);
     }
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
     public void testEncodeDecodeFileIMG()
             throws IllegalTypeException, InsufficientCapacityException, IOException, IllegalLengthException {
@@ -83,6 +86,7 @@ public class TestLeastSignificantBit {
         // FIXME automatic test?
     }
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
     public void testGetCapacity() throws IllegalTypeException {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");

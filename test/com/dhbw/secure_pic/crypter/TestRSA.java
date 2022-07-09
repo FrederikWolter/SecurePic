@@ -4,26 +4,21 @@ import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.data.Information;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 /**
- * Tests the functionality of the RSA class
+ * Tests the functionality of the RSA class.<br>
  * A given message is encrypted and decrypted with generated public and private keys.
  * It is asserted that the decrypted message matches the one given above while the encrypted message doesn't.
  *
- * @author Kirolis Eskondis
+ * @author Kirolis Eskondis supported by Frederik Wolter
  */
 public class TestRSA {
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
-    public void testRSAEncryptDecrypt()
-            throws CrypterException, NoSuchAlgorithmException, InvalidKeySpecException, IOException {
-
+    public void testRSAEncryptDecrypt() throws CrypterException {
         String message = "Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!";
         Information information = Information.getInformationFromString(message);
 

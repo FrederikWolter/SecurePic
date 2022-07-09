@@ -8,17 +8,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 /**
- * Tests the functionality of the AES class
+ * Tests the functionality of the AES class.<br>
  * A given message is encrypted and decrypted with a given password.
  * It is asserted that the decrypted message matches the one given above while the encrypted message doesn't.
  *
- * @author Kirolis Eskondis
+ * @author Kirolis Eskondis supported by Frederik Wolter
  */
 public class TestAES {
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
     public void testAESEncryptDecrypt() throws CrypterException {
-
         String message = "Testing «ταБЬℓσ»: 1<2 & 4+1>3, now 20% off!";
         Information information = Information.getInformationFromString(message);
 

@@ -6,13 +6,15 @@ import org.junit.Test;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-// TODO comment
 
 /**
+ * Some test methods for testing {@link ContainerImage}.
+ *
  * @author Frederik Wolter
  */
 public class TestContainerImage {
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
     public void testGetFileExtension() {
         String path;
@@ -27,6 +29,7 @@ public class TestContainerImage {
         assertEquals("c", ContainerImage.getFileExtension(path));
     }
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
     public void testCopyToClipboard() throws IllegalTypeException {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
@@ -34,6 +37,7 @@ public class TestContainerImage {
         // FIXME add automatic test?
     }
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
     public void testARGB() throws IllegalTypeException {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
