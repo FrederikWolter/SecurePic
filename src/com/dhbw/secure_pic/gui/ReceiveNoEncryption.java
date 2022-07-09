@@ -9,8 +9,6 @@ import java.io.IOException;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
-// TODO show text not in label but Textarea for automatic line breaks!
-
 public class ReceiveNoEncryption extends GuiViewReceive {
 
     // region swing attributes
@@ -25,6 +23,8 @@ public class ReceiveNoEncryption extends GuiViewReceive {
     private JComboBox<String> codeComboBox;
     private JPanel uploadPanelContainer;
     private JLabel containerImg;
+    private JTextArea textOutput;
+    private JScrollPane textOutputScroll;
     // endregion
 
     public ReceiveNoEncryption(Gui parent) {
@@ -48,7 +48,7 @@ public class ReceiveNoEncryption extends GuiViewReceive {
 
         uploadContainerImg.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
 
-        decodeButton.addActionListener(getDecodeListener(codeComboBox, null, null, messageOutput, IMAGE_WIDTH_5, IMAGE_HEIGHT_5, exportButton, copyToClipboardButton, decodeButton, progressBar));
+        decodeButton.addActionListener(getDecodeListener(codeComboBox, null, null, messageOutput, textOutputScroll, textOutput, IMAGE_WIDTH_5, IMAGE_HEIGHT_5, exportButton, copyToClipboardButton, decodeButton, progressBar));
 
         exportButton.addActionListener(getExportInformationListener(this));
         copyToClipboardButton.addActionListener(new ActionListener() {

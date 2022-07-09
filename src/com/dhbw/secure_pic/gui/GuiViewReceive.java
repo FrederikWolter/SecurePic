@@ -61,7 +61,7 @@ public class GuiViewReceive extends GuiView {
 
 
     protected ActionListener getDecodeListener(JComboBox<String> codeComboBox, JComboBox<String> encryptComboBox,
-                                               JPasswordField passwordField, JLabel messageOutput, int imageWidth,
+                                               JPasswordField passwordField, JLabel messageOutput, JScrollPane textOutputScroll, JTextArea textOutput,  int imageWidth,
                                                int imageHeight, JButton exportButton, JButton copyToClipboardButton,
                                                JButton decodeButton, JProgressBar progressBar) {
         return e -> {
@@ -78,32 +78,31 @@ public class GuiViewReceive extends GuiView {
 
 //                decodeButton.setEnabled(false);
 
-            DecodeTask task = new DecodeTask(coder, crypter, new DecodeFinishedHandler() {
-                @Override
-                public void finishedDecode(Information info) {
-                    contentInformation = info;
+            DecodeTask task = new DecodeTask(coder, crypter, info -> {
+                contentInformation = info;
 
-                    Information.Type type = info.getType();
-                    if (type == Information.Type.TEXT) {
-                        messageOutput.setText(info.toText());
-                    } else if (type == Information.Type.IMAGE_PNG || type == Information.Type.IMAGE_GIF || type == Information.Type.IMAGE_JPG) {
-                        try {
-                            messageOutput.setText("");
-                            messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(),
-                                                                               imageWidth,
-                                                                               imageHeight)));
-                        } catch (IOException e) {
-                            System.out.println(e);
-                            // TODO error handling?
-                        }
-                    } else {
+                Information.Type type = info.getType();
+                if (type == Information.Type.TEXT) {
+                    textOutput.setText(info.toText());
+                    messageOutput.setVisible(false);
+                    textOutputScroll.setVisible(true);
+                } else if (type == Information.Type.IMAGE_PNG || type == Information.Type.IMAGE_GIF || type == Information.Type.IMAGE_JPG) {
+                    try {
+                        textOutputScroll.setVisible(false);
+                        messageOutput.setVisible(true);
+                        messageOutput.setText("");
+                        messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(), imageWidth, imageHeight)));
+                    } catch (IOException e1) {
+                        System.out.println(e1);
                         // TODO error handling?
                     }
-
-                    exportButton.setEnabled(true);
-                    copyToClipboardButton.setEnabled(true);
-                    decodeButton.setEnabled(true);
+                } else {
+                    // TODO error handling?
                 }
+
+                exportButton.setEnabled(true);
+                copyToClipboardButton.setEnabled(true);
+                decodeButton.setEnabled(true);
             });
             task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
             task.execute();

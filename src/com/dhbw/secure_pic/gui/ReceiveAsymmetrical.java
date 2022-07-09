@@ -23,8 +23,6 @@ import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
-// TODO show text not in label but Textarea for automatic line breaks!
-
 public class ReceiveAsymmetrical extends GuiViewReceive {
 
     // region swing attributes
@@ -51,6 +49,8 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
     private JComboBox<String> codeComboBox;
     private JComboBox<String> encryptComboBox;
     private JPasswordField privateKeyInput;
+    private JScrollPane textOutputScroll;
+    private JTextArea textOutput;
     // endregion
 
     // region attributes
@@ -147,7 +147,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
             }
         });
 
-        decodeButton.addActionListener(getDecodeListener(codeComboBox, encryptComboBox, privateKeyInput, messageOutput, IMAGE_WIDTH_4, IMAGE_HEIGHT_3, exportButton, copyToClipboardContent, decodeButton, progressBar));
+        decodeButton.addActionListener(getDecodeListener(codeComboBox, encryptComboBox, privateKeyInput, messageOutput, textOutputScroll, textOutput, IMAGE_WIDTH_4, IMAGE_HEIGHT_3, exportButton, copyToClipboardContent, decodeButton, progressBar));
 
         exportButton.addActionListener(getExportInformationListener(this));
         copyToClipboardContent.addActionListener(new ActionListener() {

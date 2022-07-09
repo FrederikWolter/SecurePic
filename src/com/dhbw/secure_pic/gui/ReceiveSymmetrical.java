@@ -9,8 +9,6 @@ import java.io.IOException;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
-// TODO show text not in label but Textarea for automatic line breaks!
-
 public class ReceiveSymmetrical extends GuiViewReceive {
 
     // region swing attributes
@@ -27,6 +25,8 @@ public class ReceiveSymmetrical extends GuiViewReceive {
     private JPanel uploadPanelContainer;
     private JLabel containerImg;
     private JComboBox<String> codeComboBox;
+    private JScrollPane textOutputScroll;
+    private JTextArea textOutput;
     // endregion
 
     public ReceiveSymmetrical(Gui parent) {
@@ -50,7 +50,7 @@ public class ReceiveSymmetrical extends GuiViewReceive {
 
         uploadContainerImg.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
 
-        decodeButton.addActionListener(getDecodeListener(codeComboBox, encryptComboBox, passwordField, messageOutput, IMAGE_WIDTH_5, IMAGE_HEIGHT_5, exportButton, copyToClipboardButton, decodeButton, progressBar));
+        decodeButton.addActionListener(getDecodeListener(codeComboBox, encryptComboBox, passwordField, messageOutput, textOutputScroll, textOutput, IMAGE_WIDTH_5, IMAGE_HEIGHT_5, exportButton, copyToClipboardButton, decodeButton, progressBar));
 
         exportButton.addActionListener(getExportInformationListener(this));
         copyToClipboardButton.addActionListener(new ActionListener() {

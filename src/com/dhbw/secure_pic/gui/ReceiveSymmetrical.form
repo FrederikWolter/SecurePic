@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="821" height="429"/>
+      <xy x="20" y="20" width="864" height="429"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -219,8 +219,8 @@
               <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="export.btn"/>
             </properties>
           </component>
-          <grid id="a8c9b" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+          <grid id="a8c9b" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="10" left="10" bottom="10" right="10"/>
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -239,6 +239,34 @@
                   <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="output.lbl"/>
                 </properties>
               </component>
+              <scrollpane id="16af0" binding="textOutputScroll">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                    <minimum-size width="600" height="100"/>
+                    <preferred-size width="600" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <font/>
+                  <horizontalScrollBarPolicy value="31"/>
+                  <visible value="false"/>
+                </properties>
+                <border type="line"/>
+                <children>
+                  <component id="d36d5" class="javax.swing.JTextArea" binding="textOutput">
+                    <constraints/>
+                    <properties>
+                      <background color="-1973791"/>
+                      <editable value="false"/>
+                      <font size="16"/>
+                      <lineWrap value="true"/>
+                      <margin top="5" left="5" bottom="5" right="5"/>
+                      <tabSize value="4"/>
+                      <wrapStyleWord value="true"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
             </children>
           </grid>
         </children>
