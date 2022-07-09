@@ -57,7 +57,7 @@
             </constraints>
             <properties>
               <enabled value="false"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="encode.btn"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="btn.encode"/>
             </properties>
           </component>
           <vspacer id="2cfcc">
@@ -83,7 +83,7 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="dad.instr.lbl"/>
+                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="lbl.drag_drop"/>
                   <visible value="true"/>
                 </properties>
               </component>
@@ -92,8 +92,8 @@
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload.btn"/>
-                  <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="rec.cont.img.lbl"/>
+                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="btn.upload"/>
+                  <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="lbl.received_container_img"/>
                   <visible value="true"/>
                 </properties>
                 <clientProperties>
@@ -114,7 +114,7 @@
               <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="5" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image.radiobtn"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="radio.image"/>
             </properties>
           </component>
           <component id="799f4" class="javax.swing.JRadioButton" binding="textRadio">
@@ -124,7 +124,7 @@
             <properties>
               <enabled value="true"/>
               <selected value="true"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="textmessage.btn"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="radio.text"/>
             </properties>
           </component>
           <vspacer id="884dc">
@@ -141,7 +141,7 @@
                 <item value="LSB"/>
                 <item value="PM1"/>
               </model>
-              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="coding.algorithm.tooltip"/>
+              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="tooltip.coding_algorithm"/>
             </properties>
             <clientProperties>
               <html.disable class="java.lang.Boolean" value="false"/>
@@ -153,7 +153,7 @@
             </constraints>
             <properties>
               <labelFor value="a434b"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="coding.algorithm.tooltip"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="tooltip.coding_algorithm"/>
             </properties>
           </component>
           <component id="4deb1" class="javax.swing.JComboBox" binding="encryptComboBox">
@@ -164,7 +164,7 @@
               <model>
                 <item value="RSA"/>
               </model>
-              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="encrypting.algorithm.tooltip"/>
+              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="tooltip.encrypting_algorithm"/>
             </properties>
             <clientProperties>
               <html.disable class="java.lang.Boolean" value="false"/>
@@ -176,7 +176,7 @@
             </constraints>
             <properties>
               <labelFor value="4deb1"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="encrypting.algorithm.tooltip"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="tooltip.encrypting_algorithm"/>
             </properties>
           </component>
           <component id="4af3f" class="javax.swing.JLabel">
@@ -185,7 +185,7 @@
             </constraints>
             <properties>
               <labelFor value="1d2bb"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="pbl.key.text.lbl"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="lbl.public_key.as_text"/>
             </properties>
           </component>
           <component id="1cad9" class="javax.swing.JButton" binding="backButton" default-binding="true">
@@ -194,7 +194,7 @@
             </constraints>
             <properties>
               <background color="-4934476"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="back.btn"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="btn.back"/>
             </properties>
           </component>
           <component id="60027" class="javax.swing.JLabel">
@@ -202,7 +202,7 @@
               <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="lbl.chooseContentType"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="lbl.choose_content_type"/>
             </properties>
           </component>
           <grid id="38b" binding="uploadPanelKey" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -221,7 +221,7 @@
                 </constraints>
                 <properties>
                   <foreground color="-16777216"/>
-                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="public.key.image.lbl"/>
+                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="lbl.public_key.image"/>
                   <visible value="true"/>
                 </properties>
               </component>
@@ -230,8 +230,8 @@
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload.btn"/>
-                  <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="rec.cont.img.lbl"/>
+                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="btn.upload"/>
+                  <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="lbl.received_container_img"/>
                   <visible value="true"/>
                 </properties>
                 <clientProperties>
@@ -259,7 +259,7 @@
                   <lineWrap value="true"/>
                   <margin top="5" left="5" bottom="5" right="5"/>
                   <text value=""/>
-                  <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="msg.lbl"/>
+                  <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="lbl.message"/>
                   <wrapStyleWord value="true"/>
                 </properties>
               </component>
@@ -281,7 +281,7 @@
             </constraints>
             <properties>
               <enabled value="false"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="copy.to.clipboard.btn"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="btn.copy_to_clipboard"/>
             </properties>
           </component>
           <component id="82725" class="javax.swing.JButton" binding="exportButton" default-binding="true">
@@ -290,7 +290,7 @@
             </constraints>
             <properties>
               <enabled value="false"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="export.btn"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="btn.export"/>
             </properties>
           </component>
           <grid id="987e9" binding="uploadPanelContainer" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -308,7 +308,7 @@
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload.btn"/>
+                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="btn.upload"/>
                   <toolTipText value=""/>
                 </properties>
               </component>
@@ -321,7 +321,7 @@
                   <foreground color="-1973791"/>
                   <horizontalAlignment value="10"/>
                   <horizontalTextPosition value="10"/>
-                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="drag.and.drop.upload"/>
+                  <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="lbl.drag_drop.container_img"/>
                 </properties>
               </component>
             </children>
