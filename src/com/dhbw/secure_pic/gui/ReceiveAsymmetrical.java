@@ -105,12 +105,10 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                 if (encryptComboBox.getSelectedItem() == "RSA") {
                     try {
                         crypter = new RSA();
-
                         privateKey = ((RSA) crypter).getPrivateKeyString();
                         publicKey = ((RSA) crypter).getPublicKeyString();
-
                     } catch (CrypterException ex) {
-                        throw new RuntimeException(ex);
+                        throw new RuntimeException(ex);     // TODO error handling?
                     }
                 } else {
                     // TODO error handling?

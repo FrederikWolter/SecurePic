@@ -19,6 +19,8 @@ import java.io.File;
 
 // TODO comment
 
+// TODO hand attributes over to super in custom constructor?
+
 public class GuiView extends Component {
 
     // region constants
@@ -101,7 +103,6 @@ public class GuiView extends Component {
             }
         };
     }
-
 
     protected static ActionListener getImageUploadListener(Component parent, LoadImageFinishedHandler handler, JProgressBar progressBar) {
         return e -> {

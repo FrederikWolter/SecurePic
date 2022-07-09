@@ -81,6 +81,7 @@ public class SendAsymmetrical extends GuiViewSend {
             Coder coderPublicKey;
             Crypter crypterPublicKey = new EmptyCrypter();
 
+            // TODO extract getCoder & getCrypter?
             if (codeComboBox.getSelectedItem() == "LSB") {
                 coderPublicKey = new LeastSignificantBit(keyImage);
             } else if (codeComboBox.getSelectedItem() == "PM1") {
