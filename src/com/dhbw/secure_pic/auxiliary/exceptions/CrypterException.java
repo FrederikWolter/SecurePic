@@ -6,19 +6,30 @@ import javax.crypto.NoSuchPaddingException;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 
-// TODO comment
 
 /**
- * Class representing a custom exception for signaling that there was a problem in the classes extending Crypter.
+ * Class representing a custom exception for signaling that there was a problem in the <b>classes extending Crypter</b>.
  *
- * @author Kirolis Eskondis, supported by Frederik Wolter
+ * @author Kirolis Eskondis supported by Frederik Wolter
  */
 public class CrypterException extends Exception {
 
+    /**
+     * Inherited Constructor.
+     *
+     * @param message message of exception
+     */
     public CrypterException(String message) {
         super(message);
     }
 
+    /**
+     * Converter from several possible exception which can occur in the crypter, to {@link CrypterException}.
+     *
+     * @param e given Exception
+     *
+     * @return converted Exception
+     */
     public static CrypterException handleException(Exception e) {
         if (e instanceof NoSuchPaddingException) {
             return new CrypterException("The requested Padding Mechanism is not available. Please try again or contact support with this detailed message: '" + e.getMessage() + "'");

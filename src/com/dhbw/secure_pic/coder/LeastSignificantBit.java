@@ -9,6 +9,7 @@ import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
+// TODO comment
 
 /**
  * Class representing the encoding algorithm 'LeastSignificantBit'.

@@ -4,9 +4,6 @@ import com.dhbw.secure_pic.gui.Gui;
 
 import javax.swing.*;
 
-// TODO comment (normal comments + JDocs) # only delete if final#
-
-// TODO extract Strings into string resource
 
 // TODO extract hardcoded strings: https://www.jetbrains.com/help/idea/hard-coded-string-literals.html#extract
 
