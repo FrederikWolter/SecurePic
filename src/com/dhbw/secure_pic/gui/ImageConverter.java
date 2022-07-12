@@ -3,6 +3,8 @@ package com.dhbw.secure_pic.gui;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 
 import javax.swing.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * Class representing the tarn-window/'image-converter' {@link GuiView}.<br>
@@ -19,6 +21,9 @@ public class ImageConverter extends GuiView {
     private JPanel uploadPanel;
     private JLabel imageLabel;
     // endregion
+
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
 
     public ImageConverter(Gui parent) {
         // region finished listener

@@ -5,7 +5,11 @@ import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.auxiliary.exceptions.InsufficientCapacityException;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
+import com.dhbw.secure_pic.gui.Gui;
 import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
+
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 /**
@@ -17,7 +21,10 @@ import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 public abstract class Coder {
 
     // region attributes
+    /** {@link ContainerImage} handled in coder */
     protected final ContainerImage image;
+    /** get resource bundle managing strings */
+    protected static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     // endregion
 
     /**

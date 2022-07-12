@@ -2,7 +2,9 @@ package com.dhbw.secure_pic.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 
 /**
@@ -13,6 +15,16 @@ import java.util.Objects;
  */
 public class Gui {
 
+    // region constants
+    /**
+     * Used for internationalization.<br>
+     * Change the locale here and in the IntelliJ Form Designer and the application is in a different language.
+     */
+    public static final String LOCALE = "en"; //NON-NLS
+    /** Path to languages bundle file */
+    public static final String LOCALE_PATH = "com/dhbw/secure_pic/gui/languages"; //NON-NLS
+    //
+
     // region swing attributes
     private final JFrame frame;
     private final CardLayout cards;
@@ -22,6 +34,8 @@ public class Gui {
     // region attributes
     /** {@link Type} chosen by the user */
     private Type type;
+    /** get resource bundle managing strings */
+    private final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     // endregion
 
     /**
@@ -52,7 +66,7 @@ public class Gui {
      */
     public Gui() {
         // main frame
-        frame = new JFrame("Image Converter");
+        frame = new JFrame(bundle.getString("image_con.title"));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(1200, 750);
         frame.setLocationRelativeTo(null);

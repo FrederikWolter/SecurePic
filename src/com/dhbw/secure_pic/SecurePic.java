@@ -5,8 +5,6 @@ import com.dhbw.secure_pic.gui.Gui;
 import javax.swing.*;
 
 
-// TODO extract hardcoded strings: https://www.jetbrains.com/help/idea/hard-coded-string-literals.html#extract
-
 /**
  * Main entry point to application - providing the main method.
  *

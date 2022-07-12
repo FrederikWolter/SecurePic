@@ -3,6 +3,8 @@ package com.dhbw.secure_pic.gui;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 
 import javax.swing.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
@@ -34,6 +36,9 @@ public class SendSymmetrical extends GuiViewSend {
     private JButton uploadContainer;
     private JScrollPane messageTextScroll;
     // endregion
+
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
 
     /**
      * Constructor of {@link SendSymmetrical}.

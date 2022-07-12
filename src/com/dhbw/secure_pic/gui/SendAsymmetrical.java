@@ -9,6 +9,8 @@ import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 import com.dhbw.secure_pic.pipelines.DecodeTask;
 
 import javax.swing.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
@@ -41,6 +43,8 @@ public class SendAsymmetrical extends GuiViewSend {
 
     // region attributes
     private transient ContainerImage keyImage;
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     // endregion
 
     public SendAsymmetrical(Gui parent) {
@@ -76,7 +80,7 @@ public class SendAsymmetrical extends GuiViewSend {
                 if (info.getType() == Information.Type.TEXT && info.toText().length() >= 600) {
                     publicKeyInput.setText(info.toText());
                 } else {
-                    JOptionPane.showMessageDialog(null, "Das Bild für den öffentlichen Schlüssel enthält keinen plausiblen Schlüssel.", "Fehler", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.empty_key_image"), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                 }
             });
             task.addPropertyChangeListener(getPropertyChangeListener(progressBar));

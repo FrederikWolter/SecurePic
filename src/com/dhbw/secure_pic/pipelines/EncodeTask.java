@@ -6,9 +6,12 @@ import com.dhbw.secure_pic.coder.Coder;
 import com.dhbw.secure_pic.crypter.Crypter;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
+import com.dhbw.secure_pic.gui.Gui;
 import com.dhbw.secure_pic.gui.utility.handler.EncodeFinishedHandler;
 
 import javax.swing.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +35,8 @@ public class EncodeTask extends SwingWorker<ContainerImage, Void> {
     private final EncodeFinishedHandler caller;
     /** Information to work with. */
     private Information information;
+    /** get resource bundle managing strings */
+    private final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     // endregion
 
     /**
@@ -91,11 +96,11 @@ public class EncodeTask extends SwingWorker<ContainerImage, Void> {
         } catch (InterruptedException e) {
             // this should not happen due to no code interrupting this pipeline
             Logger.getLogger("EncodeTask")
-                    .log(Level.WARNING, String.format("InterruptedException: '%s'", e.getMessage()));
+                    .log(Level.WARNING, String.format(bundle.getString("log.interrupted_exception"), e.getMessage()));
             Thread.currentThread().interrupt(); // see SolarLint rule
         } catch (ExecutionException e) {
-            String msg = String.format("Fehler beim Codieren:%n'%s'", e.getMessage().split(":", 2)[1]);
-            JOptionPane.showMessageDialog(null, msg, "Fehler", JOptionPane.ERROR_MESSAGE);
+            String msg = String.format(bundle.getString("popup.msg.error_encoding"), e.getMessage().split(":", 2)[1]);
+            JOptionPane.showMessageDialog(null, msg, bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
         }
     }
 }

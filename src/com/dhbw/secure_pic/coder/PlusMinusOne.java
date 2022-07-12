@@ -9,6 +9,8 @@ import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
+import java.text.MessageFormat;
+
 // TODO comment
 
 /**
@@ -42,7 +44,7 @@ public class PlusMinusOne extends Coder {
         int infoLength = info.getTotalLength();
         int imageCapacity = this.getCapacity();
         if (infoLength > imageCapacity) {
-            throw new InsufficientCapacityException("The given information does not fit in the selected container image: " + infoLength + " > " + imageCapacity);
+            throw new InsufficientCapacityException(MessageFormat.format(bundle.getString("except_does_not_fit"), infoLength, imageCapacity));
         }
 
         // get fetcher from information
@@ -162,7 +164,7 @@ public class PlusMinusOne extends Coder {
 
         // validate length of data
         if (information != null && information.getLength() * 8L != assembler.getPosition()) {    // for loop ended before length was reached
-            throw new IllegalLengthException("The decoded data from the container image does not match the specified length.");
+            throw new IllegalLengthException(bundle.getString("except.length_mismatch"));
         } else if (information != null) {     // length not long enough to get all metadata
             information.setData(assembler.toByteArray());
         }

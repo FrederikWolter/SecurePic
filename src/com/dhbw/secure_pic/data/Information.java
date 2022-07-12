@@ -4,6 +4,7 @@ import com.dhbw.secure_pic.auxiliary.exceptions.IllegalLengthException;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.coder.utility.BitFetcher;
 import com.dhbw.secure_pic.data.utility.ImageSelection;
+import com.dhbw.secure_pic.gui.Gui;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,6 +15,9 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static com.dhbw.secure_pic.data.Information.Type.*;
 
@@ -32,6 +36,8 @@ public class Information {
     public static final int LENGTH_LENGTH = Integer.BYTES;
     /** Length of all metadata total in bytes. */
     public static final int META_LENGTH = TYPE_LENGTH + LENGTH_LENGTH;
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     // endregion
 
     // region attributes
@@ -114,20 +120,20 @@ public class Information {
 
         // get image type
         Type type = switch (extension) {
-            case "png" -> IMAGE_PNG;
-            case "jpg" -> IMAGE_JPG;
-            case "gif" -> IMAGE_GIF;
+            case "png" -> IMAGE_PNG; //NON-NLS
+            case "jpg" -> IMAGE_JPG; //NON-NLS
+            case "gif" -> IMAGE_GIF; //NON-NLS
             default -> null;
         };
         if (type == null)
-            throw new IllegalTypeException("Invalid path given for image file. Recognized extension '" + extension + "'.");
+            throw new IllegalTypeException(MessageFormat.format(bundle.getString("except.invalid_path"), extension));
 
         // read in image from path
         BufferedImage image;
         try {
             image = ImageIO.read(new File(path));
         } catch (IOException e) {
-            throw new IllegalTypeException("An error occurred loading the selected image: '" + e.getMessage() + "'");
+            throw new IllegalTypeException(MessageFormat.format(bundle.getString("except.error_loading_information_img"), e.getMessage()));
         }
 
         // convert BufferedImage to byte[]
@@ -135,7 +141,7 @@ public class Information {
         try {
             ImageIO.write(image, extension, byteArrayOutputStream);
         } catch (IOException e) {
-            throw new IllegalTypeException("An error occurred loading the selected image: '" + e.getMessage() + "'");
+            throw new IllegalTypeException(MessageFormat.format(bundle.getString("except.error_loading_information_img"), e.getMessage()));
         }
         byte[] data = byteArrayOutputStream.toByteArray();
 
@@ -169,11 +175,11 @@ public class Information {
         if (0 <= typeRaw && typeRaw < Type.values().length) {   // validate type
             type = Type.values()[typeRaw];
         } else {
-            throw new IllegalTypeException("Invalid content type in received data: " + typeRaw);
+            throw new IllegalTypeException(MessageFormat.format(bundle.getString("except.invalid_content_type"), typeRaw));
         }
 
         if (length == 0) {
-            throw new IllegalLengthException("Invalid information length: " + length);
+            throw new IllegalLengthException(MessageFormat.format(bundle.getString("except.invalid_content_length"), length));
         }
 
         // build data object
@@ -276,7 +282,7 @@ public class Information {
         if (data.length == this.length) {
             this.data = data;
         } else {
-            throw new IllegalLengthException("Invalid content length: should=" + length + " new=" + data.length);
+            throw new IllegalLengthException(MessageFormat.format(bundle.getString("except.invalid_content_length_should"), length, data.length));
         }
     }
 
