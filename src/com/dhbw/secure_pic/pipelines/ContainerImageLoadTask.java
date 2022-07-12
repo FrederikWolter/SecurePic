@@ -2,9 +2,12 @@ package com.dhbw.secure_pic.pipelines;
 
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.data.ContainerImage;
+import com.dhbw.secure_pic.gui.Gui;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 
 import javax.swing.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +27,8 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
     private final String path;
     /** Calling gui class must be a LoadFinishedHandler to handle when containerImageLoad finishes. */
     private final LoadImageFinishedHandler caller;
+    /** get resource bundle managing strings */
+    private final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     // endregion
 
     /**
@@ -71,11 +76,11 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
         } catch (InterruptedException e) {
             // this should not happen due to no code interrupting the pipeline
             Logger.getLogger("ContainerImageLoadTask")
-                    .log(Level.WARNING, String.format("InterruptedException: '%s'", e.getMessage()));
+                    .log(Level.WARNING, String.format(bundle.getString("log.interrupted_exception"), e.getMessage()));
             Thread.currentThread().interrupt(); // see SolarLint
         } catch (ExecutionException e) {
-            String msg = String.format("Fehler beim Laden des Bildes:%n'%s'", e.getMessage().split(":", 2)[1]);
-            JOptionPane.showMessageDialog(null, msg, "Fehler", JOptionPane.ERROR_MESSAGE);
+            String msg = String.format(bundle.getString("popup.msg.error_loading_img"), e.getMessage().split(":", 2)[1]);
+            JOptionPane.showMessageDialog(null, msg, bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
         }
     }
 }

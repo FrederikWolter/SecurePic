@@ -16,6 +16,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 // TODO comment
 
@@ -23,6 +26,8 @@ public class GuiViewReceive extends GuiView {
 
     // region attributes
     protected transient Information contentInformation;
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     // endregion
 
     protected ActionListener getExportInformationListener(Component parent) {
@@ -49,11 +54,11 @@ public class GuiViewReceive extends GuiView {
                             .append(contentInformation.toText())
                             .close();
                 } else {    // IMAGE
-                    ImageIO.write(contentInformation.toImage(), "png", file);   // TODO type?
-                    JOptionPane.showMessageDialog(null, "Das Bild wurde erfolgreich exportiert.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
+                    ImageIO.write(contentInformation.toImage(), "png", file);   // TODO type? NON-NLS
+                    JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.export_success"), bundle.getString("popup.title.success"), JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Beim Speichern des Bildes ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.image_save_error"), ex.getMessage()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
             }
         };
     }
@@ -65,7 +70,7 @@ public class GuiViewReceive extends GuiView {
                                                JButton decodeButton, JProgressBar progressBar) {
         return e -> {
             if (containerImage == null) {
-                JOptionPane.showMessageDialog(null, "Es wurde kein Trägerbild fehlerfrei geladen.", "Fehler", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.no_valid_container_img"), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -92,10 +97,10 @@ public class GuiViewReceive extends GuiView {
                         messageOutput.setText("");
                         messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(), imageWidth, imageHeight)));
                     } catch (IOException ex) {
-                        JOptionPane.showMessageDialog(null, "Beim Anzeigen des Bildes ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg_display_error"), ex.getMessage()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Der Type des Inhalts der erhaltenen Information ist nicht bekannt:\n" + type, "Fehler", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.error_unknown_information_type"), type), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                 }
 
                 exportButton.setEnabled(true);

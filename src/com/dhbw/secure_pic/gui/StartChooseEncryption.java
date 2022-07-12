@@ -1,6 +1,8 @@
 package com.dhbw.secure_pic.gui;
 
 import javax.swing.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * Class representing Choose-Encryption {@link GuiView}.<br>
@@ -9,6 +11,7 @@ import javax.swing.*;
  * @author Hassan El-Khalil, Kai Schwab, Frederik Wolter
  */
 public class StartChooseEncryption extends GuiView {
+
     // region swing attributes
     private JPanel contentPane;
     private JButton backButton;
@@ -16,6 +19,9 @@ public class StartChooseEncryption extends GuiView {
     private JButton symmetricalButton;
     private JButton asymmetricalButton;
     // endregion
+
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
 
     /**
      * Constructor of {@link StartChooseEncryption}.

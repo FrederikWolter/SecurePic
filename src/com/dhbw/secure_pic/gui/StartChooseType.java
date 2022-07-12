@@ -1,6 +1,8 @@
 package com.dhbw.secure_pic.gui;
 
 import javax.swing.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 /**
@@ -18,6 +20,9 @@ public class StartChooseType extends GuiView {
     private JPanel contentPane;
     // endregion
 
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+
     /**
      * Constructor of {@link StartChooseType}.
      *
@@ -26,7 +31,7 @@ public class StartChooseType extends GuiView {
     public StartChooseType(Gui parent) {
         // region listener
         backButton.addActionListener(e -> {
-            parent.getFrame().setTitle("Image Converter");  // change window title
+            parent.getFrame().setTitle(bundle.getString("image_con.title"));  // change window title
             parent.showView(Gui.View.IMAGE_CONVERTER);
         });
 

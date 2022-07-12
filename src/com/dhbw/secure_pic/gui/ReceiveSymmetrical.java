@@ -4,6 +4,9 @@ import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
 
@@ -26,6 +29,9 @@ public class ReceiveSymmetrical extends GuiViewReceive {
     private JScrollPane textOutputScroll;
     private JTextArea textOutput;
     // endregion
+
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
 
     public ReceiveSymmetrical(Gui parent) {
         // region finished handler
@@ -55,7 +61,7 @@ public class ReceiveSymmetrical extends GuiViewReceive {
             try {
                 contentInformation.copyToClipboard();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Beim Kopieren des Inhalts ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.copy_error"), ex.getMessage()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
             }
         });
         // endregion

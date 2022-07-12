@@ -16,6 +16,9 @@ import com.dhbw.secure_pic.pipelines.EncodeTask;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
@@ -50,6 +53,9 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
     private JScrollPane textOutputScroll;
     private JTextArea textOutput;
     // endregion
+
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
 
     // region attributes
     private transient ContainerImage keyImage;
@@ -98,11 +104,11 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                     privateKey = ((RSA) crypter).getPrivateKeyString();
                     publicKey = ((RSA) crypter).getPublicKeyString();
                 } catch (CrypterException ex) {
-                    JOptionPane.showMessageDialog(null, "Beim Laden des Schlüssels ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.error_key_load"), ex.getMessage()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Der ausgewählte Verschlüsselung-Algorithmus entspricht keinem gültigen Wert:\n" + encryptComboBox.getSelectedItem(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.error_invalid_encr_algorithm"), encryptComboBox.getSelectedItem()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -136,7 +142,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                     task.execute();
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, in das der öffentliche Schlüssel codiert werden soll.", "Warnung", WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.error_no_key_img"), bundle.getString("popup.title.warning"), WARNING_MESSAGE);
                 }
                 // endregion
             }
@@ -149,7 +155,7 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
             try {
                 contentInformation.copyToClipboard();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Beim Kopieren des Inhalts ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.copy_error"), ex.getMessage()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
             }
         });
         copyToClipboardKey.addActionListener(e -> keyImage.copyToClipboard());
@@ -163,9 +169,9 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
 
             try {
                 keyImage.exportImg(file.getPath());
-                JOptionPane.showMessageDialog(null, "Das Bild wurde erfolgreich exportiert.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.export_success"), bundle.getString("popup.title.success"), JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException | IllegalTypeException ex) {
-                JOptionPane.showMessageDialog(null, "Beim Speichern des Bildes ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.image_save_error"), ex.getMessage()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
             }
         });
         // endregion

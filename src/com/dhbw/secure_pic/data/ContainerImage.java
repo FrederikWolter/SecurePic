@@ -2,6 +2,7 @@ package com.dhbw.secure_pic.data;
 
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.data.utility.ImageSelection;
+import com.dhbw.secure_pic.gui.Gui;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,6 +10,9 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static com.dhbw.secure_pic.data.ContainerImage.Type.JPG;
 import static com.dhbw.secure_pic.data.ContainerImage.Type.PNG;
@@ -28,6 +32,8 @@ public class ContainerImage {
     private final BufferedImage image;
     /** Type of image. */
     private final Type type;
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     // endregion
 
     /** Enum representing the available image types. */
@@ -53,19 +59,19 @@ public class ContainerImage {
 
         // get image type
         this.type = switch (extension) {
-            case "png" -> PNG;
-            case "jpg" -> JPG;
-            case "jpeg" -> JPG;
+            case "png" -> PNG; //NON-NLS
+            case "jpg" -> JPG; //NON-NLS
+            case "jpeg" -> JPG; //NON-NLS
             default -> null;
         };
         if (this.type == null)
-            throw new IllegalTypeException("Invalid path or file format given for image file. Extension: '" + extension + "'.");
+            throw new IllegalTypeException(MessageFormat.format(bundle.getString("except.invalid_path_type"), extension));
 
         // read in image from path
         try {
             this.image = ImageIO.read(new File(path));
         } catch (IOException e) {
-            throw new IllegalTypeException("An error occurred loading the selected container image: '" + e.getMessage() + "'");
+            throw new IllegalTypeException(MessageFormat.format(bundle.getString("except.error_loading_img"), e.getMessage()));
         }
     }
 
@@ -94,12 +100,12 @@ public class ContainerImage {
      */
     public void exportImg(String destPath) throws IOException, IllegalTypeException {
         String format = switch (this.type) {
-            case PNG -> "png";
-            case JPG -> "jpg";
+            case PNG -> "png"; //NON-NLS
+            case JPG -> "jpg"; //NON-NLS
         };
 
         if (!format.equals(ContainerImage.getFileExtension(destPath)))
-            throw new IllegalTypeException("Given extension of path does not match the type of image.");
+            throw new IllegalTypeException(bundle.getString("except.invalid_path_extension"));
 
         ImageIO.write(this.image, format, new File(destPath));
     }

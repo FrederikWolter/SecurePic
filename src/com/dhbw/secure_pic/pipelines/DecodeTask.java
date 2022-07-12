@@ -6,9 +6,12 @@ import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.coder.Coder;
 import com.dhbw.secure_pic.crypter.Crypter;
 import com.dhbw.secure_pic.data.Information;
+import com.dhbw.secure_pic.gui.Gui;
 import com.dhbw.secure_pic.gui.utility.handler.DecodeFinishedHandler;
 
 import javax.swing.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +33,8 @@ public class DecodeTask extends SwingWorker<Information, Void> {
     private final Crypter crypter;
     /** Calling gui class must be a DecodeFinishedHandler to handle when decode finishes. */
     private final DecodeFinishedHandler caller;
+    /** get resource bundle managing strings */
+    private final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     // endregion
 
     /**
@@ -88,11 +93,11 @@ public class DecodeTask extends SwingWorker<Information, Void> {
         } catch (InterruptedException e) {
             // this should not happen due to no code interrupting the pipeline
             Logger.getLogger("DecodeTask")
-                    .log(Level.WARNING, String.format("InterruptedException: '%s'", e.getMessage()));
+                    .log(Level.WARNING, String.format(bundle.getString("log.interrupted_exception"), e.getMessage()));
             Thread.currentThread().interrupt(); // see SolarLint
         } catch (ExecutionException e) {
-            String msg = String.format("Fehler beim Decodieren:%nStelle sicher, dass das Bild mit den gleichen Einstellungen codiert wurde.%n'%s'", e.getMessage().split(":", 2)[1]);
-            JOptionPane.showMessageDialog(null, msg, "Fehler", JOptionPane.ERROR_MESSAGE);
+            String msg = String.format(bundle.getString("popup.msg.error_decoding"), e.getMessage().split(":", 2)[1]);
+            JOptionPane.showMessageDialog(null, msg, bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
         }
     }
 }

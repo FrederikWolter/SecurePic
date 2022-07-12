@@ -15,6 +15,9 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
@@ -24,6 +27,8 @@ public class GuiViewSend extends GuiView {
 
     // region attributes
     protected transient ContainerImage contentImage;
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     // endregion
 
     protected static ActionListener getInformationTypeListener(int visible, JScrollPane text, JPanel image) {
@@ -49,9 +54,9 @@ public class GuiViewSend extends GuiView {
 
             try {
                 containerImage.exportImg(file.getPath());
-                JOptionPane.showMessageDialog(null, "Das Bild wurde erfolgreich exportiert.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.export_success"), bundle.getString("popup.title.success"), JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException | IllegalTypeException ex) {
-                JOptionPane.showMessageDialog(null, "Beim Speichern des Bildes ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.image_save_error"), ex.getMessage()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
             }
         };
     }
@@ -62,7 +67,7 @@ public class GuiViewSend extends GuiView {
                                                JButton copyToClipboardButton, JButton encodeButton, JProgressBar progressBar) {
         return e -> {
             if (containerImage == null) {
-                JOptionPane.showMessageDialog(null, "Es wurde kein Trägerbild fehlerfrei geladen.", "Fehler", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.no_valid_container_img"), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -78,7 +83,7 @@ public class GuiViewSend extends GuiView {
                 if (messageText.getText().length() > 0) {
                     info = Information.getInformationFromString(messageText.getText());
                 } else {
-                    JOptionPane.showMessageDialog(null, "Bitte gebe einen Text ein, der in das Bild codiert werden soll.", "Warnung", WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.error_no_text"), bundle.getString("popup.title.warning"), WARNING_MESSAGE);
                     return;
                 }
             } else if (imageRadio.isSelected()) {
@@ -86,15 +91,15 @@ public class GuiViewSend extends GuiView {
                     try {
                         info = Information.getInformationFromImage(contentImage.getPath());
                     } catch (IllegalTypeException ex) {
-                        JOptionPane.showMessageDialog(null, "Beim Laden des Bildes ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.error_image_load"), ex.getMessage()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, das in das Trägerbild codiert werden soll.", "Warnung", WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.error_no_container"), bundle.getString("popup.title.warning"), WARNING_MESSAGE);
                     return;
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Keiner der RadioButton für den Nachrichten Inhalt ist ausgewählt.", "Fehler", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.error_no_selection"), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                 return;
             }
 

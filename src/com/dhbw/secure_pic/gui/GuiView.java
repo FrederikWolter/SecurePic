@@ -26,7 +26,10 @@ import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,6 +57,8 @@ public class GuiView extends Component {
 
     // region attributes
     protected transient ContainerImage containerImage;
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     // endregion
 
     // see https://stackoverflow.com/a/6714381/13777031, https://stackoverflow.com/a/10245583/13777031
@@ -113,7 +118,7 @@ public class GuiView extends Component {
                     task.execute();
                 } catch (IOException |
                          UnsupportedFlavorException ex) {    // these errors should be not critical, user can try again
-                    Logger.getLogger("GUI").log(Level.WARNING, String.format("DropException: '%s'", ex.getMessage()));
+                    Logger.getLogger("GUI").log(Level.WARNING, String.format(bundle.getString("log.drop_exception"), ex.getMessage()));
                 }
             }
         };
@@ -145,7 +150,7 @@ public class GuiView extends Component {
         } else if (codeComboBox.getSelectedItem() == "PM1") {
             coder = new PlusMinusOne(image);
         } else {
-            JOptionPane.showMessageDialog(null, "Der ausgewählte Codierung-Algorithmus entspricht keinem gültigen Wert:\n" + codeComboBox.getSelectedItem(), "Fehler", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.error_invalid_coding_algorithm"), codeComboBox.getSelectedItem()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
             coder = null;
         }
         return coder;
@@ -160,7 +165,7 @@ public class GuiView extends Component {
                 if (password.length() > 0) {
                     crypter = new AES(password);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Bitte gebe ein Passwort ein, mit dem die Information verschlüsselt werden soll.", "Warnung", WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.error_no_password"), bundle.getString("popup.title.warning"), WARNING_MESSAGE);
                     crypter = null;
                 }
             } else if (encryptComboBox.getSelectedItem() == "RSA") {
@@ -169,15 +174,15 @@ public class GuiView extends Component {
                     try {
                         crypter = new RSA(publicKey, keyType);
                     } catch (CrypterException ex) {
-                        JOptionPane.showMessageDialog(null, "Es ist ein Fehler beim Verarbeiten des Schlüssels aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.error_invalid_ke"), ex.getMessage()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                         crypter = null;
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Bitte gebe einen öffentlichen Schlüssel ein in Form des erhaltenen Bildes oder als Text, mit dem die Information verschlüsselt werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.error_no_valid_public_key"), bundle.getString("popup.title.warning"), JOptionPane.WARNING_MESSAGE);
                     crypter = null;
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Der ausgewählte Verschlüsselung-Algorithmus entspricht keinem gültigen Wert:\n" + encryptComboBox.getSelectedItem(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.error_invalid_encr_algorithm"), encryptComboBox.getSelectedItem()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                 crypter = null;
             }
         } else {    // no encryption
