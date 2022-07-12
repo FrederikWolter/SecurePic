@@ -14,8 +14,6 @@ import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 import com.dhbw.secure_pic.pipelines.EncodeTask;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -89,95 +87,85 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
         uploadContainerImg.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
         uploadButtonKeyImg.addActionListener(getImageUploadListener(this, finishedKeyImageLoad, progressBar));
 
-        generateKeyButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        generateKeyButton.addActionListener(e -> {
+            Crypter crypter;
+            String privateKey;
+            String publicKey;
 
-                Crypter crypter;
-                String privateKey;
-                String publicKey;
-
-                if (encryptComboBox.getSelectedItem() == "RSA") {
-                    try {
-                        crypter = new RSA();
-                        privateKey = ((RSA) crypter).getPrivateKeyString();
-                        publicKey = ((RSA) crypter).getPublicKeyString();
-                    } catch (CrypterException ex) {
-                        JOptionPane.showMessageDialog(null, "Beim Laden des Schlüssels ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Der ausgewählte Verschlüsselung-Algorithmus entspricht keinem gültigen Wert:\n" + encryptComboBox.getSelectedItem(), "Fehler", JOptionPane.ERROR_MESSAGE);
+            if (encryptComboBox.getSelectedItem() == "RSA") {
+                try {
+                    crypter = new RSA();
+                    privateKey = ((RSA) crypter).getPrivateKeyString();
+                    publicKey = ((RSA) crypter).getPublicKeyString();
+                } catch (CrypterException ex) {
+                    JOptionPane.showMessageDialog(null, "Beim Laden des Schlüssels ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Der ausgewählte Verschlüsselung-Algorithmus entspricht keinem gültigen Wert:\n" + encryptComboBox.getSelectedItem(), "Fehler", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-                privateKeyOutput.setText(privateKey);
-                publicKeyOutput.setText(publicKey);
-                privateKeyInput.setText(privateKey);
-                privateKeyInput.setEditable(false);
+            privateKeyOutput.setText(privateKey);
+            publicKeyOutput.setText(publicKey);
+            privateKeyInput.setText(privateKey);
+            privateKeyInput.setEditable(false);
 
-                keyExport.setEnabled(true);
-                copyToClipboardKey.setEnabled(true);
+            keyExport.setEnabled(true);
+            copyToClipboardKey.setEnabled(true);
 
-                // region encode public key
-                if (encodePublicKeyIntoCheckBox.isSelected()) {
-                    if (keyImage != null) {
-                        Coder coder = getCoder(codeComboBox, keyImage);
-                        Crypter noOpCrypter = new EmptyCrypter();
-                        Information info = Information.getInformationFromString(publicKey);
+            // region encode public key
+            if (encodePublicKeyIntoCheckBox.isSelected()) {
+                if (keyImage != null) {
+                    Coder coder = getCoder(codeComboBox, keyImage);
+                    Crypter noOpCrypter = new EmptyCrypter();
+                    Information info = Information.getInformationFromString(publicKey);
 
-                        if (coder == null) return;      // error massage done in getCoder
+                    if (coder == null) return;      // error massage done in getCoder
 
-                        EncodeTask task = new EncodeTask(coder, noOpCrypter, info, image -> {
-                            keyImage = image;
+                    EncodeTask task = new EncodeTask(coder, noOpCrypter, info, image -> {
+                        keyImage = image;
 
-                            keyExport.setEnabled(true);
-                            copyToClipboardKey.setEnabled(true);
-                            outputKeyImage.setIcon(
-                                    new ImageIcon(getScaledImage(keyImage.getImage(), IMAGE_WIDTH_3, IMAGE_HEIGHT_2))
-                            );
-                        });
-                        task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
-                        task.execute();
+                        keyExport.setEnabled(true);
+                        copyToClipboardKey.setEnabled(true);
+                        outputKeyImage.setIcon(
+                                new ImageIcon(getScaledImage(keyImage.getImage(), IMAGE_WIDTH_3, IMAGE_HEIGHT_2))
+                        );
+                    });
+                    task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
+                    task.execute();
 
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, in das der öffentliche Schlüssel codiert werden soll.", "Warnung", WARNING_MESSAGE);
-                    }
-                    // endregion
+                } else {
+                    JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, in das der öffentliche Schlüssel codiert werden soll.", "Warnung", WARNING_MESSAGE);
                 }
+                // endregion
             }
         });
 
         decodeButton.addActionListener(getDecodeListener(codeComboBox, encryptComboBox, privateKeyInput, messageOutput, textOutputScroll, textOutput, IMAGE_WIDTH_4, IMAGE_HEIGHT_3, exportButton, copyToClipboardContent, decodeButton, progressBar));
 
         exportButton.addActionListener(getExportInformationListener(this));
-        copyToClipboardContent.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    contentInformation.copyToClipboard();
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Beim Kopieren des Inhalts ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
-                }
+        copyToClipboardContent.addActionListener(e -> {
+            try {
+                contentInformation.copyToClipboard();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Beim Kopieren des Inhalts ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
             }
         });
         copyToClipboardKey.addActionListener(e -> keyImage.copyToClipboard());
 
-        keyExport.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().select(ReceiveAsymmetrical.this, true, new FileFilter(new FileFilter.Extension[]{
-                        FileFilter.Extension.PNG // TODO ?
-                }));
+        keyExport.addActionListener(e -> {
+            File file = new FileSelect().select(ReceiveAsymmetrical.this, true, new FileFilter(new FileFilter.Extension[]{
+                    FileFilter.Extension.PNG // TODO ?
+            }));
 
-                if (file == null) return;
+            if (file == null) return;
 
-                try {
-                    keyImage.exportImg(file.getPath());
-                    JOptionPane.showMessageDialog(null, "Das Bild wurde erfolgreich exportiert.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException | IllegalTypeException ex) {
-                    JOptionPane.showMessageDialog(null, "Beim Speichern des Bildes ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
-                }
+            try {
+                keyImage.exportImg(file.getPath());
+                JOptionPane.showMessageDialog(null, "Das Bild wurde erfolgreich exportiert.", "Erfolg", JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException | IllegalTypeException ex) {
+                JOptionPane.showMessageDialog(null, "Beim Speichern des Bildes ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
             }
         });
         // endregion

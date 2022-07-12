@@ -29,7 +29,7 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
     /**
      * Constructor for {@link ContainerImage}.
      *
-     * @param path Path to image which should be loaded
+     * @param path   Path to image which should be loaded
      * @param caller Calling gui class must be a LoadFinishedHandler to handle when containerImageLoad finishes
      */
     public ContainerImageLoadTask(String path, LoadImageFinishedHandler caller) {
@@ -39,9 +39,10 @@ public class ContainerImageLoadTask extends SwingWorker<ContainerImage, Void> {
 
     /**
      * Called if 'task.execute()' is run.<br>
-     *  Executed in the background task.
+     * Executed in the background task.
      *
      * @return Loaded ContainerImage
+     *
      * @throws IllegalTypeException thrown if load path does not match a type
      */
     @Override

@@ -12,7 +12,7 @@ import java.io.File;
 
 public class FileFilter extends javax.swing.filechooser.FileFilter {
     // region attributes
-    private Extension[] extensions;
+    private final Extension[] extensions;
     // endregion
 
     public enum Extension {

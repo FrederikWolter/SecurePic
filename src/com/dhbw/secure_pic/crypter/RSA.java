@@ -250,11 +250,11 @@ public class RSA implements Crypter {
 
     // region getter
     // Getters are used to output the keys to the user
-    public PrivateKey getPrivateKey() {
+    public PrivateKey getPrivateKey() { // TODO check if still needed
         return privateKey;
     }
 
-    public PublicKey getPublicKey() {
+    public PublicKey getPublicKey() {   // TODO check if still needed
         return publicKey;
     }
     // endregion

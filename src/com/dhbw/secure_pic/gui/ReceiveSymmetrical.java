@@ -3,8 +3,6 @@ package com.dhbw.secure_pic.gui;
 import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 // TODO comment (normal comments + JDocs) # only delete if final#
@@ -53,14 +51,11 @@ public class ReceiveSymmetrical extends GuiViewReceive {
         decodeButton.addActionListener(getDecodeListener(codeComboBox, encryptComboBox, passwordField, messageOutput, textOutputScroll, textOutput, IMAGE_WIDTH_5, IMAGE_HEIGHT_5, exportButton, copyToClipboardButton, decodeButton, progressBar));
 
         exportButton.addActionListener(getExportInformationListener(this));
-        copyToClipboardButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    contentInformation.copyToClipboard();
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Beim Kopieren des Inhalts ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
-                }
+        copyToClipboardButton.addActionListener(e -> {
+            try {
+                contentInformation.copyToClipboard();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Beim Kopieren des Inhalts ist ein Fehler aufgetreten:\n" + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
             }
         });
         // endregion

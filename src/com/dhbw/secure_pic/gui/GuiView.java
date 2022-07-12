@@ -111,7 +111,8 @@ public class GuiView extends Component {
                     ContainerImageLoadTask task = new ContainerImageLoadTask(files.get(0).getPath(), handler);  // only handle first file
                     task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
                     task.execute();
-                } catch (IOException | UnsupportedFlavorException ex) {    // this errors should be not critical, user can try again
+                } catch (IOException |
+                         UnsupportedFlavorException ex) {    // these errors should be not critical, user can try again
                     Logger.getLogger("GUI").log(Level.WARNING, String.format("DropException: '%s'", ex.getMessage()));
                 }
             }

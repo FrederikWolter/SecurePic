@@ -16,7 +16,8 @@ public interface Crypter {
      * General encrypt method for encrypting a given Information.
      *
      * @param information Information to be encrypted
-     * @param monitor Monitor to monitor progress
+     * @param monitor     Monitor to monitor progress
+     *
      * @return Encrypted Information
      *
      * @throws CrypterException Thrown if something went wrong encrypting
@@ -27,7 +28,8 @@ public interface Crypter {
      * General decrypt method for decrypting a given information.
      *
      * @param information Information to be decrypted
-     * @param monitor Monitor to monitor the progress
+     * @param monitor     Monitor to monitor the progress
+     *
      * @return Decrypted Information
      *
      * @throws CrypterException Thrown if something went wrong encrypting
