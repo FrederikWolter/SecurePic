@@ -18,7 +18,8 @@ public class Gui {
     // region constants
     /**
      * Used for internationalization.<br>
-     * Change the locale here and in the IntelliJ Form Designer and the application is in a different language.
+     * Change the locale here and the application is in a different language.<br>
+     * e. g. English = 'en'; German = 'de'
      */
     public static final String LOCALE = "en"; //NON-NLS
     /** Path to languages bundle file */
@@ -65,6 +66,9 @@ public class Gui {
      * Constructor of {@link Gui} creating the Swing {@link JFrame} and the {@link GuiView}s.
      */
     public Gui() {
+        // setting the locale
+        Locale.setDefault(new Locale(LOCALE));
+
         // main frame
         frame = new JFrame(bundle.getString("image_con.title"));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
