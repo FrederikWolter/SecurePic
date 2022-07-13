@@ -61,7 +61,7 @@ public class ContainerImage {
         this.type = switch (extension) {
             case "png" -> PNG; //NON-NLS
             case "jpg" -> JPG; //NON-NLS
-            case "jpeg" -> JPG; //NON-NLS
+            case "jpeg" -> JPG /*noinspection DuplicateBranchesInSwitch*/; //NON-NLS
             default -> null;
         };
         if (this.type == null)
@@ -95,7 +95,7 @@ public class ContainerImage {
      *
      * @param destPath destination path for image to be saved to.
      *
-     * @throws IOException
+     * @throws IOException thrown if something went wrong saving the image.
      * @throws IllegalTypeException given destination path file extension does not match the file type.
      */
     public void exportImg(String destPath) throws IOException, IllegalTypeException {

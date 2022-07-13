@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
  */
 public class Gui {
 
-    // region constants
+    // region locale
     /**
      * Used for internationalization.<br>
      * Change the locale here and the application is in a different language.<br>
@@ -24,7 +24,9 @@ public class Gui {
     public static final String LOCALE = "en"; //NON-NLS
     /** Path to languages bundle file */
     public static final String LOCALE_PATH = "com/dhbw/secure_pic/gui/languages"; //NON-NLS
-    //
+    /** get resource bundle managing strings */
+    private final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+    // endregion
 
     // region swing attributes
     private final JFrame frame;
@@ -33,8 +35,6 @@ public class Gui {
     // endregion
 
     // region attributes
-    /** get resource bundle managing strings */
-    private final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     /** {@link Type} chosen by the user */
     private Type type;
     // endregion

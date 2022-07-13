@@ -88,16 +88,16 @@ public class Information {
 
     /**
      * Get information object from content string.<br>
-     * Internally uses private Constructor for creating an information.
+     * Internally uses private Constructor for creating an information.<br>
+     * Create information by converting string to byte array with UTF-8.
      *
      * @param text text given by the user.
      *
      * @return created information.
+     *
+     * @see <a href="https://stackoverflow.com/a/18571348/13777031">here</a>
      */
     public static Information getInformationFromString(String text) {
-        // create information by converting string to byte array with UTF-8.
-        // see https://stackoverflow.com/a/18571348/13777031
-
         byte[] data = text.getBytes(StandardCharsets.UTF_8);
         return new Information(data, TEXT);
     }
@@ -110,11 +110,11 @@ public class Information {
      *
      * @return created information.
      *
-     * @throws IllegalTypeException
+     * @throws IllegalTypeException thrown if there is an error related to type or load.
+     *
+     * @see <a href="https://mkyong.com/java/how-to-convert-bufferedimage-to-byte-in-java/">Insiration</a>
      */
     public static Information getInformationFromImage(String path) throws IllegalTypeException {
-        // see https://mkyong.com/java/how-to-convert-bufferedimage-to-byte-in-java/
-
         // get file extension from path
         String extension = ContainerImage.getFileExtension(path);
 
@@ -210,7 +210,7 @@ public class Information {
      * Copy the content of information to Windows clip board. <br>
      * Works for images and text.
      *
-     * @throws IOException
+     * @throws IOException thrown if conversion to image is faulty
      */
     public void copyToClipboard() throws IOException {
         // get clipboard
@@ -276,7 +276,7 @@ public class Information {
      *
      * @param data data to be saved in information.
      *
-     * @throws IllegalLengthException
+     * @throws IllegalLengthException thrown if length does not match the expected length set.
      */
     public void setData(byte[] data) throws IllegalLengthException {
         if (data.length == this.length) {
