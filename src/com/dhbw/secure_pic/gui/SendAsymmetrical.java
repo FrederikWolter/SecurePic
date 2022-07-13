@@ -16,6 +16,9 @@ import java.util.ResourceBundle;
 
 public class SendAsymmetrical extends GuiViewSend {
 
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+
     // region swing attributes
     private JPanel contentPane;
     private JProgressBar progressBar;
@@ -43,8 +46,6 @@ public class SendAsymmetrical extends GuiViewSend {
 
     // region attributes
     private transient ContainerImage keyImage;
-    /** get resource bundle managing strings */
-    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     // endregion
 
     public SendAsymmetrical(Gui parent) {

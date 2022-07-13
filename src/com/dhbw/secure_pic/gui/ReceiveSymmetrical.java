@@ -12,6 +12,9 @@ import java.util.ResourceBundle;
 
 public class ReceiveSymmetrical extends GuiViewReceive {
 
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+
     // region swing attributes
     private JProgressBar progressBar;
     private JButton backButton;
@@ -29,9 +32,6 @@ public class ReceiveSymmetrical extends GuiViewReceive {
     private JScrollPane textOutputScroll;
     private JTextArea textOutput;
     // endregion
-
-    /** get resource bundle managing strings */
-    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
 
     public ReceiveSymmetrical(Gui parent) {
         // region finished handler

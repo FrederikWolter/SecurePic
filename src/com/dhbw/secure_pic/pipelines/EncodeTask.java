@@ -33,10 +33,10 @@ public class EncodeTask extends SwingWorker<ContainerImage, Void> {
     private final Crypter crypter;
     /** Calling gui class must be a EncodeFinishedHandler to handle when encode finishes. */
     private final EncodeFinishedHandler caller;
-    /** Information to work with. */
-    private Information information;
     /** get resource bundle managing strings */
     private final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+    /** Information to work with. */
+    private Information information;
     // endregion
 
     /**

@@ -33,10 +33,10 @@ public class Gui {
     // endregion
 
     // region attributes
-    /** {@link Type} chosen by the user */
-    private Type type;
     /** get resource bundle managing strings */
     private final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+    /** {@link Type} chosen by the user */
+    private Type type;
     // endregion
 
     /**

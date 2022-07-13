@@ -10,6 +10,9 @@ import java.util.ResourceBundle;
 
 public class SendNoEncryption extends GuiViewSend {
 
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+
     // region swing attributes
     private JPanel contentPane;
     private JButton backButton;
@@ -29,9 +32,6 @@ public class SendNoEncryption extends GuiViewSend {
     private JLabel messageImg;
     private JScrollPane messageTextScroll;
     // endregion
-
-    /** get resource bundle managing strings */
-    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
 
     public SendNoEncryption(Gui parent) {
         // region finished listener

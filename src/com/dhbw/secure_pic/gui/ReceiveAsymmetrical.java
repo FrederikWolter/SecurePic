@@ -26,6 +26,9 @@ import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
 public class ReceiveAsymmetrical extends GuiViewReceive {
 
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+
     // region swing attributes
     private JPanel contentPane;
     private JCheckBox encodePublicKeyIntoCheckBox;
@@ -53,9 +56,6 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
     private JScrollPane textOutputScroll;
     private JTextArea textOutput;
     // endregion
-
-    /** get resource bundle managing strings */
-    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
 
     // region attributes
     private transient ContainerImage keyImage;

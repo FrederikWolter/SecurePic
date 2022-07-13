@@ -56,9 +56,9 @@ public class GuiView extends Component {
     // endregion
 
     // region attributes
-    protected transient ContainerImage containerImage;
     /** get resource bundle managing strings */
     private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+    protected transient ContainerImage containerImage;
     // endregion
 
     // see https://stackoverflow.com/a/6714381/13777031, https://stackoverflow.com/a/10245583/13777031

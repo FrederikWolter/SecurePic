@@ -13,15 +13,15 @@ import java.util.ResourceBundle;
  */
 public class StartChooseType extends GuiView {
 
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+
     // region swing attributes
     private JButton backButton;
     private JButton sendButton;
     private JButton receiveButton;
     private JPanel contentPane;
     // endregion
-
-    /** get resource bundle managing strings */
-    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
 
     /**
      * Constructor of {@link StartChooseType}.

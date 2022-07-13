@@ -25,9 +25,9 @@ import java.util.ResourceBundle;
 public class GuiViewReceive extends GuiView {
 
     // region attributes
-    protected transient Information contentInformation;
     /** get resource bundle managing strings */
     private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+    protected transient Information contentInformation;
     // endregion
 
     protected ActionListener getExportInformationListener(Component parent) {

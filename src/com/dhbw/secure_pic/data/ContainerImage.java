@@ -26,14 +26,14 @@ import static com.dhbw.secure_pic.data.ContainerImage.Type.PNG;
 public class ContainerImage {
 
     // region attributes
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     /** Path to original image loaded from drive. */
     private final String path;
     /** BufferedImage loaded from path. */
     private final BufferedImage image;
     /** Type of image. */
     private final Type type;
-    /** get resource bundle managing strings */
-    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     // endregion
 
     /** Enum representing the available image types. */

@@ -12,6 +12,9 @@ import java.util.ResourceBundle;
  */
 public class StartChooseEncryption extends GuiView {
 
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+
     // region swing attributes
     private JPanel contentPane;
     private JButton backButton;
@@ -19,9 +22,6 @@ public class StartChooseEncryption extends GuiView {
     private JButton symmetricalButton;
     private JButton asymmetricalButton;
     // endregion
-
-    /** get resource bundle managing strings */
-    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
 
     /**
      * Constructor of {@link StartChooseEncryption}.
@@ -32,7 +32,7 @@ public class StartChooseEncryption extends GuiView {
         // region listener
 
         backButton.addActionListener(e ->
-                parent.showView(Gui.View.START_CHOOSE_TYPE)
+                                             parent.showView(Gui.View.START_CHOOSE_TYPE)
         );
 
         noEncryptionButton.addActionListener(e -> {

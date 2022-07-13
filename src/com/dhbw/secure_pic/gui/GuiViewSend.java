@@ -26,9 +26,9 @@ import static javax.swing.JOptionPane.WARNING_MESSAGE;
 public class GuiViewSend extends GuiView {
 
     // region attributes
-    protected transient ContainerImage contentImage;
     /** get resource bundle managing strings */
     private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+    protected transient ContainerImage contentImage;
     // endregion
 
     protected static ActionListener getInformationTypeListener(int visible, JScrollPane text, JPanel image) {

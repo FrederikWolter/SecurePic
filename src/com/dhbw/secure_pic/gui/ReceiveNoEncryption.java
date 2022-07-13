@@ -12,6 +12,9 @@ import java.util.ResourceBundle;
 
 public class ReceiveNoEncryption extends GuiViewReceive {
 
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+
     // region swing attributes
     private JPanel contentPane;
     private JProgressBar progressBar;
@@ -27,9 +30,6 @@ public class ReceiveNoEncryption extends GuiViewReceive {
     private JTextArea textOutput;
     private JScrollPane textOutputScroll;
     // endregion
-
-    /** get resource bundle managing strings */
-    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
 
     public ReceiveNoEncryption(Gui parent) {
         // region finished handler

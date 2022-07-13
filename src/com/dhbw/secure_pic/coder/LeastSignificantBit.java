@@ -7,7 +7,6 @@ import com.dhbw.secure_pic.coder.utility.BitAssembler;
 import com.dhbw.secure_pic.coder.utility.BitFetcher;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
-import com.dhbw.secure_pic.gui.Gui;
 import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
 import java.text.MessageFormat;

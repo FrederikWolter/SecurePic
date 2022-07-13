@@ -12,6 +12,10 @@ import java.util.ResourceBundle;
  * @author Kai Schwab, Frederik Wolter
  */
 public class ImageConverter extends GuiView {
+
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+
     // region swing attributes
     private JPanel contentPane;
     private JButton secretButton;
@@ -21,9 +25,6 @@ public class ImageConverter extends GuiView {
     private JPanel uploadPanel;
     private JLabel imageLabel;
     // endregion
-
-    /** get resource bundle managing strings */
-    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
 
     public ImageConverter(Gui parent) {
         // region finished listener

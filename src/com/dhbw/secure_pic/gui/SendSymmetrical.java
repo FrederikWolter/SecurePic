@@ -15,6 +15,9 @@ import java.util.ResourceBundle;
  */
 public class SendSymmetrical extends GuiViewSend {
 
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+
     // region swing attributes
     private JPanel contentPane;
     private JButton backButton;
@@ -36,9 +39,6 @@ public class SendSymmetrical extends GuiViewSend {
     private JButton uploadContainer;
     private JScrollPane messageTextScroll;
     // endregion
-
-    /** get resource bundle managing strings */
-    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
 
     /**
      * Constructor of {@link SendSymmetrical}.

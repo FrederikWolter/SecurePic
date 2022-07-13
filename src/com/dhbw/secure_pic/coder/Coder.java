@@ -21,10 +21,10 @@ import java.util.ResourceBundle;
 public abstract class Coder {
 
     // region attributes
-    /** {@link ContainerImage} handled in coder */
-    protected final ContainerImage image;
     /** get resource bundle managing strings */
     protected static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+    /** {@link ContainerImage} handled in coder */
+    protected final ContainerImage image;
     // endregion
 
     /**
