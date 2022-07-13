@@ -50,6 +50,9 @@ public class ImageConverter extends GuiView {
     // region getter
 
     /**
+     * Due to a constraint by the GUI designer a form can not be a {@link JPanel} therefore a {@link JPanel} is placed
+     * directly inside a form and can be retrieved through this getter.
+     *
      * @return ContentPane
      */
     public JPanel getContentPane() {

@@ -8,8 +8,12 @@ import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-// TODO comment (normal comments + JDocs) # only delete if final#
 
+/**
+ * Class representing Receive-Symmetrical {@link GuiView}.<br>
+ *
+ * @author Kai Schwab, Frederik Wolter
+ */
 public class ReceiveSymmetrical extends GuiViewReceive {
 
     /** get resource bundle managing strings */
@@ -33,6 +37,11 @@ public class ReceiveSymmetrical extends GuiViewReceive {
     private JTextArea textOutput;
     // endregion
 
+    /**
+     * Constructor of {@link ReceiveSymmetrical}.
+     *
+     * @param parent parent Gui object
+     */
     public ReceiveSymmetrical(Gui parent) {
         // region finished handler
         LoadImageFinishedHandler finishedContainerImageLoad = image -> {
@@ -54,14 +63,17 @@ public class ReceiveSymmetrical extends GuiViewReceive {
 
         uploadContainerImg.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
 
-        decodeButton.addActionListener(getDecodeListener(codeComboBox, encryptComboBox, passwordField, messageOutput, textOutputScroll, textOutput, IMAGE_WIDTH_5, IMAGE_HEIGHT_5, exportButton, copyToClipboardButton, decodeButton, progressBar));
+        decodeButton.addActionListener(getDecodeListener(codeComboBox, encryptComboBox, passwordField, messageOutput,
+                                                         textOutputScroll, textOutput, IMAGE_WIDTH_5, IMAGE_HEIGHT_5,
+                                                         exportButton, copyToClipboardButton, decodeButton, progressBar));
 
         exportButton.addActionListener(getExportInformationListener(this));
         copyToClipboardButton.addActionListener(e -> {
             try {
                 contentInformation.copyToClipboard();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.copy_error"), ex.getMessage()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.copy_error"), ex.getMessage()),
+                                              bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
             }
         });
         // endregion
@@ -69,6 +81,12 @@ public class ReceiveSymmetrical extends GuiViewReceive {
 
     // region getter
 
+    /**
+     * Due to a constraint by the GUI designer a form can not be a {@link JPanel} therefore a {@link JPanel} is placed
+     * directly inside a form and can be retrieved through this getter.
+     *
+     * @return ContentPane
+     */
     public JPanel getContentPane() {
         return contentPane;
     }

@@ -4,7 +4,6 @@ import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 
 import javax.swing.*;
 
-// TODO comment (normal comments + JDocs) # only delete if final#
 
 /**
  * Class representing Send-Symmetrical {@link GuiView}.<br>
@@ -64,7 +63,6 @@ public class SendSymmetrical extends GuiViewSend {
         uploadPanelMessage.setDropTarget(getDropTargetListener(finishedContentImageLoad, progressBar));
         // endregion
 
-
         // region listener
         backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 
@@ -74,17 +72,20 @@ public class SendSymmetrical extends GuiViewSend {
         imageRadio.addActionListener(getInformationTypeListener(1, messageTextScroll, uploadPanelMessage));
         textRadio.addActionListener(getInformationTypeListener(0, messageTextScroll, uploadPanelMessage));
 
-        encodeButton.addActionListener(getEncodeListener(textRadio, imageRadio, messageText, codeComboBox, encryptComboBox, passwordField, exportButton, copyToClipboardButton, encodeButton, progressBar));
+        encodeButton.addActionListener(getEncodeListener(textRadio, imageRadio, messageText, codeComboBox, encryptComboBox,
+                                                         passwordField, exportButton, copyToClipboardButton, encodeButton, progressBar));
 
         exportButton.addActionListener(getExportImageListener(this));
         copyToClipboardButton.addActionListener(e -> containerImage.copyToClipboard());
-
         // endregion
     }
 
     // region getter
 
     /**
+     * Due to a constraint by the GUI designer a form can not be a {@link JPanel} therefore a {@link JPanel} is placed
+     * directly inside a form and can be retrieved through this getter.
+     *
      * @return ContentPane
      */
     public JPanel getContentPane() {

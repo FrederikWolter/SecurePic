@@ -12,8 +12,12 @@ import javax.swing.*;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-// TODO comment (normal comments + JDocs) # only delete if final#
 
+/**
+ * Class representing Send-Asymmetrical {@link GuiView}.<br>
+ *
+ * @author Kai Schwab, Frederik Wolter
+ */
 public class SendAsymmetrical extends GuiViewSend {
 
     /** get resource bundle managing strings */
@@ -45,9 +49,15 @@ public class SendAsymmetrical extends GuiViewSend {
     // endregion
 
     // region attributes
+    /** (Container-)Image for public key */
     private transient ContainerImage keyImage;
     // endregion
 
+    /**
+     * Constructor of {@link SendAsymmetrical}.
+     *
+     * @param parent parent Gui object
+     */
     public SendAsymmetrical(Gui parent) {
         // region finished listener
         LoadImageFinishedHandler finishedContainerImageLoad = image -> {
@@ -81,7 +91,8 @@ public class SendAsymmetrical extends GuiViewSend {
                 if (info.getType() == Information.Type.TEXT && info.toText().length() >= 600) {
                     publicKeyInput.setText(info.toText());
                 } else {
-                    JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.empty_key_image"), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.empty_key_image"),
+                                                  bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                 }
             });
             task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
@@ -96,7 +107,6 @@ public class SendAsymmetrical extends GuiViewSend {
         uploadPanelKey.setDropTarget(getDropTargetListener(finishedKeyImageLoad, progressBar));
         // endregion
 
-
         // region listeners
         backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 
@@ -107,7 +117,8 @@ public class SendAsymmetrical extends GuiViewSend {
         imageRadio.addActionListener(getInformationTypeListener(1, messageTextScroll, uploadPanelMessage));
         textRadio.addActionListener(getInformationTypeListener(0, messageTextScroll, uploadPanelMessage));
 
-        encodeButton.addActionListener(getEncodeListener(textRadio, imageRadio, messageText, codeComboBox, encryptComboBox, publicKeyInput, exportButton, copyToClipboardButton, encodeButton, progressBar));
+        encodeButton.addActionListener(getEncodeListener(textRadio, imageRadio, messageText, codeComboBox, encryptComboBox,
+                                                         publicKeyInput, exportButton, copyToClipboardButton, encodeButton, progressBar));
 
         exportButton.addActionListener(getExportImageListener(this));
         copyToClipboardButton.addActionListener(e -> containerImage.copyToClipboard());
@@ -115,8 +126,16 @@ public class SendAsymmetrical extends GuiViewSend {
     }
 
     // region getter
+
+    /**
+     * Due to a constraint by the GUI designer a form can not be a {@link JPanel} therefore a {@link JPanel} is placed
+     * directly inside a form and can be retrieved through this getter.
+     *
+     * @return ContentPane
+     */
     public JPanel getContentPane() {
         return contentPane;
     }
+
     // endregion
 }

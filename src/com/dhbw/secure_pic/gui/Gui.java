@@ -25,6 +25,7 @@ public class Gui {
     /** Path to languages bundle file */
     public static final String LOCALE_PATH = "com/dhbw/secure_pic/gui/languages"; //NON-NLS
     /** get resource bundle managing strings */
+    @SuppressWarnings("FieldCanBeLocal")
     private final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     // endregion
 

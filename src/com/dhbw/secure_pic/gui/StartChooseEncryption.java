@@ -2,6 +2,7 @@ package com.dhbw.secure_pic.gui;
 
 import javax.swing.*;
 
+
 /**
  * Class representing Choose-Encryption {@link GuiView}.<br>
  * User can choose between the types of encryption. The layout of the view is defined in 'StartChooseEncryption.form'.
@@ -60,6 +61,9 @@ public class StartChooseEncryption extends GuiView {
     // region getter
 
     /**
+     * Due to a constraint by the GUI designer a form can not be a {@link JPanel} therefore a {@link JPanel} is placed
+     * directly inside a form and can be retrieved through this getter.
+     *
      * @return ContentPane
      */
     public JPanel getContentPane() {

@@ -41,10 +41,8 @@ public class PlusMinusOne extends Coder {
     @Override
     public ContainerImage encode(Information info, ProgressMonitor monitor) throws InsufficientCapacityException {
         // test whether information will fit into container image
-        int infoLength = info.getTotalLength();
-        int imageCapacity = this.getCapacity();
-        if (infoLength > imageCapacity) {
-            throw new InsufficientCapacityException(MessageFormat.format(bundle.getString("except_does_not_fit"), infoLength, imageCapacity));
+        if (info.getTotalLength() > this.getCapacity()) {
+            throw new InsufficientCapacityException(MessageFormat.format(bundle.getString("except_does_not_fit"), info.getTotalLength(), this.getCapacity()));
         }
 
         // get fetcher from information
