@@ -7,6 +7,7 @@ import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import org.junit.Test;
 
+import java.awt.image.DataBufferByte;
 import java.io.IOException;
 
 import static org.junit.Assert.*;
@@ -14,7 +15,7 @@ import static org.junit.Assert.*;
 /**
  * Some test methods for testing {@link LeastSignificantBit}.
  *
- * @author Frederik Wolter
+ * @author Frederik Wolter supported by Kirolis Eskondis
  */
 public class TestLeastSignificantBit {
 
@@ -80,10 +81,12 @@ public class TestLeastSignificantBit {
         LeastSignificantBit coder2 = new LeastSignificantBit(image2);
         Information info2 = coder2.decode(progress -> { /* empty */ });
 
+        //Assert that info2 is not null and data of info2 equals that of info
         assertNull(info2.toText());
+        assertArrayEquals(info.getData(),info2.getData());
+
         info2.copyToClipboard();
 
-        // FIXME automatic test?
     }
 
     @SuppressWarnings("HardCodedStringLiteral")

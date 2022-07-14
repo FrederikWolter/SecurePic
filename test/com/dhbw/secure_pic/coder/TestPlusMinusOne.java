@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 /**
  * Some test methods for testing {@link PlusMinusOne}.
  *
- * @author Frederik Wolter
+ * @author Frederik Wolter supported by Kirolis Eskondis
  */
 public class TestPlusMinusOne {
 
@@ -81,10 +81,11 @@ public class TestPlusMinusOne {
         PlusMinusOne coder2 = new PlusMinusOne(image2);
         Information info2 = coder2.decode(progress -> { /* empty */ });
 
+        //Assert that info2 is not null and data of info2 equals that of info
         assertNull(info2.toText());
+        assertArrayEquals(info.getData(),info2.getData());
         info2.copyToClipboard();
 
-        // FIXME automatic test?
     }
 
     @SuppressWarnings("HardCodedStringLiteral")

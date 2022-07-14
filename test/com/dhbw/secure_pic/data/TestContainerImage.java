@@ -3,14 +3,22 @@ package com.dhbw.secure_pic.data;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import org.junit.Test;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import javax.xml.crypto.Data;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import static org.junit.Assert.*;
 
 
 /**
  * Some test methods for testing {@link ContainerImage}.
  *
- * @author Frederik Wolter
+ * @author Frederik Wolter supported by Kirolis Eskondis
  */
 public class TestContainerImage {
 
@@ -31,10 +39,19 @@ public class TestContainerImage {
 
     @SuppressWarnings("HardCodedStringLiteral")
     @Test
-    public void testCopyToClipboard() throws IllegalTypeException {
+    public void testCopyToClipboard() throws IllegalTypeException, IOException, UnsupportedFlavorException {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
         image.copyToClipboard();
-        // FIXME add automatic test?
+
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        Transferable clipboardImage = clipboard.getContents(null);
+
+        //Assert that an image is saved in the clipboard
+        assertTrue(clipboardImage.isDataFlavorSupported(DataFlavor.imageFlavor));
+
+        //Assert that image saved in clipboard is the same as image given above
+        BufferedImage image2 = (BufferedImage) clipboardImage.getTransferData(DataFlavor.imageFlavor);
+        assertEquals(image.getImage(),image2);
     }
 
     @SuppressWarnings("HardCodedStringLiteral")
