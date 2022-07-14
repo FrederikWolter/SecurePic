@@ -20,8 +20,13 @@ import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-// TODO comment
 
+/**
+ * This class represents the superclass of all views shown in the context of the Receive-Tab  .<br>
+ * It inherits the {@link GuiView} class
+ *
+ * @author Frederik Wolter
+ */
 public class GuiViewReceive extends GuiView {
 
     // region attributes

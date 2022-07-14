@@ -21,8 +21,12 @@ import java.util.ResourceBundle;
 
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
-// TODO comment
-
+/**
+ * This class represents the superclass of all views shown in the context of the Sending-Tab  .<br>
+ * It inherits the {@link GuiView} class
+ *
+ * @author Frederik Wolter
+ */
 public class GuiViewSend extends GuiView {
 
     // region attributes

@@ -22,8 +22,11 @@ import java.util.ResourceBundle;
 
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
-// TODO comment (normal comments + JDocs) # only delete if final#
-
+/**
+ * Class representing Receive-Asymmetrical {@link GuiView}.<br>
+ *
+ * @author Kai Schwab, Frederik Wolter
+ */
 public class ReceiveAsymmetrical extends GuiViewReceive {
 
     /** get resource bundle managing strings */
