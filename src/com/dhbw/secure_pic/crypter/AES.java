@@ -1,23 +1,21 @@
 package com.dhbw.secure_pic.crypter;
 
-import com.dhbw.secure_pic.auxiliary.CrypterKey;
 import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
 import javax.crypto.*;
+import javax.crypto.spec.SecretKeySpec;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-// TODO comment
-// TODO do more work self instead of handing it over to library?
 
 /**
  * This class implements the AES encryption method used to encrypt/decrypt messages.<br>
  * It extends the Crypter class.
  *
- * @author Kirolis Eskondis supported by Frederik Wolter
+ * @author Kirolis Eskondis
  */
 public class AES implements Crypter {
 
@@ -105,7 +103,7 @@ public class AES implements Crypter {
         for (int i = 0; i < password.length() && i < 32; i++) {
             keyBytes[i] = password.getBytes()[i];
         }
-        return new CrypterKey(keyBytes, "AES");
+        return new SecretKeySpec(keyBytes, "AES");
     }
 
 }

@@ -19,8 +19,6 @@ import java.security.spec.RSAPublicKeySpec;
 import java.util.Arrays;
 import java.util.Base64;
 
-// TODO comment
-// TODO do more work self instead of handing it over to library?
 
 /**
  * This class implements the RSA encryption method used to encrypt/decrypt messages.<br>
@@ -86,6 +84,10 @@ public class RSA implements Crypter {
     }
 
     /**
+     * This function encrypts the data given using the RSA algorithm <br>
+     * The RSA algorithm can only encrypt data that has a maximum byte length of the RSA key length in bits divided by eight minus eleven padding bytes, i.e. number of maximum bytes = key length in bits / 8 - 11. <br>
+     * Because of this length limitation, this function decrypts the data by dividing it in blocks with a maximum length of 200 bytes. Those will be decrypted to Byte-Arrays with a length of 344 which will be put together
+     *
      * @param information contains the message to encrypt
      *
      * @return overwritten {@link Information}
@@ -128,7 +130,11 @@ public class RSA implements Crypter {
     }
 
     /**
-     * @param information contains the message to decrypt
+     * This function encrypts the data given using the RSA algorithm <br>
+     * The encrypt method encrypts data blocks of 200 bytes into decrypted data blocks of 344 bytes <br>
+     * Because of this length limitation, this function encrypts the data by dividing it in blocks of 344 bytes first. Those will be encrypted to Byte-Arrays with a maximum length of 200.
+     *
+     * @param information contains the message to decrypt <br>
      *
      * @return overwritten {@link Information}
      *
@@ -246,16 +252,4 @@ public class RSA implements Crypter {
         return keyString;
     }
 
-    // TODO check if still needed
-
-    // region getter
-    // Getters are used to output the keys to the user
-    public PrivateKey getPrivateKey() { // TODO check if still needed
-        return privateKey;
-    }
-
-    public PublicKey getPublicKey() {   // TODO check if still needed
-        return publicKey;
-    }
-    // endregion
 }
