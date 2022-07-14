@@ -2,16 +2,24 @@ package com.dhbw.secure_pic.data;
 
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalLengthException;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
+import org.junit.Assert;
 import org.junit.Test;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertTrue;
 
 
 /**
@@ -37,26 +45,25 @@ public class TestInformation {
     @SuppressWarnings({"HardCodedStringLiteral", "UnusedAssignment", "unused"})
     @Test
     public void testGetInformationFromImage() throws IllegalTypeException, IOException {
-        Information info;
-        BufferedImage image1;
-        BufferedImage image2;
 
         // test image JPG
-        info = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/JPG_Test.jpg");
-        image1 = info.toImage();
+        Information info = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/JPG_Test.jpg");
+        DataBufferByte image1Array = (DataBufferByte) info.toImage().getData().getDataBuffer();
 
-        image2 = ImageIO.read(new File("test/com/dhbw/secure_pic/data/JPG_Test.jpg"));
-        // due to a missing implementation of BufferedImage there is NO 'equals' method.
-        // hence determining whether two images are the same is not an easy task.
-        // assertEquals(image1.toString(), image2.toString());
+        BufferedImage image2 = ImageIO.read(new File("test/com/dhbw/secure_pic/data/JPG_Test.jpg"));
+        DataBufferByte image2Array = (DataBufferByte) image2.getData().getDataBuffer();
+
+        //TODO shit just doesnt work on jpg. info.toImage has different data array than the normal BufferedImage. PNG works tho so just remove jpg test if no fix is found
+        assertArrayEquals(image1Array.getData(),image2Array.getData());
+
 
         // test image PNG
         info = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
-        image1 = info.toImage();
+        image1Array = (DataBufferByte) info.toImage().getData().getDataBuffer();
 
         image2 = ImageIO.read(new File("test/com/dhbw/secure_pic/data/PNG_Test.png"));
-        // assertEquals(image1.toString(), image2.toString());
-        // FIXME add automatic test?
+        image2Array = (DataBufferByte) image2.getData().getDataBuffer();
+        assertArrayEquals(image1Array.getData(),image2Array.getData());
     }
 
     @SuppressWarnings("HardCodedStringLiteral")
@@ -83,24 +90,46 @@ public class TestInformation {
 
         @SuppressWarnings("unused")
         byte[] result = info.toBEBytes();
-        // FIXME add automatic test?
+        // FIXME add automatic test? Not sure if there's really anything to test here? Seems kinda useless to me
     }
 
     @SuppressWarnings("HardCodedStringLiteral")
     @Test
-    public void testCopyContentToClipboardText() throws IOException {
+    public void testCopyContentToClipboardText() throws IOException, UnsupportedFlavorException {
         String testString = "Test !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~öäüÖÄÜ€©§¼Äÿ";
 
         Information info = Information.getInformationFromString(testString);
         info.copyToClipboard();
-        // FIXME add automatic test?
+
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        Transferable clipboardText = clipboard.getContents(null);
+
+        //Assert that a string is saved in the clipboard
+        assertTrue(clipboardText.isDataFlavorSupported(DataFlavor.stringFlavor));
+
+        //Assert that string saved in clipboard is the same as string given above
+        String clipBoardString = (String) clipboardText.getTransferData(DataFlavor.stringFlavor);
+        assertEquals(testString,clipBoardString);
     }
 
     @SuppressWarnings("HardCodedStringLiteral")
     @Test
-    public void testCopyContentToClipboardImage() throws IOException, IllegalTypeException {
-        Information info = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
-        info.copyToClipboard();
-        // FIXME add automatic test?
+    public void testCopyContentToClipboardImage() throws IOException, IllegalTypeException, UnsupportedFlavorException {
+        Information informationFromImage = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
+        informationFromImage.copyToClipboard();
+        DataBufferByte byteArray1 = (DataBufferByte) informationFromImage.toImage().getData().getDataBuffer();
+
+
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        Transferable clipboardContents = clipboard.getContents(null);
+
+        //Assert that an image is saved in the clipboard
+        assertTrue(clipboardContents.isDataFlavorSupported(DataFlavor.imageFlavor));
+
+        //Assert that image saved in clipboard is the same as image given above
+        BufferedImage image2 = (BufferedImage) clipboardContents.getTransferData(DataFlavor.imageFlavor);
+        DataBufferByte byteArray2 = (DataBufferByte) image2.getData().getDataBuffer();
+        assertArrayEquals(byteArray1.getData(),byteArray2.getData());
+
     }
 }
