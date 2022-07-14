@@ -8,7 +8,6 @@ import java.io.File;
  * Used for filtering {@link FileSelect}.
  *
  * @author Kai Schwab, Frederik Wolter
- *
  * @see <a href="https://docs.oracle.com/javase/tutorial/uiswing/components/filechooser.html">Idea</a>
  */
 public class FileFilter extends javax.swing.filechooser.FileFilter {

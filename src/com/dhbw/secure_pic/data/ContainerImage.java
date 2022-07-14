@@ -95,7 +95,7 @@ public class ContainerImage {
      *
      * @param destPath destination path for image to be saved to.
      *
-     * @throws IOException thrown if something went wrong saving the image.
+     * @throws IOException          thrown if something went wrong saving the image.
      * @throws IllegalTypeException given destination path file extension does not match the file type.
      */
     public void exportImg(String destPath) throws IOException, IllegalTypeException {

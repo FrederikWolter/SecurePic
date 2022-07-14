@@ -111,7 +111,6 @@ public class Information {
      * @return created information.
      *
      * @throws IllegalTypeException thrown if there is an error related to type or load.
-     *
      * @see <a href="https://mkyong.com/java/how-to-convert-bufferedimage-to-byte-in-java/">Insiration</a>
      */
     public static Information getInformationFromImage(String path) throws IllegalTypeException {

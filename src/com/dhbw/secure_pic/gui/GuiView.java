@@ -80,9 +80,10 @@ public class GuiView extends Component {
     /**
      * Helper method for scaling images shown in the gui.
      *
-     * @param srcImg image to be scaled
-     * @param maxWidth image max width
+     * @param srcImg    image to be scaled
+     * @param maxWidth  image max width
      * @param maxHeight image max height
+     *
      * @return scaled image
      *
      * @see <a href="https://stackoverflow.com/a/6714381/13777031">Stackoverflow</a>
@@ -141,8 +142,8 @@ public class GuiView extends Component {
     /**
      * Centralized method for building a {@link DropTarget}.
      *
-     * @param handler Handler for 'LoadIMageFinished' event
-     * @param progressBar  {@link JProgressBar} to be updated
+     * @param handler     Handler for 'LoadIMageFinished' event
+     * @param progressBar {@link JProgressBar} to be updated
      *
      * @return configured {@link DropTarget}
      */
@@ -160,7 +161,8 @@ public class GuiView extends Component {
                     ContainerImageLoadTask task = new ContainerImageLoadTask(files.get(0).getPath(), handler);  // only handle first file
                     task.addPropertyChangeListener(getPropertyChangeListener(progressBar)); // start load tasked
                     task.execute();
-                } catch (IOException | UnsupportedFlavorException ex) {    // errors are not critical, user can try again
+                } catch (IOException |
+                         UnsupportedFlavorException ex) {    // errors are not critical, user can try again
                     Logger.getLogger("GUI").log(Level.WARNING, String.format(bundle.getString("log.drop_exception"), ex.getMessage()));
                 }
             }
@@ -170,8 +172,8 @@ public class GuiView extends Component {
     /**
      * Centralized method for building an image upload {@link ActionListener}.
      *
-     * @param parent caller view
-     * @param handler  Handler for 'LoadIMageFinished' event
+     * @param parent      caller view
+     * @param handler     Handler for 'LoadIMageFinished' event
      * @param progressBar {@link JProgressBar} to be updated
      *
      * @return configured {@link ActionListener}
@@ -198,7 +200,7 @@ public class GuiView extends Component {
      * Centralized getter for the selected {@link Coder}.
      *
      * @param codeComboBox Coder selection drop-down
-     * @param image {@link ContainerImage} for coder
+     * @param image        {@link ContainerImage} for coder
      *
      * @return configured {@link Coder}
      */
@@ -220,8 +222,8 @@ public class GuiView extends Component {
      * Centralized getter for the selected {@link Crypter}.
      *
      * @param encryptComboBox Crypter selection drop-down
-     * @param passwordField {@link JPasswordField} for key
-     * @param keyType {@link RSA.keyType} (für AES not relevant)
+     * @param passwordField   {@link JPasswordField} for key
+     * @param keyType         {@link RSA.keyType} (für AES not relevant)
      *
      * @return configured {@link Crypter}
      */

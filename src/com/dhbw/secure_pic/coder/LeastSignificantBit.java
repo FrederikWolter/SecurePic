@@ -92,7 +92,7 @@ public class LeastSignificantBit extends Coder {
      *
      * @return decoded information.
      *
-     * @throws IllegalTypeException thrown if the type in the data does not match any known type
+     * @throws IllegalTypeException   thrown if the type in the data does not match any known type
      * @throws IllegalLengthException thrown if the length of data does not match the meta-data "length"
      */
     @Override
