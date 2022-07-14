@@ -2,19 +2,23 @@ package com.dhbw.secure_pic.gui.utility;
 
 import java.io.File;
 
-// TODO comment (normal comments + JDocs) # only delete if final#
-
-// see https://docs.oracle.com/javase/tutorial/uiswing/components/filechooser.html
 
 /**
+ * Class inheriting {@link javax.swing.filechooser.FileFilter}.<br>
+ * Used for filtering {@link FileSelect}.
+ *
  * @author Kai Schwab, Frederik Wolter
+ *
+ * @see <a href="https://docs.oracle.com/javase/tutorial/uiswing/components/filechooser.html">Idea</a>
  */
-
 public class FileFilter extends javax.swing.filechooser.FileFilter {
+
     // region attributes
+    /** Array of allowed file extensions */
     private final Extension[] extensions;
     // endregion
 
+    /** Enum with supported extensions */
     public enum Extension {
         JPEG,
         JPG,
@@ -23,11 +27,22 @@ public class FileFilter extends javax.swing.filechooser.FileFilter {
         TXT
     }
 
+    /**
+     * Constructor of {@link FileFilter}.
+     *
+     * @param extensions Array of allowed extensions
+     */
     public FileFilter(Extension[] extensions) {
         this.extensions = extensions;
     }
 
-    // Get the extension of a file.
+    /**
+     * Helper method for getting the extension of a file.
+     *
+     * @param f File
+     *
+     * @return file extension
+     */
     public static String getExtension(File f) {
         String extension = "";
         String s = f.getName();
@@ -37,7 +52,13 @@ public class FileFilter extends javax.swing.filechooser.FileFilter {
         return extension.toUpperCase();
     }
 
-    // Accept all directories and all gif, jpg, or png files.
+    /**
+     * Show all directories and files with allowed extensions.
+     *
+     * @param f the File to test
+     *
+     * @return visible
+     */
     @Override
     public boolean accept(File f) {
         if (f.isDirectory()) return true;   // show subdirectories for navigation in file select
@@ -50,7 +71,11 @@ public class FileFilter extends javax.swing.filechooser.FileFilter {
         return false;
     }
 
-    // The description of this filter
+    /**
+     * description of this filter.
+     *
+     * @return description
+     */
     @Override
     public String getDescription() {
         String desc = "";
