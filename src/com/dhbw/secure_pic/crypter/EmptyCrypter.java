@@ -3,7 +3,6 @@ package com.dhbw.secure_pic.crypter;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
-// TODO comment
 
 /**
  * This class implements a no-op encryption to use if the user wishes to NOT encrypt the data at all.
@@ -15,17 +14,34 @@ import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
  */
 public class EmptyCrypter implements Crypter {
 
+    /**
+     * No-op encode method.<br>
+     * Returns unmodified {@link Information}
+     *
+     * @param information Information to be encrypted
+     * @param monitor     Monitor to monitor progress
+     *
+     * @return unmodified {@link Information}
+     */
     @Override
     public Information encrypt(Information information, ProgressMonitor monitor) {
         monitor.updateProgress(100);    // update progress to 100
         return information;
     }
 
+    /**
+     * No-op decode method.<br>
+     * Returns unmodified {@link Information}
+     *
+     * @param information Information to be decrypted
+     * @param monitor     Monitor to monitor the progress
+     *
+     * @return unmodified {@link Information}
+     */
     @Override
     public Information decrypt(Information information, ProgressMonitor monitor) {
         monitor.updateProgress(100);    // update progress to 100
         return information;
     }
-
 
 }

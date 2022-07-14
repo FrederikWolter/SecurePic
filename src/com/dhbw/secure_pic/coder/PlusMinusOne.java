@@ -11,7 +11,6 @@ import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
 import java.text.MessageFormat;
 
-// TODO comment
 
 /**
  * Class representing the interpretation of the encoding algorithm 'PlusMinusOne'.
@@ -36,13 +35,14 @@ public class PlusMinusOne extends Coder {
      *
      * @return encoded container image.
      *
-     * @throws InsufficientCapacityException
+     * @throws InsufficientCapacityException thrown if information does not fit into image
      */
     @Override
     public ContainerImage encode(Information info, ProgressMonitor monitor) throws InsufficientCapacityException {
         // test whether information will fit into container image
         if (info.getTotalLength() > this.getCapacity()) {
-            throw new InsufficientCapacityException(MessageFormat.format(bundle.getString("except_does_not_fit"), info.getTotalLength(), this.getCapacity()));
+            throw new InsufficientCapacityException(MessageFormat.format(bundle.getString("except_does_not_fit"),
+                                                                         info.getTotalLength(), this.getCapacity()));
         }
 
         // get fetcher from information
@@ -68,8 +68,8 @@ public class PlusMinusOne extends Coder {
                 for (int i = 1; i < 4 && hasNext; i++) {
                     // is there another bit in fetcher?
                     if (fetcher.hasNext()) {
-                        byte nextBit = fetcher.next();              // get next bit from fetcher
-                        pixel[i] = (byte) (pixel[i] & ~0b1);  // keep pixel value except last bit
+                        byte nextBit = fetcher.next();          // get next bit from fetcher
+                        pixel[i] = (byte) (pixel[i] & ~0b1);    // keep pixel value except last bit
 
                         // calculate nextBit according to lastBit:
                         // lastBit = 0 & nextBit = 0 -> bit = 0
@@ -91,7 +91,7 @@ public class PlusMinusOne extends Coder {
                 super.image.setARGB(x, y, pixel[1], pixel[2], pixel[3]);
 
                 // update progress
-                monitor.updateProgress((int) (fetcher.getPosition() / (infoLength) * 8));
+                monitor.updateProgress((int) (fetcher.getPosition() / (info.getTotalLength()) * 8));
             }
         }
 
@@ -104,8 +104,8 @@ public class PlusMinusOne extends Coder {
      *
      * @return decoded information.
      *
-     * @throws IllegalTypeException
-     * @throws IllegalLengthException
+     * @throws IllegalTypeException thrown if the type in the data does not match any known type
+     * @throws IllegalLengthException thrown if the length of data does not match the meta-data "length"
      */
     @Override
     public Information decode(ProgressMonitor monitor) throws IllegalTypeException, IllegalLengthException {
@@ -172,7 +172,7 @@ public class PlusMinusOne extends Coder {
     }
 
     /**
-     * Utility method for determine the capacity of set container image.
+     * Utility method determining the capacity of set container image.
      *
      * @return capacity of container image in bytes.
      */

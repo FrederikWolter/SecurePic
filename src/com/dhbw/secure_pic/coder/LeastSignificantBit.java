@@ -11,7 +11,6 @@ import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
 import java.text.MessageFormat;
 
-// TODO comment
 
 /**
  * Class representing the encoding algorithm 'LeastSignificantBit'.
@@ -36,7 +35,7 @@ public class LeastSignificantBit extends Coder {
      *
      * @return encoded container image.
      *
-     * @throws InsufficientCapacityException
+     * @throws InsufficientCapacityException thrown if information does not fit into container image
      */
     @Override
     public ContainerImage encode(Information info, ProgressMonitor monitor) throws InsufficientCapacityException {
@@ -44,7 +43,8 @@ public class LeastSignificantBit extends Coder {
         int infoLength = info.getTotalLength();
         int imageCapacity = this.getCapacity();
         if (infoLength > imageCapacity) {
-            throw new InsufficientCapacityException(MessageFormat.format(bundle.getString("except_does_not_fit"), infoLength, imageCapacity));
+            throw new InsufficientCapacityException(MessageFormat.format(bundle.getString("except_does_not_fit"),
+                                                                         infoLength, imageCapacity));
         }
 
         // get fetcher from information
@@ -92,8 +92,8 @@ public class LeastSignificantBit extends Coder {
      *
      * @return decoded information.
      *
-     * @throws IllegalTypeException
-     * @throws IllegalLengthException
+     * @throws IllegalTypeException thrown if the type in the data does not match any known type
+     * @throws IllegalLengthException thrown if the length of data does not match the meta-data "length"
      */
     @Override
     public Information decode(ProgressMonitor monitor) throws IllegalTypeException, IllegalLengthException {
@@ -143,7 +143,7 @@ public class LeastSignificantBit extends Coder {
     }
 
     /**
-     * Utility method for determine the capacity of set container image.
+     * Utility method determining the capacity of set container image.
      *
      * @return capacity of container image in bytes.
      */
