@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
+
 /**
  * This class represents the superclass of all views shown in the context of the Sending-Tab  .<br>
  * It inherits the {@link GuiView} class
@@ -35,6 +36,16 @@ public class GuiViewSend extends GuiView {
     protected transient ContainerImage contentImage;
     // endregion
 
+    /**
+     * Centralized method for building a 'InformationType'.<br>
+     * Used for switching between types of information input.
+     *
+     * @param visible what should be visible? 0=text, 1=image
+     * @param text text element
+     * @param image image element
+     *
+     * @return configured {@link ActionListener}
+     */
     protected static ActionListener getInformationTypeListener(int visible, JScrollPane text, JPanel image) {
         return e -> {
             text.setVisible(false);
@@ -48,10 +59,17 @@ public class GuiViewSend extends GuiView {
         };
     }
 
+    /**
+     * Centralized method for building a 'ExportImageListener'.
+     *
+     * @param parent parent Gui object
+     *
+     * @return configured {@link ActionListener}.
+     */
     protected ActionListener getExportImageListener(Component parent) {
         return e -> {
             File file = new FileSelect().select(parent, true, new FileFilter(new FileFilter.Extension[]{
-                    FileFilter.Extension.PNG // TODO ?
+                    FileFilter.Extension.PNG // due to compressing issues the first version only comes with png container image support
             }));
 
             if (file == null) return;   // if no destination selected -> simply stop export process
@@ -65,6 +83,11 @@ public class GuiViewSend extends GuiView {
         };
     }
 
+    /**
+     * Centralized method for building a 'Encode' listener.
+     *
+     * @return configured {@link ActionListener}
+     */
     protected ActionListener getEncodeListener(JRadioButton textRadio, JRadioButton imageRadio, JTextArea messageText,
                                                JComboBox<String> codeComboBox, JComboBox<String> encryptComboBox,
                                                JPasswordField passwordField, JButton exportButton,

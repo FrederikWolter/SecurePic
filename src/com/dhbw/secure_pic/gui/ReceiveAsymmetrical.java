@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 
 import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
+
 /**
  * Class representing Receive-Asymmetrical {@link GuiView}.<br>
  *
@@ -64,6 +65,11 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
     private transient ContainerImage keyImage;
     // endregion
 
+    /**
+     * Constructor for {@link ReceiveAsymmetrical}.
+     *
+     * @param parent parent Gui object
+     */
     public ReceiveAsymmetrical(Gui parent) {
         // region finished handler
         LoadImageFinishedHandler finishedContainerImageLoad = image -> {
@@ -110,11 +116,13 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
                     //noinspection CastCanBeRemovedNarrowingVariableType
                     publicKey = ((RSA) crypter).getPublicKeyString();
                 } catch (CrypterException ex) {
-                    JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.error_key_load"), ex.getMessage()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.error_key_load"), ex.getMessage()),
+                                                  bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             } else {
-                JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.error_invalid_encrypt_algorithm"), encryptComboBox.getSelectedItem()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.error_invalid_encrypt_algorithm"), encryptComboBox.getSelectedItem()),
+                                              bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -161,14 +169,15 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
             try {
                 contentInformation.copyToClipboard();
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.copy_error"), ex.getMessage()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.copy_error"), ex.getMessage()),
+                                              bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
             }
         });
         copyToClipboardKey.addActionListener(e -> keyImage.copyToClipboard());
 
         keyExport.addActionListener(e -> {
             File file = new FileSelect().select(ReceiveAsymmetrical.this, true, new FileFilter(new FileFilter.Extension[]{
-                    FileFilter.Extension.PNG // TODO ?
+                    FileFilter.Extension.PNG
             }));
 
             if (file == null) return;

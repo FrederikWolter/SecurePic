@@ -35,8 +35,15 @@ public class GuiViewReceive extends GuiView {
     protected transient Information contentInformation;
     // endregion
 
+    /**
+     * Centralized method for building a 'ExportInformation' Listener
+     *
+     * @param parent parent Gui object
+     * @return configured {@link ActionListener}
+     */
     protected ActionListener getExportInformationListener(Component parent) {
         return e -> {
+            // build filter for file select
             FileFilter filter;
             if (contentInformation.getType() == Information.Type.TEXT) {
                 filter = new FileFilter(new FileFilter.Extension[]{
@@ -54,10 +61,10 @@ public class GuiViewReceive extends GuiView {
             if (file == null) return;   // if no destination selected -> simply stop export process
 
             try {
-                if (contentInformation.getType() == Information.Type.TEXT) { // TEXT
+                if (contentInformation.getType() == Information.Type.TEXT) {    // TEXT
                     String filePath;
 
-                    //File Extension auto completion
+                    // file Extension auto completion
                     if(file.getPath().toLowerCase().endsWith(".txt")){
                         filePath = file.getPath();
                     } else {
@@ -70,7 +77,7 @@ public class GuiViewReceive extends GuiView {
                             .close();
                 }
                 else {    // IMAGE
-                    String filePath; //TODO File Extension Auto Completion was added, what happens with JPEG Elements?
+                    String filePath;
                     switch(contentInformation.getType()){
                         case IMAGE_PNG -> {
                             if (file.getPath().toLowerCase().endsWith(".png")) {
@@ -89,22 +96,29 @@ public class GuiViewReceive extends GuiView {
                             ImageIO.write(contentInformation.toImage(), "jpg", new File(filePath));
                         }
                     }
-                    JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.export_success"), bundle.getString("popup.title.success"), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.export_success"),
+                                                  bundle.getString("popup.title.success"), JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.image_save_error"), ex.getMessage()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.image_save_error"), ex.getMessage()),
+                                              bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
             }
         };
     }
 
-
+    /**
+     * Centralized method for building a 'Decode' Listener.
+     *
+     * @return configured {@link ActionListener}.
+     */
     protected ActionListener getDecodeListener(JComboBox<String> codeComboBox, JComboBox<String> encryptComboBox,
-                                               JPasswordField passwordField, JLabel messageOutput, JScrollPane textOutputScroll, JTextArea textOutput, int imageWidth,
-                                               int imageHeight, JButton exportButton, JButton copyToClipboardButton,
-                                               JButton decodeButton, JProgressBar progressBar) {
+                                               JPasswordField passwordField, JLabel messageOutput, JScrollPane textOutputScroll,
+                                               JTextArea textOutput, int imageWidth, int imageHeight, JButton exportButton,
+                                               JButton copyToClipboardButton, JButton decodeButton, JProgressBar progressBar) {
         return e -> {
             if (containerImage == null) {
-                JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.no_valid_container_img"), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.no_valid_container_img"),
+                                              bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -131,10 +145,12 @@ public class GuiViewReceive extends GuiView {
                         messageOutput.setText("");
                         messageOutput.setIcon(new ImageIcon(getScaledImage(info.toImage(), imageWidth, imageHeight)));
                     } catch (IOException ex) {
-                        JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg_display_error"), ex.getMessage()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg_display_error"), ex.getMessage()),
+                                                      bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.error_unknown_information_type"), type), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.error_unknown_information_type"), type),
+                                                  bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                 }
 
                 exportButton.setEnabled(true);
