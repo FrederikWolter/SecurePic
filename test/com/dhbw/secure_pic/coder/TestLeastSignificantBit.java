@@ -81,12 +81,11 @@ public class TestLeastSignificantBit {
         LeastSignificantBit coder2 = new LeastSignificantBit(image2);
         Information info2 = coder2.decode(progress -> { /* empty */ });
 
-        //Assert that info2 is not null and data of info2 equals that of info
+        // assert that info2 is not null and data of info2 equals that of info
         assertNull(info2.toText());
         assertArrayEquals(info.getData(),info2.getData());
 
-        info2.copyToClipboard();
-
+        info2.copyToClipboard(); // for manual check of image
     }
 
     @SuppressWarnings("HardCodedStringLiteral")

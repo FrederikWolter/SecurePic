@@ -22,7 +22,7 @@ public class FileSelect {
         fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home") + System.getProperty("file.separator") + "Downloads"));
 
-        //Evaluate if a file is to be opened or to be saved
+        // evaluate if a file is to be opened or to be saved
         int returnVal;
         if (type) {
             returnVal = fileChooser.showSaveDialog(parent);
@@ -30,7 +30,7 @@ public class FileSelect {
             returnVal = fileChooser.showOpenDialog(parent);
         }
 
-        //Return the file if a valid file was opened
+        // return the file if a valid file was opened
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             return fileChooser.getSelectedFile();
         } else {

@@ -84,8 +84,8 @@ public class TestPlusMinusOne {
         //Assert that info2 is not null and data of info2 equals that of info
         assertNull(info2.toText());
         assertArrayEquals(info.getData(),info2.getData());
-        info2.copyToClipboard();
 
+        info2.copyToClipboard();    // for manual check of image
     }
 
     @SuppressWarnings("HardCodedStringLiteral")

@@ -239,7 +239,8 @@ public class GuiView extends Component {
         } else if (codeComboBox.getSelectedItem() == "PM1") {
             coder = new PlusMinusOne(image);
         } else {
-            JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.error_invalid_coding_algorithm"), codeComboBox.getSelectedItem()), bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, MessageFormat.format(bundle.getString("popup.msg.error_invalid_coding_algorithm"), codeComboBox.getSelectedItem()),
+                                          bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
             coder = null;
         }
         return coder;

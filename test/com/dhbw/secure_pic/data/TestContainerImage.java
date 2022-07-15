@@ -3,7 +3,6 @@ package com.dhbw.secure_pic.data;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import org.junit.Test;
 
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;

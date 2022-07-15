@@ -42,10 +42,9 @@ public class TestInformation {
         assertEquals(info.getType(), Information.Type.TEXT);
     }
 
-    @SuppressWarnings({"HardCodedStringLiteral", "UnusedAssignment", "unused"})
+    @SuppressWarnings({"HardCodedStringLiteral", "unused"})
     @Test
     public void testGetInformationFromImage() throws IllegalTypeException, IOException {
-
         Information info = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
         DataBufferByte image1Array = (DataBufferByte) info.toImage().getData().getDataBuffer();
 
@@ -76,16 +75,15 @@ public class TestInformation {
 
         Information info = Information.getInformationFromString(testString);
 
-        byte[] BEBytes = info.toBEBytes();
+        byte[] BEBytes = info.toBEBytes();  // manually check here returned bytes
 
-        //Delete MetaData Bytes to make sure that data Bytes are equal to testString.getBytes()
+        // delete MetaData Bytes to make sure that data Bytes are equal to testString.getBytes()
         byte[] infoBytes = new byte[testString.length()];
         int startingPoint = BEBytes.length-testString.length();
-        for(int i = startingPoint;i<BEBytes.length;i++){
-            infoBytes[i-startingPoint] = BEBytes[i];
-        }
+        if (BEBytes.length - startingPoint >= 0)
+            System.arraycopy(BEBytes, startingPoint, infoBytes, 0, BEBytes.length - startingPoint);
 
-        //Assert that both arrays are equal
+        // assert that both arrays are equal
         assertArrayEquals(infoBytes,testString.getBytes(StandardCharsets.UTF_8));
     }
 
@@ -100,32 +98,33 @@ public class TestInformation {
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         Transferable clipboardText = clipboard.getContents(null);
 
-        //Assert that a string is saved in the clipboard
+        // assert that a string is saved in the clipboard
         assertTrue(clipboardText.isDataFlavorSupported(DataFlavor.stringFlavor));
 
-        //Assert that string saved in clipboard is the same as string given above
+        // assert that string saved in clipboard is the same as string given above
         String clipBoardString = (String) clipboardText.getTransferData(DataFlavor.stringFlavor);
         assertEquals(testString,clipBoardString);
     }
 
     @SuppressWarnings("HardCodedStringLiteral")
     @Test
-    public void testCopyContentToClipboardImage() throws IOException, IllegalTypeException, UnsupportedFlavorException {
+    public void testCopyContentToClipboardImage()
+            throws IOException, IllegalTypeException, UnsupportedFlavorException, InterruptedException {
         Information informationFromImage = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
+        Thread.sleep(20);  // due to rapid use of clip board while running tests this helps the clipboard keep up
+
         informationFromImage.copyToClipboard();
         DataBufferByte byteArray1 = (DataBufferByte) informationFromImage.toImage().getData().getDataBuffer();
-
 
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         Transferable clipboardContents = clipboard.getContents(null);
 
-        //Assert that an image is saved in the clipboard
+        // assert that an image is saved in the clipboard
         assertTrue(clipboardContents.isDataFlavorSupported(DataFlavor.imageFlavor));
 
-        //Assert that image saved in clipboard is the same as image given above
+        // assert that image saved in clipboard is the same as image given above
         BufferedImage image2 = (BufferedImage) clipboardContents.getTransferData(DataFlavor.imageFlavor);
         DataBufferByte byteArray2 = (DataBufferByte) image2.getData().getDataBuffer();
         assertArrayEquals(byteArray1.getData(),byteArray2.getData());
-
     }
 }
