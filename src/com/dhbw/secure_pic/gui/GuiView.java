@@ -182,7 +182,7 @@ public class GuiView extends Component {
                                                                     JProgressBar progressBar) {
         return e -> {
             File file = new FileSelect().select(parent, false, new FileFilter(new FileFilter.Extension[]{
-                    FileFilter.Extension.PNG //TODO If JPG is possible, change this and delete getMessageImageUploadListener
+                    FileFilter.Extension.PNG
             }));
 
             if (file == null) return;    // if no file selected -> simply stop load process
@@ -193,7 +193,6 @@ public class GuiView extends Component {
             task.execute();
         };
     }
-
 
     /**
      * Centralized method for building an image upload used as a message to be encoded into a Container Image {@link ActionListener}.
