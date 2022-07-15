@@ -2,6 +2,7 @@ package com.dhbw.secure_pic.data;
 
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.data.utility.ImageSelection;
+import com.dhbw.secure_pic.gui.Gui;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,6 +10,9 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static com.dhbw.secure_pic.data.ContainerImage.Type.JPG;
 import static com.dhbw.secure_pic.data.ContainerImage.Type.PNG;
@@ -22,6 +26,8 @@ import static com.dhbw.secure_pic.data.ContainerImage.Type.PNG;
 public class ContainerImage {
 
     // region attributes
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     /** Path to original image loaded from drive. */
     private final String path;
     /** BufferedImage loaded from path. */
@@ -41,7 +47,8 @@ public class ContainerImage {
      *
      * @param path path to container image to be loaded given by user.
      *
-     * @throws IllegalTypeException
+     * @throws IllegalTypeException either the given file extension does not match any type
+     *                              or an error occurred during load.
      */
     public ContainerImage(String path) throws IllegalTypeException {
         // set attributes
@@ -52,18 +59,19 @@ public class ContainerImage {
 
         // get image type
         this.type = switch (extension) {
-            case "png" -> PNG;
-            case "jpg" -> JPG;
+            case "png" -> PNG; //NON-NLS
+            case "jpg" -> JPG; //NON-NLS
+            case "jpeg" -> JPG /*noinspection DuplicateBranchesInSwitch*/; //NON-NLS
             default -> null;
         };
         if (this.type == null)
-            throw new IllegalTypeException("Invalid path or file format given for image file. Extension: '" + extension + "'.");
+            throw new IllegalTypeException(MessageFormat.format(bundle.getString("except.invalid_path_type"), extension));
 
         // read in image from path
         try {
             this.image = ImageIO.read(new File(path));
         } catch (IOException e) {
-            throw new IllegalTypeException("An error occurred loading the selected container image: '" + e.getMessage() + "'");
+            throw new IllegalTypeException(MessageFormat.format(bundle.getString("except.error_loading_img"), e.getMessage()));
         }
     }
 
@@ -87,17 +95,30 @@ public class ContainerImage {
      *
      * @param destPath destination path for image to be saved to.
      *
-     * @throws IOException
-     * @throws IllegalTypeException
+     * @throws IOException          thrown if something went wrong saving the image.
+     * @throws IllegalTypeException given destination path file extension does not match the file type.
      */
     public void exportImg(String destPath) throws IOException, IllegalTypeException {
-        String format = switch (this.type) {
-            case PNG -> "png";
-            case JPG -> "jpg";
-        };
+        String format = "";
+
+        //File Extension auto completion
+        switch (this.type) {
+            case JPG -> {
+                format = "jpg";
+                if (!destPath.endsWith(".jpg")) {
+                    destPath = destPath + ".jpg";
+                }
+            }
+            case PNG -> {
+                format = "png";
+                if (!destPath.endsWith(".png")) {
+                    destPath = destPath + ".png";
+                }
+            }
+        }
 
         if (!format.equals(ContainerImage.getFileExtension(destPath)))
-            throw new IllegalTypeException("Given extension of path does not match the type of image.");
+            throw new IllegalTypeException(bundle.getString("except.invalid_path_extension"));
 
         ImageIO.write(this.image, format, new File(destPath));
     }
@@ -105,7 +126,7 @@ public class ContainerImage {
     /**
      * Copy container image to Windows clip board. <br>
      * Works for images and text.
-     *
+     * <p>
      * This may throw a warning when coping a png, see <a href="https://stackoverflow.com/a/64598247/13777031">here</a>.
      */
     public void copyToClipboard() {
@@ -120,22 +141,20 @@ public class ContainerImage {
     // region getter & setter
 
     /**
-     * Setter for single pixel values of buffered image.
+     * Setter for single pixel's rgb values of buffered image.
      *
      * @param x x value of pixel.
      * @param y y value of pixel.
-     * @param a alpha value (not supported).
      * @param r red value to be set.
      * @param g green value to be set.
      * @param b blue value to be set.
      */
-    // FIXME Remove the input of a if it is a constant anyway
-    public void setARGB(int x, int y, byte a, byte r, byte g, byte b) {
-        // set alpha to 100% due to library not reacting to alpha values correctly
-        a = (byte) 255;
-
+    public void setARGB(int x, int y, byte r, byte g, byte b) {
         // create empty int (4 byte)
         int argbValue = 0;
+
+        // set alpha to 100% due to library not reacting to alpha values correctly
+        byte a = (byte) 255;
 
         // build argb value
         argbValue += (a & 0xff) << 24;   // alpha value
@@ -155,7 +174,6 @@ public class ContainerImage {
      *
      * @return calculated values in form af array.
      */
-    // FIXME values[0] is always the same? Looking at setARGB, it isn't even really used since a is set as a constant there
     public byte[] getARGB(int x, int y) {
         // get argb value from buffered image
         int argbValue = this.image.getRGB(x, y);
@@ -170,24 +188,37 @@ public class ContainerImage {
         return values;
     }
 
+    /**
+     * @return width
+     */
     public int getWidth() {
         return this.image.getWidth();
     }
 
+    /**
+     * @return height
+     */
     public int getHeight() {
         return this.image.getHeight();
     }
 
-    // FIXME cleanup unused Getters
-
+    /**
+     * @return path
+     */
     public String getPath() {
         return path;
     }
 
+    /**
+     * @return image
+     */
     public BufferedImage getImage() {
         return image;
     }
 
+    /**
+     * @return type
+     */
     public Type getType() {
         return type;
     }

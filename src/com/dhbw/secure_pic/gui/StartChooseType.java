@@ -1,53 +1,63 @@
 package com.dhbw.secure_pic.gui;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-// FIXME comment (normal comments + JDocs) # only delete if final#
+
 /**
- * Class for the Choose-Type window. In this window one can choose between the send-Function and the receive-Function.
- * The structure and the components are managed in the StartChooseType.form
+ * Class representing Choose-Type {@link GuiView}.<br>
+ * User can choose between send and receive functionality. The layout of the view is defined in 'StartChooseType.form'.
  *
- * @author Hassan El-Khalil
+ * @author Hassan El-Khalil, Kai Schwab, Frederik Wolter
  */
-public class StartChooseType {
+public class StartChooseType extends GuiView {
+
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
+
+    // region swing attributes
     private JButton backButton;
     private JButton sendButton;
     private JButton receiveButton;
     private JPanel contentPane;
-    private JTextPane sendDesc;
-    private JTextPane receiveDesc;
+    // endregion
 
+    /**
+     * Constructor of {@link StartChooseType}.
+     *
+     * @param parent parent Gui object
+     */
     public StartChooseType(Gui parent) {
-        // Set an ActionListener for each Button sending the user to the corresponding window
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.show("1");
-            }
+        // region listener
+        backButton.addActionListener(e -> {
+            parent.getFrame().setTitle(bundle.getString("image_con.title"));  // change window title
+            parent.showView(Gui.View.IMAGE_CONVERTER);
         });
 
-        receiveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.setType(Gui.Type.RECEIVE);
-                parent.show("3");
-            }
+        receiveButton.addActionListener(e -> {
+            parent.setType(Gui.Type.RECEIVE);   // save chosen type in gui
+            parent.showView(Gui.View.START_CHOOSE_ENCRYPTION);
         });
 
-        sendButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.setType(Gui.Type.SEND);
-                parent.show("3");
-            }
+        sendButton.addActionListener(e -> {
+            parent.setType(Gui.Type.SEND);      // save chosen type in gui
+            parent.showView(Gui.View.START_CHOOSE_ENCRYPTION);
         });
+        // endregion
     }
 
     // region getter
+
+    /**
+     * Due to a constraint by the GUI designer a form can not be a {@link JPanel} therefore a {@link JPanel} is placed
+     * directly inside a form and can be retrieved through this getter.
+     *
+     * @return ContentPane
+     */
     public JPanel getContentPane() {
         return contentPane;
     }
+
     // endregion
 }

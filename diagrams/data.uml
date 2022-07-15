@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/Bernt/OneDrive/04_Semester_4_SoSe/01_SoftwareEngin2/SecurePic/src/com/dhbw/secure_pic/data</OriginalElement>
+  <nodes>
+    <node x="-10.5" y="431.0">com.dhbw.secure_pic.data.Information.Type</node>
+    <node x="321.0" y="343.0">com.dhbw.secure_pic.data.ContainerImage.Type</node>
+    <node x="-79.0" y="-50.0">com.dhbw.secure_pic.data.Information</node>
+    <node x="-79.0" y="575.0">com.dhbw.secure_pic.data.utility.ImageSelection</node>
+    <node x="261.0" y="-50.0">com.dhbw.secure_pic.data.ContainerImage</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.dhbw.secure_pic.data.ContainerImage.Type" target="com.dhbw.secure_pic.data.ContainerImage" relationship="INNER_CLASS">
+      <point x="0.0" y="-49.5" />
+      <point x="0.0" y="171.5" />
+    </edge>
+    <edge source="com.dhbw.secure_pic.data.Information.Type" target="com.dhbw.secure_pic.data.Information" relationship="INNER_CLASS">
+      <point x="0.0" y="-49.5" />
+      <point x="0.0" y="215.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.1408083441981747" showDependencies="false" x="239.99999999999994" y="333.50000000000006" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

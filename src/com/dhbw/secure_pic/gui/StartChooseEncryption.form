@@ -14,7 +14,7 @@
         </constraints>
         <properties>
           <background color="-4934476"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="back.btn"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="btn.back"/>
         </properties>
       </component>
       <vspacer id="8b149">
@@ -22,15 +22,6 @@
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <component id="31bd2" class="javax.swing.JButton" binding="noEncryptionButton" default-binding="true">
-        <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <font size="20"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="no.encr.btn"/>
-        </properties>
-      </component>
       <vspacer id="fcc16">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
@@ -40,20 +31,24 @@
       </vspacer>
       <component id="b9680" class="javax.swing.JButton" binding="symmetricalButton" default-binding="true">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="350" height="-1"/>
+          </grid>
         </constraints>
         <properties>
           <font size="20"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="symm.btn"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="btn.sym_encryption"/>
         </properties>
       </component>
       <component id="34360" class="javax.swing.JButton" binding="asymmetricalButton" default-binding="true">
         <constraints>
-          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="350" height="-1"/>
+          </grid>
         </constraints>
         <properties>
           <font size="20"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="asymm.btn"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="btn.asym_encryption"/>
         </properties>
       </component>
       <vspacer id="c364d">
@@ -61,9 +56,9 @@
           <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <component id="28e66" class="javax.swing.JTextPane" binding="symmetricalDesc">
+      <component id="28e66" class="javax.swing.JTextPane">
         <constraints>
-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="2" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="2" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="350" height="-1"/>
           </grid>
         </constraints>
@@ -73,12 +68,12 @@
           <font size="16"/>
           <margin top="10" left="10" bottom="10" right="10"/>
           <opaque value="false"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="symm.encr.descr.btn"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="lbl.sym_encryption.desc"/>
         </properties>
       </component>
-      <component id="e15f5" class="javax.swing.JTextPane" binding="asymmetricalDesc">
+      <component id="ffbfb" class="javax.swing.JTextPane">
         <constraints>
-          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="2" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="350" height="-1"/>
           </grid>
         </constraints>
@@ -88,12 +83,23 @@
           <font size="16"/>
           <margin top="10" left="10" bottom="10" right="10"/>
           <opaque value="false"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="asymm.encr.descr.btn"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="lbl.no_encryption.desc"/>
         </properties>
       </component>
-      <component id="ffbfb" class="javax.swing.JTextPane" binding="noencDesc">
+      <component id="31bd2" class="javax.swing.JButton" binding="noEncryptionButton" default-binding="true">
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="350" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="20"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="btn.no_encryption"/>
+        </properties>
+      </component>
+      <component id="e15f5" class="javax.swing.JTextPane">
+        <constraints>
+          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="2" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="350" height="-1"/>
           </grid>
         </constraints>
@@ -103,7 +109,7 @@
           <font size="16"/>
           <margin top="10" left="10" bottom="10" right="10"/>
           <opaque value="false"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="no.encr.descr.btn"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="lbl.asym.encryption.desc"/>
         </properties>
       </component>
     </children>

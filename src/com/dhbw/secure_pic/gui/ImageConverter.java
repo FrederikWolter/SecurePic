@@ -1,87 +1,60 @@
 package com.dhbw.secure_pic.gui;
 
-import com.dhbw.secure_pic.gui.utility.FileSelect;
+import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DropTarget;
-import java.awt.dnd.DropTargetDropEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-// FIXME comment (normal comments + JDocs) # only delete if final#
+/**
+ * Class representing the tarn-window/'image-converter' {@link GuiView}.<br>
+ *
+ * @author Kai Schwab, Frederik Wolter
+ */
+public class ImageConverter extends GuiView {
 
-public class ImageConverter extends Component {
+    // region swing attributes
     private JPanel contentPane;
     private JButton secretButton;
     private JProgressBar progressBar;
     private JButton convertButton;
     private JButton uploadButton;
     private JPanel uploadPanel;
-    private JLabel showImage;
+    private JLabel imageLabel;
+    // endregion
 
     public ImageConverter(Gui parent) {
+        // region finished listener
+        LoadImageFinishedHandler finishedImageLoad = image -> {
+            containerImage = image;
+
+            imageLabel.setText("");
+            imageLabel.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(), IMAGE_WIDTH_5, IMAGE_HEIGHT_5)));
+
+            convertButton.setEnabled(false); // the converter functionality is not implemented
+        };
+        // endregion
+
+        // region drop target
+        uploadPanel.setDropTarget(getDropTargetListener(finishedImageLoad, progressBar));
+        // endregion
+
         // region listener
-        uploadPanel.setDropTarget(new DropTarget() {
-            public synchronized void drop(DropTargetDropEvent evt) {
-                try {
-                    evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);
-                    for (File file : droppedFiles) {
-                        BufferedImage bufferedImage = null;
-                        try {
-                            bufferedImage = ImageIO.read(file);
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
-                        ImageIcon imageIcon = new ImageIcon(Gui.getScaledImage(bufferedImage, 600, 600));
-                        showImage.setText("");
-                        showImage.setIcon(imageIcon);
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        });
+        uploadButton.addActionListener(getMessageImageUploadListener(this, finishedImageLoad, progressBar));
 
-
-        uploadButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //Handle open button action.
-                if (e.getSource() == uploadButton) {
-                    File file = new FileSelect().selectFile(ImageConverter.this);
-                    // TODO Bildanzeige über das buffered Img aus dem ContainerImg
-                    BufferedImage bufferedImage = null;
-                    try {
-                        bufferedImage = ImageIO.read(file);
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                    ImageIcon imageIcon = new ImageIcon(Gui.getScaledImage(bufferedImage, 600, 600));
-                    showImage.setText("");
-                    showImage.setIcon(imageIcon);
-                }
-            }
-        });
-        secretButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // set new window title
-                ((JFrame) SwingUtilities.getWindowAncestor(contentPane)).setTitle("SecurePic");
-                parent.show("2");
-            }
+        secretButton.addActionListener(e -> {
+            parent.getFrame().setTitle("SecurePic"); // change window title
+            parent.showView(Gui.View.START_CHOOSE_TYPE);
         });
         // endregion
     }
 
     // region getter
+
+    /**
+     * Due to a constraint by the GUI designer a form can not be a {@link JPanel} therefore a {@link JPanel} is placed
+     * directly inside a form and can be retrieved through this getter.
+     *
+     * @return ContentPane
+     */
     public JPanel getContentPane() {
         return contentPane;
     }

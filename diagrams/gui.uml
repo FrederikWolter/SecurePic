@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.dhbw.secure_pic.gui</OriginalElement>
+  <nodes>
+    <node x="532.0" y="189.0">com.dhbw.secure_pic.gui.ImageConverter</node>
+    <node x="345.00000000000006" y="189.0">com.dhbw.secure_pic.gui.StartChooseType</node>
+    <node x="170.84134298880838" y="-15.0">com.dhbw.secure_pic.gui.Gui</node>
+    <node x="1009.0" y="327.0">com.dhbw.secure_pic.gui.ReceiveNoEncryption</node>
+    <node x="386.5" y="-15.0">com.dhbw.secure_pic.gui.GuiView</node>
+    <node x="796.0" y="327.0">com.dhbw.secure_pic.gui.ReceiveAsymmetrical</node>
+    <node x="305.4038461538462" y="327.0">com.dhbw.secure_pic.gui.SendAsymmetrical</node>
+    <node x="-157.0" y="327.0">com.dhbw.secure_pic.gui.SendNoEncryption</node>
+    <node x="715.0" y="189.0">com.dhbw.secure_pic.gui.GuiViewReceive</node>
+    <node x="40.0" y="327.0">com.dhbw.secure_pic.gui.SendSymmetrical</node>
+    <node x="-75.0" y="178.0">com.dhbw.secure_pic.gui.GuiViewSend</node>
+    <node x="1090.0" y="189.0">com.dhbw.secure_pic.gui.StartChooseEncryption</node>
+    <node x="509.0" y="327.0">com.dhbw.secure_pic.gui.ReceiveSymmetrical</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.dhbw.secure_pic.gui.SendAsymmetrical" target="com.dhbw.secure_pic.gui.GuiViewSend" relationship="GENERALIZATION">
+      <point x="-5.6843418860808015E-14" y="-38.5" />
+      <point x="393.9038461538462" y="302.0" />
+      <point x="125.0" y="302.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="com.dhbw.secure_pic.gui.GuiViewSend" target="com.dhbw.secure_pic.gui.GuiView" relationship="GENERALIZATION">
+      <point x="0.0" y="-49.5" />
+      <point x="125.0" y="153.0" />
+      <point x="613.5" y="153.0" />
+      <point x="0.0" y="71.5" />
+    </edge>
+    <edge source="com.dhbw.secure_pic.gui.ReceiveAsymmetrical" target="com.dhbw.secure_pic.gui.GuiViewReceive" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="com.dhbw.secure_pic.gui.GuiViewReceive" target="com.dhbw.secure_pic.gui.GuiView" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="892.5" y="153.0" />
+      <point x="613.5" y="153.0" />
+      <point x="0.0" y="71.5" />
+    </edge>
+    <edge source="com.dhbw.secure_pic.gui.SendSymmetrical" target="com.dhbw.secure_pic.gui.GuiViewSend" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="com.dhbw.secure_pic.gui.StartChooseType" target="com.dhbw.secure_pic.gui.GuiView" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="428.5" y="153.0" />
+      <point x="613.5" y="153.0" />
+      <point x="0.0" y="71.5" />
+    </edge>
+    <edge source="com.dhbw.secure_pic.gui.ReceiveNoEncryption" target="com.dhbw.secure_pic.gui.GuiViewReceive" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="1105.5" y="302.0" />
+      <point x="892.5" y="302.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="com.dhbw.secure_pic.gui.StartChooseEncryption" target="com.dhbw.secure_pic.gui.GuiView" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="1191.0" y="153.0" />
+      <point x="613.5" y="153.0" />
+      <point x="0.0" y="71.5" />
+    </edge>
+    <edge source="com.dhbw.secure_pic.gui.ReceiveSymmetrical" target="com.dhbw.secure_pic.gui.GuiViewReceive" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="601.5" y="302.0" />
+      <point x="892.5" y="302.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="com.dhbw.secure_pic.gui.ImageConverter" target="com.dhbw.secure_pic.gui.GuiView" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="0.0" y="71.5" />
+    </edge>
+    <edge source="com.dhbw.secure_pic.gui.SendNoEncryption" target="com.dhbw.secure_pic.gui.GuiViewSend" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="-68.5" y="302.0" />
+      <point x="125.0" y="302.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0340367597004765" showDependencies="false" x="577.5" y="288.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

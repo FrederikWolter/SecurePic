@@ -6,9 +6,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-// FIXME comment
 
 /**
+ * Some test methods for testing {@link BitFetcher}.
+ *
  * @author Frederik Wolter
  */
 public class TestBitFetcher {

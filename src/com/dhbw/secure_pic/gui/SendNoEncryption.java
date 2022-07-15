@@ -1,38 +1,16 @@
 package com.dhbw.secure_pic.gui;
 
-import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
-import com.dhbw.secure_pic.coder.Coder;
-import com.dhbw.secure_pic.coder.LeastSignificantBit;
-import com.dhbw.secure_pic.coder.PlusMinusOne;
-import com.dhbw.secure_pic.crypter.Crypter;
-import com.dhbw.secure_pic.crypter.EmptyCrypter;
-import com.dhbw.secure_pic.data.ContainerImage;
-import com.dhbw.secure_pic.data.Information;
-import com.dhbw.secure_pic.gui.utility.EncodeFinishedHandler;
-import com.dhbw.secure_pic.gui.utility.FileSelect;
-import com.dhbw.secure_pic.gui.utility.LoadFinishedHandler;
-import com.dhbw.secure_pic.gui.utility.SaveSelect;
-import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
-import com.dhbw.secure_pic.pipelines.EncodeTask;
+import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DropTarget;
-import java.awt.dnd.DropTargetDropEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.io.IOException;
 
-import static javax.swing.JOptionPane.WARNING_MESSAGE;
 
-// FIXME comment (normal comments + JDocs) # only delete if final#
-
-public class SendNoEncryption extends Component {
+/**
+ * Class representing Send-NoEncryption {@link GuiView}.<br>
+ *
+ * @author Kai Schwab, Frederik Wolter
+ */
+public class SendNoEncryption extends GuiViewSend {
 
     // region swing attributes
     private JPanel contentPane;
@@ -40,7 +18,7 @@ public class SendNoEncryption extends Component {
     private JRadioButton imageRadio;
     private JRadioButton textRadio;
     private JTextArea messageText;
-    private JComboBox codeComboBox;
+    private JComboBox<String> codeComboBox;
     private JButton encodeButton;
     private JButton uploadMessageImg;
     private JButton uploadContainer;
@@ -52,244 +30,66 @@ public class SendNoEncryption extends Component {
     private JPanel uploadPanelMessage;
     private JLabel messageImg;
     private JScrollPane messageTextScroll;
-
     // endregion
 
-    // region attributes
-    private transient ContainerImage containerImage;
-    private transient ContainerImage contentImage;
-
-    private final int containerImageDisplayHeight = 550;
-    private final int containerImageDisplayWidth = 550;
-    private final int messageImageDisplayHeight = 200;
-    private final int messageImageDisplayWidth = 250;
-    // endregion
-
-
+    /**
+     * Constructor of {@link SendNoEncryption}.
+     *
+     * @param parent parent Gui object
+     */
     public SendNoEncryption(Gui parent) {
+        // region finished listener
+        LoadImageFinishedHandler finishedContainerImageLoad = image -> {
+            containerImage = image;
 
-        PropertyChangeListener propertyChangeListener = new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("progress".equals(evt.getPropertyName())) {
-                    int progress = (Integer) evt.getNewValue();
-                    progressBar.setValue(progress);
-                }
-            }
+            showImageLabel.setText("");
+            showImageLabel.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(), IMAGE_WIDTH_5, IMAGE_HEIGHT_5)));
+
+            encodeButton.setEnabled(true);
         };
 
-        LoadFinishedHandler finishedContainerImageLoad = new LoadFinishedHandler() {
-            @Override
-            public void finishedContainerImageLoad(ContainerImage image) {
-                containerImage = image;
+        LoadImageFinishedHandler finishedContentImageLoad = image -> {
+            contentImage = image;
 
-                showImageLabel.setText("");
-                showImageLabel.setIcon(new ImageIcon(Gui.getScaledImage(containerImage.getImage(),
-                        containerImageDisplayWidth,
-                        containerImageDisplayHeight)));
-            }
+            messageImg.setText("");
+            messageImg.setIcon(new ImageIcon(getScaledImage(contentImage.getImage(), IMAGE_WIDTH_2, IMAGE_HEIGHT_4)));
         };
+        // endregion
 
-        LoadFinishedHandler finishedContentImageLoad = new LoadFinishedHandler() {
-            @Override
-            public void finishedContainerImageLoad(ContainerImage image) {
-                contentImage = image;
-
-                messageImg.setText("");
-                messageImg.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(),
-                        messageImageDisplayWidth,
-                        messageImageDisplayHeight)));
-            }
-        };
-
-        uploadPanel.setDropTarget(new DropTarget() {
-            public synchronized void drop(DropTargetDropEvent evt) {
-                try {
-                    evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
-
-                    for (File file : droppedFiles) { // FIXME allow multiple files? no? GENERAL
-                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
-                        task.addPropertyChangeListener(propertyChangeListener);
-                        task.execute();
-                    }
-                } catch (Exception ex) {    // FIXME error handling?
-                    ex.printStackTrace();
-                }
-                encodeButton.setEnabled(true);
-            }
-        });
-
-        uploadPanelMessage.setDropTarget(new DropTarget() {
-            public synchronized void drop(DropTargetDropEvent evt) {
-                try {
-                    evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
-
-                    for (File file : droppedFiles) {    // FIXME allow multiple files? no? GENERAL
-                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
-                        task.addPropertyChangeListener(propertyChangeListener);
-                        task.execute();
-                    }
-                } catch (Exception ex) {    // FIXME error handling?
-                    ex.printStackTrace();
-                }
-            }
-        });
+        // region drop targets
+        uploadPanel.setDropTarget(getDropTargetListener(finishedContainerImageLoad, progressBar));
+        uploadPanelMessage.setDropTarget(getDropTargetListener(finishedContentImageLoad, progressBar));
+        // endregion
 
         // region listener
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.show("3");
-            }
-        });
+        backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 
-        uploadContainer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(SendNoEncryption.this);
+        uploadContainer.addActionListener(getContainerImageUploadListener(this, finishedContainerImageLoad, progressBar));
+        uploadMessageImg.addActionListener(getMessageImageUploadListener(this, finishedContentImageLoad, progressBar));
 
-                if(file == null){
-                    return;
-                }
+        imageRadio.addActionListener(getInformationTypeListener(1, messageTextScroll, uploadPanelMessage));
+        textRadio.addActionListener(getInformationTypeListener(0, messageTextScroll, uploadPanelMessage));
 
-                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
-                task.addPropertyChangeListener(propertyChangeListener);
-                task.execute();
+        encodeButton.addActionListener(getEncodeListener(textRadio, imageRadio, messageText, codeComboBox, null, null,
+                                                         exportButton, copyToClipboardButton, encodeButton, progressBar));
 
-                encodeButton.setEnabled(true);
-            }
-        });
-
-        uploadMessageImg.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(SendNoEncryption.this);
-
-                if(file == null){
-                    return;
-                }
-
-                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
-                task.addPropertyChangeListener(propertyChangeListener);
-                task.execute();
-            }
-        });
-
-        imageRadio.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                messageTextScroll.setVisible(false);
-                uploadPanelMessage.setVisible(true);
-            }
-        });
-
-        textRadio.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                messageTextScroll.setVisible(true);
-                uploadPanelMessage.setVisible(false);
-            }
-        });
-
-        encodeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                Information info;
-                Coder coder;
-                Crypter crypter;
-
-                if (containerImage == null){
-                    // FIXME error handling
-                    return;
-                }
-
-                if (textRadio.isSelected()){
-                    if (messageText.getText().length() > 0){
-                        info = Information.getInformationFromString(messageText.getText());
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Bitte gebe einen Text ein, der in das Bild codiert werden soll.", "Warnung", WARNING_MESSAGE);
-                        return;
-                    }
-                } else if(imageRadio.isSelected()){
-                    if (contentImage != null){
-                        try {
-                            info = Information.getInformationFromImage(contentImage.getPath());
-                        } catch (IllegalTypeException ex) {
-                            throw new RuntimeException(ex);
-                            // FIXME error handling
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, das in das Trägerbild codiert werden soll.", "Warnung", WARNING_MESSAGE);
-                        return;
-                    }
-                } else {
-                    // FIXME error handling
-                    return;
-                }
-
-                if (codeComboBox.getSelectedItem() == "LSB"){
-                    coder = new LeastSignificantBit(containerImage);
-                } else if(codeComboBox.getSelectedItem() == "PM1"){
-                    coder = new PlusMinusOne(containerImage);
-                } else {
-                    // FIXME error handling
-                    return;
-                }
-
-                crypter = new EmptyCrypter();
-
-//                encodeButton.setEnabled(false);
-
-                EncodeTask task = new EncodeTask(coder, crypter, info, new EncodeFinishedHandler() {
-                    @Override
-                    public void finishedEncode(ContainerImage image) {
-                        containerImage = image;
-
-                        exportButton.setEnabled(true);
-                        copyToClipboardButton.setEnabled(true);
-                        encodeButton.setEnabled(true);
-                    }
-                });
-                task.addPropertyChangeListener(propertyChangeListener);
-                task.execute();
-            }
-        });
-
-        exportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new SaveSelect().selectDir(SendNoEncryption.this);
-
-                if(file == null){
-                    return;
-                }
-
-                try {
-                    containerImage.exportImg(file.getPath());
-                    JOptionPane.showMessageDialog(null, "Das codierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException | IllegalTypeException ex) {
-                    throw new RuntimeException(ex); // FIXME error handling
-                }
-            }
-        });
-
-        copyToClipboardButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                containerImage.copyToClipboard();
-            }
-        });
-
+        exportButton.addActionListener(getExportImageListener(this));
+        copyToClipboardButton.addActionListener(e -> containerImage.copyToClipboard());
         // endregion
     }
 
     // region getter
+
+    /**
+     * Due to a constraint by the GUI designer a form can not be a {@link JPanel} therefore a {@link JPanel} is placed
+     * directly inside a form and can be retrieved through this getter.
+     *
+     * @return ContentPane
+     */
     public JPanel getContentPane() {
         return contentPane;
     }
+
     // endregion
 
 }

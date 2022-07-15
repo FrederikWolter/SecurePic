@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/Bernt/OneDrive/04_Semester_4_SoSe/01_SoftwareEngin2/SecurePic/src/com/dhbw/secure_pic/coder</OriginalElement>
+  <nodes>
+    <node x="94.5" y="-15.0">com.dhbw.secure_pic.coder.Coder</node>
+    <node x="112.0" y="324.0">com.dhbw.secure_pic.coder.utility.BitFetcher</node>
+    <node x="-86.0" y="324.0">com.dhbw.secure_pic.coder.utility.BitAssembler</node>
+    <node x="-86.0" y="157.0">com.dhbw.secure_pic.coder.PlusMinusOne</node>
+    <node x="275.0" y="157.0">com.dhbw.secure_pic.coder.LeastSignificantBit</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.dhbw.secure_pic.coder.LeastSignificantBit" target="com.dhbw.secure_pic.coder.Coder" relationship="GENERALIZATION">
+      <point x="0.0" y="-61.0" />
+      <point x="445.5" y="132.0" />
+      <point x="265.0" y="132.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+    <edge source="com.dhbw.secure_pic.coder.PlusMinusOne" target="com.dhbw.secure_pic.coder.Coder" relationship="GENERALIZATION">
+      <point x="0.0" y="-61.0" />
+      <point x="84.5" y="132.0" />
+      <point x="265.0" y="132.0" />
+      <point x="0.0" y="61.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.5" showDependencies="false" x="275.0" y="248.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

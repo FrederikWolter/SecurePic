@@ -6,8 +6,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
 
-// FIXME comment
 
+/**
+ * Some test methods for testing {@link LeastSignificantBit}.
+ *
+ * @author Frederik Wolter
+ */
 public class TestBitAssembler {
 
     @Test

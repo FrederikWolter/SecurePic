@@ -11,13 +11,15 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-// FIXME comment
 
 /**
- * @author Frederik Wolter
+ * Some test methods for testing {@link PlusMinusOne}.
+ *
+ * @author Frederik Wolter supported by Kirolis Eskondis
  */
 public class TestPlusMinusOne {
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
     public void testEncodeDecode() throws IllegalTypeException, InsufficientCapacityException, IllegalLengthException {
         // send
@@ -38,8 +40,10 @@ public class TestPlusMinusOne {
         assertEquals(in, out);
     }
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
-    public void testEncodeDecodeFileText() throws IllegalTypeException, InsufficientCapacityException, IOException, IllegalLengthException {
+    public void testEncodeDecodeFileText()
+            throws IllegalTypeException, InsufficientCapacityException, IOException, IllegalLengthException {
         // send
         String in = "This is a Test 123456öäü?0§";
         Information info = Information.getInformationFromString(in);
@@ -60,8 +64,10 @@ public class TestPlusMinusOne {
         assertEquals(in, out);
     }
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
-    public void testEncodeDecodeFileIMG() throws IllegalTypeException, InsufficientCapacityException, IOException, IllegalLengthException {
+    public void testEncodeDecodeFileIMG()
+            throws IllegalTypeException, InsufficientCapacityException, IOException, IllegalLengthException {
         // send
         Information info = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/cat_small.jpg");
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
@@ -75,12 +81,14 @@ public class TestPlusMinusOne {
         PlusMinusOne coder2 = new PlusMinusOne(image2);
         Information info2 = coder2.decode(progress -> { /* empty */ });
 
+        //Assert that info2 is not null and data of info2 equals that of info
         assertNull(info2.toText());
-        info2.copyToClipboard();
+        assertArrayEquals(info.getData(), info2.getData());
 
-        // FIXME automatic test?
+        info2.copyToClipboard();    // for manual check of image
     }
 
+    @SuppressWarnings("HardCodedStringLiteral")
     @Test
     public void testGetCapacity() throws IllegalTypeException {
         ContainerImage image = new ContainerImage("test/com/dhbw/secure_pic/data/PNG_Test.png");

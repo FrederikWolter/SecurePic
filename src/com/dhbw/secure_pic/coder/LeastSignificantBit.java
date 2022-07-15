@@ -9,6 +9,8 @@ import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
+import java.text.MessageFormat;
+
 
 /**
  * Class representing the encoding algorithm 'LeastSignificantBit'.
@@ -33,7 +35,7 @@ public class LeastSignificantBit extends Coder {
      *
      * @return encoded container image.
      *
-     * @throws InsufficientCapacityException
+     * @throws InsufficientCapacityException thrown if information does not fit into container image
      */
     @Override
     public ContainerImage encode(Information info, ProgressMonitor monitor) throws InsufficientCapacityException {
@@ -41,7 +43,8 @@ public class LeastSignificantBit extends Coder {
         int infoLength = info.getTotalLength();
         int imageCapacity = this.getCapacity();
         if (infoLength > imageCapacity) {
-            throw new InsufficientCapacityException("The given information does not fit in the selected container image: " + infoLength + " > " + imageCapacity);
+            throw new InsufficientCapacityException(MessageFormat.format(bundle.getString("except_does_not_fit"),
+                                                                         infoLength, imageCapacity));
         }
 
         // get fetcher from information
@@ -73,7 +76,7 @@ public class LeastSignificantBit extends Coder {
                 }
 
                 // set calculated argb value in image
-                super.image.setARGB(x, y, pixel[0], pixel[1], pixel[2], pixel[3]);
+                super.image.setARGB(x, y, pixel[1], pixel[2], pixel[3]);
 
                 // update progress
                 monitor.updateProgress((int) (fetcher.getPosition() / (infoLength) * 8));
@@ -89,8 +92,8 @@ public class LeastSignificantBit extends Coder {
      *
      * @return decoded information.
      *
-     * @throws IllegalTypeException
-     * @throws IllegalLengthException
+     * @throws IllegalTypeException   thrown if the type in the data does not match any known type
+     * @throws IllegalLengthException thrown if the length of data does not match the meta-data "length"
      */
     @Override
     public Information decode(ProgressMonitor monitor) throws IllegalTypeException, IllegalLengthException {
@@ -122,7 +125,7 @@ public class LeastSignificantBit extends Coder {
                 }
 
                 // update progress
-                if (information != null){
+                if (information != null) {
                     monitor.updateProgress((int) (assembler.getPosition() / (information.getLength()) * 8));
                 }
             }
@@ -130,7 +133,7 @@ public class LeastSignificantBit extends Coder {
 
         // validate length of data
         if (information != null && information.getLength() * 8L != assembler.getPosition()) {    // for loop ended before length was reached
-            throw new IllegalLengthException("The decoded data from the container image does not match the specified length.");
+            throw new IllegalLengthException(bundle.getString("except.length_mismatch"));
         } else if (information != null) {     // length not long enough to get all metadata
             information.setData(assembler.toByteArray());
         }
@@ -140,7 +143,7 @@ public class LeastSignificantBit extends Coder {
     }
 
     /**
-     * Utility method for determine the capacity of set container image.
+     * Utility method determining the capacity of set container image.
      *
      * @return capacity of container image in bytes.
      */

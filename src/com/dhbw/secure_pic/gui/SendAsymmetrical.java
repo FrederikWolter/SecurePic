@@ -1,36 +1,27 @@
 package com.dhbw.secure_pic.gui;
 
-import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
-import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.coder.Coder;
-import com.dhbw.secure_pic.coder.LeastSignificantBit;
-import com.dhbw.secure_pic.coder.PlusMinusOne;
 import com.dhbw.secure_pic.crypter.Crypter;
 import com.dhbw.secure_pic.crypter.EmptyCrypter;
-import com.dhbw.secure_pic.crypter.RSA;
 import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
-import com.dhbw.secure_pic.gui.utility.*;
-import com.dhbw.secure_pic.pipelines.ContainerImageLoadTask;
+import com.dhbw.secure_pic.gui.utility.handler.LoadImageFinishedHandler;
 import com.dhbw.secure_pic.pipelines.DecodeTask;
-import com.dhbw.secure_pic.pipelines.EncodeTask;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DropTarget;
-import java.awt.dnd.DropTargetDropEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-// FIXME comment (normal comments + JDocs) # only delete if final#
 
-public class SendAsymmetrical extends Component {
+/**
+ * Class representing Send-Asymmetrical {@link GuiView}.<br>
+ *
+ * @author Kai Schwab, Frederik Wolter
+ */
+public class SendAsymmetrical extends GuiViewSend {
+
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
 
     // region swing attributes
     private JPanel contentPane;
@@ -43,346 +34,108 @@ public class SendAsymmetrical extends Component {
     private JButton uploadContainer;
     private JButton copyToClipboardButton;
     private JButton exportButton;
-    private JPanel uploadPanel;
+    private JPanel uploadPanelContainer;
     private JLabel showImageLabel;
     private JPanel uploadPanelMessage;
     private JButton uploadMessageImg;
-    private JComboBox codeComboBox;
-    private JComboBox encryptComboBox;
+    private JComboBox<String> codeComboBox;
+    private JComboBox<String> encryptComboBox;
     private JPasswordField publicKeyInput;
     private JLabel messageImg;
-    private JPanel uploadPanel3;
+    private JPanel uploadPanelKey;
     private JButton uploadPrivateKey;
     private JLabel keyImg;
     private JScrollPane messageTextScroll;
     // endregion
 
     // region attributes
-    private transient ContainerImage containerImage;
-    private transient ContainerImage contentImage;
+    /** (Container-)Image for public key */
     private transient ContainerImage keyImage;
-
-    private final int containerImageDisplayHeight = 550;
-    private final int containerImageDisplayWidth = 550;
-    private final int messageImageDisplayHeight = 110;
-    private final int messageImageDisplayWidth = 200;
     // endregion
 
+    /**
+     * Constructor of {@link SendAsymmetrical}.
+     *
+     * @param parent parent Gui object
+     */
     public SendAsymmetrical(Gui parent) {
+        // region finished listener
+        LoadImageFinishedHandler finishedContainerImageLoad = image -> {
+            containerImage = image;
 
-        PropertyChangeListener propertyChangeListener = new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("progress".equals(evt.getPropertyName())) {
-                    int progress = (Integer) evt.getNewValue();
-                    progressBar.setValue(progress);
-                }
-            }
+            showImageLabel.setText("");
+            showImageLabel.setIcon(new ImageIcon(getScaledImage(containerImage.getImage(), IMAGE_WIDTH_5, IMAGE_HEIGHT_5)));
+
+            encodeButton.setEnabled(true);
         };
 
-        LoadFinishedHandler finishedContainerImageLoad = new LoadFinishedHandler() {
-            @Override
-            public void finishedContainerImageLoad(ContainerImage image) {
-                containerImage = image;
+        LoadImageFinishedHandler finishedContentImageLoad = image -> {
+            contentImage = image;
 
-                showImageLabel.setText("");
-                showImageLabel.setIcon(new ImageIcon(Gui.getScaledImage(containerImage.getImage(),
-                        containerImageDisplayWidth,
-                        containerImageDisplayHeight)));
-            }
+            messageImg.setText("");
+            messageImg.setIcon(new ImageIcon(getScaledImage(contentImage.getImage(), IMAGE_WIDTH_1, IMAGE_HEIGHT_1)));
         };
 
-        LoadFinishedHandler finishedContentImageLoad = new LoadFinishedHandler() {
-            @Override
-            public void finishedContainerImageLoad(ContainerImage image) {
-                contentImage = image;
+        LoadImageFinishedHandler finishedKeyImageLoad = image -> {
+            keyImage = image;
+            keyImg.setText("");
+            keyImg.setIcon(new ImageIcon(getScaledImage(keyImage.getImage(), IMAGE_WIDTH_1, IMAGE_HEIGHT_1)));
 
-                messageImg.setText("");
-                messageImg.setIcon(new ImageIcon(Gui.getScaledImage(contentImage.getImage(),
-                        messageImageDisplayWidth,
-                        messageImageDisplayHeight)));
-            }
-        };
+            // region decode key
+            Coder coderPublicKey = getCoder(codeComboBox, keyImage);
+            Crypter crypterPublicKey = new EmptyCrypter();
 
-        LoadFinishedHandler finishedKeyImageLoad = new LoadFinishedHandler() {
-            @Override
-            public void finishedContainerImageLoad(ContainerImage image) {
-                keyImage = image;
+            if (coderPublicKey == null) return;     // error massage done in getCoder
 
-                keyImg.setText("");
-                keyImg.setIcon(new ImageIcon(Gui.getScaledImage(keyImage.getImage(),
-                        messageImageDisplayWidth,
-                        messageImageDisplayHeight)));
-
-                // region decode key
-                Coder coderPublicKey;
-                Crypter crypterPublicKey = new EmptyCrypter();
-
-                if (codeComboBox.getSelectedItem() == "LSB"){
-                    coderPublicKey = new LeastSignificantBit(keyImage);
-                } else if(codeComboBox.getSelectedItem() == "PM1"){
-                    coderPublicKey = new PlusMinusOne(keyImage);
+            DecodeTask task = new DecodeTask(coderPublicKey, crypterPublicKey, info -> {
+                if (info.getType() == Information.Type.TEXT && info.toText().length() >= 600) {
+                    publicKeyInput.setText(info.toText());
                 } else {
-                    // FIXME error handling
-                    return;
+                    JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.empty_key_image"),
+                                                  bundle.getString("popup.title.error"), JOptionPane.ERROR_MESSAGE);
                 }
-
-                DecodeTask task = new DecodeTask(coderPublicKey, crypterPublicKey, new DecodeFinishedHandler() {
-                    @Override
-                    public void finishedDecode(Information info) {
-                        Information.Type type = info.getType();
-                        if (type == Information.Type.TEXT) {    // FIXME check if plausible key?
-                            publicKeyInput.setText(info.toText());
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Etwas ist schiefgelaufen, das Bild für den öffentlichen Schlüssel enthält keinen Schlüssel.", "Fehler", JOptionPane.ERROR_MESSAGE);
-                            return;
-                        }
-                    }
-                });
-                task.addPropertyChangeListener(propertyChangeListener);
-                task.execute();
-                // endregion
-            }
+            });
+            task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
+            task.execute();
+            // endregion
         };
+        // endregion
 
-        uploadPanel.setDropTarget(new DropTarget() {
-            @Override
-            public synchronized void drop(DropTargetDropEvent evt) {
-                try {
-                    evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
-
-                    for (File file : droppedFiles) { // FIXME allow multiple files? no? GENERAL
-                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
-                        task.addPropertyChangeListener(propertyChangeListener);
-                        task.execute();
-                    }
-                } catch (Exception ex) {    // FIXME error handling?
-                    ex.printStackTrace();
-                }
-                encodeButton.setEnabled(true);
-            }
-        });
-
-        uploadPanelMessage.setDropTarget(new DropTarget() {
-            @Override
-            public synchronized void drop(DropTargetDropEvent evt) {
-                try {
-                    evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
-
-                    for (File file : droppedFiles) {    // FIXME allow multiple files? no? GENERAL
-                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
-                        task.addPropertyChangeListener(propertyChangeListener);
-                        task.execute();
-                    }
-                } catch (Exception ex) {    // FIXME error handling?
-                    ex.printStackTrace();
-                }
-            }
-        });
-
-        uploadPanel3.setDropTarget(new DropTarget() {
-            public synchronized void drop(DropTargetDropEvent evt) {
-                try {
-                    evt.acceptDrop(DnDConstants.ACTION_COPY);
-                    java.util.List<File> droppedFiles = (java.util.List<File>) evt.getTransferable().getTransferData(DataFlavor.javaFileListFlavor);    // FIXME cleanup cast?
-
-                    for (File file : droppedFiles) {    // FIXME allow multiple files? no? GENERAL
-                        ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedKeyImageLoad);
-                        task.addPropertyChangeListener(propertyChangeListener);
-                        task.execute();
-                    }
-                } catch (Exception ex) {    // FIXME error handling?
-                    ex.printStackTrace();
-                }
-            }
-        });
+        // region drop targets
+        uploadPanelContainer.setDropTarget(getDropTargetListener(finishedContainerImageLoad, progressBar));
+        uploadPanelMessage.setDropTarget(getDropTargetListener(finishedContentImageLoad, progressBar));
+        uploadPanelKey.setDropTarget(getDropTargetListener(finishedKeyImageLoad, progressBar));
+        // endregion
 
         // region listeners
-        backButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                parent.show("3");
-            }
-        });
+        backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 
-        uploadContainer.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(SendAsymmetrical.this);
+        uploadContainer.addActionListener(getContainerImageUploadListener(this, finishedContainerImageLoad, progressBar));
+        uploadMessageImg.addActionListener(getMessageImageUploadListener(this, finishedContentImageLoad, progressBar));
+        uploadPrivateKey.addActionListener(getContainerImageUploadListener(this, finishedKeyImageLoad, progressBar));
 
-                if(file == null){
-                    return;
-                }
+        imageRadio.addActionListener(getInformationTypeListener(1, messageTextScroll, uploadPanelMessage));
+        textRadio.addActionListener(getInformationTypeListener(0, messageTextScroll, uploadPanelMessage));
 
-                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContainerImageLoad);
-                task.addPropertyChangeListener(propertyChangeListener);
-                task.execute();
+        encodeButton.addActionListener(getEncodeListener(textRadio, imageRadio, messageText, codeComboBox, encryptComboBox,
+                                                         publicKeyInput, exportButton, copyToClipboardButton, encodeButton, progressBar));
 
-                encodeButton.setEnabled(true);
-            }
-        });
-
-        uploadMessageImg.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(SendAsymmetrical.this);
-
-                if(file == null){
-                    return;
-                }
-
-                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedContentImageLoad);
-                task.addPropertyChangeListener(propertyChangeListener);
-                task.execute();
-            }
-        });
-
-        uploadPrivateKey.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new FileSelect().selectFile(SendAsymmetrical.this);
-
-                if(file == null){
-                    return;
-                }
-
-                ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), finishedKeyImageLoad);
-                task.addPropertyChangeListener(propertyChangeListener);
-                task.execute();
-            }
-        });
-
-        imageRadio.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                messageTextScroll.setVisible(false);
-                uploadPanelMessage.setVisible(true);
-            }
-        });
-
-        textRadio.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                messageTextScroll.setVisible(true);
-                uploadPanelMessage.setVisible(false);
-
-            }
-        });
-
-        encodeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                Information info;
-                Coder coder;
-                Crypter crypter;
-
-                if (containerImage == null){
-                    // FIXME error handling
-                    return;
-                }
-
-                if (textRadio.isSelected()){
-                    if (messageText.getText().length() > 0){
-                        info = Information.getInformationFromString(messageText.getText());
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Bitte gebe einen Text ein, der in das Bild codiert werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
-                        return;
-                    }
-                } else if(imageRadio.isSelected()){
-                    if (contentImage != null){
-                        try {
-                            info = Information.getInformationFromImage(contentImage.getPath());
-                        } catch (IllegalTypeException ex) {
-                            throw new RuntimeException(ex);
-                            // FIXME error handling
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Bitte lade einen Bild, das in das Trägerbild codiert werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
-                        return;
-                    }
-                } else {
-                    // FIXME error handling
-                    return;
-                }
-
-                if (codeComboBox.getSelectedItem() == "LSB"){
-                    coder = new LeastSignificantBit(containerImage);
-                } else if(codeComboBox.getSelectedItem() == "PM1"){
-                    coder = new PlusMinusOne(containerImage);
-                } else {
-                    // FIXME error handling
-                    return;
-                }
-
-                if (encryptComboBox.getSelectedItem() == "RSA"){
-                    String publicKey = new String(publicKeyInput.getPassword());
-                    if(publicKey.length() > 0){
-                        try {
-                            crypter = new RSA(publicKey, RSA.keyType.PUBLIC);
-                        } catch (CrypterException ex) {
-                            throw new RuntimeException(ex);
-                            // FIXME error handling?
-                        }
-                    }else{
-                        JOptionPane.showMessageDialog(null, "Bitte gebe einen öffentlichen Schlüssel ein in Form des erhaltenen Bildes oder als Text, mit dem die Information verschlüsselt werden soll.", "Warnung", JOptionPane.WARNING_MESSAGE);
-                        return;
-                    }
-                } else {
-                    // FIXME error handling
-                    return;
-                }
-
-//                encodeButton.setEnabled(false);
-
-                EncodeTask task = new EncodeTask(coder, crypter, info, new EncodeFinishedHandler() {
-                    @Override
-                    public void finishedEncode(ContainerImage image) {
-                        containerImage = image;
-
-                        exportButton.setEnabled(true);
-                        copyToClipboardButton.setEnabled(true);
-                        encodeButton.setEnabled(true);
-                    }
-                });
-                task.addPropertyChangeListener(propertyChangeListener);
-                task.execute();
-            }
-        });
-
-        exportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                File file = new SaveSelect().selectDir(SendAsymmetrical.this);
-
-                if(file == null){
-                    return;
-                }
-
-                try {
-                    containerImage.exportImg(file.getPath());
-                    JOptionPane.showMessageDialog(null, "Das codierte Bild wurde erfolgreich exportiert.", "Erfolg",  JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException | IllegalTypeException ex) {
-                    throw new RuntimeException(ex); // FIXME error handling
-                }
-            }
-        });
-
-        copyToClipboardButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                containerImage.copyToClipboard();
-            }
-        });
-
+        exportButton.addActionListener(getExportImageListener(this));
+        copyToClipboardButton.addActionListener(e -> containerImage.copyToClipboard());
         // endregion
     }
 
     // region getter
+
+    /**
+     * Due to a constraint by the GUI designer a form can not be a {@link JPanel} therefore a {@link JPanel} is placed
+     * directly inside a form and can be retrieved through this getter.
+     *
+     * @return ContentPane
+     */
     public JPanel getContentPane() {
         return contentPane;
     }
+
     // endregion
 }

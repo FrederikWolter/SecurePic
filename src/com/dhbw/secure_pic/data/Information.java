@@ -4,6 +4,7 @@ import com.dhbw.secure_pic.auxiliary.exceptions.IllegalLengthException;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
 import com.dhbw.secure_pic.coder.utility.BitFetcher;
 import com.dhbw.secure_pic.data.utility.ImageSelection;
+import com.dhbw.secure_pic.gui.Gui;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,6 +15,9 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import static com.dhbw.secure_pic.data.Information.Type.*;
 
@@ -32,6 +36,8 @@ public class Information {
     public static final int LENGTH_LENGTH = Integer.BYTES;
     /** Length of all metadata total in bytes. */
     public static final int META_LENGTH = TYPE_LENGTH + LENGTH_LENGTH;
+    /** get resource bundle managing strings */
+    private static final ResourceBundle bundle = ResourceBundle.getBundle(Gui.LOCALE_PATH, new Locale(Gui.LOCALE));
     // endregion
 
     // region attributes
@@ -82,16 +88,16 @@ public class Information {
 
     /**
      * Get information object from content string.<br>
-     * Internally uses private Constructor for creating an information.
+     * Internally uses private Constructor for creating an information.<br>
+     * Create information by converting string to byte array with UTF-8.
      *
      * @param text text given by the user.
      *
      * @return created information.
+     *
+     * @see <a href="https://stackoverflow.com/a/18571348/13777031">here</a>
      */
     public static Information getInformationFromString(String text) {
-        // create information by converting string to byte array with UTF-8.
-        // see https://stackoverflow.com/a/18571348/13777031
-
         byte[] data = text.getBytes(StandardCharsets.UTF_8);
         return new Information(data, TEXT);
     }
@@ -104,39 +110,37 @@ public class Information {
      *
      * @return created information.
      *
-     * @throws IllegalTypeException
+     * @throws IllegalTypeException thrown if there is an error related to type or load.
+     * @see <a href="https://mkyong.com/java/how-to-convert-bufferedimage-to-byte-in-java/">Insiration</a>
      */
     public static Information getInformationFromImage(String path) throws IllegalTypeException {
-        // see https://mkyong.com/java/how-to-convert-bufferedimage-to-byte-in-java/
-
         // get file extension from path
         String extension = ContainerImage.getFileExtension(path);
 
         // get image type
         Type type = switch (extension) {
-            case "png" -> IMAGE_PNG;
-            case "jpg" -> IMAGE_JPG;
-            case "gif" -> IMAGE_GIF;
+            case "png" -> IMAGE_PNG; //NON-NLS
+            case "jpg" -> IMAGE_JPG; //NON-NLS
+            case "gif" -> IMAGE_GIF; //NON-NLS
             default -> null;
         };
         if (type == null)
-            throw new IllegalTypeException("Invalid path given for image file. Recognized extension '" + extension + "'.");
+            throw new IllegalTypeException(MessageFormat.format(bundle.getString("except.invalid_path"), extension));
 
         // read in image from path
         BufferedImage image;
         try {
             image = ImageIO.read(new File(path));
         } catch (IOException e) {
-            throw new IllegalTypeException("An error occurred loading the selected image: '" + e.getMessage() + "'");
+            throw new IllegalTypeException(MessageFormat.format(bundle.getString("except.error_loading_information_img"), e.getMessage()));
         }
-
 
         // convert BufferedImage to byte[]
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
             ImageIO.write(image, extension, byteArrayOutputStream);
         } catch (IOException e) {
-            throw new IllegalTypeException("An error occurred loading the selected image: '" + e.getMessage() + "'");
+            throw new IllegalTypeException(MessageFormat.format(bundle.getString("except.error_loading_information_img"), e.getMessage()));
         }
         byte[] data = byteArrayOutputStream.toByteArray();
 
@@ -153,7 +157,8 @@ public class Information {
      *
      * @throws IllegalTypeException if type id is not legal.
      */
-    public static Information getInformationFromData(byte[] dataRaw) throws IllegalTypeException, IllegalLengthException {
+    public static Information getInformationFromData(byte[] dataRaw)
+            throws IllegalTypeException, IllegalLengthException {
         // using ByteBuffer for handling binary data
         // see https://stackoverflow.com/a/1936865/13777031, https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html
         ByteBuffer buffer = ByteBuffer.wrap(dataRaw)
@@ -169,11 +174,11 @@ public class Information {
         if (0 <= typeRaw && typeRaw < Type.values().length) {   // validate type
             type = Type.values()[typeRaw];
         } else {
-            throw new IllegalTypeException("Invalid content type in received data: " + typeRaw);
+            throw new IllegalTypeException(MessageFormat.format(bundle.getString("except.invalid_content_type"), typeRaw));
         }
 
-        if (length == 0){
-            throw new IllegalLengthException("Invalid information length: " + length);
+        if (length == 0) {
+            throw new IllegalLengthException(MessageFormat.format(bundle.getString("except.invalid_content_length"), length));
         }
 
         // build data object
@@ -204,7 +209,7 @@ public class Information {
      * Copy the content of information to Windows clip board. <br>
      * Works for images and text.
      *
-     * @throws IOException
+     * @throws IOException thrown if conversion to image is faulty
      */
     public void copyToClipboard() throws IOException {
         // get clipboard
@@ -270,13 +275,13 @@ public class Information {
      *
      * @param data data to be saved in information.
      *
-     * @throws IllegalLengthException
+     * @throws IllegalLengthException thrown if length does not match the expected length set.
      */
     public void setData(byte[] data) throws IllegalLengthException {
         if (data.length == this.length) {
             this.data = data;
         } else {
-            throw new IllegalLengthException("Invalid content length: should=" + length + " new=" + data.length);
+            throw new IllegalLengthException(MessageFormat.format(bundle.getString("except.invalid_content_length_should"), length, data.length));
         }
     }
 

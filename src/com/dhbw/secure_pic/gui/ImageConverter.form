@@ -15,7 +15,7 @@
           </grid>
         </constraints>
         <properties>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="sw.created.by.lbl"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image_con.lbl.footer.created_by"/>
         </properties>
       </component>
       <component id="33322" class="javax.swing.JButton" binding="secretButton">
@@ -27,7 +27,7 @@
           <borderPainted value="false"/>
           <contentAreaFilled value="false"/>
           <font style="2"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="secret.btn"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="btn.secret"/>
         </properties>
       </component>
       <component id="96cbd" class="javax.swing.JLabel">
@@ -35,7 +35,7 @@
           <grid row="14" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="4" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="thanks.lbl"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image_con.lbl.footer.thanks"/>
         </properties>
       </component>
       <component id="cebb8" class="javax.swing.JProgressBar" binding="progressBar">
@@ -45,7 +45,7 @@
         <properties>
           <string value="-- %"/>
           <stringPainted value="true"/>
-          <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="progress.lbl"/>
+          <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="tooltip.progress"/>
           <verifyInputWhenFocusTarget value="true"/>
         </properties>
       </component>
@@ -57,7 +57,7 @@
         </constraints>
         <properties>
           <font size="14" style="1"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="from.lbl"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image_con.lbl.from"/>
         </properties>
       </component>
       <component id="54adb" class="javax.swing.JRadioButton" default-binding="true">
@@ -69,7 +69,7 @@
         <properties>
           <font size="14"/>
           <selected value="false"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="png.radiobtn"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image_con.radio.png"/>
         </properties>
       </component>
       <component id="347fc" class="javax.swing.JRadioButton" default-binding="true">
@@ -80,7 +80,7 @@
         </constraints>
         <properties>
           <font size="14"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="jpeg.radiobtn"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image_con.radio.jpeg"/>
         </properties>
       </component>
       <component id="8a936" class="javax.swing.JRadioButton" default-binding="true">
@@ -91,7 +91,7 @@
         </constraints>
         <properties>
           <font size="14"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="gif.radiobtn"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image_con.radio.gif"/>
         </properties>
       </component>
       <vspacer id="e063d">
@@ -109,7 +109,7 @@
         </constraints>
         <properties>
           <font size="14" style="1"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="to.lbl"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image_con.lbl.to"/>
         </properties>
       </component>
       <component id="912ee" class="javax.swing.JRadioButton" default-binding="true">
@@ -120,7 +120,7 @@
         </constraints>
         <properties>
           <font size="14"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="png.radiobtn"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image_con.radio.png"/>
         </properties>
       </component>
       <component id="1dbb2" class="javax.swing.JRadioButton" default-binding="true">
@@ -131,7 +131,7 @@
         </constraints>
         <properties>
           <font size="14"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="jpeg.radiobtn"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image_con.radio.jpeg"/>
         </properties>
       </component>
       <component id="7ab05" class="javax.swing.JRadioButton" default-binding="true">
@@ -142,7 +142,7 @@
         </constraints>
         <properties>
           <font size="14"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="gif.radiobtn"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image_con.radio.gif"/>
         </properties>
       </component>
       <component id="3aa80" class="javax.swing.JButton" binding="convertButton">
@@ -152,7 +152,8 @@
           </grid>
         </constraints>
         <properties>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="convert.btn"/>
+          <enabled value="false"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image_con.btn.convert"/>
         </properties>
       </component>
       <vspacer id="1c2de">
@@ -179,8 +180,8 @@
               </grid>
             </constraints>
             <properties>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload.btn"/>
-              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="rec.cont.img.lbl"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="btn.upload"/>
+              <toolTipText resource-bundle="com/dhbw/secure_pic/gui/languages" key="lbl.received_container_img"/>
             </properties>
           </component>
           <vspacer id="6b274">
@@ -188,14 +189,14 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
             </constraints>
           </vspacer>
-          <component id="a391c" class="javax.swing.JLabel" binding="showImage">
+          <component id="a391c" class="javax.swing.JLabel" binding="imageLabel">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <font size="20"/>
               <foreground color="-1973791"/>
-              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="upload.file.to.convert.lbl"/>
+              <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image_con.lbl.upload_to_convert"/>
             </properties>
           </component>
           <vspacer id="b9ad8">
@@ -213,7 +214,7 @@
         </constraints>
         <properties>
           <font size="14"/>
-          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="pdf.radiobtn"/>
+          <text resource-bundle="com/dhbw/secure_pic/gui/languages" key="image_con.radio.pdf"/>
         </properties>
       </component>
       <vspacer id="612a7">

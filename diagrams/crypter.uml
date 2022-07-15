@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/Bernt/OneDrive/04_Semester_4_SoSe/01_SoftwareEngin2/SecurePic/src/com/dhbw/secure_pic/crypter</OriginalElement>
+  <nodes>
+    <node x="252.0" y="-50.0">com.dhbw.secure_pic.crypter.Crypter</node>
+    <node x="592.0" y="177.0">com.dhbw.secure_pic.crypter.AES</node>
+    <node x="252.0" y="188.0">com.dhbw.secure_pic.crypter.EmptyCrypter</node>
+    <node x="-88.0" y="99.0">com.dhbw.secure_pic.crypter.RSA</node>
+    <node x="-16.0" y="426.0">com.dhbw.secure_pic.crypter.RSA.keyType</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.dhbw.secure_pic.crypter.AES" target="com.dhbw.secure_pic.crypter.Crypter" relationship="GENERALIZATION">
+      <point x="0.0" y="-60.5" />
+      <point x="752.0" y="74.0" />
+      <point x="412.0" y="74.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="com.dhbw.secure_pic.crypter.RSA.keyType" target="com.dhbw.secure_pic.crypter.RSA" relationship="INNER_CLASS">
+      <point x="0.0" y="-49.5" />
+      <point x="0.0" y="138.5" />
+    </edge>
+    <edge source="com.dhbw.secure_pic.crypter.RSA" target="com.dhbw.secure_pic.crypter.Crypter" relationship="GENERALIZATION">
+      <point x="0.0" y="-138.5" />
+      <point x="72.0" y="74.0" />
+      <point x="412.0" y="74.0" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="com.dhbw.secure_pic.crypter.EmptyCrypter" target="com.dhbw.secure_pic.crypter.Crypter" relationship="GENERALIZATION">
+      <point x="0.0" y="-49.5" />
+      <point x="0.0" y="49.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.4705882352941178" showDependencies="false" x="422.0" y="247.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.dhbw.secure_pic.pipelines</OriginalElement>
+  <nodes>
+    <node x="-171.0" y="451.0">com.dhbw.secure_pic.pipelines.ContainerImageLoadTask</node>
+    <node x="-171.0" y="218.0">com.dhbw.secure_pic.pipelines.DecodeTask</node>
+    <node x="-171.0" y="-15.0">com.dhbw.secure_pic.pipelines.EncodeTask</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic" zoom="1.4047619047619047" showDependencies="false" x="31.999999999999886" y="299.99999999999994" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

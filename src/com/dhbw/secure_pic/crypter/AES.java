@@ -1,25 +1,23 @@
 package com.dhbw.secure_pic.crypter;
 
-import com.dhbw.secure_pic.auxiliary.CrypterKey;
 import com.dhbw.secure_pic.auxiliary.exceptions.CrypterException;
 import com.dhbw.secure_pic.data.Information;
 import com.dhbw.secure_pic.pipelines.utility.ProgressMonitor;
 
 import javax.crypto.*;
+import javax.crypto.spec.SecretKeySpec;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-// FIXME comment
-// FIXME do more work self instead of handing it over to library?
 
 /**
  * This class implements the AES encryption method used to encrypt/decrypt messages.<br>
  * It extends the Crypter class.
  *
- * @author Kirolis Eskondis supported by Frederik Wolter
+ * @author Kirolis Eskondis
  */
-public class AES extends Crypter {
+public class AES implements Crypter {
 
     // region attributes
     private final SecretKey key;
@@ -28,6 +26,7 @@ public class AES extends Crypter {
 
     /**
      * Constructor for class {@link AES}
+     *
      * @param password is the password entered by the user
      */
     public AES(String password) {
@@ -58,7 +57,8 @@ public class AES extends Crypter {
 
             return information;
 
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException |
+                 BadPaddingException e) {
             throw CrypterException.handleException(e);    // wrap exceptions thrown by crypter to CrypterException
         }
     }
@@ -86,7 +86,8 @@ public class AES extends Crypter {
 
             return information;
 
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e){
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException |
+                 BadPaddingException e) {
             throw CrypterException.handleException(e);  // wrap exceptions thrown by crypter to CrypterException
         }
     }
@@ -102,7 +103,7 @@ public class AES extends Crypter {
         for (int i = 0; i < password.length() && i < 32; i++) {
             keyBytes[i] = password.getBytes()[i];
         }
-        return new CrypterKey(keyBytes, "AES");
+        return new SecretKeySpec(keyBytes, "AES");
     }
 
 }
