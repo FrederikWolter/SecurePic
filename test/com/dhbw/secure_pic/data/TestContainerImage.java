@@ -50,7 +50,7 @@ public class TestContainerImage {
 
         //Assert that image saved in clipboard is the same as image given above
         BufferedImage image2 = (BufferedImage) clipboardImage.getTransferData(DataFlavor.imageFlavor);
-        assertEquals(image.getImage(),image2);
+        assertEquals(image.getImage(), image2);
     }
 
     @SuppressWarnings("HardCodedStringLiteral")

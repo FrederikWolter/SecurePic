@@ -2,7 +2,6 @@ package com.dhbw.secure_pic.data;
 
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalLengthException;
 import com.dhbw.secure_pic.auxiliary.exceptions.IllegalTypeException;
-import org.junit.Assert;
 import org.junit.Test;
 
 import javax.imageio.ImageIO;
@@ -50,7 +49,7 @@ public class TestInformation {
 
         BufferedImage image2 = ImageIO.read(new File("test/com/dhbw/secure_pic/data/PNG_Test.png"));
         DataBufferByte image2Array = (DataBufferByte) image2.getData().getDataBuffer();
-        assertArrayEquals(image1Array.getData(),image2Array.getData());
+        assertArrayEquals(image1Array.getData(), image2Array.getData());
     }
 
     @SuppressWarnings("HardCodedStringLiteral")
@@ -79,12 +78,12 @@ public class TestInformation {
 
         // delete MetaData Bytes to make sure that data Bytes are equal to testString.getBytes()
         byte[] infoBytes = new byte[testString.length()];
-        int startingPoint = BEBytes.length-testString.length();
+        int startingPoint = BEBytes.length - testString.length();
         if (BEBytes.length - startingPoint >= 0)
             System.arraycopy(BEBytes, startingPoint, infoBytes, 0, BEBytes.length - startingPoint);
 
         // assert that both arrays are equal
-        assertArrayEquals(infoBytes,testString.getBytes(StandardCharsets.UTF_8));
+        assertArrayEquals(infoBytes, testString.getBytes(StandardCharsets.UTF_8));
     }
 
     @SuppressWarnings("HardCodedStringLiteral")
@@ -103,7 +102,7 @@ public class TestInformation {
 
         // assert that string saved in clipboard is the same as string given above
         String clipBoardString = (String) clipboardText.getTransferData(DataFlavor.stringFlavor);
-        assertEquals(testString,clipBoardString);
+        assertEquals(testString, clipBoardString);
     }
 
     @SuppressWarnings("HardCodedStringLiteral")
@@ -125,6 +124,6 @@ public class TestInformation {
         // assert that image saved in clipboard is the same as image given above
         BufferedImage image2 = (BufferedImage) clipboardContents.getTransferData(DataFlavor.imageFlavor);
         DataBufferByte byteArray2 = (DataBufferByte) image2.getData().getDataBuffer();
-        assertArrayEquals(byteArray1.getData(),byteArray2.getData());
+        assertArrayEquals(byteArray1.getData(), byteArray2.getData());
     }
 }

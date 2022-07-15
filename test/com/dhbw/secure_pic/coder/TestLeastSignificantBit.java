@@ -7,7 +7,6 @@ import com.dhbw.secure_pic.data.ContainerImage;
 import com.dhbw.secure_pic.data.Information;
 import org.junit.Test;
 
-import java.awt.image.DataBufferByte;
 import java.io.IOException;
 
 import static org.junit.Assert.*;
@@ -83,7 +82,7 @@ public class TestLeastSignificantBit {
 
         // assert that info2 is not null and data of info2 equals that of info
         assertNull(info2.toText());
-        assertArrayEquals(info.getData(),info2.getData());
+        assertArrayEquals(info.getData(), info2.getData());
 
         info2.copyToClipboard(); // for manual check of image
     }

@@ -39,6 +39,7 @@ public class GuiViewReceive extends GuiView {
      * Centralized method for building a 'ExportInformation' Listener
      *
      * @param parent parent Gui object
+     *
      * @return configured {@link ActionListener}
      */
     protected ActionListener getExportInformationListener(Component parent) {
@@ -65,7 +66,7 @@ public class GuiViewReceive extends GuiView {
                     String filePath;
 
                     // file Extension auto completion
-                    if(file.getPath().toLowerCase().endsWith(".txt")){
+                    if (file.getPath().toLowerCase().endsWith(".txt")) {
                         filePath = file.getPath();
                     } else {
                         filePath = file.getPath() + ".txt";
@@ -75,23 +76,22 @@ public class GuiViewReceive extends GuiView {
                             .append("\n")
                             .append(contentInformation.toText())
                             .close();
-                }
-                else {    // IMAGE
+                } else {    // IMAGE
                     String filePath;
-                    switch(contentInformation.getType()){
+                    switch (contentInformation.getType()) {
                         case IMAGE_PNG -> {
                             if (file.getPath().toLowerCase().endsWith(".png")) {
                                 filePath = file.getPath();
-                            }else{
-                                filePath = file.getPath()+".png";
+                            } else {
+                                filePath = file.getPath() + ".png";
                             }
                             ImageIO.write(contentInformation.toImage(), "png", new File(filePath));
                         }
                         case IMAGE_JPG -> {
-                            if(file.getPath().toLowerCase().endsWith(".jpg")){
+                            if (file.getPath().toLowerCase().endsWith(".jpg")) {
                                 filePath = file.getPath();
-                            } else{
-                                filePath = file.getPath()+".jpg";
+                            } else {
+                                filePath = file.getPath() + ".jpg";
                             }
                             ImageIO.write(contentInformation.toImage(), "jpg", new File(filePath));
                         }

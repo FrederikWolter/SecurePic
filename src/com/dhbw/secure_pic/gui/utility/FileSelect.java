@@ -9,7 +9,6 @@ import java.io.File;
  * Class implementing the functionality of a FileChooser to select and return files
  *
  * @author Kai Schwab, Frederik WOlter
- *
  * @see <a href="https://docs.oracle.com/javase/tutorial/uiswing/components/filechooser.html">Oracle</a>
  */
 public class FileSelect {

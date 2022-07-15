@@ -41,8 +41,8 @@ public class GuiViewSend extends GuiView {
      * Used for switching between types of information input.
      *
      * @param visible what should be visible? 0=text, 1=image
-     * @param text text element
-     * @param image image element
+     * @param text    text element
+     * @param image   image element
      *
      * @return configured {@link ActionListener}
      */

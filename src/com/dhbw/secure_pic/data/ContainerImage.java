@@ -102,16 +102,16 @@ public class ContainerImage {
         String format = "";
 
         //File Extension auto completion
-        switch (this.type){
+        switch (this.type) {
             case JPG -> {
                 format = "jpg";
-                if(!destPath.endsWith(".jpg")){
+                if (!destPath.endsWith(".jpg")) {
                     destPath = destPath + ".jpg";
                 }
             }
             case PNG -> {
                 format = "png";
-                if(!destPath.endsWith(".png")){
+                if (!destPath.endsWith(".png")) {
                     destPath = destPath + ".png";
                 }
             }
