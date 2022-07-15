@@ -46,23 +46,11 @@ public class TestInformation {
     @Test
     public void testGetInformationFromImage() throws IllegalTypeException, IOException {
 
-        // test image JPG
-        Information info = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/JPG_Test.jpg");
+        Information info = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
         DataBufferByte image1Array = (DataBufferByte) info.toImage().getData().getDataBuffer();
 
-        BufferedImage image2 = ImageIO.read(new File("test/com/dhbw/secure_pic/data/JPG_Test.jpg"));
+        BufferedImage image2 = ImageIO.read(new File("test/com/dhbw/secure_pic/data/PNG_Test.png"));
         DataBufferByte image2Array = (DataBufferByte) image2.getData().getDataBuffer();
-
-        //TODO shit just doesnt work on jpg. info.toImage has different data array than the normal BufferedImage. PNG works tho so just remove jpg test if no fix is found
-        assertArrayEquals(image1Array.getData(),image2Array.getData());
-
-
-        // test image PNG
-        info = Information.getInformationFromImage("test/com/dhbw/secure_pic/data/PNG_Test.png");
-        image1Array = (DataBufferByte) info.toImage().getData().getDataBuffer();
-
-        image2 = ImageIO.read(new File("test/com/dhbw/secure_pic/data/PNG_Test.png"));
-        image2Array = (DataBufferByte) image2.getData().getDataBuffer();
         assertArrayEquals(image1Array.getData(),image2Array.getData());
     }
 
@@ -88,9 +76,17 @@ public class TestInformation {
 
         Information info = Information.getInformationFromString(testString);
 
-        @SuppressWarnings("unused")
-        byte[] result = info.toBEBytes();
-        // FIXME add automatic test? Not sure if there's really anything to test here? Seems kinda useless to me
+        byte[] BEBytes = info.toBEBytes();
+
+        //Delete MetaData Bytes to make sure that data Bytes are equal to testString.getBytes()
+        byte[] infoBytes = new byte[testString.length()];
+        int startingPoint = BEBytes.length-testString.length();
+        for(int i = startingPoint;i<BEBytes.length;i++){
+            infoBytes[i-startingPoint] = BEBytes[i];
+        }
+
+        //Assert that both arrays are equal
+        assertArrayEquals(infoBytes,testString.getBytes(StandardCharsets.UTF_8));
     }
 
     @SuppressWarnings("HardCodedStringLiteral")
