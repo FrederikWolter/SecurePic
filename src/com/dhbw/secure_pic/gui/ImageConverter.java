@@ -38,7 +38,7 @@ public class ImageConverter extends GuiView {
         // endregion
 
         // region listener
-        uploadButton.addActionListener(getImageUploadListener(this, finishedImageLoad, progressBar));
+        uploadButton.addActionListener(getContainerImageUploadListener(this, finishedImageLoad, progressBar));
 
         secretButton.addActionListener(e -> {
             parent.getFrame().setTitle("SecurePic"); // change window title

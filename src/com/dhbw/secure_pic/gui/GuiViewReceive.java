@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
  * This class represents the superclass of all views shown in the context of the Receive-Tab  .<br>
  * It inherits the {@link GuiView} class
  *
- * @author Frederik Wolter
+ * @author Frederik Wolter supported by Kirolis Eskondis
  */
 public class GuiViewReceive extends GuiView {
 
@@ -44,7 +44,8 @@ public class GuiViewReceive extends GuiView {
                 });
             } else {
                 filter = new FileFilter(new FileFilter.Extension[]{
-                        FileFilter.Extension.PNG
+                        FileFilter.Extension.PNG,
+                        FileFilter.Extension.JPG,
                 });
             }
 
@@ -54,12 +55,40 @@ public class GuiViewReceive extends GuiView {
 
             try {
                 if (contentInformation.getType() == Information.Type.TEXT) { // TEXT
-                    new BufferedWriter(new FileWriter(file.getPath(), true))   // TODO missing extension autocomplete?
+                    String filePath;
+
+                    //File Extension auto completion
+                    if(file.getPath().toLowerCase().endsWith(".txt")){
+                        filePath = file.getPath();
+                    } else {
+                        filePath = file.getPath() + ".txt";
+                    }
+
+                    new BufferedWriter(new FileWriter(filePath, true))
                             .append("\n")
                             .append(contentInformation.toText())
                             .close();
-                } else {    // IMAGE
-                    ImageIO.write(contentInformation.toImage(), "png", file);   // TODO type? NON-NLS
+                }
+                else {    // IMAGE
+                    String filePath; //TODO File Extension Auto Completion was added, what happens with JPEG Elements?
+                    switch(contentInformation.getType()){
+                        case IMAGE_PNG -> {
+                            if (file.getPath().toLowerCase().endsWith(".png")) {
+                                filePath = file.getPath();
+                            }else{
+                                filePath = file.getPath()+".png";
+                            }
+                            ImageIO.write(contentInformation.toImage(), "png", new File(filePath));
+                        }
+                        case IMAGE_JPG -> {
+                            if(file.getPath().toLowerCase().endsWith(".jpg")){
+                                filePath = file.getPath();
+                            } else{
+                                filePath = file.getPath()+".jpg";
+                            }
+                            ImageIO.write(contentInformation.toImage(), "jpg", new File(filePath));
+                        }
+                    }
                     JOptionPane.showMessageDialog(null, bundle.getString("popup.msg.export_success"), bundle.getString("popup.title.success"), JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (IOException ex) {

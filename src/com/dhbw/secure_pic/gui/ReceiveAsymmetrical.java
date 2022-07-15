@@ -93,8 +93,8 @@ public class ReceiveAsymmetrical extends GuiViewReceive {
         // region listener
         backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 
-        uploadContainerImg.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
-        uploadButtonKeyImg.addActionListener(getImageUploadListener(this, finishedKeyImageLoad, progressBar));
+        uploadContainerImg.addActionListener(getContainerImageUploadListener(this, finishedContainerImageLoad, progressBar));
+        uploadButtonKeyImg.addActionListener(getContainerImageUploadListener(this, finishedKeyImageLoad, progressBar));
 
         generateKeyButton.addActionListener(e -> {
             Crypter crypter;

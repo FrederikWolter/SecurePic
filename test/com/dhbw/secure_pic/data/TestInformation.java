@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Some test methods for testing {@link Information}.
  *
- * @author Frederik Wolter
+ * @author Frederik Wolter supported by Kirolis Eskondis
  */
 public class TestInformation {
 

@@ -59,7 +59,7 @@ public class ReceiveNoEncryption extends GuiViewReceive {
         // region listener
         backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 
-        uploadContainerImg.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
+        uploadContainerImg.addActionListener(getContainerImageUploadListener(this, finishedContainerImageLoad, progressBar));
 
         decodeButton.addActionListener(getDecodeListener(codeComboBox, null, null, messageOutput,
                                                          textOutputScroll, textOutput, IMAGE_WIDTH_5, IMAGE_HEIGHT_5,

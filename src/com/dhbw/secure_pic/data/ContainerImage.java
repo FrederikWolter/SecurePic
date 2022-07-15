@@ -99,10 +99,23 @@ public class ContainerImage {
      * @throws IllegalTypeException given destination path file extension does not match the file type.
      */
     public void exportImg(String destPath) throws IOException, IllegalTypeException {
-        String format = switch (this.type) {
-            case PNG -> "png"; //NON-NLS
-            case JPG -> "jpg"; //NON-NLS
-        };
+        String format = "";
+
+        //File Extension auto completion
+        switch (this.type){
+            case JPG -> {
+                format = "jpg";
+                if(!destPath.endsWith(".jpg")){
+                    destPath = destPath + ".jpg";
+                }
+            }
+            case PNG -> {
+                format = "png";
+                if(!destPath.endsWith(".png")){
+                    destPath = destPath + ".png";
+                }
+            }
+        }
 
         if (!format.equals(ContainerImage.getFileExtension(destPath)))
             throw new IllegalTypeException(bundle.getString("except.invalid_path_extension"));

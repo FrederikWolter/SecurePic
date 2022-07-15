@@ -52,7 +52,7 @@ import static javax.swing.JOptionPane.WARNING_MESSAGE;
  * This causes the centralized methods in the super classes to have lots of parameters, to be able to modify the
  * view without having access to its attributes.
  *
- * @author Frederik Wolter
+ * @author Frederik Wolter supported by Kirolis Eskondis
  */
 public class GuiView extends Component {
 
@@ -178,11 +178,37 @@ public class GuiView extends Component {
      *
      * @return configured {@link ActionListener}
      */
-    protected static ActionListener getImageUploadListener(Component parent, LoadImageFinishedHandler handler,
-                                                           JProgressBar progressBar) {
+    protected static ActionListener getContainerImageUploadListener(Component parent, LoadImageFinishedHandler handler,
+                                                                    JProgressBar progressBar) {
         return e -> {
             File file = new FileSelect().select(parent, false, new FileFilter(new FileFilter.Extension[]{
-                    FileFilter.Extension.JPEG,  // TODO ?
+                    FileFilter.Extension.PNG //TODO If JPG is possible, change this and delete getMessageImageUploadListener
+            }));
+
+            if (file == null) return;    // if no file selected -> simply stop load process
+
+            // start load task
+            ContainerImageLoadTask task = new ContainerImageLoadTask(file.getPath(), handler);
+            task.addPropertyChangeListener(getPropertyChangeListener(progressBar));
+            task.execute();
+        };
+    }
+
+
+    /**
+     * Centralized method for building an image upload used as a message to be encoded into a Container Image {@link ActionListener}.
+     *
+     * @param parent      caller view
+     * @param handler     Handler for 'LoadIMageFinished' event
+     * @param progressBar {@link JProgressBar} to be updated
+     *
+     * @return configured {@link ActionListener}
+     */
+    protected static ActionListener getMessageImageUploadListener(Component parent, LoadImageFinishedHandler handler,
+                                                                  JProgressBar progressBar) {
+        return e -> {
+            File file = new FileSelect().select(parent, false, new FileFilter(new FileFilter.Extension[]{
+                    FileFilter.Extension.JPEG,
                     FileFilter.Extension.JPG,
                     FileFilter.Extension.PNG
             }));
@@ -195,6 +221,7 @@ public class GuiView extends Component {
             task.execute();
         };
     }
+
 
     /**
      * Centralized getter for the selected {@link Coder}.

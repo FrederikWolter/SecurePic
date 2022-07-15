@@ -64,8 +64,8 @@ public class SendNoEncryption extends GuiViewSend {
         // region listener
         backButton.addActionListener(e -> parent.showView(Gui.View.START_CHOOSE_ENCRYPTION));
 
-        uploadContainer.addActionListener(getImageUploadListener(this, finishedContainerImageLoad, progressBar));
-        uploadMessageImg.addActionListener(getImageUploadListener(this, finishedContentImageLoad, progressBar));
+        uploadContainer.addActionListener(getContainerImageUploadListener(this, finishedContainerImageLoad, progressBar));
+        uploadMessageImg.addActionListener(getMessageImageUploadListener(this, finishedContentImageLoad, progressBar));
 
         imageRadio.addActionListener(getInformationTypeListener(1, messageTextScroll, uploadPanelMessage));
         textRadio.addActionListener(getInformationTypeListener(0, messageTextScroll, uploadPanelMessage));
